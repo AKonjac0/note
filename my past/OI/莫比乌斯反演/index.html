@@ -150,7 +150,7 @@ $$</p>
 <p>\
  \because d|\gcd(i,j),\therefore i,j是d的倍数\
  又\because d_{max}=\lfloor \frac nk\rfloor\
- \therefore = \sum_{k=1}^n\sum_{d=1}^{\lfloor \frac nk\rfloor}\mu(d)<em> \lfloor \frac n{kd}\rfloor</em> \lfloor \frac m{kd}\rfloor (k\in prime)(注_1)
+ \therefore = \sum_{k=1}^n\sum_{d=1}^{\lfloor \frac nk\rfloor}\mu(d)<em> \lfloor \frac n{kd}\rfloor</em> \lfloor \frac m{kd}\rfloor (k\in prime)（注_1）
  \
 设T=kd,则T_{max}=k<em>\lfloor \frac nk\rfloor=n\
 \therefore 原式=\sum_{T=1}^n\lfloor \frac nT\rfloor</em> \lfloor \frac mT\rfloor \sum_{k|T,k\in prime}\mu(\frac Tk)(注_2)
@@ -201,10 +201,10 @@ int main(){
 </code></pre>
 <ul>
 <li>
-<p>$注_1$:这里的变换时因为每一个$d$都由许多个$i，j$枚举而来，所以枚举$d$时直接乘上能转移过来的$i,j$的最大个数即可，而$d$最大能取到$n$ ($\gcd(n,m)=n$时)</p>
+<p>注_1: 这里的变换时因为每一个$d$都由许多个$i，j$枚举而来，所以枚举$d$时直接乘上能转移过来的$i,j$的最大个数即可，而$d$最大能取到$n$ ($\gcd(n,m)=n$时)</p>
 </li>
 <li>
-<p>$注_2$:这里的变换相当于$1$的逆操作,$1$时由大变小，而$2$时由小变大。一个$T$能转移到的所有$d$为$d=\frac Tk (k|T,k\in prime)$,所以对这些$d$有贡献$\mu(\frac Tk)$，要加在一起。</p>
+<p>注_2: 这里的变换相当于$1$的逆操作,$1$时由大变小，而$2$时由小变大。一个$T$能转移到的所有$d$为$d=\frac Tk (k|T,k\in prime)$,所以对这些$d$有贡献$\mu(\frac Tk)$，要加在一起。</p>
 </li>
 </ul>
 <p>~~全long long计算真的慢，比int转long long 慢一倍~~</p>
@@ -263,7 +263,7 @@ int main(){
 <p>P3327</p>
 </blockquote>
 <p>$$
-已知d(i* j)=\sum_{x|i}\sum_{y|j}[\gcd(x,y)=1] (注_1)\</p>
+已知d(i* j)=\sum_{x|i}\sum_{y|j}[\gcd(x,y)=1] （注_1）\</p>
 <p>则原式= \sum_{i=1}^n\sum_{j=1}^m\sum_{x|i}\sum_{y|j}[\gcd(x,y)=1]\</p>
 <p>= \sum_{i=1}^n\sum_{j=1}^m\sum_{x|i}\sum_{y|j}\sum_{d|\gcd(x,y)}\mu(d)\</p>
 <p>将枚举项i,j改为枚举x,y</p>
@@ -331,7 +331,7 @@ int main() {
 }
 </code></pre>
 <ul>
-<li>$注_1$:可以当成结论用，具体证明可以看<a href="https://www.luogu.com.cn/blog/An-Amazing-Blog/mu-bi-wu-si-fan-yan-ji-ge-ji-miao-di-dong-xi">莫比乌斯反演-让我们从基础开始-</a></li>
+<li>注_1:可以当成结论用，具体证明可以看<a href="https://www.luogu.com.cn/blog/An-Amazing-Blog/mu-bi-wu-si-fan-yan-ji-ge-ji-miao-di-dong-xi">莫比乌斯反演-让我们从基础开始-</a></li>
 </ul>
 <blockquote>
 <p>P1829</p>
@@ -339,7 +339,7 @@ int main() {
 <p>$$
 求\sum_{i=1}^n\sum_{j=1}^m \frac{i<em> j}{\gcd(i,j)}\
 = \sum_{d=1}^n\sum_{i=1}^n\sum_{j=1}^m \frac{i</em> j}{d}[\gcd(i,j)=d]\
-= \sum_{d=1}^n\sum_{i=1}^{\lfloor\frac nd\rfloor}\sum_{j=1}^{\lfloor\frac md\rfloor} i<em> j</em> d[\gcd(i,j)=1] (注_1)\
+= \sum_{d=1}^n\sum_{i=1}^{\lfloor\frac nd\rfloor}\sum_{j=1}^{\lfloor\frac md\rfloor} i<em> j</em> d[\gcd(i,j)=1]（注_1）\
 = \sum_{d=1}^n\sum_{i=1}^{\lfloor\frac nd\rfloor}\sum_{j=1}^{\lfloor\frac md\rfloor} i<em> j</em> d\sum_{k|\gcd(i,j)}\mu(k)\
 =  \sum_{d=1}^nd\sum_{k=1}^{\lfloor\frac nd\rfloor}\mu(k)* k^2\sum_{i=1}^{\lfloor\frac n{dk}\rfloor}i\sum_{j=1}^{\lfloor\frac n{dk}\rfloor}j(注_2)
 $$</p>
@@ -411,10 +411,10 @@ signed main() {
 <p>~~十年OI一场空，不开long long 见祖宗；取模操作也不要吝啬时间复杂度，尽可能地多膜一膜，防止溢出从你我做起~~</p>
 <ul>
 <li>
-<p>$注_1:$这里从除以$d$变成乘$d$,即在原始基础上乘了$d^2$，是因为$i,j$地范围都缩小了$d$，而不能忽略后面地$i* j$ </p>
+<p>注_1: 这里从除以$d$变成乘$d$,即在原始基础上乘了$d^2$，是因为$i,j$地范围都缩小了$d$，而不能忽略后面地$i* j$ </p>
 </li>
 <li>
-<p>$注_2:$乘$k^2$地原因同 $注_1$</p>
+<p>注_2: 乘$k^2$地原因同 注_1</p>
 </li>
 </ul>
 <blockquote>
@@ -437,8 +437,10 @@ signed main() {
 \
 设T=dk,则\
 = \sum_{T=1}^N T(\sum_{i=1}^{\lfloor \frac NT \rfloor} i</em> c_{iT})^2 \sum_{k|T}\mu(k)k</p>
-<p>$$
-* $注_1:$因为$i,j$的大小减小，而$c$的下标不能变，所以一定要乘$d$</p></div>
+<p>$$</p>
+<ul>
+<li>注_1: 因为$i,j$的大小减小，而$c$的下标不能变，所以一定要乘$d$</li>
+</ul></div>
             </div>
         </div>
 

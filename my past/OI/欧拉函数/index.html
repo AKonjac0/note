@@ -4,27 +4,27 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="None">
         
         
-        <link rel="shortcut icon" href="img/favicon.ico">
-        <title>My Docs</title>
-        <link href="css/bootstrap.min.css" rel="stylesheet">
-        <link href="css/fontawesome.min.css" rel="stylesheet">
-        <link href="css/brands.min.css" rel="stylesheet">
-        <link href="css/solid.min.css" rel="stylesheet">
-        <link href="css/v4-font-face.min.css" rel="stylesheet">
-        <link href="css/base.css" rel="stylesheet">
+        
+        <link rel="shortcut icon" href="../../../img/favicon.ico">
+        <title>欧拉函数 - My Docs</title>
+        <link href="../../../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../../../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../../../css/brands.min.css" rel="stylesheet">
+        <link href="../../../css/solid.min.css" rel="stylesheet">
+        <link href="../../../css/v4-font-face.min.css" rel="stylesheet">
+        <link href="../../../css/base.css" rel="stylesheet">
         <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
         <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
         <script>hljs.highlightAll();</script> 
     </head>
 
-    <body class="homepage">
+    <body>
         <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
             <div class="container">
-                <a class="navbar-brand" href=".">My Docs</a>
+                <a class="navbar-brand" href="../../..">My Docs</a>
 
                 <!-- Expanded navigation -->
                 <div id="navbar-collapse" class="navbar-collapse collapse">
@@ -53,13 +53,17 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-bs-level="1"><a href="#welcome-to-mkdocs" class="nav-link">Welcome to MkDocs</a>
+            <li class="nav-item" data-bs-level="1"><a href="#_1" class="nav-link">欧拉函数</a>
               <ul class="nav flex-column">
-            <li class="nav-item" data-bs-level="2"><a href="#commands" class="nav-link">Commands</a>
+            <li class="nav-item" data-bs-level="2"><a href="#_2" class="nav-link">欧拉函数的定义</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="2"><a href="#project-layout" class="nav-link">Project layout</a>
+            <li class="nav-item" data-bs-level="2"><a href="#_3" class="nav-link">线性筛求欧拉函数</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#_4" class="nav-link">欧拉函数的性质：</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -70,21 +74,84 @@
 </div></div>
                     <div class="col-md-9" role="main">
 
-<h1 id="welcome-to-mkdocs">Welcome to MkDocs</h1>
-<p>For full documentation visit <a href="https://www.mkdocs.org">mkdocs.org</a>.</p>
-<h2 id="commands">Commands</h2>
-<ul>
-<li><code>mkdocs new [dir-name]</code> - Create a new project.</li>
-<li><code>mkdocs serve</code> - Start the live-reloading docs server.</li>
-<li><code>mkdocs build</code> - Build the documentation site.</li>
-<li><code>mkdocs -h</code> - Print help message and exit.</li>
-</ul>
-<h2 id="project-layout">Project layout</h2>
-<pre><code>mkdocs.yml    # The configuration file.
-docs/
-    index.md  # The documentation homepage.
-    ...       # Other markdown pages, images and other files.
-</code></pre></div>
+<h1 id="_1">欧拉函数</h1>
+<h2 id="_2">欧拉函数的定义</h2>
+<p>就是对于一个正整数$n$，小于$n$且和$n$互质的正整数（包括$1$）的个数，记作$\phi(n)$ 。</p>
+<p>$$\phi(x)=x\prod_{i=1}^n(1-\frac{1}{p_i})$$</p>
+<h2 id="_3">线性筛求欧拉函数</h2>
+<h3 id="1-on">1.性质法(欧拉筛) O(n)</h3>
+<p>1) $\phi(i<em> j)_ {j|i}=\phi(i)</em> j $
+2) $\phi(i<em> j)_ {j⊥i}=\phi(i)</em> \phi(j)$</p>
+<pre><code class="language-cpp">    euler[1]=0;
+    for(int i=1;i&lt;=n;++i)v[i]=1;
+    for(int i=2;i&lt;=n;++i){
+        if(v[i]==1){
+            p[++m]=i;
+            euler[i]=i-1;
+        }
+        for(int j=1;j&lt;=m;++j){
+            if(p[j]*i&gt;n)break;
+            v[p[j]*i]=0;
+            if(i%p[j]==0){
+                euler[i*p[j]]=euler[i]*p[j];break;
+            }else{
+                euler[i*p[j]]=euler[i]*euler[p[j]];
+            }
+        }
+    }
+</code></pre>
+<h3 id="2-onlogn">2.定义法 O(nlogn)</h3>
+<pre><code class="language-cpp">    phi[i]=1;
+    for(int i=2;i&lt;=n;++i){
+        if(!phi[i]){//i是个质数，则要枚举它的倍数，更新这些倍数j
+            for(int j=i;j&lt;=n;j+=i){
+                if(!phi[j])phi[j]=j;//初始化为j
+                phi[j]=phi[j]/i*(i-1);//i是j的一个质因子
+            }
+        }
+    }
+
+</code></pre>
+<h2 id="_4">欧拉函数的性质：</h2>
+<p>1) 若$p$为质数，则$\phi(p)=p-1$</p>
+<p>2) 若$n=p^k$且$p$为质数，则$\phi(n)=p^k-p^{k-1}$</p>
+<p>3) 若$m⊥n$，有$\phi(m<em> n)= \phi(m)</em> \phi(n)$; 若$m|n$，有$\phi(m* n) = m * \phi(n)$</p>
+<p>4) 欧拉定理，若$m⊥a$,则$a^{\phi(m)}\equiv 1\pmod m$</p>
+<p>5) 当$n$为奇数时，$\phi(2n)=\phi(n)$</p>
+<p>6) $n=\sum_{d|n}\phi(d)$</p>
+<h3 id="_5">给出其中一些定理的证明：</h3>
+<h4 id="1">性质1</h4>
+<p>因为$p$为质数，所以所有小于他的$p-1$个数都与它互素。</p>
+<h4 id="2">性质2</h4>
+<p>$n$只有一个质因数$p$,所以根据定义$\phi(n)=n(1-\frac1p)=p^k-p^{k-1}$</p>
+<h4 id="3">性质3</h4>
+<p>1.</p>
+<p>因为$m⊥n$,所以$m$与$n$无公共质因数</p>
+<p>所以设$m$由$a_m$个质因数，$n$由$a_n$个质因数。</p>
+<p>$$\therefore \phi(m)<em> \phi(n)=m * n * \prod_{i=1}^{a_m}(1-\frac{1}{p_i}) * \prod_{i=1}^{a_n}(1-\frac{1}{p_i})\
+=(m</em> n) * \prod_{i=1}^{a_m+a_n}(1-\frac{1}{p_i}) =\phi(m* n)
+$$</p>
+<p>2.</p>
+<p>因为$m|n$,所以$n$包含了$m$的所有质因数。</p>
+<p>所以设$n$含有的相同的质因数为$a_n$,则$m * n$所含质因数与$n$完全相同.(不计质因子个数)</p>
+<p>$$\therefore \phi(m * n)=m * n  * \prod_{i=1}^{a_n}(1-\frac{1}{p_i}) \</p>
+<p>=m*\phi(n)
+$$</p>
+<h4 id="6">性质6</h4>
+<ol>
+<li>证$F(n)=\sum_{d|n}\phi(d)$为积性函数</li>
+</ol>
+<p>设 $ F(m)<em> F(n)=\sum_{i|m}\phi(i) * \sum_{j|n}\phi(j)=
+\phi(i_1)</em> \phi(j_1)+\phi(i_1)<em> \phi(j_2)+...+\phi(i_{k_m})</em> \phi(j_{k_n}) $</p>
+<p>因为$m⊥n$，所以所有的$i$与$j$互质，所以原式$=\phi(i_1<em> j_1)+...+\phi(i_{k_m}</em> \phi(j_{k_n}))$</p>
+<p>又因为$i_1<em> j_1,...,i_{k_m}</em> j_{k_n}$构成了$m<em> n$所有因数，所以$F(m) * F(n)=F(m</em> n)$.</p>
+<p>2.证明$F(p^k)=\sum_{d|p^k}\phi(d)$</p>
+<p>因为$p^k$的因数只有$1,p,p^2,...,p^k$.</p>
+<p>所以$F(p^k)=\phi(1)+\phi(p)+...+\phi(p^k)=1+p-1+p^2-p+...+p^k-p^{k-1}=p^k$</p>
+<ol>
+<li>推广</li>
+</ol>
+<p>因为对于任意$p$为质数，$F(p^k)$符合条件，而$F$为积性函数，所以可以推广到任意正整数。</p></div>
             </div>
         </div>
 
@@ -92,13 +159,13 @@ docs/
             <hr>
             <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
         </footer>
-        <script src="js/bootstrap.bundle.min.js"></script>
+        <script src="../../../js/bootstrap.bundle.min.js"></script>
         <script>
-            var base_url = ".",
+            var base_url = "../../..",
                 shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
         </script>
-        <script src="js/base.js"></script>
-        <script src="search/main.js"></script>
+        <script src="../../../js/base.js"></script>
+        <script src="../../../search/main.js"></script>
 
         <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
@@ -163,8 +230,3 @@ docs/
 
     </body>
 </html>
-
-<!--
-MkDocs version : 1.6.1
-Build Date UTC : 2025-01-27 15:34:14.284361+00:00
--->

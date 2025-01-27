@@ -4,27 +4,27 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="None">
         
         
-        <link rel="shortcut icon" href="img/favicon.ico">
-        <title>My Docs</title>
-        <link href="css/bootstrap.min.css" rel="stylesheet">
-        <link href="css/fontawesome.min.css" rel="stylesheet">
-        <link href="css/brands.min.css" rel="stylesheet">
-        <link href="css/solid.min.css" rel="stylesheet">
-        <link href="css/v4-font-face.min.css" rel="stylesheet">
-        <link href="css/base.css" rel="stylesheet">
+        
+        <link rel="shortcut icon" href="../../../img/favicon.ico">
+        <title>并查集 - My Docs</title>
+        <link href="../../../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../../../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../../../css/brands.min.css" rel="stylesheet">
+        <link href="../../../css/solid.min.css" rel="stylesheet">
+        <link href="../../../css/v4-font-face.min.css" rel="stylesheet">
+        <link href="../../../css/base.css" rel="stylesheet">
         <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
         <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
         <script>hljs.highlightAll();</script> 
     </head>
 
-    <body class="homepage">
+    <body>
         <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
             <div class="container">
-                <a class="navbar-brand" href=".">My Docs</a>
+                <a class="navbar-brand" href="../../..">My Docs</a>
 
                 <!-- Expanded navigation -->
                 <div id="navbar-collapse" class="navbar-collapse collapse">
@@ -53,16 +53,8 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-bs-level="1"><a href="#welcome-to-mkdocs" class="nav-link">Welcome to MkDocs</a>
+            <li class="nav-item" data-bs-level="1"><a href="#_1" class="nav-link">并查集</a>
               <ul class="nav flex-column">
-            <li class="nav-item" data-bs-level="2"><a href="#commands" class="nav-link">Commands</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-bs-level="2"><a href="#project-layout" class="nav-link">Project layout</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
               </ul>
             </li>
         </ul>
@@ -70,21 +62,55 @@
 </div></div>
                     <div class="col-md-9" role="main">
 
-<h1 id="welcome-to-mkdocs">Welcome to MkDocs</h1>
-<p>For full documentation visit <a href="https://www.mkdocs.org">mkdocs.org</a>.</p>
-<h2 id="commands">Commands</h2>
+<h1 id="_1">并查集</h1>
+<blockquote>
+<p>P1653</p>
+</blockquote>
+<p>每个猴子掉下取得时候，就是它与1断开连接得时候，所以可以倒着搜，每次用并查集将两个猴子连接上，将每个猴子与1联通得时间记录下来即可。</p>
+<blockquote>
+<p>P2661</p>
+</blockquote>
+<p>对于有向环，可以用并查集求解。</p>
+<p>设$d[a]$表示节点$a$到根节点的距离，那么每次路径压缩时都要更新$d[a]$.</p>
+<p>假设节点$d[b]=0，d[a]=x$,那么当$d[b]=y$时，$d[a]=x+y$,即$d[a]+=d[lst]$.不用关心$a$的父节点怎样变化，因为已经路径压缩过，所有节点都已经并在一个根节点上，而这个根节点$d[b]=0$,所以只需要关心它的值的变化量，即$d[lst]-0=d[lst]$.</p>
+<p>因为根据题意，每个节点只有一个父亲，所以不会出现多个父节点导致的混乱，所以可以说$d[b]=0$.</p>
+<p>而判断环的时候，因为不知道那个节点的$d[ ]=0$,所以返回$da]+d[b]+1$即可。</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+using namespace std;
+const int N=2e5+10;
+int n,minn,k;
+int fa[N],d[N];
+int getfa(int u){
+    if(fa[u]!=u){
+        int lst=fa[u];
+        fa[u]=getfa(fa[u]);
+        d[u]+=d[lst];
+    }
+    return fa[u];
+}
+void add(int a,int b){
+    int x=getfa(a),y=getfa(b);
+    if(x!=y){
+        fa[x]=y;d[a]=d[b]+1;
+    }else minn=min(minn,d[a]+d[b]+1);
+}
+int main(){
+    scanf(&quot;%d&quot;,&amp;n);
+    minn=0x3f3f3f3f;
+    for(int i=1;i&lt;=n+1;++i)fa[i]=i;
+    for(int i=1;i&lt;=n;++i){
+        scanf(&quot;%d&quot;,&amp;k);
+        add(i,k);
+    }
+    printf(&quot;%d&quot;,minn);
+    return 0;
+} 
+</code></pre>
 <ul>
-<li><code>mkdocs new [dir-name]</code> - Create a new project.</li>
-<li><code>mkdocs serve</code> - Start the live-reloading docs server.</li>
-<li><code>mkdocs build</code> - Build the documentation site.</li>
-<li><code>mkdocs -h</code> - Print help message and exit.</li>
-</ul>
-<h2 id="project-layout">Project layout</h2>
-<pre><code>mkdocs.yml    # The configuration file.
-docs/
-    index.md  # The documentation homepage.
-    ...       # Other markdown pages, images and other files.
-</code></pre></div>
+<li>结论：并查集的核心是根节点，所有叶子节点只需要考虑它的最高级根节点的值的变化，不用考虑次级根节点的值的变化。</li>
+</ul></div>
             </div>
         </div>
 
@@ -92,13 +118,13 @@ docs/
             <hr>
             <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
         </footer>
-        <script src="js/bootstrap.bundle.min.js"></script>
+        <script src="../../../js/bootstrap.bundle.min.js"></script>
         <script>
-            var base_url = ".",
+            var base_url = "../../..",
                 shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
         </script>
-        <script src="js/base.js"></script>
-        <script src="search/main.js"></script>
+        <script src="../../../js/base.js"></script>
+        <script src="../../../search/main.js"></script>
 
         <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
@@ -163,8 +189,3 @@ docs/
 
     </body>
 </html>
-
-<!--
-MkDocs version : 1.6.1
-Build Date UTC : 2025-01-27 15:34:14.284361+00:00
--->

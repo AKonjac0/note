@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../../../img/favicon.ico">
+        <title>递归 &amp; 递推 - My Docs</title>
+        <link href="../../../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../../../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../../../css/brands.min.css" rel="stylesheet">
+        <link href="../../../css/solid.min.css" rel="stylesheet">
+        <link href="../../../css/v4-font-face.min.css" rel="stylesheet">
+        <link href="../../../css/base.css" rel="stylesheet">
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="../../..">My Docs</a>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+
+                    <ul class="nav navbar-nav ms-md-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-bs-level="1"><a href="#_1" class="nav-link">递归 &amp; 递推</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="_1">递归 &amp; 递推</h1>
+<ul>
+<li>解题重点在于假设出当前的状态以继子问题的状态，通过一步的操作找出状态的转移方式，这样就可以递归/递推了。</li>
+</ul>
+<blockquote>
+<p>P1760 汉诺塔</p>
+</blockquote>
+<p>普通的递归法就是，让前$n-1$个盘子移动到空柱子上，将第$n$个盘子移动到指定柱子，再将$n-1$个盘子移动到第$n$盘上。</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#define int long long 
+using namespace std;
+const int N=15510;
+int n,ans;
+int f(int n,int a,int b,int c){
+    if(n==1){
+        printf(&quot;move %lld from %lld to %lld\n&quot;,n,a,c);
+        return 1;
+    }
+    int ans=1;
+    ans+=f(n-1,a,c,b);
+    printf(&quot;move %lld from %lld to %lld\n&quot;,n,a,c);
+    ans+=f(n-1,b,a,c);
+    return ans;
+}
+signed main(){
+    scanf(&quot;%lld&quot;,&amp;n);
+    ans=f(n,1,2,3);
+    printf(&quot;%lld\n&quot;,ans);
+    return 0;
+} 
+</code></pre>
+<p>这样你会发现，$f(n-1,a,c,b)$与$f(n-1,b,a,c)$所用的步数时一样的，所以有结论：
+$x[i]=2* x[i-1]+1$,即$x[i]=2^i-1$.</p>
+<p>~~所以高精度就不展示了~~</p>
+<blockquote>
+<p>P1242</p>
+</blockquote>
+<p>这道题也是同样。</p>
+<p>只不过给出了将最终状态，那么我们可以将操作拆成三部分：</p>
+<p>1) 将第一个位置改变的最大盘子上面的小盘子挪开到空余的柱子</p>
+<p>2) 用一步将大盘子以到指定位置</p>
+<p>3) 将小盘子挪到指定位置</p>
+<p>由于对称性，第三步可以理解为将小盘子从最终状态挪到空余柱子。</p>
+<p>~~然后你就发现，被Hack了~~</p>
+<p>正确做法是：第一步有两种：</p>
+<p>(假设将大盘子从柱子1挪到柱子2)</p>
+<p>1) 小盘子到柱子3$\to$大盘子从1到2$\to$小盘子到最终状态</p>
+<p>2) 小盘子到柱子2$\to$大盘子从1到3$\to$小盘子到柱子1$\to$大盘子从3到2$\to$小盘子到最终状态</p>
+<p>这就是P1242 第11个点的$Hack$原理.</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#define int long long
+using namespace std;
+const int N=122,M=5e6+10;
+int start[N],finish[N],mid[N];
+int n,cnt,m;
+struct node {
+    int n,a,b;
+} step1[M],step2[M];
+void g(int n,int a,int b,int c,node *step) {
+    if(n==0)return;
+    g(n-1,a,c,b,step);
+    step[++cnt].n=n,step[cnt].a=a,step[cnt].b=c;
+    g(n-1,b,a,c,step);
+    return;
+}
+int f(int* P,int i,int final,node *step) {
+    if(i==0)return 0;
+    if(P[i]==final)return f(P,i-1,final,step);
+    int tmp=f(P,i-1,6-P[i]-final,step);
+    step[++cnt].n=i,step[cnt].a=P[i],step[cnt].b=final;
+    g(i-1,6-P[i]-final,P[i],final,step);
+    return tmp+(1ll&lt;&lt;(i-1));
+}
+void print1(int cnt,int ans,int a,int b,node *step) {
+    for(int i=a+1; i&lt;=cnt; ++i) {
+        swap(step[i].a,step[i].b);
+    }
+    for(int i=1; i&lt;=b/2; ++i) {
+        swap(step[i+a+1-1],step[cnt-i+1]);
+    }
+    for(int i=1; i&lt;=ans; ++i) {
+        printf(&quot;move %d from %c to %c\n&quot;,step[i].n,step[i].a+'A'-1,step[i].b+'A'-1);
+    }
+    printf(&quot;%lld&quot;,ans);
+}
+signed main() {
+    scanf(&quot;%lld&quot;,&amp;n);
+    for(int i=1; i&lt;=3; ++i) {
+        scanf(&quot;%lld&quot;,&amp;m);
+        for(int k=1,p; k&lt;=m; ++k)scanf(&quot;%lld&quot;,&amp;p),start[p]=i;
+    }
+    for(int i=1; i&lt;=3; ++i) {
+        scanf(&quot;%lld&quot;,&amp;m);
+        for(int k=1,p; k&lt;=m; ++k)scanf(&quot;%lld&quot;,&amp;p),finish[p]=i;
+    }
+    while(start[n]==finish[n] &amp;&amp; n&gt;=1)--n;
+    int ans=0,tmp1=0,tmp2=0,tmp3=0,tmp4=0;
+    if(n&gt;=1) {
+        cnt=0;
+        tmp1=f(start,n-1,6-start[n]-finish[n],step1)+1;
+        step1[++cnt].n=n,step1[cnt].a=start[n],step1[cnt].b=finish[n];
+        tmp2=f(finish,n-1,6-start[n]-finish[n],step1);
+        cnt=0;
+        tmp3+=f(start,n-1,finish[n],step2)+1;
+        step2[++cnt].n=n,step2[cnt].a=start[n],step2[cnt].b=6-start[n]-finish[n];
+        for(int i=1;i&lt;n;++i)mid[i]=finish[n];
+        mid[n]=6-start[n]-finish[n];
+        tmp3+=f(mid,n-1,start[n],step2)+1;
+        step2[++cnt].n=n,step2[cnt].a=6-start[n]-finish[n],step2[cnt].b=finish[n];
+        tmp4=f(finish,n-1,start[n],step2);
+
+        if(tmp1+tmp2&lt;tmp3+tmp4) {
+            ans=tmp1+tmp2;
+            print1(ans,ans,tmp1,tmp2,step1);
+        } else {
+            ans=tmp3+tmp4;
+            print1(ans,ans,tmp3,tmp4,step2);
+        }
+    }
+    return 0;
+}
+
+</code></pre>
+<blockquote>
+<p>P</p>
+</blockquote></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script src="../../../js/bootstrap.bundle.min.js"></script>
+        <script>
+            var base_url = "../../..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../../../js/base.js"></script>
+        <script src="../../../search/main.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

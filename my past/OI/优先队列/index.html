@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../../../img/favicon.ico">
+        <title>优先队列/二叉堆 - My Docs</title>
+        <link href="../../../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../../../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../../../css/brands.min.css" rel="stylesheet">
+        <link href="../../../css/solid.min.css" rel="stylesheet">
+        <link href="../../../css/v4-font-face.min.css" rel="stylesheet">
+        <link href="../../../css/base.css" rel="stylesheet">
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="../../..">My Docs</a>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+
+                    <ul class="nav navbar-nav ms-md-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-bs-level="1"><a href="#_1" class="nav-link">优先队列/二叉堆</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="_1">优先队列/二叉堆</h1>
+<blockquote>
+<p>P7913</p>
+</blockquote>
+<p>直接用堆优化模拟。</p>
+<p>建两个堆，分别维护$lq:$出发时间+占据廊桥编号，和$wq:$空闲廊桥编号。</p>
+<p>每次将小于$tmp[i].l$的廊桥从$lq$种释放出来，加入$wq$中。</p>
+<p>如果没有空闲廊桥直接跳过(远区情况)</p>
+<p>否则就将它加到编号最小的廊桥$pos$中，并将这个廊桥从$wq$中去除，加入$lq$. <code>make_pair(tmp[i].r,pos);</code></p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstring&gt;
+#include&lt;cstdio&gt;
+#include&lt;algorithm&gt;
+#include&lt;queue&gt;
+#include&lt;vector&gt;
+using namespace std;
+const int N=1e5+10;
+typedef pair&lt;int,int&gt; pii;
+struct node{
+    int l,r;
+}s[N],t[N];
+int n,m1,m2,ans;
+int f[N],g[N];
+bool cmp(node a,node b){return a.l&lt;b.l;}
+
+void cal(node* tmp,int m,int* res){
+    priority_queue&lt;pii, vector&lt;pii&gt; ,greater&lt;pii&gt; &gt; lq;
+    priority_queue&lt;int, vector&lt;int&gt; ,greater&lt;int&gt; &gt; wq;
+    for(int i=1;i&lt;=n;++i)wq.push(i);
+    for(int i=1;i&lt;=m;++i){
+        while(!lq.empty() &amp;&amp; tmp[i].l&gt;=lq.top().first){
+            wq.push(lq.top().second);
+            lq.pop();
+        }
+        if(wq.empty())continue;
+        int pos=wq.top();wq.pop();
+        res[pos]++;
+
+        lq.push(make_pair(tmp[i].r,pos));
+    }
+    for(int i=1;i&lt;=n;++i)res[i]+=res[i-1];
+}
+
+int main(){
+    scanf(&quot;%d%d%d&quot;,&amp;n,&amp;m1,&amp;m2);
+    for(int i=1;i&lt;=m1;++i)scanf(&quot;%d%d&quot;,&amp;s[i].l,&amp;s[i].r);    
+    for(int i=1;i&lt;=m2;++i)scanf(&quot;%d%d&quot;,&amp;t[i].l,&amp;t[i].r);
+    sort(s+1,s+m1+1,cmp);
+    sort(t+1,t+m2+1,cmp);
+
+    cal(s,m1,f);
+    cal(t,m2,g);
+    ans=0;
+    for(int i=0;i&lt;=n;++i)ans=max(ans,f[i]+g[n-i]);
+
+    printf(&quot;%d&quot;,ans);
+    return 0;
+}
+</code></pre>
+<blockquote>
+<p>P1631</p>
+</blockquote>
+<p>~~我是SB~~
+对于a与b数组由下列不等式关系：</p>
+<pre><code class="language-cpp">a[1]+b[1]&lt;=a[1]+b[2]&lt;=...&lt;=a[1]+b[n]
+a[2]+b[1]&lt;=a[2]+b[2]&lt;=...&lt;=a[2]+b[n]
+.
+.
+.
+a[n]+b[1]&lt;=a[n]+b[2]&lt;=...&lt;=a[n]+b[n]
+</code></pre>
+<p>那么就将n个不等式的第一个数推进堆里，每次弹出最小的，并将它对应的不等式中它的下一个数入堆即可。</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;queue&gt;
+using namespace std;
+const int N=2e5+10;
+int a[N],b[N],c[N];
+int n;
+struct node{
+    int i,j,s;
+    node(int x,int y,int z){
+        i=x;
+        j=y;
+        s=z;
+    }
+    bool operator &lt;(const node &amp;a)const{
+        return a.s&lt;s;
+    }
+};
+void solve(){
+    priority_queue&lt;node&gt; q;
+    for(int i=1;i&lt;=n;++i){
+        int tmp=a[1]+b[i];
+        q.push(node(1,i,tmp));
+    }
+    int cnt=0;
+    for(int i=1;i&lt;=n;++i){
+        c[++cnt]=q.top().s;
+        int x1=q.top().i,y1=q.top().j;
+        q.pop();
+        int z1=a[x1+1]+b[y1];
+        q.push(node(x1+1,y1,z1)); 
+    }
+    for(int i=1;i&lt;=n;++i)printf(&quot;%d &quot;,c[i]); 
+}
+int main(){
+    scanf(&quot;%d&quot;,&amp;n);
+    for(int i=1;i&lt;=n;++i)scanf(&quot;%d&quot;,&amp;a[i]);
+    for(int i=1;i&lt;=n;++i)scanf(&quot;%d&quot;,&amp;b[i]);
+    solve();
+    return 0;
+}
+</code></pre>
+<blockquote>
+<p>P2827</p>
+</blockquote>
+<p>这题用堆或优先队列"只能"拿85pts~~这对于考试就够了，要什么正解~~</p>
+<p>正解是"看出"它的单调性。</p>
+<ul>
+<li>$如果a&gt;b,a分成a_1,a_2,b分成b_1,b_2,则a_1&gt;b_1,a_2&gt;b_2.$</li>
+</ul>
+<p>其实这也很好理解，所以证明略。</p>
+<p>那么我们就可以开三个数组模拟队列，一个存$a$,一个存$a_1$,一个存$a_2$.</p>
+<blockquote>
+<p>UVA11997</p>
+</blockquote>
+<p>与上一题类似，只不过变成了$k$个数组，此时一行一行做即可。</p>
+<p>问题是，当前回合抛弃的大数会不会在下回合用到？</p>
+<p>考虑反证，假设$k+1$大的数下回合用到，此时前$k$大的数加下回合最小的数一定比$k+1$大的数加下回合最小的数小，即一定存在至少$k$个比他小的数，所以第$k+1$大的数就可以忽略，每次只需要维护$k$个数即可。</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt; 
+#include&lt;cstring&gt;
+#include&lt;queue&gt;
+#include&lt;algorithm&gt;
+#define int long long 
+using namespace std;
+const int N=810;
+int a[N][N];
+int k;
+struct node{
+    int s,b;
+    node(int ss,int bb){
+        s=ss,b=bb;
+    }
+    bool operator &lt;(const node &amp;x)const{
+        return x.s&lt;s;
+    }
+};
+bool cmp(int a,int b){return a&lt;b;}
+void merge(int j){
+    priority_queue&lt;node&gt; q;
+    for(int i=1;i&lt;=k;++i)q.push(node(a[1][i]+a[j][1],1));
+    for(int i=1;i&lt;=k;++i){
+        node tmp=q.top();q.pop();
+        int s=tmp.s,b=tmp.b;
+        a[1][i]=s;
+        if(b&lt;k)q.push(node(s-a[j][b]+a[j][b+1],b+1));
+    }
+}
+signed main(){
+    //freopen(&quot;UVA11997.txt&quot;,&quot;r&quot;,stdin);
+    while(scanf(&quot;%lld&quot;,&amp;k)!=EOF){
+        memset(a,0,sizeof a);
+        for(int i=1;i&lt;=k;++i){
+            for(int j=1;j&lt;=k;++j)scanf(&quot;%lld&quot;,&amp;a[i][j]);
+            sort(a[i]+1,a[i]+k+1,cmp);
+        }
+        for(int i=2;i&lt;=k;++i)merge(i);
+        printf(&quot;%lld&quot;,a[1][1]);
+        for(int i=2;i&lt;=k;++i)printf(&quot; %lld&quot;,a[1][i]);
+        printf(&quot;\n&quot;);
+    }
+    return 0;
+}
+</code></pre>
+<blockquote>
+<p>P8179</p>
+</blockquote>
+<p><strong>16pts:</strong></p>
+<p>直接暴力$dp$.</p>
+<p>设$g[i]$表示考虑了前$i$圈是的最小贡献。将换台的时间加在第一圈的贡献上面，相当于去掉了换胎的操作。</p>
+<p>则转移方程：</p>
+<p>$f[i]=\min_{j=0}^i(f[i],f[i-j]+c(o,j))$,$o$表示当前考虑的是哪一个轮子。</p>
+<p>复杂度$O(nm^2)$.</p>
+<p><strong>13pts:</strong></p>
+<p>对于$t=0$的情况其实就相当于给你$n$个长度为$m$的不等式，让你合并出前$m$个最小的值。直接用堆+贪心维护即可。</p>
+<p><strong>正解:</strong></p>
+<p>我们不能用堆维护的原因在于序列不单调，这是由换胎时间引起的，而$dp$不会受影响。</p>
+<p>注意到一个轮胎最多在使用$25$圈后，使用当前轮胎的时间就会大于换胎的时间加第一圈所用时间，序列又一次变得单调。</p>
+<p>因此我们可以将每个轮胎前$25$圈做$dp$，后面用堆维护。</p>
+<p>并不会出现"断层"，即前面$dp$没取到的圈数，该轮胎在后面堆中取到了，因为前面的一定比后面的更优，取最优解时会自动淘汰。</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;queue&gt;
+#define int long long 
+using namespace std;
+const int N=510,M=2e5+10,INF=2e18,T=25;
+int n,m,t,s;
+int a[N],b[N],c[N];
+int g[M],h[M],f[N][T+T];
+inline int d(int i,int j){return a[i]+(j-1)*(j-1)*b[i];}
+struct node{
+    int n,m,val;
+    bool operator &lt;(const node &amp;x)const{
+        return x.val&lt;val;
+    }
+    node(int _n,int _m,int _val){
+        n=_n,m=_m,val=_val;
+    }
+};
+void init(){
+    for(int i=1;i&lt;=n;++i){
+        f[i][0]=t;
+        for(int j=1;j&lt;=T;++j)
+            f[i][j]=f[i][j-1]+d(i,j);
+    }
+}
+void heap_greedy(){
+    priority_queue&lt;node&gt; q;
+    for(int i=1;i&lt;=n;++i)q.push(node(i,T+1,d(i,T+1)));  
+    for(int i=1;i&lt;=m;++i){
+        node tmp=q.top();q.pop();
+        h[i]=h[i-1]+tmp.val;
+        q.push(node(tmp.n,tmp.m+1,d(tmp.n,tmp.m+1)));
+    }
+}
+void dp(){
+    memset(g,0x3f,sizeof g);
+    g[0]=0;
+    for(int o=1;o&lt;=n;++o){
+        s=min(s+T,m);
+        for(int j=s;j&gt;=0;--j)
+            for(int k=min(j,T);k&gt;=0;--k)
+                g[j]=min(g[j],g[j-k]+f[o][k]);  
+    }
+}
+signed main(){
+    scanf(&quot;%lld%lld%lld&quot;,&amp;n,&amp;m,&amp;t);
+    for(int i=1;i&lt;=n;++i)scanf(&quot;%lld%lld&quot;,&amp;a[i],&amp;b[i]);
+    init();
+    dp();
+    heap_greedy();
+    int ans=INF;
+    for(int i=1;i&lt;=min(m,s);++i) ans=min(ans,g[i]+h[m-i]);
+    printf(&quot;%lld&quot;,ans-t);
+    return 0;
+}
+</code></pre></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script src="../../../js/bootstrap.bundle.min.js"></script>
+        <script>
+            var base_url = "../../..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../../../js/base.js"></script>
+        <script src="../../../search/main.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../../../img/favicon.ico">
+        <title>状压dp总结 - My Docs</title>
+        <link href="../../../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../../../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../../../css/brands.min.css" rel="stylesheet">
+        <link href="../../../css/solid.min.css" rel="stylesheet">
+        <link href="../../../css/v4-font-face.min.css" rel="stylesheet">
+        <link href="../../../css/base.css" rel="stylesheet">
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="../../..">My Docs</a>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+
+                    <ul class="nav navbar-nav ms-md-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-bs-level="1"><a href="#dp" class="nav-link">状压dp总结</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="2"><a href="#_1" class="nav-link">统计答案类</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#_2" class="nav-link">最优解类</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="dp">状压dp总结</h1>
+<h2 id="_1">统计答案类</h2>
+<blockquote>
+<p>P1879</p>
+</blockquote>
+<p>非常经典的一道入门题</p>
+<p>注意判断是否合法：</p>
+<p>1.与自己判断，必须为101010101 等物相邻1 的串，判断方法为：</p>
+<pre><code class="language-cpp">!(s&amp;(s&lt;&lt;1)) &amp;&amp; !(s&amp;(s&gt;&gt;1))
+</code></pre>
+<p>结果为0即可</p>
+<p>2.与前一行判断，直接作与的0就行</p>
+<p>3.与地图判断，将地图反转后作与的0</p>
+<p>最后答案=$\sum dp[n][i]$</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#define int long long 
+using namespace std;
+const int N=13,P=1e9;
+int n,m,M;
+int map[N][N];
+int f[N];
+//int state[1&lt;&lt;N];
+int dp[N][1&lt;&lt;N];
+
+signed main() {
+    scanf(&quot;%lld%lld&quot;,&amp;n,&amp;m);M=1&lt;&lt;m;
+    for(int i=1; i&lt;=n; ++i) {
+        for(int j=1; j&lt;=m; ++j) {
+            scanf(&quot;%lld&quot;,&amp;map[i][j]);
+        }
+    }
+    for(int i=1; i&lt;=n; ++i) {
+        for(int j=1; j&lt;=m; ++j)f[i]=(f[i]&lt;&lt;1)+(1-map[i][j]);
+    }
+    for(int i=0;i&lt;M;++i)if(!(i&amp;(i&lt;&lt;1)) &amp;&amp; !(i&amp;(i&gt;&gt;1)) &amp;&amp; !(i&amp;f[1])) dp[1][i]=1;
+
+    for(int i=2; i&lt;=n; ++i) {
+        for(int s=0; s&lt;M; ++s) {
+            if(!(s&amp;(s&lt;&lt;1)) &amp;&amp; !(s&amp;(s&gt;&gt;1)) &amp;&amp; !(s&amp;f[i])) { //legal
+                for(int k=0;k&lt;M;++k){
+                    if(!(k&amp;(k&lt;&lt;1)) &amp;&amp; !(k&amp;(k&gt;&gt;1)) &amp;&amp; !(k&amp;f[i-1]) &amp;&amp; !(k&amp;s)) { //legal
+                        dp[i][s]=(dp[i][s]+dp[i-1][k])%P;
+                    }
+                }
+            }
+        }
+    }
+    int sum=0; 
+    for(int i=0;i&lt;M;++i)sum=(sum+dp[n][i])%P;//dp[n][i];
+    printf(&quot;%lld&quot;,sum);
+    return 0;
+}
+
+</code></pre>
+<p>玄学时间复杂度$\Theta(n*2^{2n})$，Orz</p>
+<blockquote>
+<p>P1896</p>
+</blockquote>
+<p>状压dp+背包</p>
+<p>与P1879十分相似，只是多了个背包和行与行之间的比较</p>
+<p>data记录每种状态中包含多少个国王</p>
+<p>map记录当前状态对上一行的限制</p>
+<p>ok记录当前状态是否合法(!(s&amp;(s&gt;&gt;1)) &amp;&amp; !(s&amp;(s&lt;&lt;1)))</p>
+<p>f记录答案</p>
+<pre><code class="language-cpp">//转移方程
+for(int i=2;i&lt;=n;++i){
+        for(int s=0;s&lt;m;++s){
+            if(ok[s]){
+                for(int s1=0;s1&lt;m;++s1){
+                    if(!(map[s]&amp;s1) &amp;&amp; ok[s1]){
+                        for(int j=k;j&gt;=data[s];--j){
+                            f[s][i][j]+=f[s1][i-1][j-data[s]];
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+</code></pre>
+<h2 id="_2">最优解类</h2>
+<blockquote>
+<p>P3052</p>
+</blockquote>
+<p>f[1&lt;&lt;n]表示答案，g[1&lt;&lt;n]表示该状态的最后一个电梯的最大剩余体积</p>
+<p>转移方程为：</p>
+<pre><code class="language-cpp">if(g[i]&gt;=a[j] &amp;&amp; f[i | (1&lt;&lt;(j-1))]&gt;=f[i]){
+    f[i | (1&lt;&lt;(j-1))]=f[i];
+    g[i | (1&lt;&lt;(j-1))]=max(g[i | (1&lt;&lt;(j-1))],g[i]-a[j]);
+}else if(g[i]&lt;a[j] &amp;&amp; f[i | (1&lt;&lt;(j-1))]&gt;=f[i]+1){
+    f[i | (1&lt;&lt;(j-1))]=f[i]+1;
+    g[i | (1&lt;&lt;(j-1))]=max(g[i | (1&lt;&lt;(j-1))],w-a[j]);
+}
+</code></pre>
+<p>因为当前状态的前n-1个状态一定已满，但不一定时最优；第n个状态未满，且不一定最优，因此一定要先取f的最优，在更新g取最优。
+当f最优时，前n-1一定时当前最满的状态，所以不用再考虑，直接考虑最后一个状态的最大值即可。并且f最优就证明g更大。
+例如：</p>
+<pre><code class="language-cpp">3 10
+4 
+6 
+7
+</code></pre>
+<p>4 6 7可以由4 6 或6 7转移而来，但6 7答案已经为2，而4 6 为1，则应该取4 6 的状态作为4 6 7 的转移。
+（每个状态的最优解时唯一的）</p>
+<blockquote>
+<p>P1357</p>
+</blockquote>
+<p>这道题用到了矩阵快速幂。</p>
+<p>首先考虑暴力$dp$.</p>
+<p>设状态$f[i][S]$表示当前位置为$i$,状态为$S$的方案数。</p>
+<p>假设当前的起点为$0$,状态为$S$，那么初始值$f[0][S]=1$.</p>
+<p>然后由于头与尾要完全重合，所以最终答案为$f[n][S]$.</p>
+<p>转移方程为:</p>
+<p>$$
+f[i+1][T&gt;&gt;1]=\sum f[i][T]
+\
+f[i+1][(T&gt;&gt;1)|(1&lt;<m)]=\sum f[i][T],popcnt((T>&gt;1)|(1&lt;&lt;m))\leq k
+\popcnt(i)表示i在二进制下有几个1
+$$</p>
+<p>我们发现，每次的转移方式都是固定的，都可以表示成一个$01矩阵.</p>
+<p>故我们可以用一个长宽为$2^m$的矩阵来加速。</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#define int long long
+using namespace std;
+const int N=33,P=1e9+7;
+int n,m,k,res;
+int popcnt(int x) {
+    int cnt=0;
+    while(x) cnt+=(x&amp;1),x&gt;&gt;=1;
+    return cnt;
+}
+struct ma {
+    int f[N][N],n,m;
+    ma() {
+        memset(f,0,sizeof f),n=m=0;
+    }
+} s,t,ans;
+ma operator *(ma a,ma b) {
+    ma c=ma();
+    int n=a.n,m=a.m,p=b.m;
+    c.n=n,c.m=p;
+    for(int i=0; i&lt;n; ++i)
+        for(int j=0; j&lt;p; ++j)
+            for(int k=0; k&lt;m; ++k) c.f[i][j]=(c.f[i][j]+a.f[i][k]*b.f[k][j]%P)%P;
+    return c;
+}
+ma kp(ma x,int p) {
+    if(p&lt;=1) return x;
+    if(p&amp;1) return x*kp(x*x,p&gt;&gt;1);
+    else return kp(x*x,p&gt;&gt;1);
+}
+signed main() {
+    scanf(&quot;%lld%lld%lld&quot;,&amp;n,&amp;m,&amp;k);
+    for(int S=0; S&lt;(1&lt;&lt;m); ++S) {
+        if(popcnt(S)&gt;k) continue;
+        s=ma(),t=ma(),ans=ma();
+        s.n=1,s.m=(1&lt;&lt;m);
+        s.f[0][S]=1;
+        t.n=t.m=(1&lt;&lt;m);
+        for(int T=0; T&lt;(1&lt;&lt;m); ++T) {
+            if(popcnt(T)&gt;k) continue;
+            t.f[T][T&gt;&gt;1]=1;
+            if(popcnt((T&gt;&gt;1)|(1&lt;&lt;(m-1)))&lt;=k) t.f[T][(T&gt;&gt;1)|(1&lt;&lt;(m-1))]=1;
+        }
+        ans=s*kp(t,n);
+        res=(res+ans.f[0][S])%P;
+    }
+    printf(&quot;%lld&quot;,res);
+    return 0;
+}
+</code></pre>
+<blockquote>
+<p>P3959</p>
+</blockquote>
+<p>如果只考虑每个状态的点集的话时错误的，因为更新同一个点时会因为不同的深度而产生不同的贡献。</p>
+<p><em>hack data</em></p>
+<pre><code class="language-cpp">6 6
+1 2 100
+2 3 1
+2 4 10
+3 4 10
+3 5 100
+4 6 10000
+</code></pre>
+<p>好像可以卡掉$prim$和部分只记录集合的状压$dp$。</p>
+<p>所以要考虑每个点到初始点的深度。</p>
+<p>设$f[i][j][S]$表示在深度为$i$的点$j$时一共挖了$S$中所有宝藏的最小花费。</p>
+<p>假设当前要更新的集合$s$中包含了与$j$连接的$k$点，而$j$则在$s$关于$S$的补集$_S$中。</p>
+<p>那么转移方程：</p>
+<p>$$
+f[i][j][S]=\min(f[i][j][S]，d[j][k]* (i+1)+f[i][j][_S]+f[i+1][k][s])
+$$</p>
+<p>这有点像树形背包$dp$的转移方程。</p>
+<p>这样，我们就可以用记忆化搜索的方式来实现它啦!</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+using namespace std;
+const int N=13,M=1e3+10,INF=0x3f3f3f3f;
+int f[N][N][1&lt;&lt;N];
+int d[N][N],D[N][N],head[N],sz[1&lt;&lt;N];
+int n,m,v,u,w,ans,cnt;
+struct edge {
+    int v,w,nxt;
+} e[M&lt;&lt;1];
+int read1() {
+    int x=0;
+    char ch=getchar();
+    while(ch&gt;'9' || ch&lt;'0')ch=getchar();
+    while(ch&lt;='9' &amp;&amp; ch&gt;='0')x=(x&lt;&lt;1)+(x&lt;&lt;3)+ch-'0',ch=getchar();
+    return x;
+}
+void write1(int x) {
+    if(x&gt;9)write1(x/10);
+    putchar(x%10+'0');
+}
+void add(int u,int v,int w) {
+    e[++cnt].v=v,e[cnt].w=w,e[cnt].nxt=head[u],head[u]=cnt;
+}
+void init() {
+    for(int i=1; i&lt;=n; ++i) {
+        for(int j=1; j&lt;=n; ++j) {
+            if(i==j)continue;
+            if(d[i][j]&lt;INF)D[i][++D[i][0]]=j;
+        }
+    }
+}
+int dfs(int i,int j,int S) {
+    if(f[i][j][S]&lt;INF)return f[i][j][S];
+    if(S==(1&lt;&lt;(j-1)))return f[i][j][S]=0;
+
+    if(sz[S]&gt;n-i)return f[i][j][S]=INF;
+    if(sz[S]&lt;=1)return f[i][j][S]=0;
+
+    for(int s=S; s; s=(s-1)&amp;S) {
+        int _S=S^s;
+        if(((1&lt;&lt;(j-1))&amp;s))continue;
+        int tmp=dfs(i,j,_S);
+        if(tmp&gt;=f[i][j][S])continue;
+        for(int o=1; o&lt;=D[j][0]; ++o) {
+            int k=D[j][o];
+            if((1&lt;&lt;(k-1))&amp;s) f[i][j][S]=min(f[i][j][S],d[j][k]*(i+1)+tmp+dfs(i+1,k,s));
+        }
+    }
+    return f[i][j][S];
+}
+
+int main() {
+    //freopen(&quot;P3959_17.in&quot;,&quot;r&quot;,stdin);
+    ans=INF;
+    memset(head,-1,sizeof head);
+    cnt=-1;
+    memset(d,0x3f,sizeof d);
+    n=read1(),m=read1();
+    for (int i=1; i&lt;(1&lt;&lt;n); ++i) sz[i]=sz[i&amp;(i-1)]+1;//
+
+    for(int i=1; i&lt;=m; ++i) u=read1(),v=read1(),w=read1(),add(u,v,w),add(v,u,w),d[u][v]=min(d[u][v],w),d[v][u]=min(d[v][u],w);
+    init();
+    for(int o=1; o&lt;=n; ++o) {
+        memset(f,0x3f,sizeof f);
+        ans=min(ans,dfs(0,o,(1&lt;&lt;n)-1));
+    }
+    write1(ans);
+    return 0;
+}
+
+</code></pre>
+<p>~~然后就T了~~</p>
+<p>注意，上述代码中包含了快读快写，预处理$j$的枚举量$k$,记忆化搜索自带的剪枝，最优性剪枝($f[i][j][_S]&lt;f[i][j][S]$)，非法状态剪枝等一系列卡常方法，但对于$n=12$的数据还要跑$3s$以上。</p>
+<p>所以，我们不要递归，只要递推。</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+using namespace std;
+const int N=13,M=1e3+10,INF=0x3f3f3f3f;
+int f[N][N][1&lt;&lt;N];
+int d[N][N],D[N][N],head[N],sz[1&lt;&lt;N];
+int n,m,v,u,w,ans,cnt;
+struct edge {
+    int v,w,nxt;
+} e[M&lt;&lt;1];
+int read1() {
+    int x=0;
+    char ch=getchar();
+    while(ch&gt;'9' || ch&lt;'0')ch=getchar();
+    while(ch&lt;='9' &amp;&amp; ch&gt;='0')x=(x&lt;&lt;1)+(x&lt;&lt;3)+ch-'0',ch=getchar();
+    return x;
+}
+void write1(int x) {
+    if(x&gt;9)write1(x/10);
+    putchar(x%10+'0');
+}
+void add(int u,int v,int w) {
+    e[++cnt].v=v,e[cnt].w=w,e[cnt].nxt=head[u],head[u]=cnt;
+}
+void init() {
+    for(int i=1; i&lt;=n; ++i) {
+        for(int j=1; j&lt;=n; ++j) {
+            if(i==j)continue;
+            if(d[i][j]&lt;INF)D[i][++D[i][0]]=j;
+        }
+    }
+}
+void dp() {
+    memset(f,0x3f,sizeof f);
+    for(int i=1; i&lt;=n; ++i)f[n-1][i][1&lt;&lt;(i-1)]=0;
+    for(int i=n-2; i&gt;=0; --i) {
+        for(int j=1; j&lt;=n; ++j) {
+            f[i][j][1&lt;&lt;(j-1)]=0;
+            for(int S=1; S&lt;(1&lt;&lt;n); ++S) {
+                if(sz[S]&gt;n-i)continue;
+                for(int s=S; s; s=(s-1)&amp;S) {
+                    int _S=S^s;
+                    if(((1&lt;&lt;(j-1))&amp;s))continue;
+                    if(sz[s]&gt;n-i-1)continue;
+                    if(f[i][j][_S]&gt;=f[i][j][S])continue;
+                    for(int o=1; o&lt;=D[j][0]; ++o) {
+                        int k=D[j][o];
+                        if((1&lt;&lt;(k-1))&amp;s) f[i][j][S]=min(f[i][j][S],d[j][k]*(i+1)+f[i][j][_S]+f[i+1][k][s]);
+                    }
+                }
+            }
+        }
+    }
+}
+int main() {
+    //freopen(&quot;P3959_15.in&quot;,&quot;r&quot;,stdin);
+    ans=INF;
+    memset(head,-1,sizeof head);
+    cnt=-1;
+    memset(d,0x3f,sizeof d);
+    n=read1(),m=read1();
+    for (int i=1; i&lt;(1&lt;&lt;n); ++i) sz[i]=sz[i&amp;(i-1)]+1;//
+
+    for(int i=1; i&lt;=m; ++i) u=read1(),v=read1(),w=read1(),add(u,v,w),add(v,u,w),d[u][v]=min(d[u][v],w),d[v][u]=min(d[v][u],w);
+    init();
+    dp();
+    for(int i=1; i&lt;=n; ++i)ans=min(ans,f[0][i][(1&lt;&lt;n)-1]);
+    write1(ans);
+    return 0;
+}
+
+</code></pre>
+<p>注意起始状态为集合中只有一个点的状态，此时答案为$0$</p>
+<ul>
+<li>递推的好处在于，不需要枚举当前的初始点具体是哪个，而是可以一开始预处理为$0$后一起转移。</li>
+</ul>
+<blockquote>
+<p>P2150</p>
+</blockquote>
+<p>注意到一个性质，假设$S_1,S_2$表示甲乙选择的所有数的质因数集合，那么$S_1,S_2$不能有交集.</p>
+<p>那么对于$n&lt;=30$，质因数种类很少，可以状压$dp$.</p>
+<p>设$f[S_1][S_2]$表示甲乙质因数集合为$S_1,S_2$时的方案数。</p>
+<p>边界$f[0][0]=1$,$S$表示$2-n$每个数的质因数集合，转移方程:</p>
+<p>$$ 
+f[j|S][k]+=f[j][k]\times (S\&amp;k==0),f[j][k|S]+=f[j][k]\times (S\&amp;j==0),j\&amp; k ==0
+$$</p>
+<p>而对于$n&lt;=500$,发现每个数大于$22$的质因数只有一个，所以可以用一个结构体$(o,b,S)$表示每个数的原数，大质因数和小质因数集合。</p>
+<p>这样，将大质因数相同的数分组转移，即对于大质因数排个序。(顺序无所谓)</p>
+<p>之后，开两个临时数组$f1[S_1][S_2],f2[S_1][S_2]$分别表示一个数甲或者乙选时的方案数。</p>
+<p>转移与上面的类似。</p>
+<p>每当一组转移结束，就更新一遍$f$数组。</p>
+<p>注意$f1,f2$中不包含甲乙选择同一个数，但包含了甲乙都不选同一个数的情况。也就是说，如果直接$f[j][k]=f1[j][k]+f2[j][k]$,都不选的情况会重复，所以再减去一个$f[j][k]$即可。</p>
+<pre><code class="language-cpp">#include&lt;bits/stdc++.h&gt;
+#define int long long
+using namespace std;
+const int N=510,M=266;
+int p[9]= {0,2,3,5,7,11,13,17,19};
+int n,P,ans;
+int f[M][M],f1[M][M],f2[M][M];
+struct node {
+    int o,b,S;
+    void init() {
+        S=0;
+        int tmp=o;
+        for(int i=1; i&lt;=8; ++i) while(tmp%p[i]==0) S|=(1&lt;&lt;(i-1)),tmp/=p[i];
+        if(tmp&gt;1) b=tmp;
+        else b=-1;
+    }
+} a[N];
+bool cmp(node a,node b) {
+    return a.b&lt;b.b;
+}
+signed main() {
+    scanf(&quot;%lld%lld&quot;,&amp;n,&amp;P);
+    for(int i=1; i&lt;n; ++i) a[i].o=i+1,a[i].init();
+    sort(a+1,a+n,cmp);
+    f[0][0]=1;
+    for(int i=1; i&lt;n; ++i) {
+        int S=a[i].S;
+        if(i==1 || a[i].b!=a[i-1].b || a[i].b==-1) memcpy(f1,f,sizeof f1),memcpy(f2,f,sizeof f2);
+        for(int j=255; j&gt;=0; --j)
+            for(int k=255; k&gt;=0; --k) 
+                if((j&amp;k)==0) f2[j][k|S]=(f2[j][k|S]+((S&amp;j)==0)*f2[j][k])%P,f1[j|S][k]=(f1[j|S][k]+((S&amp;k)==0)*f1[j][k])%P;
+        if(i==n-1 || a[i].b!=a[i+1].b || a[i].b==-1) {
+            for(int j=0; j&lt;=255; ++j)
+                for(int k=0; k&lt;=255; ++k)
+                    if((j&amp;k)==0) f[j][k]=(f1[j][k]+f2[j][k]-f[j][k]+P)%P;
+        }
+    }
+    ans=0;
+    for(int j=0; j&lt;=255; ++j)
+        for(int k=0; k&lt;=255; ++k)
+            if((j&amp;k)==0 &amp;&amp; f[j][k]) ans=(ans+f[j][k])%P;
+    printf(&quot;%lld&quot;,ans%P);
+    return 0;
+}
+</code></pre>
+<blockquote>
+<p>P7519</p>
+</blockquote>
+<ol>
+<li>暴力搜索</li>
+</ol>
+<p>可以用贪心解决每个队伍的过题数$b[i]$，即$b[j]=a[i]+b[i]+(i&lt;j)-a[j]$.</p>
+<p>这样，我们只需要知道剩余的题数$m$,上一个队伍的$b[j]$和上个队伍的编号$j$即可转移。</p>
+<pre><code class="language-cpp">#include&lt;bits/stdc++.h&gt;
+using namespace std;
+typedef long long ll;
+const int N=100,M=110;
+int a[N],b[N],vis[N];
+int top,n,m;
+ll ans;
+bool cmp(int x,int y) {
+    if(a[x]==a[y]) return x&lt;y;
+    return a[x]&gt;a[y];
+}
+void dfs(int dep,int res,int lst,int b) {
+    if(res&lt;0) return;
+    if(dep&gt;n) {
+        if(res&gt;=0) ++ans;
+        return;
+    }
+    for(int i=1; i&lt;=n; ++i) {
+        if(vis[i]) continue;
+        vis[i]=1;
+        int tmp=max(b,a[lst]+b-a[i]+(i&gt;lst));
+        dfs(dep+1,res-tmp,i,tmp);
+        vis[i]=0;
+    }
+}
+int main() {
+    scanf(&quot;%d%d&quot;,&amp;n,&amp;m);
+    for(int i=1; i&lt;=n; ++i) scanf(&quot;%d&quot;,&amp;a[i]),b[i]=i;
+    sort(b+1,b+n+1,cmp);
+    dfs(1,m,b[1],0);
+    printf(&quot;%lld&quot;,ans);
+    return 0;
+}
+</code></pre>
+<p>复杂度$O(nn!)$</p>
+<ol>
+<li>暴力状压</li>
+</ol>
+<p>用$f[S][i][j][k][l]$表示当前集合为$S$,考虑到第$i$个队伍，当前剩余题数为$j$，上一个队伍编号为$k$,上一个队伍过题数为$l$时的方案数。</p>
+<p>那么我们直接将上面的搜索改成记忆化搜索即可。</p>
+<p>复杂度$O(2^nn^2m^2)$</p>
+<p>~~还不如暴力搜索~~</p>
+<p>3.优化状压</p>
+<p>显然将递归改成递推能优化掉$i$那一维，而有了上面的思路，我们就可以考虑再优化掉$l$那一维.</p>
+<p>由于$b[i]$单调不降，所以如果一个队伍的$b[i]$已经确定，那么后面的队伍$b[j]$都要大于等于$b[i]$。所以相当于一层一层的加上新的贡献$\Delta b=b[j]-b[i]$,而个数为$n-|S|$,所以消耗的过题数为$\Delta b\times (n-|S|)$.</p>
+<p>所以记$d[i][j]$表示如果$j$要超越$i$的最小代价。</p>
+<p>转移如下：</p>
+<pre><code class="language-cpp">for(int i=1;i&lt;=n;++i)
+        for(int j=1;j&lt;=n;++j) d[i][j]=max(0,a[i]-a[j]+(i&lt;j));
+</code></pre>
+<p>这样相当于每个队伍对后面所有队伍都产生影响。</p>
+<p>那么我们就可以用$f[S][i][j]$表示当前集合为$S$,上一个队伍为$i$,剩余题数为$j$时的方案数。</p>
+<p>转移方程：</p>
+<p>$$
+对于i,j\in S,i\not \in A,j\in A,k\in [d[j][i]\times(n-|A|),m],有\ f[S][i][k]+=f[A][j][k-d[j][i]\times(n-|A|)]
+$$</p>
+<p>对于初始边界，因为要保证第一个数的$b[i]$能够超越$a_{\max}$,所以
+$f[1&lt;&lt;(i-1)][i][d[pos][i]\times n]=1$</p>
+<p>最终答案为$\sum_{i=1}^n \sum_{j=1}^{m}f[T][i][j]$,$T$表示全集。</p>
+<pre><code class="language-cpp">#include&lt;bits/stdc++.h&gt;
+#define int long long 
+using namespace std;
+const int N=14,M=550;
+int a[N],d[N][N],popcnt[1&lt;&lt;N],s[N];
+int ans,n,m,T,tmp;
+int f[1&lt;&lt;N][N][M];  
+void init(){
+    int pos=0,maxn=0;
+    T=(1&lt;&lt;n)-1;
+    for(int i=1;i&lt;=n;++i){
+        for(int j=1;j&lt;=n;++j) d[i][j]=max(0ll,a[i]-a[j]+(i&lt;j));
+        if(maxn&lt;a[i] || (maxn==a[i] &amp;&amp; pos&gt;i)) maxn=a[i],pos=i;
+    }
+    for(int i=1;i&lt;=T;++i) popcnt[i]=popcnt[i&gt;&gt;1]+(i&amp;1);
+    for(int i=1;i&lt;=n;++i){
+        int tmp=d[pos][i]*n;
+        if(tmp&lt;=m) f[1&lt;&lt;(i-1)][i][tmp]=1;
+    }
+}
+void dp(){
+    for(int S=0;S&lt;=T;++S){
+        for(int i=1;i&lt;=n;++i){
+            if(S&amp;(1&lt;&lt;(i-1))){
+                int A=S^(1&lt;&lt;(i-1));
+                for(int j=1;j&lt;=n;++j){
+                    if((i!=j) &amp;&amp; (S&amp;(1&lt;&lt;(j-1)))){
+                        int tmp=d[j][i]*(n-popcnt[A]);
+                        for(int k=tmp;k&lt;=m;++k) f[S][i][k]+=f[A][j][k-tmp];
+                    }
+                }
+            }
+        }
+    }
+    for(int i=1;i&lt;=n;++i)
+        for(int j=1;j&lt;=m;++j) ans+=f[T][i][j];
+    printf(&quot;%lld&quot;,ans);
+}
+signed main() {
+    scanf(&quot;%lld%lld&quot;,&amp;n,&amp;m);
+    for(int i=1; i&lt;=n; ++i) scanf(&quot;%lld&quot;,&amp;a[i]);
+    init();
+    dp();
+    return 0;
+}
+
+</code></pre></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script src="../../../js/bootstrap.bundle.min.js"></script>
+        <script>
+            var base_url = "../../..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../../../js/base.js"></script>
+        <script src="../../../search/main.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

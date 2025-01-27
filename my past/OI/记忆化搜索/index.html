@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../../../img/favicon.ico">
+        <title>记忆化搜索 - My Docs</title>
+        <link href="../../../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../../../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../../../css/brands.min.css" rel="stylesheet">
+        <link href="../../../css/solid.min.css" rel="stylesheet">
+        <link href="../../../css/v4-font-face.min.css" rel="stylesheet">
+        <link href="../../../css/base.css" rel="stylesheet">
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="../../..">My Docs</a>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+
+                    <ul class="nav navbar-nav ms-md-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-bs-level="1"><a href="#_1" class="nav-link">记忆化搜索</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="_1">记忆化搜索</h1>
+<blockquote>
+<p>UVA437</p>
+</blockquote>
+<p>也是一道很好的记忆化搜索的题。</p>
+<p>~~刚看到这题时我是懵逼的~~</p>
+<p>对于每个块，都能够产生三种状态，并且因为题目说要严格小于，所以这三种状态最多只能放一个，因此所有块的所有状态加一块就只有$3n$种。</p>
+<p>这大大简化了题目的难度。</p>
+<p>由题目我们知道，不会出现两个柱子架桥的情况，每个块上只能放一个块。</p>
+<p>下面开始做题。</p>
+<p>1) 口胡篇</p>
+<p>那么我们可以设$f[x][y]$表示下面有长边为$x$，短边为$y$的方块时，能放的最大高度。</p>
+<p>$x,y$可能很大? 没关系，因为只有$3n$个所以直接离散化。</p>
+<p>放方块的顺序就是按照$x$和$y$为第一、第二关键字排序，这样剪枝稍微提升速度。</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;algorithm&gt;
+#define int long long 
+using namespace std;
+const int N=310;
+int f[N][N],g[N];
+int cnt,n;
+struct node {
+    int x,y,h;
+} q[N];
+bool Cmp(node a,node b){
+    if(a.x==b.x)return a.y&gt;b.y;
+    else return a.x&gt;b.x;
+}
+bool cmp(int a,int b){
+    return a&lt;b;
+}
+void init() {//Discrete 
+    memset(f,0,sizeof f);
+    int a,b,c;
+    for(int i=1; i&lt;=n; ++i) {
+        scanf(&quot;%lld%lld%lld&quot;,&amp;a,&amp;b,&amp;c);
+        g[3*i-2]=a,g[3*i-1]=b,g[3*i]=c;
+        if(a&gt;b)swap(a,b);
+        if(a&gt;c)swap(a,c);
+        if(b&gt;c)swap(b,c);
+        q[3*i-2].x=c,q[3*i-2].y=b,q[3*i-2].h=a;
+        q[3*i-1].x=c,q[3*i-1].y=a,q[3*i-1].h=b;
+        q[3*i].x=b,q[3*i].y=a,q[3*i].h=c;
+    }
+
+    sort(g+1,g+3*n+1,cmp);
+    int tot=unique(g+1,g+3*n+1)-g-1;
+
+    for(int i=1;i&lt;=3*n;++i){
+        q[i].x=lower_bound(g+1,g+tot+1,q[i].x)-g;
+        q[i].y=lower_bound(g+1,g+tot+1,q[i].y)-g;
+    }
+    sort(q+1,q+3*n+1,Cmp);
+}
+int dp(int x,int y,int p){
+    if(x&lt;y || x&lt;=0 || y&lt;=0)return 0;
+    if(f[x][y])return f[x][y];
+    for(int i=p;i&lt;=3*n;++i){
+        if(q[i].x&lt;x &amp;&amp; q[i].y&lt;y || q[i].y&lt;x &amp;&amp; q[i].x&lt;y)f[x][y]=max(f[x][y],dp(q[i].x,q[i].y,i)+q[i].h);
+    }
+    return f[x][y];
+}
+signed main() {
+    while(1) {
+        ++cnt;
+        scanf(&quot;%lld&quot;,&amp;n);
+        if(!n)return 0;
+        init();
+        int ans=0;
+        for(int i=1;i&lt;=3*n;++i){
+            ans=max(ans,dp(q[i].x,q[i].y,i)+q[i].h);
+        }
+        printf(&quot;Case %lld: maximum height = %lld\n&quot;,cnt,ans);
+    }
+    return 0;
+}
+</code></pre>
+<p>2) 正解篇</p>
+<p>事实上，状态就只有$O(n)$种，设$f[x]$表示下面是$x$时的最大值。</p>
+<p>时间复杂度还是$O(n^2)$，空间可变为$O(n)$</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;algorithm&gt;
+#define int long long 
+using namespace std;
+const int N=95;
+int f[N],g[N];
+int cnt,n;
+struct node {
+    int x,y,h;
+} q[N];
+bool Cmp(node a,node b){
+    if(a.x==b.x)return a.y&gt;b.y;
+    else return a.x&gt;b.x;
+}
+bool cmp(int a,int b){
+    return a&lt;b;
+}
+void init() {//Discrete 
+    memset(f,0,sizeof f);
+    int a,b,c;
+    for(int i=1; i&lt;=n; ++i) {
+        scanf(&quot;%lld%lld%lld&quot;,&amp;a,&amp;b,&amp;c);
+        g[3*i-2]=a,g[3*i-1]=b,g[3*i]=c;
+        if(a&gt;b)swap(a,b);
+        if(a&gt;c)swap(a,c);
+        if(b&gt;c)swap(b,c);
+        q[3*i-2].x=c,q[3*i-2].y=b,q[3*i-2].h=a;
+        q[3*i-1].x=c,q[3*i-1].y=a,q[3*i-1].h=b;
+        q[3*i].x=b,q[3*i].y=a,q[3*i].h=c;
+    }
+    sort(g+1,g+3*n+1,cmp);
+    int tot=unique(g+1,g+3*n+1)-g-1;
+    for(int i=1;i&lt;=3*n;++i){
+        q[i].x=lower_bound(g+1,g+tot+1,q[i].x)-g;
+        q[i].y=lower_bound(g+1,g+tot+1,q[i].y)-g;
+    }
+    sort(q+1,q+3*n+1,Cmp);
+}
+int dp(int p){
+    int x=q[p].x,y=q[p].y;
+    if(x&lt;y || x&lt;=0 || y&lt;=0)return 0;
+    if(f[p])return f[p];
+    for(int i=p;i&lt;=3*n;++i){
+        if(q[i].x&lt;x &amp;&amp; q[i].y&lt;y)f[p]=max(f[p],dp(i)+q[i].h);
+    }
+    return f[p];
+}
+signed main() {
+    while(1) {
+        ++cnt;
+        scanf(&quot;%lld&quot;,&amp;n);
+        if(!n)return 0;
+        init();
+        int ans=0;
+        for(int i=1;i&lt;=3*n;++i){
+            ans=max(ans,dp(i)+q[i].h);
+        }
+        printf(&quot;Case %lld: maximum height = %lld\n&quot;,cnt,ans);
+    }
+    return 0;
+}
+</code></pre>
+<ul>
+<li>结论：记忆化搜索的时间复杂度基本与空间复杂度一致，只要状态设计没问题，时间上就过得去。</li>
+</ul>
+<blockquote>
+<p>P2476</p>
+</blockquote>
+<p>首先说明$f[i][j]$表示前$i$个木块已经涂完，最前面的木块颜色为$j$的状态设计是错误的，因为同一种状态可能表示多个分支，但有的分支可能存在更多的解不能被搜到，例如前一种分支中$c[k]==0$,但后一种分支$c[k]&gt;0$，可以继续搜索，但是由于记忆化导致直接退出，使得答案变小。</p>
+<p>观察到$c_i$很小，所以直接设$f[a][b][c][d][e][last]$表示有多少个剩$1,2,3,4,5$个的颜色且上一次染色是剩$last$个的颜色时的贡献。</p>
+<p>每次选择一种颜色，那么这种颜色剩余数$-1$，比他小$1$的颜色数$+1$,如果$last$比他大$1$，说明这一轮有一个颜色不能用，所以这一轮总共能取的颜色数$-1$.</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#define int long long 
+using namespace std;
+const int N=16,M=6,P=1e9+7;
+int k,n,ans;
+int v[N],vis[M];
+int f[N][N][N][N][N][M];
+int dfs(int a,int b,int c,int d,int e,int last){
+    if(f[a][b][c][d][e][last])return f[a][b][c][d][e][last];
+    if(a+b+c+d+e==0)return f[a][b][c][d][e][last]=1;
+
+    int res=0;
+    if(a)res=(res+(a-(last==2))*dfs(a-1,b,c,d,e,1)%P)%P;
+    if(b)res=(res+(b-(last==3))*dfs(a+1,b-1,c,d,e,2)%P)%P;
+    if(c)res=(res+(c-(last==4))*dfs(a,b+1,c-1,d,e,3)%P)%P;
+    if(d)res=(res+(d-(last==5))*dfs(a,b,c+1,d-1,e,4)%P)%P;
+    if(e)res=(res+e*dfs(a,b,c,d+1,e-1,5)%P)%P;
+
+    return f[a][b][c][d][e][last]=res;
+}
+
+signed main(){
+    scanf(&quot;%lld&quot;,&amp;k);
+    for(int i=1;i&lt;=k;++i)scanf(&quot;%lld&quot;,&amp;v[i]),n+=v[i],++vis[v[i]];
+    printf(&quot;%lld&quot;,dfs(vis[1],vis[2],vis[3],vis[4],vis[5],0)%P);
+    return 0;
+}
+</code></pre></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script src="../../../js/bootstrap.bundle.min.js"></script>
+        <script>
+            var base_url = "../../..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../../../js/base.js"></script>
+        <script src="../../../search/main.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../../../img/favicon.ico">
+        <title>尺取法 two-pointers - My Docs</title>
+        <link href="../../../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../../../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../../../css/brands.min.css" rel="stylesheet">
+        <link href="../../../css/solid.min.css" rel="stylesheet">
+        <link href="../../../css/v4-font-face.min.css" rel="stylesheet">
+        <link href="../../../css/base.css" rel="stylesheet">
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="../../..">My Docs</a>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+
+                    <ul class="nav navbar-nav ms-md-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-bs-level="1"><a href="#two-pointers" class="nav-link">尺取法 two-pointers</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="2"><a href="#_1" class="nav-link">用途</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#_2" class="nav-link">例题</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="two-pointers">尺取法 two-pointers</h1>
+<h2 id="_1">用途</h2>
+<p>用来处理一些具有单调性的区间问题。</p>
+<p>主要流程就是枚举一个左端点$l$，求出合法序列对应的右端点$r$.</p>
+<p>单调性可能指对于一个左端点$l$，一个合法的序列为$[l,r]$，那么$[l,r-1]$和$[l+1,r]$一定不合法,等等。这分别保证了右端点不会左移和左端点右移不会漏解。</p>
+<p>尺取法的复杂度一般为$O(n)$，因为单调性保证向右顺序枚举$l$时，$r$不会向左移动。</p>
+<p>"尺取法就是在对于枚举每一个 l 的时候,另一个坐标 r 维护的答案也是单调的时候可以使用,能够均摊枚举的时间从而把时间复杂度降到 O(n) . "</p>
+<h2 id="_2">例题</h2>
+<blockquote>
+<p>P1638</p>
+</blockquote>
+<p>枚举$l$并求出每个合法的右端点$r$,并统计最小值即可。</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+using namespace std;
+const int N=1e6+10;
+int n,m,el,er;
+int a[N],cnt[N];
+int main(){
+    scanf(&quot;%d%d&quot;,&amp;n,&amp;m);
+    for(int i=1;i&lt;=n;++i)scanf(&quot;%d&quot;,&amp;a[i]);
+    int l=1,r=0,now=0,ans=n+1;
+    for(;l&lt;=n;){
+        while(now&lt;m &amp;&amp; r&lt;n)now+=!cnt[a[++r]]++?1:0;
+        if(now&lt;m)break;
+        if(ans&gt;r-l+1)el=l,er=r,ans=r-l+1;
+        now-=!--cnt[a[l++]]?1:0;
+    }
+    printf(&quot;%d %d&quot;,el,er);
+    return 0;
+} 
+</code></pre>
+<blockquote>
+<p>UVA11572</p>
+</blockquote>
+<p>如果$[l,r]$不合法，则$[l,r+1]$一定不合法，这就保证单调性：如果$[l,r]$不合法，就不用枚举后面的$r$了，直接右移$l$.</p>
+<ul>
+<li>所有的尺取都是只要满足/不满足某一条件就可以右移$l$并且$r$不会左移。</li>
+</ul>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;algorithm&gt;
+using namespace std;
+const int N=1e6+10;
+int T,n;
+int a[N],cnt[N],b[N];
+bool cmp(int a,int b){
+    return a&lt;b;
+}
+void init(){
+    scanf(&quot;%d&quot;,&amp;n);
+    for(int i=1;i&lt;=n;++i)scanf(&quot;%d&quot;,&amp;a[i]),b[i]=a[i];
+    sort(b+1,b+n+1,cmp);
+    int tot=unique(b+1,b+n+1)-b-1;
+    for(int i=1;i&lt;=n;++i)a[i]=lower_bound(b+1,b+tot+1,a[i])-b;
+}
+int main(){
+    scanf(&quot;%d&quot;,&amp;T);
+    while(T--){
+        init();
+        int l=1,r=0,ans=0;
+        memset(cnt,0,sizeof cnt);
+        for(;l&lt;=n;){
+            while(r&lt;n){
+                if(cnt[a[r+1]])break;
+                else cnt[a[++r]]++;
+            }
+            ans=max(ans,r-l+1);
+            --cnt[a[l++]];
+        }
+        printf(&quot;%d\n&quot;,ans);
+    }
+    return 0;
+}
+</code></pre>
+<blockquote>
+<p>AT4142</p>
+</blockquote>
+<p>这题也满足单调性。</p>
+<p>设$a_l+...+a_r=sum_a,a_lxor...xora_r=sum_b$,则满足$sum_a\geq sum_b$,所以如果$sum_a&gt;sum_b$，后面的$r$都不用枚举了。</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#define int long long 
+using namespace std;
+const int N=2e5+10;
+int n;
+int a[N];
+signed main(){
+    scanf(&quot;%lld&quot;,&amp;n);
+    for(int i=1;i&lt;=n;++i)scanf(&quot;%lld&quot;,&amp;a[i]);
+    int l=1,r=0,sum=0,nowa=0,nowb=0;
+    for(;l&lt;=n;){
+        while(r&lt;n){
+            if((nowa+a[r+1])&gt;(nowb^a[r+1]))break;
+            ++r;
+            nowa+=a[r];
+            nowb^=a[r];
+        }
+        sum+=r-l+1;
+        nowa-=a[l];
+        nowb^=a[l];
+        l++;
+    }
+    printf(&quot;%lld&quot;,sum);
+    return 0;
+} 
+</code></pre>
+<p>也可以二分，对于每个$l$二分出最后满足$sum_a=sum_b$的右端点$r$,时间复杂度$O(nlogn)$</p>
+<ul>
+<li>结论：二分不一定要二分答案，也可以对左端点每次都二分右端点。</li>
+</ul>
+<blockquote>
+<p>CF47E</p>
+</blockquote>
+<p>~~属于有思路但写不对代码的题了~~</p>
+<p>一开始看题就注意到$0&lt;\alpha&lt;\frac\pi4$,这意味着抛物线的高度和距离时单调递增的。</p>
+<p>$$x=\frac{v^2\sin2\alpha}{g}\y=\frac{v\sin\alpha}{g}$$</p>
+<p>这样就可以用尺取法了,因为如果炮弹打在墙上，那么比他角度小的炮弹也一定打在墙上。</p>
+<p>对于所有炮弹的角度排个序，对墙的横坐标也排个序。</p>
+<p>如果计算出$y\leq 0$说明打在地上，直接计算地上横坐标。</p>
+<p>如果计算$0&lt;y\leq s[l].y$,说明打在墙上。</p>
+<p>最后直接输出$ans[i]$即可。</p>
+<blockquote>
+<p>CF430B</p>
+</blockquote>
+<ul>
+<li>这题提醒我们双指针不一定要像"尺"一样从左到右扫区间，还可以从中间向两边扩散。</li>
+</ul>
+<p>注意第一次的计数$cnt-1$.</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+using namespace std;
+const int N=220;
+int n,k,x,maxn;
+int a[N];
+int main(){
+    scanf(&quot;%d%d%d&quot;,&amp;n,&amp;k,&amp;x);
+    for(int i=1;i&lt;=n;++i)scanf(&quot;%d&quot;,&amp;a[i]);
+    for(int i=0;i&lt;=n;++i){
+        int l=i,r=i+1,now=x,cnt=1,ans=0,flag=-1;
+        for(int time=1;;time++){
+            while(l&gt;=1 &amp;&amp; now==a[l])--l,++cnt;
+            while(r&lt;=n &amp;&amp; now==a[r])++r,++cnt;
+            if(cnt&lt;=2)break;
+            ans+=cnt+flag;
+            if(a[l]!=a[r] || l==0 &amp;&amp; r==n+1)break;
+            now=a[l];
+            cnt=0;
+            flag=0;
+        }
+        maxn=max(maxn,ans);
+    }
+    printf(&quot;%d&quot;,maxn);
+    return 0;
+} 
+/*
+50 2 1
+1 1 2 2 1 2 1 1 2 2 1 2 1 2 1 1 2 2 1 2 1 2 2 1 2 1 2 1 2 2 1 1 2 2 1 1 2 2 1 2 1 1 2 1 1 2 2 1 1 2
+*/
+
+</code></pre>
+<blockquote>
+<p>CF939E</p>
+</blockquote>
+<p>贪心尺取法。</p>
+<p>有两条重要性质。</p>
+<p>1) 对于一个加入的新数一定要选。</p>
+<p>$$
+原式 ans=Max-\frac{sum}{n}\</p>
+<p>考虑用新的最大替换掉原来的最大，设新的最大比原来最大大 \Delta(x)\
+ans=\frac{(Max+\Delta(x))\times n-(sum+\Delta(x))}{n}\</p>
+<p>因为 n\geq 1，ans一定变大（优秀）
+$$
+2) 对于集合 s 剩下的数，一定是选前面几个小的数，并且选的数的个数是单调不减的。</p>
+<p>可以意会一下证明，一定是选比当前集合平均数小的数加进来，使平均数更小，答案才会变得更大。
+$$
+原式 ans=Max-\frac{sum}{n}\</p>
+<p>考虑新加一个数 \Delta(x)\
+新的式子 ans=Max-\frac{sum+\Delta(x)}{n+1}\</p>
+<p>若新式减去原式&gt;0，则新式更优秀\
+新式减原式得\
+-\frac{sum+\Delta(x)}{n+1}+\frac{sum}{n}\</p>
+<p>等于\
+\frac{sum-n\times \Delta(x)}{n\times(n+1)}&gt;0\</p>
+<p>得出更优秀条件为：sum-n\times \Delta(x)&gt;0，即 \Delta(x) &lt;\frac{sum}{n}\
+$$</p>
+<p>证毕，可以用尺取法。</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#define db double
+#define int long long 
+using namespace std;
+const int N=5e5+10;
+int n,cnt,tot;
+int vis[N],q[N];
+db res[N],a[N],sum[N];
+int read1(){
+    int x=0,f=1;
+    char ch=getchar();
+    while(ch&gt;'9' || ch&lt;'0'){
+        if(ch=='-')f=-1;
+        ch=getchar();
+    }   
+    while(ch&lt;='9' &amp;&amp; ch&gt;='0'){
+        x=(x&lt;&lt;1)+(x&lt;&lt;3)+ch-'0';
+        ch=getchar();
+    }
+    return x*f;
+}
+void work(){
+    int l=1,r=0;
+    db ans=-1.0;
+    for(int i=1;i&lt;=cnt;++i)sum[i]=sum[i-1]+a[i];
+    for(int i=1;i&lt;=cnt;++i){
+        if(!vis[i])continue;
+        ans=-1.0;
+        while(l&lt;=i){
+            db tmp=(double)(a[i]-(double)(sum[l]+a[i])/(l+1));
+            if(tmp&gt;ans)ans=tmp,++l;
+            else{
+                --l;
+                break;  
+            }
+        }
+        if(l==i+1)--l;
+        res[i]=ans;
+    }
+    for(int i=1;i&lt;=tot;++i)printf(&quot;%.10lf\n&quot;,res[q[i]]);
+
+}
+signed main(){
+    cnt=0,tot=0;
+    n=read1();
+    for(int i=1,op;i&lt;=n;++i){
+        op=read1();
+        if(op==1){
+            a[++cnt]=(double)read1();
+        }else{
+            vis[cnt]=1;
+            q[++tot]=cnt;
+        }
+    }
+    work();
+    return 0;   
+}
+
+</code></pre></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script src="../../../js/bootstrap.bundle.min.js"></script>
+        <script>
+            var base_url = "../../..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../../../js/base.js"></script>
+        <script src="../../../search/main.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

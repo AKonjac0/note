@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../../../img/favicon.ico">
+        <title>贪心 - My Docs</title>
+        <link href="../../../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../../../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../../../css/brands.min.css" rel="stylesheet">
+        <link href="../../../css/solid.min.css" rel="stylesheet">
+        <link href="../../../css/v4-font-face.min.css" rel="stylesheet">
+        <link href="../../../css/base.css" rel="stylesheet">
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="../../..">My Docs</a>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+
+                    <ul class="nav navbar-nav ms-md-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-bs-level="1"><a href="#_1" class="nav-link">贪心</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="2"><a href="#_2" class="nav-link">为什么选择贪心?</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="_1">贪心</h1>
+<h2 id="_2">为什么选择贪心?</h2>
+<p>~~除了数据结构和dp剩下的都是贪心模拟暴力~~</p>
+<p>1) 状态不好设计，如P1016，每个加油站的加油量要精确到小数后两位，基本无法枚举，并且原题具有贪心选择性，即局部最优解能推出全局最优解，这样就用贪心。</p>
+<p>2) 枚举量过大，如CF939E,如果dp就是$O(n^2)$,但发现性质后尺取法就是$O(n)$;再如CF47E也是尺取法，如果暴力就是$O(n^2)$</p>
+<p>有些枚举量过大的问题还可以用数据结构维护。</p>
+<blockquote>
+<p>P1080</p>
+</blockquote>
+<p>$$假设已经排了几个人（包括国王），设他们左手上的数的乘积为S.\</p>
+<p>现在要给2个人排序，记第一个人左手上的数为a_{1}，右手上的数为b_{1}；第二个人左手上的数为a_{2}，右手上的数为b_{2}。\
+如果第一个人排在前面优于第二个人排在前面，那么\
+max(S/b_1,S∗a_1/b_2)&lt;max(S/b_2,S∗a_2/b_1)\</p>
+<p>显然有S/b_2\leq S* a_1/b_2\</p>
+<p>假设有S<em> a_1/b_2\geq S</em> a_2/b_1,则max(S/b_1,S∗a_1/b_2)\geq max(S/b_2,S∗a_2/b_1),矛盾。\</p>
+<p>所以S<em> a_1/b_2&lt;S</em> a_2/b_1,整理得a_1<em> b_1&lt;a_2</em> b_2\</p>
+<p>所以只需要按照a* b排序即可。 
+$$</p>
+<ul>
+<li>结论：对于贪心选择性的证明，可以假设一个中间状态，即已经做完$i-1$个人,考虑第$i$个位置可以放的人，为了证明方便可以只考虑2个或少量的人,像P3951一样。</li>
+</ul>
+<blockquote>
+<p>CF939E</p>
+</blockquote>
+<p>贪心尺取法。</p>
+<p>有两条重要性质。</p>
+<p>1) 对于一个加入的新数一定要选。</p>
+<p>$$
+原式 ans=Max-\frac{sum}{n}\</p>
+<p>考虑用新的最大替换掉原来的最大，设新的最大比原来最大大 \Delta(x)\
+ans=\frac{(Max+\Delta(x))\times n-(sum+\Delta(x))}{n}\</p>
+<p>因为 n\geq 1，ans一定变大（优秀）
+$$
+2) 对于集合 s 剩下的数，一定是选前面几个小的数，并且选的数的个数是单调不减的。</p>
+<p>可以意会一下证明，一定是选比当前集合平均数小的数加进来，使平均数更小，答案才会变得更大。
+$$
+原式 ans=Max-\frac{sum}{n}\</p>
+<p>考虑新加一个数 \Delta(x)\
+新的式子 ans=Max-\frac{sum+\Delta(x)}{n+1}\</p>
+<p>若新式减去原式&gt;0，则新式更优秀\
+新式减原式得\
+-\frac{sum+\Delta(x)}{n+1}+\frac{sum}{n}\</p>
+<p>等于\
+\frac{sum-n\times \Delta(x)}{n\times(n+1)}&gt;0\</p>
+<p>得出更优秀条件为：sum-n\times \Delta(x)&gt;0，即 \Delta(x) &lt;\frac{sum}{n}\
+$$</p>
+<p>证毕，可以用尺取法。</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#define db double
+#define int long long 
+using namespace std;
+const int N=5e5+10;
+int n,cnt,tot;
+int vis[N],q[N];
+db res[N],a[N],sum[N];
+int read1(){
+    int x=0,f=1;
+    char ch=getchar();
+    while(ch&gt;'9' || ch&lt;'0'){
+        if(ch=='-')f=-1;
+        ch=getchar();
+    }   
+    while(ch&lt;='9' &amp;&amp; ch&gt;='0'){
+        x=(x&lt;&lt;1)+(x&lt;&lt;3)+ch-'0';
+        ch=getchar();
+    }
+    return x*f;
+}
+void work(){
+    int l=1,r=0;
+    db ans=-1.0;
+    for(int i=1;i&lt;=cnt;++i)sum[i]=sum[i-1]+a[i];
+    for(int i=1;i&lt;=cnt;++i){
+        if(!vis[i])continue;
+        ans=-1.0;
+        while(l&lt;=i){
+            db tmp=(double)(a[i]-(double)(sum[l]+a[i])/(l+1));
+            if(tmp&gt;ans)ans=tmp,++l;
+            else{
+                --l;
+                break;  
+            }
+        }
+        if(l==i+1)--l;
+        res[i]=ans;
+    }
+    for(int i=1;i&lt;=tot;++i)printf(&quot;%.10lf\n&quot;,res[q[i]]);
+
+}
+signed main(){
+    cnt=0,tot=0;
+    n=read1();
+    for(int i=1,op;i&lt;=n;++i){
+        op=read1();
+        if(op==1){
+            a[++cnt]=(double)read1();
+        }else{
+            vis[cnt]=1;
+            q[++tot]=cnt;
+        }
+    }
+    work();
+    return 0;   
+}
+
+</code></pre>
+<blockquote>
+<p>P1645</p>
+</blockquote>
+<p>贪心的将序列按照右端点排序，那么每个区间内应该选的点应该分布在它的最右边，这样能够保证有的点最少，是最优解。</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;algorithm&gt;
+#define int long long 
+using namespace std;
+const int N=2e3+10;
+int n,ans;
+int vis[N];
+struct query{
+    int l,r,m;
+}q[N];
+
+int w[N][N];
+bool cmp(query a,query b){
+    return a.r&lt;b.r;
+}
+signed main(){
+    memset(vis,0,sizeof vis);
+    memset(w,0,sizeof w);
+    scanf(&quot;%lld&quot;,&amp;n);
+    for(int i=1;i&lt;=n;++i){
+        scanf(&quot;%lld%lld%lld&quot;,&amp;q[i].l,&amp;q[i].r,&amp;q[i].m);
+    }
+    sort(q+1,q+n+1,cmp);
+    for(int i=1;i&lt;=n;++i){
+        for(int j=q[i].l;j&lt;=q[i].r;++j){
+            w[j][++w[j][0]]=i;
+        }   
+    }
+    int ans=0;
+    for(int i=1;i&lt;=n;++i){
+        int l=q[i].l,r=q[i].r,m=q[i].m;
+        if(!q[i].m)continue;
+        for(int j=r;j&gt;=l;--j){
+            if(!q[i].m)break;
+            if(vis[j])continue;
+            vis[j]=1;
+            ans++;
+            //q[i].m--;
+            for(int k=1;k&lt;=w[j][0];++k){
+                if(q[w[j][k]].m)q[w[j][k]].m--;
+            }
+        }
+    }
+    printf(&quot;%lld&quot;,ans);
+    return 0;
+} 
+
+/*
+
+2
+1 1000 1000
+1 999 999
+*/
+
+
+</code></pre>
+<blockquote>
+<p>P1191</p>
+</blockquote>
+<p>将每一列前n-1行往上能数到的最多的点数记录下来，那么每个第n行的点的贡献就是从左往右扫并取最小值。</p>
+<p>一个数扫描$O(n)$,共$n^2$个数，所以总复杂度$O(n^3)$</p>
+<blockquote>
+<p>P1016</p>
+</blockquote>
+<p>1.只要存在一个加油站与下一个加油站或终点间的距离大于$c* d_2$,那么无解.</p>
+<p>2.对于每个加油站，有两种可能：</p>
+<p>1）他能到达的所有点中有价格比他小的加油站，那就加油到刚好能到达那个加油站，此时油量会变为零；</p>
+<p>2）他能到达的点里没有价格小于它的加油站，那就在这里充满油，再到后面那些加油站中价格相对最小的加油站，油量从$c $减少$(\Delta d)/d_2 $。</p>
+<p>证明：</p>
+<p>1.1）中会不会剩余的油量已经能满足能够到达下一加油站？</p>
+<p>不会，因为它由上一个加油站转移过来，而上一个加油站最远能到的距离到不了目标加油站，因此一定会再加油，不会由不加油就走了的情况。</p>
+<p>2.2）中为什么要选价格相对最少的加油站，并且要充满油？</p>
+<p>因为如果再后面的加油站能够到达比它小的加油站，那么他会需要加油来到达那一加油站，这是就可以用之前价格低的油，达到最优；就算没有，为了到达终点也要加油，所以选择相对最小的补充油量。</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;algorithm&gt;
+using namespace std;
+const int N=210,INF=1050;
+double d1,c,p0,d2;
+int n;
+struct node{
+    double d,p;
+}q[N];
+bool cmp(node a,node b){
+    return a.d&lt;b.d;
+}
+int main(){
+    scanf(&quot;%lf%lf%lf%lf%d&quot;,&amp;d1,&amp;c,&amp;d2,&amp;p0,&amp;n);  
+    q[0].d=0,q[0].p=p0;
+    for(int i=1;i&lt;=n;++i){
+        scanf(&quot;%lf%lf&quot;,&amp;q[i].d,&amp;q[i].p);
+    }
+    sort(q+1,q+n+1,cmp);
+    q[n+1].d=d1,q[n+1].p=0;
+    for(int i=1;i&lt;=n+1;++i){
+        if(q[i].d-q[i-1].d&gt;c*d2){
+            printf(&quot;No Solution&quot;);
+            return 0;
+        }
+    }
+    int pos=0;double cc=0;double ans=0;
+    while(pos&lt;n+1){
+        int tmp=0,loc=n+1,col=n+1;
+        double minn=INF;
+        for(int i=pos+1;i&lt;=n+1;++i){
+            if(c&lt;(q[i].d-q[pos].d)/d2){
+                loc=i-1;
+                break;
+            }
+        }
+        for(int i=pos+1;i&lt;=loc;++i){
+            if(minn&gt;q[i].p){
+                minn=q[i].p;
+                col=i;
+            }
+            if(q[i].p&lt;=q[pos].p){
+                tmp=i;
+                break;
+            }
+        }
+        if(tmp)ans+=(((q[tmp].d-q[pos].d)/d2)-cc)*q[pos].p,cc=0,pos=tmp;// delta must bigger than cc
+        else ans+=(c-cc)*q[pos].p,cc=c-(q[col].d-q[pos].d)/d2,pos=col;
+    }
+    printf(&quot;%.2lf&quot;,ans);
+    return 0;
+}
+</code></pre>
+<blockquote>
+<p>P1658</p>
+</blockquote>
+<p>假设当前手中的硬币能够组成1,2,...,sum这些面值，此时sum&lt;x.</p>
+<p>那么考虑添加一种硬币，使得sum变大。</p>
+<p>当当前硬币的值为a时，能组成的最大面值由sum变成sum+a.</p>
+<p>但是，如果a&gt;sum+1,那么sum+1,sum+2,...,a-1这些数就不能组成，那么面值就不连续了.</p>
+<p>所以我们要取a&lt;=sum+1且a最大。</p>
+<p>无解的情况就是没有1。</p>
+<p>注意取a时要用upper_bound-1,不能用lower_bound-1.
+考虑:</p>
+<pre><code class="language-cpp">5 7 此时都求出了5，正确；
+
+5 6 7 此时upper_bound求出6，正确;lower_bound求出5，错误.
+</code></pre>
+<p>code:</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;algorithm&gt;
+using namespace std;
+const int N=110;
+int n,x;
+int a[N];
+bool cmp(int a,int b){
+    return a&lt;b;
+}
+int main(){
+    scanf(&quot;%d%d&quot;,&amp;x,&amp;n);
+    for(int i=1;i&lt;=n;++i)scanf(&quot;%d&quot;,&amp;a[i]);
+
+    sort(a+1,a+n+1,cmp);
+    if(a[1]!=1){
+        printf(&quot;-1&quot;);
+        return 0;
+    }
+    int sum=0,cnt=0;
+    while(sum&lt;x){
+        int tmp=upper_bound(a+1,a+n+1,sum+1)-a-1;
+        sum+=a[tmp];
+        cnt++;  
+    }
+    printf(&quot;%d&quot;,cnt);
+    return 0;
+
+}
+</code></pre>
+<blockquote>
+<p>P1248</p>
+</blockquote>
+<p>这题的坑点就是$B$车间不能同时处理多个物件，要堆到后面逐个处理。</p>
+<p>首先考虑每次的贡献：</p>
+<p>设$fa$为$a$车间的处理时间，$fb$为$b$车间的处理时间，则：</p>
+<p>$$
+fb=\max(fa+s[i].a,fb)+s[i].b;\
+fa+=s[i].a;
+$$</p>
+<p>因为只有第$i$个$a$物件和第$i-1$个$b$物件都做完才能做第$i$个$b$物件。</p>
+<p>再考虑$a$车间已经做了$P$时间的工作，不考虑$b$车间剩余的物件，此时还剩两件。</p>
+<p>那么$1$在前和$2$在前的贡献分别是：</p>
+<p>$$
+a_1+\max(a_2,b_1)+b_2\和\a_2+\max(a_1,b_2)+b_1
+$$</p>
+<p>如果1更优，就有</p>
+<p>$$
+a_1+\max(a_2,b_1)+b_2&lt;a_2+\max(a_1,b_2)+b_1\
+a_1+b_2-\max(a_1,b_2)&lt;b_1+a_2-\max(a_2,b_1)\
+即\
+\min(a_1,b_2)&lt;\min(a_2,b_1)
+$$</p>
+<p>但这个式子不能直接做题，反例是能举出来的。</p>
+<p>我们考虑两(三)种情况：</p>
+<p>1) $a_i&lt;=b_i$，则有$a_1<a_2$
+1) $a_i>b_i$，则有$b_1&gt;b_2$</p>
+<p>又考虑$a_1&gt;b_1,a_2&lt;b_2$时一定不会满足上述式子，所以只需要保证$a_1<b_1,a_2>b_2$,即$a<b$的放在前面，$a>b$的放在后面即可。</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;algorithm&gt;
+using namespace std;
+const int N=1e3+10;
+int n;
+struct node{
+    int a,b,d,id;
+}s[N];
+
+bool cmp(node a,node b){
+    if(a.d==b.d){
+        if(a.d&lt;=0)return a.a&lt;b.a;
+        else return a.b&gt;b.b;
+    }
+    return a.d&lt;b.d;
+}
+int main(){
+    scanf(&quot;%d&quot;,&amp;n);
+    for(int i=1;i&lt;=n;++i)scanf(&quot;%d&quot;,&amp;s[i].a);
+    for(int i=1;i&lt;=n;++i)scanf(&quot;%d&quot;,&amp;s[i].b);
+    for(int i=1;i&lt;=n;++i)s[i].d=s[i].a==s[i].b?0:(s[i].a&gt;s[i].b?1:-1),s[i].id=i;
+    sort(s+1,s+n+1,cmp);
+    int fa=0,fb=0;
+    for(int i=1;i&lt;=n;++i){
+        fb=max(fa+s[i].a,fb)+s[i].b;
+        fa+=s[i].a;
+    }
+    printf(&quot;%d\n&quot;,fb);
+    for(int i=1;i&lt;=n;++i)printf(&quot;%d &quot;,s[i].id);
+    return 0;
+} 
+</code></pre>
+<blockquote>
+<p>UVA11300</p>
+</blockquote>
+<p>当面对这种看似每种操作都没有方向，~~很像模拟退火~~的题，就先强行规定一个方向。</p>
+<p>注意到一个人给别人钱和别人给它钱的次数没有限制，所以设$x_i$表示后一个人给前一个人的钱数，负数表示逆方向给钱。</p>
+<p>所以有:</p>
+<p>$$A_1+x_1-x_2=M\
+A_2+x_2-x_3=M\
+...\
+A_{n-1}+x_{n-1}-x_n=M
+$$</p>
+<p>注意$A_n$那个式子就没有用了。</p>
+<p>消去除$x_1$所有的未知量，整理可得：</p>
+<p>$$
+x_2=x_1-C_1\
+x_3=x_1-C_2\
+...\
+x_{n-1}=x_1-C_{n-1}\
+其中C_i=\sum_{k=1}^iA_k-i* M
+$$</p>
+<p>所以这个问题就变成了坐标轴上$n-1$个点，选那个位置使得所有的点到这个位置的距离和最短。</p>
+<p>此时输出中位数即可，贪心的证明很巧妙，~~但我懒，略~~</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;algorithm&gt;
+#define int long long 
+using namespace std;
+const int N=1e6+10;
+int c[N];
+int n,a,tot,ans;
+bool cmp(int a,int b){
+    return a&lt;b;
+}
+int abs1(int a){
+    return a&gt;=0?a:-a;
+}
+signed main(){
+    while(scanf(&quot;%lld&quot;,&amp;n)!=EOF){
+        tot=0,ans=0;
+        for(int i=1;i&lt;=n;++i)scanf(&quot;%lld&quot;,&amp;a),c[i]=c[i-1]+a,tot+=a;
+        tot/=n;
+        for(int i=1;i&lt;=n;++i)c[i]-=i*tot;
+        sort(c+1,c+n+1,cmp);
+        int mid=n/2+1;
+        for(int i=1;i&lt;=n;++i){
+            ans+=abs1(c[i]-c[mid]);
+        }
+        printf(&quot;%lld\n&quot;,ans);
+    }
+    return 0;
+}
+</code></pre></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script src="../../../js/bootstrap.bundle.min.js"></script>
+        <script>
+            var base_url = "../../..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../../../js/base.js"></script>
+        <script src="../../../search/main.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

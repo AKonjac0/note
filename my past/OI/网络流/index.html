@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../../../img/favicon.ico">
+        <title>网络流 - My Docs</title>
+        <link href="../../../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../../../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../../../css/brands.min.css" rel="stylesheet">
+        <link href="../../../css/solid.min.css" rel="stylesheet">
+        <link href="../../../css/v4-font-face.min.css" rel="stylesheet">
+        <link href="../../../css/base.css" rel="stylesheet">
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="../../..">My Docs</a>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+
+                    <ul class="nav navbar-nav ms-md-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-bs-level="1"><a href="#_1" class="nav-link">网络流</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="2"><a href="#dinic" class="nav-link">Dinic</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#dijkstrajohnson" class="nav-link">费用流dijkstra与johnson</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="_1">网络流</h1>
+<h2 id="dinic">Dinic</h2>
+<pre><code class="language-cpp">bool bfs() {
+    memset(h,-1,sizeof h);
+    int op=0,cl=1;
+    h[s]=0;
+    q[1]=s;
+    while(op&lt;cl) {
+        op=(op+1)%M;
+        int u=q[op];
+        for(int i=head[u]; i!=-1; i=e[i].nxt) {
+            int v=e[i].v,w=e[i].w;
+            if(w&gt;0 &amp;&amp; h[v]==-1) {
+                cl=(cl+1)%M;
+                q[cl]=v;
+                h[v]=h[u]+1;
+                if(v==t)return true;
+            }
+        }
+    }
+    return h[t]!=-1;
+}
+int dfs(int u,int flow) {
+    if(u==t)return flow;
+    int sum=0;
+    for(int &amp;i=now[u]; i!=-1; i=e[i].nxt) {
+        int v=e[i].v,w=e[i].w;
+        if(w&gt;0 &amp;&amp; h[v]==h[u]+1) {
+            int s1=dfs(v,min(flow,w));
+            sum+=s1;
+            flow-=s1;
+            e[i].w-=s1;
+            e[i^1].w+=s1;
+            if(flow==0)break;
+        }
+    }
+    return sum;
+}
+int Dinic() {
+    int ans=0;
+    while(bfs()) {
+        memcpy(now,head,sizeof head);
+        ans+=dfs(s,INF);
+    }
+    return ans;
+}
+</code></pre>
+<blockquote>
+<p>P1251 线性规划</p>
+<p>P2053 设置n * m个点来计算重叠的等待时间</p>
+<p>P2050 为P2053的动态开点版本</p>
+<p>P2764 最小割</p>
+<p>P2825 分割连通块</p>
+</blockquote>
+<h2 id="dijkstrajohnson">费用流dijkstra与johnson</h2>
+<ul>
+<li>johnson的原理是：给每个点加上一个势h[u]，使得新图中的边权非负。</li>
+</ul>
+<p>证明：由三角形不等式,dis[u]+w&gt;=dis[v] --&gt; w+h[u]-h[v]&gt;=0</p>
+<ul>
+<li>如何维护势函数h[]。</li>
+</ul>
+<p>初始情况下,如果所有的权值都为正,那么可以简单地将所有h[i]设置为0；如果有负权值,那么我们做一遍spfa,让h[]等于距离函数。</p>
+<p>让d'[i]表示G'中S到点i的距离,当某次增广结束后,G'中会新加入某些边(j, i),而这些(j, i)必定满足d'[i] + w'[i][j] = d'<a href="否则(i, j)就不会在增广路中">j</a>。对上式进行一些代数变换：</p>
+<p>$$ d'[i] + w'[i][j] = d'[j] \d'[i] + w[i][j] + h[i]-h[j] = d'[j] \(d'[j] + h[j])-(d'[i] + h[i])-w[i][j] = 0 \(d'[j] + h[j])-(d'[i] + h[i]) + w[j][i] = 0 $$</p>
+<p>(因为是费用流,所以有w[i][j] = -w[j][i])</p>
+<p>因此让所有h[i] += d'[i]后,新加入的边(j, i)也会满足势函数的性质。</p>
+<p>同时我们有：</p>
+<p>$$ d'[i] + w'[i][j] - d'[j] &gt;= 0\ d'[i] + h[i] - h[j] + w[i][j] - d'[j] &gt;= 0\ (d'[i] + h[i]) - (d'[j] + h[j]) + w[i][j] &gt;= 0\ $$</p>
+<blockquote>
+<p>P4542</p>
+</blockquote>
+<p>这道题困难的地方在于模型的转化，即如何看出"按顺序摧毁根据地"的隐藏条件。</p>
+<p>我们设$d[i][j]$表示从$i$到$j$不经过任何编号大于$i,j$的点的最短路径。这保证了我们一定可以按照给定的顺序进行更新。</p>
+<p>所以用$Floyd$预处理出$d[i][j]$，然后用费用流求解。</p>
+<p>至于建图，因为题目保证一定有解，所以整张图一定联通，不用考虑有的点不被经过；又因为跑的是最大流，所以所有点一定都会被经过，我们只需要限制一下流量不超过$K$即可。</p>
+<p>这样，设源汇点为$s,t$，那么将$1,2,...,n$的点与$s$连$w=1$的边，表示互不相交且只能流向一个点；将$0\to n$连$w=K$的边，表示最多有$K$条路径，最多流向$K$个点。</p>
+<p>之后，将$0,1,...,n$的点拆点，互相连$w=1$的边，表示只流向一个满足顺序的点。</p>
+<p>最后，将$0',1',...,n'$向$t$连$w=1$的边，没有具体意义，就是强行让他们有一个汇点。</p>
+<p>这样跑出来就是最优解。</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;queue&gt;
+using namespace std;
+const int N=440,M=4e5+10,INF=0x3f3f3f3f;
+struct edge{
+    int v,w,f,nxt;
+}e[M];
+int head[N],pre[N],lst[N],dis[N],vis[N];
+int d[N][N];
+int n,m,K,cnt,s,t,D,maxflow,mincost,u,v,w;
+void add(int u,int v,int w,int f){e[++cnt].v=v,e[cnt].w=w,e[cnt].f=f,e[cnt].nxt=head[u],head[u]=cnt;}
+void init(){
+    for(int i=0;i&lt;=n;++i){
+        d[i][i]=0;
+        for(int j=0;j&lt;=n;++j) if(i!=j) d[i][j]=INF;
+    }
+}
+void floyd(){
+    for(int k=0;k&lt;=n;++k)
+        for(int i=0;i&lt;=n;++i)
+            for(int j=0;j&lt;=n;++j)
+                if(k&lt;=max(i,j)) d[i][j]=min(d[i][j],d[i][k]+d[k][j]);   
+}
+void build(){
+    s=n*2+10,t=n*2+13,D=n+3;
+    for(int i=0;i&lt;=n;++i){
+        if(i==0)add(s,i,K,0),add(i,s,0,0);
+        else add(s,i,1,0),add(i,s,0,0);
+        add(i+D,t,1,0),add(t,i+D,0,0);
+        for(int j=i+1;j&lt;=n;++j)add(i,j+D,1,d[i][j]),add(j+D,i,0,-d[i][j]);
+    }
+}
+bool SPFA(){
+    queue&lt;int&gt; q;
+    memset(vis,0,sizeof vis);
+    memset(dis,0x3f,sizeof dis);
+    memset(pre,-1,sizeof pre);
+    dis[s]=0,vis[s]=1;
+    q.push(s);
+    while(!q.empty()){
+        int u=q.front();q.pop();
+        vis[u]=0;
+        for(int i=head[u];~i;i=e[i].nxt){
+            int v=e[i].v,w=e[i].w,f=e[i].f;
+            if(w&gt;0 &amp;&amp; dis[v]&gt;dis[u]+f){
+                dis[v]=dis[u]+f,pre[v]=u,lst[v]=i;
+                if(!vis[v]) vis[v]=1,q.push(v);
+            }
+        }
+    }
+    return pre[t]!=-1;
+}
+void MCMF(){
+    maxflow=0,mincost=0;
+    while(SPFA()){
+        int minn=INF;
+        for(int i=t;i!=s;i=pre[i]) minn=min(minn,e[lst[i]].w);
+        for(int i=t;i!=s;i=pre[i]) e[lst[i]].w-=minn,e[lst[i]^1].w+=minn;
+        maxflow+=minn,mincost+=minn*dis[t];
+    }
+}
+int main(){
+    memset(head,-1,sizeof head);
+    cnt=-1;
+    scanf(&quot;%d%d%d&quot;,&amp;n,&amp;m,&amp;K);
+    init();
+    for(int i=1;i&lt;=m;++i)scanf(&quot;%d%d%d&quot;,&amp;u,&amp;v,&amp;w),d[u][v]=d[v][u]=min(d[u][v],w);
+    floyd();
+    build();
+    MCMF();
+    printf(&quot;%d&quot;,mincost);
+    return 0;
+} 
+</code></pre></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script src="../../../js/bootstrap.bundle.min.js"></script>
+        <script>
+            var base_url = "../../..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../../../js/base.js"></script>
+        <script src="../../../search/main.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

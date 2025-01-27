@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../../../img/favicon.ico">
+        <title>莫比乌斯反演 - My Docs</title>
+        <link href="../../../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../../../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../../../css/brands.min.css" rel="stylesheet">
+        <link href="../../../css/solid.min.css" rel="stylesheet">
+        <link href="../../../css/v4-font-face.min.css" rel="stylesheet">
+        <link href="../../../css/base.css" rel="stylesheet">
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="../../..">My Docs</a>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+
+                    <ul class="nav navbar-nav ms-md-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-bs-level="1"><a href="#_1" class="nav-link">莫比乌斯反演</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="2"><a href="#_2" class="nav-link">莫比乌斯函数</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#_6" class="nav-link">莫比乌斯反演</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="_1">莫比乌斯反演</h1>
+<h2 id="_2">莫比乌斯函数</h2>
+<h3 id="_3">定义</h3>
+<p>1) 莫比乌斯函数$\mu(n)$的定义域是$N$
+2) $\mu(1)=1$
+3) 当$n$存在平方因子时,$\mu(n)=0$
+4) 当$n$是素数或奇数个不同素数之积时,$\mu(n)=-1$
+5) 当$n$是偶数个不同素数之积时,$\mu(n)=1$</p>
+<h3 id="mun">线性筛求$\mu(n)$</h3>
+<pre><code class="language-cpp">void prime(){
+    mu[1]=1;
+    for(int i=2;i&lt;=n;++i){
+        if(!vis[i]) p[++m]=i,mu[i]=-1;//只有一个素因子，则mu[n]=-1
+        for(int j=1;j&lt;=m &amp;&amp; p[j]*i&lt;=n;++j){
+            vis[p[j]*i]=1;
+            if(i%p[j]==0)break;//如果p[j]|i,说明一定存在平方因子，则跳过不更新mu[p[j]*i]，这将意味着mu[p[j]*i]永远为0
+            mu[p[j]*i]=-mu[i];//如果mu[i]=0,则mu[p[j]*i]同样为0；如果mu[i]!=0,则mu[p[j]*i]加入一个新的素因子p[j]，应当乘-1
+        }
+    }   
+}
+
+</code></pre>
+<h3 id="_4">性质</h3>
+<p>1) 对于任意正整数$n$,$\sum_{d|n}\mu(d)=[n=1]$</p>
+<p>2) 对于任意正整数$n$,$\sum_{d|n}\frac{\mu(d)}{d}=\frac{\phi(n)}{n}$</p>
+<h3 id="_5">证明</h3>
+<h4 id="1">性质1.</h4>
+<ol>
+<li>
+<p>当$n=1$时，原式$=\mu(1)=1$,成立</p>
+</li>
+<li>
+<p>当$n\not =1$时，将$n$分解成$p_1^{a_1}p_2^{a_2}...p_k^{a_k}$</p>
+</li>
+</ol>
+<p>只有所有质因子的个数为$1$时$\mu(d)$不为$0$,所以假设由$x$个不同质因子的$d$有$C_{k}^{x}$个，则</p>
+<p>$$\sum_{d|n}\mu(d)=C_k^0-C_k^1+C_k^2-...=\sum_{i=0}^k(-1)^iC_k^i\
+又\because 二项式展开公式为(X+Y)^n=\sum_{i=0}^nC_n^iX^iY^{n-i}\
+\therefore 带入X=-1,Y=1\
+\sum_{i=0}^k(-1)^iC_k^i=[1+(-1)]^k=0
+$$</p>
+<h4 id="2">性质2</h4>
+<p>$$ 即证n\sum_{d|n}\frac{\mu(d)}d=\phi(n)\
+令F(n)=n,f(n)=\phi(n),则\
+f(n)=n\sum_{d|n}\frac{\mu(d)}d=\sum_{d|n}\frac{n\mu(d)}d=\sum_{d|n}\mu(d)\frac{n}d=\sum_{d|n}\mu(d)F(\frac nd)\</p>
+<p>同时，上式成立的条件是F(n)=\sum_{d|n}f(d),即\
+n=\sum_{d|n}\phi(d)\
+这个式子在欧拉函数的笔记中以证明。\</p>
+<p>故原命题得证。
+$$</p>
+<h2 id="_6">莫比乌斯反演</h2>
+<h3 id="_7">定理</h3>
+<p>$$设f(n)和F(n)是定义在正整数集合上的两个函数\</p>
+<p>F(n)=\sum_{d|n}f(d)=\sum_{d|n}f(\frac nd)\</p>
+<p>则f(n)=\sum_{d|n}\mu(d)F(\frac nd)=\sum_{d|n}\mu(\frac nd)F(d)\</p>
+<p>或：\</p>
+<p>F(n)=\sum_{n|d}f(d)\</p>
+<p>则f(n)=\sum_{n|d}\mu(\frac dn)F(d)\
+$$</p>
+<h3 id="_8">套路</h3>
+<p>套路1:优先枚举$\gcd k$</p>
+<p>套路2:$\gcd(i,j)=k等价于 \gcd(\frac ik,\frac jk)=1$</p>
+<p>套路3:莫比乌斯函数的性质$\sum_{d|n}\mu(d)=[n=1]$</p>
+<p>套路4:优先枚举$d$</p>
+<p>套路5:设$dk=T$</p>
+<blockquote>
+<p>P2257</p>
+</blockquote>
+<p>废话不说，直接开始推导。</p>
+<p>$$
+求\sum_{i=1}^n\sum_{j=1}^m [gcd(i,j)\in prime]\</p>
+<p>=\sum_{k=1}^n\sum_{i=1}^n\sum_{j=1}^m [gcd(i,j)=k] (k\in prime)\
+ = \sum_{k=1}^n\sum_{i=1}^{\lfloor \frac nk \rfloor}\sum_{j=1}^{\lfloor \frac mk\rfloor } [gcd(i,j)=1] (k\in prime)\
+ \because \sum_{d|n}\mu(d)=[n=1]
+ \
+ \therefore \sum_{d|\gcd(i,j)}\mu(d)=[\gcd(i,j)=1]\
+ \therefore =\sum_{k=1}^n\sum_{i=1}^{\lfloor \frac nk \rfloor}\sum_{j=1}^{\lfloor \frac mk\rfloor } \sum_{d|\gcd(i,j)}\mu(d)(k\in prime)</p>
+<p>\
+ \because d|\gcd(i,j),\therefore i,j是d的倍数\
+ 又\because d_{max}=\lfloor \frac nk\rfloor\
+ \therefore = \sum_{k=1}^n\sum_{d=1}^{\lfloor \frac nk\rfloor}\mu(d)<em> \lfloor \frac n{kd}\rfloor</em> \lfloor \frac m{kd}\rfloor (k\in prime)(注_1)
+ \
+设T=kd,则T_{max}=k<em>\lfloor \frac nk\rfloor=n\
+\therefore 原式=\sum_{T=1}^n\lfloor \frac nT\rfloor</em> \lfloor \frac mT\rfloor \sum_{k|T,k\in prime}\mu(\frac Tk)(注_2)
+$$
+这样后面可以在线性筛时做$O(n)$预处理+前缀和，前面可以做$O(T\sqrt n)$整除分块.</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+using namespace std;
+const int N=1e5+10,M=1e7+10;
+typedef long long ll;
+int p[M],mu[M],vis[M],sum[M],f[M];
+int m,n,T;
+void prime(){
+    mu[1]=1;
+    for(int i=2;i&lt;M;++i){
+        if(!vis[i]) p[++m]=i,mu[i]=-1;
+        for(int j=1;j&lt;=m &amp;&amp; p[j]*i&lt;M;++j){
+            vis[p[j]*i]=1;
+            if(i%p[j]==0){mu[p[j]*i]=0;break;}
+            mu[p[j]*i]=-mu[i];
+        }
+    }   
+    for(int j=1;j&lt;=m;++j){
+        for(int i=1;i*p[j]&lt;M;++i){
+            f[i*p[j]]+=mu[i];
+        }
+    } 
+    for(int i=1;i&lt;M;++i)sum[i]=sum[i-1]+f[i];   
+}
+void solve(){
+    ll ans=0;
+    for(int l=1,r=0;l&lt;=n;l=r+1){
+        r=min(n/(n/l),m/(m/l));
+        ans+=(ll)(sum[r]-sum[l-1])*(ll)(n/l)*(ll)(m/l);
+    }
+    printf(&quot;%lld\n&quot;,ans);
+}
+int main(){
+    prime();
+    scanf(&quot;%d&quot;,&amp;T);
+    while(T--){
+        scanf(&quot;%d%d&quot;,&amp;n,&amp;m);if(n&gt;m)swap(n,m);
+        solve();
+    }
+    return 0;
+} 
+</code></pre>
+<ul>
+<li>
+<p>$注_1$:这里的变换时因为每一个$d$都由许多个$i，j$枚举而来，所以枚举$d$时直接乘上能转移过来的$i,j$的最大个数即可，而$d$最大能取到$n$ ($\gcd(n,m)=n$时)</p>
+</li>
+<li>
+<p>$注_2$:这里的变换相当于$1$的逆操作,$1$时由大变小，而$2$时由小变大。一个$T$能转移到的所有$d$为$d=\frac Tk (k|T,k\in prime)$,所以对这些$d$有贡献$\mu(\frac Tk)$，要加在一起。</p>
+</li>
+</ul>
+<p>~~全long long计算真的慢，比int转long long 慢一倍~~</p>
+<blockquote>
+<p>P3455</p>
+</blockquote>
+<p>模板题.</p>
+<p>这里给出一个与P2577不同的推式子的方法，大同小异</p>
+<p>$$f(k)=\sum_{i=1}^a\sum_{j=1}^b[gcd(i,j)=k]\
+F(n)=\sum_{n|k}f(k)=\lfloor\frac an\rfloor\lfloor
+\frac bn\rfloor\
+f(n)=\sum_{n|k}\mu(\lfloor \frac kn\rfloor)F(k)
+$$
+之后退出来的式子与用$\sum_{d|n}\mu(d)=[n=1]$推出来的一样。</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#define ll long long 
+using namespace std;
+const int N=1e5+10,M=1e6+10;
+int a,b,d,n,m,T;
+int p[M],mu[M],vis[M],sum[M];
+void prime(){
+    mu[1]=1;
+    for(int i=2;i&lt;M;++i){
+        if(!vis[i]) p[++m]=i,mu[i]=-1;
+        for(int j=1;j&lt;=m &amp;&amp; i*p[j]&lt;M;++j){
+            vis[i*p[j]]=1;
+            if(i%p[j]==0) break;
+            mu[i*p[j]]=-mu[i];
+        }
+    }
+    for(int i=1;i&lt;M;++i)sum[i]=sum[i-1]+mu[i];
+}
+void solve(){
+    ll ans=0;
+    n=a/d,m=b/d;
+    if(n&gt;m)swap(n,m);
+    for(int l=1,r=0;l&lt;=n;l=r+1){
+        r=min(n/(n/l),m/(m/l));
+        ans+=(ll)(sum[r]-sum[l-1])*(ll)(n/l)*(ll)(m/l);
+    }
+    printf(&quot;%lld\n&quot;,ans);
+}
+int main(){
+    prime();
+    scanf(&quot;%d&quot;,&amp;T);
+    for(int i=1;i&lt;=T;++i){
+        scanf(&quot;%d%d%d&quot;,&amp;a,&amp;b,&amp;d);
+        solve();    
+    }
+    return 0;
+}
+</code></pre>
+<blockquote>
+<p>P3327</p>
+</blockquote>
+<p>$$
+已知d(i* j)=\sum_{x|i}\sum_{y|j}[\gcd(x,y)=1] (注_1)\</p>
+<p>则原式= \sum_{i=1}^n\sum_{j=1}^m\sum_{x|i}\sum_{y|j}[\gcd(x,y)=1]\</p>
+<p>= \sum_{i=1}^n\sum_{j=1}^m\sum_{x|i}\sum_{y|j}\sum_{d|\gcd(x,y)}\mu(d)\</p>
+<p>将枚举项i,j改为枚举x,y</p>
+<p>\
+=\sum_{x=1}^n
+\sum_{y=1}^m \lfloor\frac nx\rfloor\lfloor\frac my\rfloor \sum_{d|\gcd(x,y)}\mu(d)\
+继续枚举d
+\
+=\sum_{x=1}^n
+\sum_{y=1}^m \lfloor\frac nx\rfloor\lfloor\frac my\rfloor \sum_{d=1}^n\mu(d)[d|\gcd(x,y)]\</p>
+<p>因为\mu(d)与x,y无关，可以提到前面去\</p>
+<p>=\sum_{d=1}^n\mu(d)\sum_{x=1}^n\sum_{y=1}^m \lfloor\frac nx\rfloor\lfloor\frac my\rfloor [d|\gcd(x,y)]\
+将枚举项x,y
+改为dx,dy,则[d|\gcd(x,y)]恒满足，可以去掉\
+= \sum_{d=1}^n\mu(d)\sum_{x=1}^{\lfloor\frac nd\rfloor}\sum_{y=1}^{\lfloor\frac md\rfloor} \lfloor\frac n{dx}\rfloor\lfloor\frac m{dy}\rfloor\</p>
+<p>= \sum_{d=1}^n\mu(d)\sum_{x=1}^{\lfloor\frac nd\rfloor}\lfloor\frac n{dx}\rfloor\sum_{y=1}^{\lfloor\frac md\rfloor} \lfloor\frac m{dy}\rfloor
+$$</p>
+<p>此时后面两项可以$O(n\sqrt n)$整除分块预处理出$f$数组，前面也可以用整除分块$O(T\sqrt n)$做。</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#define ll long long
+using namespace std;
+const int N=7e4+10;
+int p[N],vis[N],mu[N],sum[N];
+int T,n,m,cnt;
+ll f[N];
+void prime() {
+    mu[1]=1;
+    cnt=0;
+    for(int i=2; i&lt;N; ++i) {
+        if(!vis[i])p[++cnt]=i,mu[i]=-1;
+        for(int j=1; j&lt;=cnt &amp;&amp; i*p[j]&lt;N; ++j) {
+            vis[i*p[j]]=1;
+            if(i%p[j]==0)break;
+            mu[i*p[j]]=-mu[i];
+        }
+    }
+    for(int i=1; i&lt;N; ++i) {
+        ll ans=0;
+        for(int l=1,r=0; l&lt;=i; l=r+1) {
+            r=(i/(i/l));
+            ans+=(ll)(r-l+1)*(ll)(i/l);
+        }
+        f[i]=ans;
+    }
+    for(int i=1; i&lt;N; ++i)sum[i]=sum[i-1]+mu[i];
+}
+void solve() {
+    ll ans=0;
+    for(int l=1,r=0; l&lt;=n; l=r+1) {
+        r=min(n/(n/l),m/(m/l));
+        ans+=(ll)(sum[r]-sum[l-1])*(ll)(f[m/l])*(ll)(f[n/l]);
+    }
+    printf(&quot;%lld\n&quot;,ans);
+}
+int main() {
+    prime();
+    scanf(&quot;%d&quot;,&amp;T);
+    for(int i=1; i&lt;=T; ++i) {
+        scanf(&quot;%d%d&quot;,&amp;n,&amp;m);if(n&gt;m) swap(n,m);
+        solve();
+    }
+    return 0;
+}
+</code></pre>
+<ul>
+<li>$注_1$:可以当成结论用，具体证明可以看<a href="https://www.luogu.com.cn/blog/An-Amazing-Blog/mu-bi-wu-si-fan-yan-ji-ge-ji-miao-di-dong-xi">莫比乌斯反演-让我们从基础开始-</a></li>
+</ul>
+<blockquote>
+<p>P1829</p>
+</blockquote>
+<p>$$
+求\sum_{i=1}^n\sum_{j=1}^m \frac{i<em> j}{\gcd(i,j)}\
+= \sum_{d=1}^n\sum_{i=1}^n\sum_{j=1}^m \frac{i</em> j}{d}[\gcd(i,j)=d]\
+= \sum_{d=1}^n\sum_{i=1}^{\lfloor\frac nd\rfloor}\sum_{j=1}^{\lfloor\frac md\rfloor} i<em> j</em> d[\gcd(i,j)=1] (注_1)\
+= \sum_{d=1}^n\sum_{i=1}^{\lfloor\frac nd\rfloor}\sum_{j=1}^{\lfloor\frac md\rfloor} i<em> j</em> d\sum_{k|\gcd(i,j)}\mu(k)\
+=  \sum_{d=1}^nd\sum_{k=1}^{\lfloor\frac nd\rfloor}\mu(k)* k^2\sum_{i=1}^{\lfloor\frac n{dk}\rfloor}i\sum_{j=1}^{\lfloor\frac n{dk}\rfloor}j(注_2)
+$$</p>
+<p>此时可以两次分块来做，一次在$\lfloor\frac n{dk}\rfloor$时，一次在$\lfloor\frac nd\rfloor$时，时间复杂度为$O(\sqrt n * \sqrt n)=O(n)$</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#define int long long
+using namespace std;
+const int N=1e7+10,P=20101009,inv=10050505;
+int n,m,cnt;
+int vis[N],mu[N],p[N],sum[N];
+void prime() {
+    mu[1]=1;cnt=0;
+    for(int i=2; i&lt;N; ++i) {
+        if(!vis[i])p[++cnt]=i,mu[i]=-1;
+        for(int j=1; j&lt;=cnt &amp;&amp; i*p[j]&lt;N; ++j) {
+            vis[i*p[j]]=1;
+            if(i%p[j]==0)break;
+            mu[i*p[j]]=-mu[i];
+        }
+    }
+    for(int i=1; i&lt;N; ++i)sum[i]=(sum[i-1]+i*i%P*mu[i])%P;
+}
+int _solve(int _n,int _m) {
+    int tmp=0;
+    for(int _l=1,_r=0; _l&lt;=_n; _l=_r+1) { //k
+        _r=min(_n/(_n/_l),_m/(_m/_l));
+        tmp=(tmp+ (sum[_r]-sum[_l-1])%P* (1+(_n/_l))%P*inv%P*(_n/_l)%P* (1+(_m/_l))%P*inv%P*(_m/_l)%P)%P;
+    }
+    return tmp;
+}
+int _solve1(int _n,int _m) {
+    int tmp=0;
+    for(int _l=1; _l&lt;=_n; ++_l) { //k
+        tmp=(tmp+mu[_l]*_l%P*_l%P*(1+_n/_l)%P*(_n/_l)%P*inv%P*(1+_m/_l)%P*(_m/_l)%P*inv%P)%P;
+    }
+    return tmp;
+}
+void solve1(){
+    int ans=0;
+    for(int l=1; l&lt;=n; ++l) { //d
+        int _n=n/l,_m=m/l;
+        int tmp=_solve(_n,_m);
+        ans=(ans+ l*tmp%P)%P;
+    }
+    ans=(ans%P+P)%P;
+    printf(&quot;%lld&quot;,ans);
+}
+void solve() {
+    int ans=0;
+    for(int l=1,r=0; l&lt;=n; l=r+1) { //d
+        r=min(n/(n/l),m/(m/l));
+        int _n=n/l,_m=m/l;
+        int tmp=_solve(_n,_m);
+        ans=(ans+ ((l+r)*inv%P*(r-l+1))%P*tmp)%P;
+    }
+    ans=(ans%P+P)%P;
+    printf(&quot;%lld&quot;,ans);
+}
+signed main() {
+    prime();
+    scanf(&quot;%lld%lld&quot;,&amp;n,&amp;m);
+    if(n&gt;m)swap(n,m);
+    solve();
+    return 0;
+}
+</code></pre>
+<p>~~十年OI一场空，不开long long 见祖宗；取模操作也不要吝啬时间复杂度，尽可能地多膜一膜，防止溢出从你我做起~~</p>
+<ul>
+<li>
+<p>$注_1:$这里从除以$d$变成乘$d$,即在原始基础上乘了$d^2$，是因为$i,j$地范围都缩小了$d$，而不能忽略后面地$i* j$ </p>
+</li>
+<li>
+<p>$注_2:$乘$k^2$地原因同 $注_1$</p>
+</li>
+</ul>
+<blockquote>
+<p>P3911</p>
+</blockquote>
+<p>$$
+设c_i表示i出现的个数，则原题求\</p>
+<p>\sum_{i=1}^N\sum_{j=1}^N\frac{i<em> j}{\gcd(i,j)}</em> c_i<em> c_j,N表示\max_{i=1}^nA_i\
+1.\
+= \sum_{d=1}^N\sum_{i=1}^N\sum_{j=1}^N\frac{i</em> j}{d}<em> c_i * c_j [\gcd(i,j)=d]\
+= \sum_{d=1}^N \sum_{i=1}^{\lfloor \frac Nd\rfloor} \sum_{j=1}^{\lfloor\frac Nd \rfloor}i</em> j<em> d</em> c_{d i} * c_{d j} <a href="注_1">\gcd(i,j)=1</a>\
+=\sum_{d=1}^N \sum_{i=1}^{\lfloor \frac Nd\rfloor} \sum_{j=1}^{\lfloor\frac Nd \rfloor}i<em> j</em> d* c_{d i} * c_{d j} \sum_{k|\gcd(i,j)}\mu(k)\</p>
+<p>\</p>
+<p>=\sum_{d=1}^Nd\sum_{k=1}^{\lfloor\frac Nd \rfloor}\mu(k) k^2(\sum_{i=1}^{\lfloor\frac N {dk}\rfloor}i<em> c_{kdi})(\sum_{j=1}^{\lfloor\frac N {dk}\rfloor}j</em> c_{kdj})\
+2.\
+= \sum_{d=1}^N\sum_{i=1}^N\sum_{j=1}^N\frac{i<em> j}{d}</em> c_i * c_j [\gcd(i,j)=d]\
+= \sum_{d=1}^N \sum_{i=1}^{\lfloor \frac Nd\rfloor} \sum_{j=1}^{\lfloor\frac Nd \rfloor}i<em> j</em> d<em> c_{d i} * c_{d j} [\gcd(i,j)=1]\
+=\sum_{d=1}^N \sum_{i=1}^{\lfloor \frac Nd\rfloor} \sum_{j=1}^{\lfloor\frac Nd \rfloor}i</em> j<em> d</em> c_{d i} * c_{d j} \sum_{k|\gcd(i,j)}\mu(k)\
+=\sum_{d=1}^N d\sum_{k=1}^{\lfloor \frac Nd\rfloor}\mu(k)k^2\sum_{i=1}^{\lfloor \frac N{kd}\rfloor} \sum_{j=1}^{\lfloor\frac N{kd} \rfloor}i<em> j * c_{d ki} * c_{d kj} 
+\
+设T=dk,则\
+= \sum_{T=1}^N T(\sum_{i=1}^{\lfloor \frac NT \rfloor} i</em> c_{iT})^2 \sum_{k|T}\mu(k)k</p>
+<p>$$
+* $注_1:$因为$i,j$的大小减小，而$c$的下标不能变，所以一定要乘$d$</p></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script src="../../../js/bootstrap.bundle.min.js"></script>
+        <script>
+            var base_url = "../../..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../../../js/base.js"></script>
+        <script src="../../../search/main.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../../../img/favicon.ico">
+        <title>Python Pokemon自动刷怪 - My Docs</title>
+        <link href="../../../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../../../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../../../css/brands.min.css" rel="stylesheet">
+        <link href="../../../css/solid.min.css" rel="stylesheet">
+        <link href="../../../css/v4-font-face.min.css" rel="stylesheet">
+        <link href="../../../css/base.css" rel="stylesheet">
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="../../..">My Docs</a>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+
+                    <ul class="nav navbar-nav ms-md-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-bs-level="1"><a href="#python-pokemon" class="nav-link">Python Pokemon自动刷怪</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="2"><a href="#1" class="nav-link">1.攻击</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#2" class="nav-link">2.移动</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#3" class="nav-link">3.检测颜色并转换模式</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#_1" class="nav-link">坑点</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="python-pokemon">Python Pokemon自动刷怪</h1>
+<p>花了一天时间写的$_{小程序}$, 分成了三个部分</p>
+<h2 id="1">1.攻击</h2>
+<p>设置间隔$0.4$秒按一次$j$(自带讲究围巾效果)</p>
+<pre><code class="language-python">import pyautogui
+import datetime
+
+cnt = 0
+a = datetime.datetime.now().timestamp()
+end = a
+t = a
+
+while a-end &lt; 60:
+    if a-t &gt;= 0.4:
+        t = a
+        pyautogui.keyUp('j')
+        pyautogui.keyDown('j')
+    a = datetime.datetime.now().timestamp()
+</code></pre>
+<h2 id="2">2.移动</h2>
+<p>间隔一秒换一次方向，可以是上下移动，也可以左右。</p>
+<pre><code class="language-python">import pyautogui
+import datetime
+
+
+cnt=0
+a = datetime.datetime.now().timestamp()
+end = a
+t = a
+
+while a-end&lt;60:
+    if a-t&gt;=1:
+        t=a
+        if cnt%2==0:
+            pyautogui.keyUp('a')
+            pyautogui.keyDown('d')
+        else:
+            pyautogui.keyUp('d')
+            pyautogui.keyDown('a')
+
+        cnt=(cnt+1)%2
+    a = datetime.datetime.now().timestamp()
+
+</code></pre>
+<h2 id="3">3.检测颜色并转换模式</h2>
+<p>将游戏窗口放在右上角后，根据对话框在战斗时变白，战斗结束时变黑的特点，在定点设置颜色检测</p>
+<pre><code class="language-python">import pyautogui as pag
+import datetime
+from ctypes import *
+
+def get_color(x, y):
+    gdi32 = windll.gdi32
+    user32 = windll.user32
+    hdc = user32.GetDC(None)  # 获取颜色值
+    pixel = gdi32.GetPixel(hdc, x, y)  # 提取RGB值
+    r = pixel &amp; 0x0000ff
+    g = (pixel &amp; 0x00ff00) &gt;&gt; 8
+    b = pixel &gt;&gt; 16
+    return [r, g, b]
+
+#[41, 41, 57]
+
+x = 202
+y = 234
+cnt = 0
+a = datetime.datetime.now().timestamp()
+i = 1
+t = a
+timer = int(input(&quot;total time(s)&quot;))
+timer = timer
+state = &quot;walk&quot;
+pag.moveTo(100, 200)
+while i &lt; timer:
+    if a-t &gt;= 0.2:
+        # x, y = pag.position()
+        RGB = get_color(x, y)
+        if RGB == [255, 255, 255] and state == &quot;walk&quot; :
+            state = &quot;fight&quot;
+            print(state)
+        elif RGB == [0, 0, 0] and state == &quot;fight&quot;:
+            state = &quot;walk&quot;
+            print(state)
+        t = a
+        i += 1
+        #if i % 5 == 0:
+            #print(i/5)
+            #print(&quot;s&quot;)
+    a = datetime.datetime.now().timestamp()
+
+</code></pre>
+<p>最后合在一起就行了</p>
+<pre><code class="language-python">import pyautogui as pag
+import datetime
+from ctypes import *
+
+cnt = 0
+x = 202
+y = 234
+a = datetime.datetime.now().timestamp()
+T3 = a
+T2 = a
+T1 = a
+start = a
+
+
+def get_color(_x, _y):
+    gdi32 = windll.gdi32
+    user32 = windll.user32
+    hdc = user32.GetDC(None)  # 获取颜色值
+    pixel = gdi32.GetPixel(hdc, _x, _y)  # 提取RGB值
+    r = pixel &amp; 0x0000ff
+    g = (pixel &amp; 0x00ff00) &gt;&gt; 8
+    b = pixel &gt;&gt; 16
+    return [r, g, b]
+
+
+def walk(_t2, _cnt):
+    if a - _t2 &gt;= 1.0:
+        _t2 = a
+        if state == &quot;walk&quot;:
+            if _cnt % 2 == 0:
+                pag.keyUp('w')
+                pag.keyDown('s')
+            else:
+                pag.keyUp('s')
+                pag.keyDown('w')
+            _cnt = (_cnt + 1) % 2
+    return [_t2, _cnt]
+
+
+def fight(_t3):
+    if a - _t3 &gt;= 0.4:
+        _t3 = a
+        if state == &quot;fight&quot;:
+            pag.keyUp('j')
+            pag.keyDown('j')
+    return _t3
+
+
+def get_state(_t1, _state):
+    if a - _t1 &gt;= 0.2:
+        _t1 = a
+        # x, y = pag.position()
+        RGB = get_color(x, y)
+        if RGB == [255, 255, 255] and _state == &quot;walk&quot;:
+            _state = &quot;fight&quot;
+            print(_state)
+        elif RGB == [0, 0, 0] and _state == &quot;fight&quot;:
+            _state = &quot;walk&quot;
+            print(_state)
+    return [_t1, _state]
+
+
+timer = int(input(&quot;total time(s)&quot;))
+timer = timer
+state = &quot;walk&quot;
+
+while a - start &lt; timer:
+    if state == &quot;fight&quot;:
+        cnt = 0
+    T1, state = get_state(T1, state)
+    T2, cnt = walk(T2, cnt)
+    T3 = fight(T3)
+    a = datetime.datetime.now().timestamp()
+</code></pre>
+<h2 id="_1">坑点</h2>
+<p>一开始做的移动，发现可以在$Pycharm,Word,Google$这些软件里打出$A,D$,但是在游戏里和$Dev C++$里不行。</p>
+<p>后来一查，可能是没有获得管理员权限(我这辣鸡电脑的传统艺能)，于是以管理员身份运行，可以控制$Dev C++$了，但是游戏还是不行。</p>
+<p>我以为是键盘实际输入信号与程序模拟信号不同导致，于是换用了$PyUserInput$(费了半天劲搞$pip$)，还是不行。</p>
+<p>~~此时，我们考虑放弃~~</p>
+<p>此时，可能是模拟器的原因，只有它无法接受字符信号。</p>
+<p>开始用的$no\$gba$,后来换用$DeSmuME2$后，奇迹发生了，能移动了！(~~no\$gba是什么辣鸡模拟器~~)</p>
+<p>至此，我们完成了这个程序</p>
+<hr />
+<p>2022.5.31 update</p>
+<p>我们发现上述程序的计算量比较大，就是一秒计算了许多次时间。其实我们只需要至多计算5次即可。</p>
+<p>因此，我们可以用<code>time.sleep(0.2)</code>来更改<code>while</code>循环，达到减少计算次数的目的。</p>
+<pre><code class="language-python">import time
+import pyautogui as pag
+import datetime
+from ctypes import *
+cnt = 0
+timecnt = 0
+x = 202
+y = 234
+
+
+def get_color(_x, _y):
+    gdi32 = windll.gdi32
+    user32 = windll.user32
+    hdc = user32.GetDC(None)  # 获取颜色值
+    pixel = gdi32.GetPixel(hdc, _x, _y)  # 提取RGB值
+    r = pixel &amp; 0x0000ff
+    g = (pixel &amp; 0x00ff00) &gt;&gt; 8
+    b = pixel &gt;&gt; 16
+    return [r, g, b]
+
+
+def walk(c, s):
+    if c % 5 == 0:
+        if state == &quot;walk&quot;:
+            if s % 2 == 0:
+                pag.keyUp('w')
+                pag.keyDown('s')
+            else:
+                pag.keyUp('s')
+                pag.keyDown('w')
+            s = (s + 1) % 2
+    return s
+
+
+def fight(c):
+    if c % 2 == 0:
+        if state == &quot;fight&quot;:
+            pag.keyUp('j')
+            pag.keyDown('j')
+
+
+def get_state(_state):
+    # x, y = pag.position()
+    RGB = get_color(x, y)
+    if RGB == [255, 255, 255] and _state == &quot;walk&quot;:
+        _state = &quot;fight&quot;
+        print(_state)
+    elif RGB == [0, 0, 0] and _state == &quot;fight&quot;:
+        _state = &quot;walk&quot;
+        print(_state)
+    return _state
+
+
+timer = int(input(&quot;total time(s)&quot;))
+state = &quot;walk&quot;
+
+
+while timecnt &lt; (timer * 5):
+    if state == &quot;fight&quot;:
+        cnt = 0
+    state = get_state(state)
+    cnt = walk(timecnt, cnt)
+    fight(timecnt)
+    timecnt += 1
+    time.sleep(0.2)
+
+
+</code></pre>
+<p>这样可以将$cpu$计算量减少$ \%5 $左右。</p></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script src="../../../js/bootstrap.bundle.min.js"></script>
+        <script>
+            var base_url = "../../..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../../../js/base.js"></script>
+        <script src="../../../search/main.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

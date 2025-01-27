@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../../../img/favicon.ico">
+        <title>离散优化 - My Docs</title>
+        <link href="../../../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../../../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../../../css/brands.min.css" rel="stylesheet">
+        <link href="../../../css/solid.min.css" rel="stylesheet">
+        <link href="../../../css/v4-font-face.min.css" rel="stylesheet">
+        <link href="../../../css/base.css" rel="stylesheet">
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="../../..">My Docs</a>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+
+                    <ul class="nav navbar-nav ms-md-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-bs-level="1"><a href="#_1" class="nav-link">离散优化</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="2"><a href="#_2" class="nav-link">应用</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-bs-level="1"><a href="#_3" class="nav-link">哈希优化</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="2"><a href="#_4" class="nav-link">应用</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#_5" class="nav-link">康托展开</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="_1">离散优化</h1>
+<h2 id="_2">应用</h2>
+<p>解决有已知的固定输入(即没有在线插入，离线插入所有数据，计算过程不产生数据)，且范围较大的情况，通常需要的是排名而不是具体数值，因此直接按大小重新赋予每个数一个新值。</p>
+<blockquote>
+<p>模板</p>
+</blockquote>
+<pre><code class="language-cpp">    for(int i=1;i&lt;=n;++i){
+        scanf(&quot;%d&quot;,&amp;a[i]);
+        b[i]=a[i];
+    }
+    sort(b+1,b+n+1);//排序
+    int tot=unique(b+1,b+n+1)-b-1;//去重
+    for(int i=1;i&lt;=n;++i)a[i]=lower_bound(b+1,b+tot+1,a[i])-b;//重定义位置
+</code></pre>
+<h1 id="_3">哈希优化</h1>
+<h2 id="_4">应用</h2>
+<p>解决有查询且范围比较大的情况，会需要具体数值。</p>
+<p>当解决动态在线问题时(可能是计算过程中产生数据)需要建立可插入的hash链表，离线问题可以直接用数组存储，从头到尾扫一遍判重。</p>
+<p>本质就是将特别大的数通过h(k)的方式映射为新的小数值，并存储到链表或数组中。(若是链表则范围是链头数组大小的范围；若是数组则范围是int(long long)的范围。)</p>
+<p>不是普通数的也可以进行hash优化，例如数字字符串就可以用hash优化存储。（尤其是字符串中数字特别大的情况，ASCII码存不下）</p>
+<p>~~在动态查询上因为码量而完胜平衡树~~</p>
+<blockquote>
+<p>P2852</p>
+</blockquote>
+<p>通过p和P解决问题。</p>
+<p>定义p=1000017(10007也行，就是1e6不需要进位，更直观),P=1000000007,取了两个质数防止冲突。</p>
+<p>因此将问题转化为：将字符串以p进制数的方式存储为小于P的数。(这个过程就是hash的核心：将特别大的数通过h(k)的方式映射为新的小数值，并存储。)</p>
+<p>注意存储的是p进制数在10进制表示下 mod P的结果。</p>
+<p>判断是排个序就行。</p>
+<p>然后二分,没了。</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;algorithm&gt;
+#define int long long 
+using namespace std;
+const int N=3e4+10,p=10007,P=1000000007;
+int a[N],b[N],c[N],d[N];
+int n,k;
+void init(){
+    b[0]=0;
+    c[0]=1;
+    for(int i=1;i&lt;=n;++i){
+        b[i]=(b[i-1]*p+a[i])%P;
+    }
+    for(int i=1;i&lt;=n;++i){
+        c[i]=(c[i-1]*p)%P; 
+    }
+    return;
+}
+bool cmp(int a,int b){
+    return a&lt;b;//:)
+}
+bool check(int x){
+    memset(d,0,sizeof d);
+    int top=0;
+    for(int i=x;i&lt;=n;++i){
+        d[++top]=(b[i]-b[i-x]*c[x])%P;
+        if(d[top]&lt;0)d[top]+=P;
+    }
+    sort(d+1,d+top+1,cmp);
+    int cnt=0,ans=0;
+    for(int i=1;i&lt;=top;++i){
+        cnt++;
+        if(d[i+1]!=d[i] || i==top){
+            ans=max(ans,cnt);
+            cnt=0;
+        }
+    }
+    return ans&gt;=k;
+}
+int solve(){
+    int l=0,r=n+1,ans=0;
+    while(l&lt;r){
+        int mid=l+r&gt;&gt;1;
+        if(check(mid)){
+            ans=max(ans,mid);
+            l=mid+1;
+        }else r=mid;
+    }
+    return ans;
+}
+signed main(){
+    scanf(&quot;%lld%lld&quot;,&amp;n,&amp;k);
+    for(int i=1;i&lt;=n;++i)scanf(&quot;%lld&quot;,&amp;a[i]);
+    init();
+    int ans=solve();
+    printf(&quot;%lld&quot;,ans);
+    return 0;
+}
+</code></pre>
+<h2 id="_5">康托展开</h2>
+<p>本质也是一种hash优化，这次的映射函数为cantor(k)。对于一个<strong>全排列</strong>,其康托展开为
+$$ cantor(k)=\sum_{k=n}^1 f(a[k])* (k-1)!$$
+f(a[k])指比a[k]小的，未出现的数的个数。
+例如34512值为61,所以是第62个。</p>
+<blockquote>
+<p>P1379</p>
+</blockquote>
+<p>因为总共的状态一共9!=362880种，且后进队的重复状态一定没有之前的界更优，所以直接剪枝bfs即可，用cantor(k)判断是否入队。</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;queue&gt;
+#define int long long 
+using namespace std;
+const int N=4e5+10;
+int tmp[3][3],d[3][3]={1,2,3,8,0,4,7,6,5};
+int dx[4]={1,0,-1,0},dy[4]={0,1,0,-1};
+int vis[9],vist[N];
+int l[10];
+int n,goal;
+struct node{
+    int v;
+    int step;
+    int d[3][3];
+    node(int vv,int s,int dd[3][3]){
+        v=vv;
+        step=s;
+        for(int i=0;i&lt;3;++i){
+            for(int j=0;j&lt;3;++j)d[i][j]=dd[i][j];
+        }
+    }
+};
+int cantor(int d[3][3]){//3x3-&gt;cantor
+    memset(vis,0,sizeof vis);
+    int ans=0;
+    for(int i=0;i&lt;3;++i){
+        for(int j=0;j&lt;3;++j){
+            int cnt=0;
+            for(int k=0;k&lt;d[i][j];++k)if(vis[k])cnt++;
+            ans+=(d[i][j]-cnt)*l[9-i*3-j-1];
+            vis[d[i][j]]=1;
+        }
+    }
+    return ans;
+}
+void get1(int n){//int-&gt;3x3
+    for(int i=2;i&gt;=0;--i){
+        for(int j=2;j&gt;=0;--j){
+            d[i][j]=n%10;
+            n/=10;
+        }
+    }
+    return;
+}
+void init(){
+    l[0]=l[1]=1;
+    for(int i=2;i&lt;=9;++i)l[i]=l[i-1]*i;
+    goal=cantor(d);
+    return;
+}
+int bfs(){
+    memset(vist,0,sizeof vist);
+    queue&lt;node&gt; q;
+    get1(n);
+    while(!q.empty())q.pop();
+    int a=cantor(d);
+    q.push(node(a,0,d));
+    vist[a]=1;
+    while(!q.empty()){
+        memcpy(d,q.front().d,sizeof q.front().d);
+        int step=q.front().step;
+        int a=cantor(d);
+        if(a==goal)return step;
+        int x=0,y=0;
+        for(int i=0;i&lt;3;++i){
+            for(int j=0;j&lt;3;++j){
+                if(d[i][j]==0){
+                    x=i,y=j;
+                    break;  
+                }
+            }
+        }
+        q.pop();
+        for(int i=0;i&lt;4;++i){
+            int xx=dx[i]+x,yy=y+dy[i];
+            if(xx&gt;=0 &amp;&amp; xx&lt;3 &amp;&amp; yy&gt;=0 &amp;&amp; yy&lt;3){
+                memcpy(tmp,d,sizeof d);
+                swap(tmp[x][y],tmp[xx][yy]);
+                int a=cantor(tmp);
+                if(a==goal)return step+1;
+                if(!vist[a]){
+                    vist[a]=1;
+                    q.push(node(a,step+1,tmp));
+                }
+            }
+        }
+    }
+    return -1;
+}
+signed main(){
+    init();
+    if(goal!=46685)goal=46685;
+    scanf(&quot;%lld&quot;,&amp;n);
+    printf(&quot;%lld&quot;,bfs());
+    return 0;
+}
+
+</code></pre></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script src="../../../js/bootstrap.bundle.min.js"></script>
+        <script>
+            var base_url = "../../..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../../../js/base.js"></script>
+        <script src="../../../search/main.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

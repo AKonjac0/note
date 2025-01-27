@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../../../img/favicon.ico">
+        <title>斜率优化dp - My Docs</title>
+        <link href="../../../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../../../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../../../css/brands.min.css" rel="stylesheet">
+        <link href="../../../css/solid.min.css" rel="stylesheet">
+        <link href="../../../css/v4-font-face.min.css" rel="stylesheet">
+        <link href="../../../css/base.css" rel="stylesheet">
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="../../..">My Docs</a>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+
+                    <ul class="nav navbar-nav ms-md-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-bs-level="1"><a href="#dp" class="nav-link">斜率优化dp</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-bs-level="1"><a href="#dp_1" class="nav-link">线段树优化dp</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="dp">斜率优化dp</h1>
+<p>1) 转移方程类似$f[i]=a[i]+b<a href="j&lt;=i">j</a>$的可以用单调队列维护$i$前面的一段合法区间的最值，从而将$O(n^2)$的转移优化到$O(n)$</p>
+<p>2) 转移方程类似$f[i]=a[i]* b[j]+c[i]+d[j]$就不能只是单调队列优化了，我们需要单调队列+斜率优化</p>
+<p>先来一道例题会比较好理解</p>
+<blockquote>
+<p>P3195</p>
+</blockquote>
+<p>经典斜率优化。
+$$</p>
+<p>转移方程为f[i]=f[j]+(i-j-1+s[i]-s[j]-L)\s[i]表示前缀和。\</p>
+<p>设a(i)=s[i]+i,b(i)=a(i)+L+1\那么原式变为f[i]=f[j]+(a(i)-b(j))^2\
+移项得\</p>
+<p>2a(i)* b(j) +f[i]-a(i)^2=f[j]+b(j)^2\</p>
+<p>那么可以看成k=2a(i),x=b(j),y=(f[j]+b(j)^2),b=f[i]-a(i)^2的直线y=kx+b
+$$</p>
+<p>对于每个直线（1~n）,都有斜率$2a(i)$单调递增，而我们要求截距$f[i]-a(i)^2$的最小值，也就是当我们维护一个下凸包时，直线的斜率刚好满足$slope(P_{j},P_{j+1})&gt;k$时的点$j$即为我们要的$f[j]$（可以理解为相切）</p>
+<p>因此用单调队列维护下凸包上的点。</p>
+<p>1) $slope(P_{head},P_{head+1}\leq k):++head$,弹出前端的点，因为不"相切"</p>
+<p>2) $slope(P_{tail-1},P_i)&lt;slope(P_{tail-1},P_{tail}):--tail$,说明$P_{tail}$不再是凸包上的点，不需要就弹出</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt; 
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#define int long long 
+using namespace std;
+typedef double db;
+const int N=5e4+10;
+int C[N],s[N],q[N];
+int n,L,head,tail;
+db f[N];
+db a(int i){
+    return (db)(s[i]+i);
+}
+db b(int i){
+    return (db)(s[i]+i+L+1);
+}
+db slope(int u,int v){
+    db yu=f[u]+b(u)*b(u),yv=f[v]+b(v)*b(v),xu=b(u),xv=b(v);
+    return (yu-yv)/(xu-xv);
+}
+void dp(){
+    head=tail=1;
+    q[head]=0;
+    for(int i=1;i&lt;=n;++i){
+        while(head&lt;tail &amp;&amp; slope(q[head],q[head+1])&lt; 2*a(i)) ++head;
+        f[i]=f[q[head]]+(a(i)-b(q[head]))*(a(i)-b(q[head]));
+        while(head&lt;tail &amp;&amp; slope(q[tail-1],q[tail])&gt;slope(q[tail-1],i)) --tail;
+        q[++tail]=i;    
+    }
+    printf(&quot;%lld&quot;,(long long)(f[n]));
+}
+signed main(){
+    scanf(&quot;%lld%lld&quot;,&amp;n,&amp;L);
+    for(int i=1;i&lt;=n;++i) scanf(&quot;%lld&quot;,&amp;C[i]),s[i]=s[i-1]+C[i];
+    dp();
+    return 0;
+}
+
+
+</code></pre>
+<h1 id="dp_1">线段树优化dp</h1>
+<blockquote>
+<p>P1295 &amp; P1848</p>
+</blockquote>
+<p>相同类型的题,就只讲P1295吧，还简单一点。</p>
+<p>暴力$O(n^2)$转移：$f[i]=f[j]+(\max_{k=j+1}^ih_k)(\sum_{k=j+1}^ih_k\leq m)$</p>
+<p>对于每个点，可以首先$O(n\log n)$二分求出它最靠左且满足长度$\leq m$的端点位置$prelen[i]$,还有$O(n)$单调栈求出前一个比他大的数的位置
+$premax[i]$.</p>
+<p>然后，对于当前点$i$，我们需要将前$i-1$个点的$f[i]$加上$i$产生的"贡献"后取最小，求出$f[i]$.</p>
+<p>所以，我们需要在求$f[k]$之前在$k$的位置单点修改$f[k-1]$,表示如果取$[k,i]$这段区间的话要加上$f[k-1]$.</p>
+<p>然后就是常见的操作，对于所有大于$h[i]$的点是没有影响的，所以将$[premax[i],i]$修改为$h[i]$.</p>
+<p>最后，查询$[prelen[i],i]$这段区间的最小值即可。</p>
+<p>显然这个过程可以用线段树维护。</p>
+<p>注意$f$是单点修改，不需要$tag$,而$ans$需要用$tag+f$得到。</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;algorithm&gt;
+#include&lt;stack&gt;
+#define int long long 
+#define ls i&lt;&lt;1
+#define rs i&lt;&lt;1|1
+#define mid (l+r&gt;&gt;1)
+using namespace std;
+typedef pair&lt;int,int&gt; PI;
+const int N=1e5+10,INF=1e18;
+int n,m;
+int a[N],premax[N],prelen[N],s[N],f[N];
+struct tree{
+    int tag,l,r,f,ans;
+}tre[N&lt;&lt;2];
+void init(){
+    stack&lt;PI&gt; q;
+    for(int i=1;i&lt;=n;++i){
+        int pos=lower_bound(s,s+n+1,s[i]-m)-s+1;prelen[i]=pos;
+    }
+    for(int i=1;i&lt;=n;++i){
+        while(!q.empty() &amp;&amp; q.top().first&lt;a[i])q.pop();
+        premax[i]=q.empty()?1:q.top().second+1;q.push(make_pair(a[i],i));
+    }
+}
+void pushup(int i){
+    tre[i].f=min(tre[ls].f,tre[rs].f);
+    tre[i].ans=min(tre[ls].ans,tre[rs].ans);
+}
+void build(int i,int l,int r){
+    tre[i].l=l,tre[i].r=r,tre[i].tag=0,tre[i].f=INF,tre[i].ans=INF;
+    if(l==r)return;
+    build(ls,l,mid);
+    build(rs,mid+1,r);
+    pushup(i);  
+}
+void pushdown(int i){
+    int k=tre[i].tag;
+    if(!k)return;
+    tre[ls].tag=k,tre[ls].ans=tre[ls].f+k;
+    tre[rs].tag=k,tre[rs].ans=tre[rs].f+k;
+    tre[i].tag=0;
+}
+void add(int i,int pos,int k){
+    int l=tre[i].l,r=tre[i].r;
+    if(l==r){
+        tre[i].f=k;return;
+    }
+    pushdown(i);
+    if(pos&lt;=mid)add(ls,pos,k);
+    else add(rs,pos,k);
+    pushup(i);
+}
+void change(int i,int el,int er,int k){
+    int l=tre[i].l,r=tre[i].r;
+    if(el&lt;=l &amp;&amp; r&lt;=er){
+        tre[i].ans=tre[i].f+k,tre[i].tag=k;
+        return;
+    }
+    pushdown(i);
+    if(el&lt;=mid)change(ls,el,er,k);
+    if(er&gt;mid)change(rs,el,er,k);
+    pushup(i);
+}
+int query(int i,int el,int er){
+    int l=tre[i].l,r=tre[i].r;
+    if(el&lt;=l &amp;&amp; r&lt;=er) return tre[i].ans;
+    pushdown(i);
+    int ans=INF;
+    if(el&lt;=mid)ans=min(ans,query(ls,el,er));    
+    if(er&gt;mid)ans=min(ans,query(rs,el,er));
+    return ans;
+}
+
+signed main(){
+    scanf(&quot;%lld%lld&quot;,&amp;n,&amp;m);
+    for(int i=1;i&lt;=n;++i)scanf(&quot;%lld&quot;,&amp;a[i]),s[i]=s[i-1]+a[i];
+    build(1,1,n);
+    init();
+    for(int i=1;i&lt;=n;++i){
+        add(1,i,f[i-1]);
+        if(premax[i]&lt;=i)change(1,premax[i],i,a[i]);
+        if(prelen[i]&lt;=i)f[i]=query(1,prelen[i],i);
+    }
+    printf(&quot;%lld&quot;,f[n]);    
+    return 0;
+}
+/*
+4 9
+1 6 3 5 1
+*/
+</code></pre>
+<ul>
+<li>结论：线段树优化的题一般特点是连续取一点区间，再加上之前的贡献更新$f[i]$</li>
+</ul>
+<blockquote>
+<p>CF833B</p>
+</blockquote>
+<p>常见离线操作，对于$a[i]$只对它前一次出现的位置之后有影响。</p>
+<p>而对于那个$k$段，可以每次建一次树，树中初始为$f[l-1][k-1]$。</p>
+<p>然后就是标准线段树优化。</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#define ls i&lt;&lt;1
+#define rs i&lt;&lt;1|1
+#define int long long 
+using namespace std;
+const int N=4e4+10,K=55;
+int f[K][N],pos[N],pre[N],tre[N&lt;&lt;2],tag[N&lt;&lt;2];
+int n,k,t;
+void pushup(int i){
+    tre[i]=max(tre[ls],tre[rs]);
+}
+void pushdown(int i,int l,int r){
+    int k=tag[i];
+    if(!k)return;
+    tag[ls]+=k;tag[rs]+=k;tre[ls]+=k;tre[rs]+=k;
+    tag[i]=0;   
+}
+void build(int i,int l,int r,int now){
+    tag[i]=0;
+    if(l==r){
+        tre[i]=f[now][l-1];
+        return;
+    }
+    int mid=(l+r)&gt;&gt;1;
+    build(ls,l,mid,now);
+    build(rs,mid+1,r,now);
+    pushup(i);
+}
+void change(int i,int l,int r,int el,int er,int k){
+    if(el&lt;=l &amp;&amp; r&lt;=er){
+        tag[i]+=k;tre[i]+=k;
+        return;
+    }
+    pushdown(i,l,r);
+    int mid=(l+r)&gt;&gt;1;
+    if(el&lt;=mid) change(ls,l,mid,el,er,k);
+    if(er&gt;mid) change(rs,mid+1,r,el,er,k);
+    pushup(i);
+}
+int query(int i,int l,int r,int el,int er){
+    if(el&lt;=l &amp;&amp; r&lt;=er) return tre[i];
+    pushdown(i,l,r);
+    int mid=(l+r)&gt;&gt;1,ans=0;
+    if(el&lt;=mid)ans=max(ans,query(ls,l,mid,el,er));
+    if(er&gt;mid)ans=max(ans,query(rs,mid+1,r,el,er));
+    return ans;
+}
+signed main(){
+    scanf(&quot;%lld%lld&quot;,&amp;n,&amp;k);
+    for(int i=1;i&lt;=n;++i)scanf(&quot;%lld&quot;,&amp;t),pre[i]=pos[t]+1,pos[t]=i;
+    for(int i=1;i&lt;=k;++i){
+        build(1,1,n,i-1);
+        for(int j=1;j&lt;=n;++j){
+            change(1,1,n,pre[j],j,1);
+            f[i][j]=query(1,1,n,1,j);
+        }
+    }
+    printf(&quot;%lld&quot;,f[k][n]);
+}
+</code></pre></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script src="../../../js/bootstrap.bundle.min.js"></script>
+        <script>
+            var base_url = "../../..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../../../js/base.js"></script>
+        <script src="../../../search/main.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

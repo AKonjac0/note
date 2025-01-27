@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../../../img/favicon.ico">
+        <title>缩点 - My Docs</title>
+        <link href="../../../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../../../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../../../css/brands.min.css" rel="stylesheet">
+        <link href="../../../css/solid.min.css" rel="stylesheet">
+        <link href="../../../css/v4-font-face.min.css" rel="stylesheet">
+        <link href="../../../css/base.css" rel="stylesheet">
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="../../..">My Docs</a>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+
+                    <ul class="nav navbar-nav ms-md-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-bs-level="1"><a href="#_1" class="nav-link">缩点</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="2"><a href="#_2" class="nav-link">模板</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-bs-level="1"><a href="#tarjan" class="nav-link">tarjan求割点</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="_1">缩点</h1>
+<p>主要作用：将有向有环图变成有向无环图（DAG）</p>
+<p>整体思路就是dfs，再搜索树中判断环。</p>
+<p>有两种指向已经搜索过的点的边，一种是返祖边，即指向自己的祖先节点；
+一种是横叉边，即指向自己的非祖先节点。可以证明只有返祖边会产生环。</p>
+<p>所以用栈维护当前的搜索链，开两个数组dfn和low维护。只要找到返祖便就退栈到祖先，并将所有点作为一个强连通分量。否则就无视，在回溯是将单个点作为强连通分量。</p>
+<p><img alt="" src="data:image/png;base64,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" /></p>
+<h2 id="_2">模板</h2>
+<pre><code class="language-cpp">void tarjan(int u){
+    dfn[u]=low[u]=++tot;//low[u]值默认为dfn[u],后面再更新
+    stk[++top]=u;//进栈打标记
+    vis[u]=1;
+    for(int i=head[u];~i;i=e[i].nxt){
+        int v=e[i].v;
+        if(!dfn[v]){
+            tarjan(v);
+            low[u]=min(low[u],low[v]);//这一步是为了更新那些再环中的点，如上图的6，7
+        }else{
+            if(vis[v])low[u]=min(low[u],dfn[v]);//返祖边，找到了环，那就将low[u]更新为当前根节点。
+
+        //横叉边如5-&gt;4直接忽略
+        }
+    }
+  //注意只有自己是根才退栈，否则要保留栈中信息。
+
+    if(dfn[u]==low[u]){//如果自己只能回溯到自己，说明自己是强连通分量中的根节点，就退栈到自己，将所有点所称一个点。
+        ++nod;
+        while(1){
+            ans[stk[top]]=nod;
+            vis[stk[top]]=0;//去除标记
+            if(stk[top--]==u)break;
+        }
+    }
+}
+int main(){
+    memset(dfn,0,sizeof dfn);
+   memset(low,0,sizeof low);
+   memset(vis,0,sizeof vis);
+   for(int i=1;i&lt;=n;++i){
+        if(!dfn[i])tarjan(i);
+   }
+
+}
+</code></pre>
+<blockquote>
+<p>P3387 &amp; P3627</p>
+</blockquote>
+<p>两道题差不多，一个是先缩点，再根据拓扑排序的顺序取dp，这样保证无后效性，最后输出所有点中贡献最大的值；</p>
+<p>一个是缩完点后，从新的起点取用SPFA求最长路，最后再酒吧中招最长的就行。</p>
+<p>~~太简单不放代码了~~</p>
+<blockquote>
+<p>P1262</p>
+</blockquote>
+<p>将所有的环缩成一个点，并且得到新的点的代价就是环内所有点的最小价钱。</p>
+<p>那么必须贿赂的就是入度为零的点，如果无法贿赂就无解。</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+using namespace std;
+const int N=3010,M=8010,P=20000;
+int n,m,p,cnt,top,tot,nod;
+int a[N],w[N],head[N],dfn[N],low[N],vis[N],stk[N],ans[N],ind[N];
+struct query{
+    int u,v;
+}q[M];
+struct edge{
+    int v,nxt;
+}e[M&lt;&lt;1];
+void add(int u,int v){
+    e[++cnt].v=v;
+    e[cnt].nxt=head[u];
+    head[u]=cnt;
+}
+void tarjan(int u){
+    dfn[u]=low[u]=++tot;
+    stk[++top]=u;
+    vis[u]=1;
+    for(int i=head[u];~i;i=e[i].nxt){
+        int v=e[i].v;
+        if(!dfn[v]){
+            tarjan(v);
+            low[u]=min(low[u],low[v]);
+        }else{
+            if(vis[v])low[u]=min(low[u],dfn[v]);
+        }
+    }
+    if(dfn[u]==low[u]){
+        ++nod;
+        while(1){
+            ans[stk[top]]=nod;
+            vis[stk[top]]=0;
+            if(stk[top--]==u)break;
+        }
+    }
+}
+int main(){
+    memset(head,-1,sizeof head);
+    cnt=-1;
+    memset(w,0x3f,sizeof w);
+    memset(a,0x3f,sizeof a);
+    scanf(&quot;%d%d&quot;,&amp;n,&amp;p);
+    for(int i=1,tmp,pos;i&lt;=p;++i)scanf(&quot;%d%d&quot;,&amp;pos,&amp;tmp),a[pos]=tmp;
+    scanf(&quot;%d&quot;,&amp;m);
+    for(int i=1;i&lt;=m;++i){
+        scanf(&quot;%d%d&quot;,&amp;q[i].u,&amp;q[i].v);
+        add(q[i].u,q[i].v);
+    }
+    memset(vis,0,sizeof vis);
+    for(int i=1;i&lt;=n;++i)if(!dfn[i])tarjan(i);
+
+    for(int i=1;i&lt;=n;++i){
+        w[ans[i]]=min(w[ans[i]],a[i]);
+    }
+
+    for(int i=1;i&lt;=m;++i){
+        int uu=ans[q[i].u],vv=ans[q[i].v];
+        if(uu==vv)continue;
+        ind[vv]++;
+    }
+    memset(vis,0,sizeof vis);
+    int res=0;
+    bool flag=true;
+    for(int i=1;i&lt;=nod;++i){
+        if(!ind[i]){
+            if(w[i]&lt;=P){
+                res+=w[i];  
+            }else{
+                vis[i]=1;
+                flag=false;
+            }
+        }
+    }
+    if(flag){
+        printf(&quot;YES\n%d&quot;,res);
+    }else{
+        int minn=N+N;
+        for(int i=1;i&lt;=n;++i){
+            if(vis[ans[i]])minn=min(minn,i);
+        }
+        printf(&quot;NO\n%d&quot;,minn);
+    }
+    return 0;
+} 
+/*
+7
+6
+5 100
+1 99
+2 98
+3 101
+4 102
+7 200
+7
+5 1
+1 2
+2 6
+1 4
+4 5
+2 3 
+3 1
+*/
+
+</code></pre>
+<h1 id="tarjan">tarjan求割点</h1>
+<p>同样是利用$low$和$dfn$数组。</p>
+<p>对于tarjan的一次搜索，由于不会到$dfn$数组不为0的点继续搜索，因此，整个过程形成一颗搜索树。对这个搜索树中，可能为割点有2种情况:</p>
+<ol>
+<li>根节点，且儿子大于等于2</li>
+<li>$dfn[u]\leq low[v]$的点。</li>
+</ol>
+<p>因为$v$可能回溯到的最靠前的点都大于$u$，说明$v$不能通过除了$u$以外的点与剩余比$dfn[u]$小的点联通，所以$u$是割点。</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstring&gt;
+using namespace std;
+const int N=2e4+10,M=1e5+10;
+struct edge{
+    int v,nxt;
+}e[M&lt;&lt;1];
+int n,m,u,v,tot,cnt;
+int dfn[N],low[N],cut[N],head[N];
+void add(int u,int v){
+    e[++cnt].v=v,e[cnt].nxt=head[u],head[u]=cnt;
+}
+
+void tarjan(int u,int p){
+    dfn[u]=low[u]=++tot;
+    int son=0;
+    for(int i=head[u];~i;i=e[i].nxt){
+        int v=e[i].v;
+        if(!dfn[v]){
+            tarjan(v,p);
+            low[u]=min(low[u],low[v]);
+            if(low[v]&gt;=dfn[u] &amp;&amp; u!=p) cut[u]=1; 
+            if(u==p) ++son; 
+        }else low[u]=min(low[u],dfn[v]);
+    }
+    if(son&gt;=2 &amp;&amp; u==p) cut[u]=1;
+}
+int main(){
+    memset(head,-1,sizeof head);
+    cnt=-1;
+    scanf(&quot;%d%d&quot;,&amp;n,&amp;m);
+    for(int i=1;i&lt;=m;++i){
+        scanf(&quot;%d%d&quot;,&amp;u,&amp;v);
+        add(u,v),add(v,u);
+    }
+    for(int i=1;i&lt;=n;++i){
+        if(!dfn[i]) tarjan(i,i);
+    }
+    int ans=0;
+    for(int i=1;i&lt;=n;++i){
+        if(cut[i]) ++ans;
+    }
+    printf(&quot;%d\n&quot;,ans);
+    for(int i=1;i&lt;=n;++i){
+        if(cut[i]) printf(&quot;%d &quot;,i);
+    }
+    return 0;
+} 
+</code></pre>
+<blockquote>
+<p>P3469</p>
+</blockquote>
+<p>由于搜索时一棵树，所以可以维护$sz$数组。答案即为$\sum sz[v]*(n-sz[v])$，$sz[v]$可以在搜索中得到。</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstring&gt;
+#define int long long
+using namespace std;
+const int N=1e5+10,M=5e5+10;
+struct edge{
+    int v,nxt;
+}e[M&lt;&lt;1];
+int head[N],dfn[N],low[N],sz[N],ans[N];
+int cnt,n,m,u,v,tot;
+void add(int u,int v){
+    e[++cnt].v=v,e[cnt].nxt=head[u],head[u]=cnt;
+}
+void tarjan(int u){
+    dfn[u]=low[u]=++tot;
+    int r=n-1;
+    sz[u]=1;ans[u]=r;
+    for(int i=head[u];~i;i=e[i].nxt){
+        int v=e[i].v;
+        if(!dfn[v]){
+            tarjan(v),sz[u]+=sz[v],low[u]=min(low[u],low[v]);
+            if(low[v]&gt;=dfn[u]) ans[u]+=sz[v]*(n-sz[v]),r-=sz[v];
+        }else low[u]=min(low[u],dfn[v]);
+    }
+    ans[u]+=r*(n-r);
+}
+signed main(){
+    memset(head,-1,sizeof head);
+    cnt=-1;
+    scanf(&quot;%lld%lld&quot;,&amp;n,&amp;m);
+    for(int i=1;i&lt;=m;++i){
+        scanf(&quot;%lld%lld&quot;,&amp;u,&amp;v);
+        add(u,v),add(v,u);
+    }
+    tarjan(1);
+    for(int i=1;i&lt;=n;++i){
+        printf(&quot;%lld\n&quot;,ans[i]);
+    }
+    return 0;
+} 
+
+</code></pre></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script src="../../../js/bootstrap.bundle.min.js"></script>
+        <script>
+            var base_url = "../../..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../../../js/base.js"></script>
+        <script src="../../../search/main.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

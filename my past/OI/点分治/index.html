@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../../../img/favicon.ico">
+        <title>点分治 - My Docs</title>
+        <link href="../../../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../../../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../../../css/brands.min.css" rel="stylesheet">
+        <link href="../../../css/solid.min.css" rel="stylesheet">
+        <link href="../../../css/v4-font-face.min.css" rel="stylesheet">
+        <link href="../../../css/base.css" rel="stylesheet">
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="../../..">My Docs</a>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+
+                    <ul class="nav navbar-nav ms-md-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-bs-level="1"><a href="#_1" class="nav-link">点分治</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="2"><a href="#_2" class="nav-link">主要思想</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="_1">点分治</h1>
+<h2 id="_2">主要思想</h2>
+<p>因为分治后，我们希望层数尽量小，也就是选择所有子树尽量平衡的点。所以，我们贪心的取重心。可以证明，因为重心的子树不超过$\frac n2$,所以层数不超过$O(\log_2n)$</p>
+<p>那么对于每一层的每个重心，我们需要求出当前重心所在子树的所有距离，可以用桶记录；而统计点对时，这里面包括了两个点在同一颗子树的情况(不是一条简单路径)，那么我们运用容斥原理，减去分裂出的子树中的贡献即可。</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+using namespace std;
+const int N=2e4+10,K=2e6+10;
+int ans[K],dis[N],head[N],sz[N],vis[N],maxp[N],d[N];
+int n,m,cnt,u,v,w,k,tot;
+struct node{
+    int v,w,nxt;
+}e[N&lt;&lt;1];
+void add(int u,int v,int w){
+    e[++cnt].v=v,e[cnt].w=w,e[cnt].nxt=head[u],head[u]=cnt;
+}
+void __dfs(int u,int p){
+    sz[u]=1;
+    for(int i=head[u];~i;i=e[i].nxt){
+        int v=e[i].v,w=e[i].w;
+        if(v==p || vis[v])continue;
+        __dfs(v,u);
+        sz[u]+=sz[v];
+    }
+}
+void dfs(int u,int p,int S,int &amp;rt,int &amp;tmp){
+    maxp[u]=0;
+    for(int i=head[u];~i;i=e[i].nxt){
+        int v=e[i].v,w=e[i].w;
+        if(v==p || vis[v])continue;
+        dfs(v,u,S,rt,tmp);
+        maxp[u]=max(maxp[u],sz[v]);
+    }
+    maxp[u]=max(maxp[u],S-sz[u]);
+    if(maxp[u]&lt;tmp) tmp=maxp[u],rt=u;
+}
+void _dfs(int u,int p){
+    d[++tot]=dis[u];
+    for(int i=head[u];~i;i=e[i].nxt){
+        int v=e[i].v,w=e[i].w;
+        if(v==p || vis[v])continue;
+        dis[v]=dis[u]+w;
+        _dfs(v,u); 
+    }
+}
+void solve(int u,int len,int t){
+    dis[u]=len;tot=0;
+    _dfs(u,0);
+    for(int i=1;i&lt;=tot;++i)
+        for(int j=1;j&lt;=tot;++j)
+            if(i!=j &amp;&amp; d[i]+d[j]&lt;K) ans[d[i]+d[j]]+=t;
+}
+void div(int u){
+    solve(u,0,1);vis[u]=1;
+    for(int i=head[u];~i;i=e[i].nxt){
+        int v=e[i].v,w=e[i].w;
+        if(vis[v])continue;
+        solve(v,w,-1);
+        int rt=0,tmp=K;
+        __dfs(v,u);
+        dfs(v,u,sz[u],rt,tmp);
+        div(rt);
+    }
+}
+int main(){
+    memset(head,-1,sizeof head);cnt=-1;
+    scanf(&quot;%d%d&quot;,&amp;n,&amp;m);
+    for(int i=1;i&lt;n;++i) scanf(&quot;%d%d%d&quot;,&amp;u,&amp;v,&amp;w),add(u,v,w),add(v,u,w);
+    int rt=0,tmp=K;
+    __dfs(1,0);
+    dfs(1,0,n,rt,tmp);
+    div(rt);
+    for(int i=1;i&lt;=m;++i){
+        scanf(&quot;%d&quot;,&amp;k);
+        if(ans[k]&gt;0 || k==0) printf(&quot;Yes\n&quot;);
+        else printf(&quot;No\n&quot;);
+    }
+    //for(int i=0;i&lt;=10;++i) cout&lt;&lt;ans[i]&lt;&lt;&quot; &quot;;
+
+    return 0;
+} 
+</code></pre>
+<p>~~然后你会发现，bzoj1316:Accepted,luoguP3806:Time Limit Exceeded~~</p>
+<p>下面是常见的问题.</p>
+<p>1) 有关错误的求重心对复杂度的影响</p>
+<p>每次求中心之前一定要先$dfs$一遍整颗子树，求出大小后再用这个节点数取更新重心。不然可能会出现这样的情况：</p>
+<pre><code class="language-cpp">//对于这样一颗树
+11//n
+6 7 1//u v w
+6 8 1
+7 9 1
+7 10 1
+8 11 1
+1 2 1
+1 3 1
+2 4 1
+2 5 1
+3 6 1
+</code></pre>
+<p>在分治到$6$号点时，因为此时$sz[3]=7$,所以求出的重心为$1$；而事实上$sz[3]=5$，求出重心为$2$.</p>
+<p>2) 有关常规做法错误的复杂度</p>
+<p>本来分治的层数是严格小于$O(\log n)$这个上界的，每一层最多遍历一遍所有节点，所以复杂度$O(n\log n)$.<strong>但是</strong>,朴素的统计有个$O(n^2)$的统计，对于菊花图这样子节点巨多的数据<strong>一定会T</strong>.所以，我们可以采用双指针的方式统计。</p>
+<p>先$dfs$一边求出当前子树中节点深度$d[i]$,所有节点标号$a[i]$,以及节点处在哪个子树中$b[i]$。</p>
+<p>对于深度从小到大排序(不要忘记加入重心$u$),然后对于不同的询问，$l=1,r=tot$地扫一遍，注意要满足$b[a[l]]\not=b[a[r]]$,去掉了容斥。分治+排序复杂度$O(n\log^2n)$，分治+双指针复杂度$O(nm\log n)$,总$O(n\log^2n + nm\log n)$</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;algorithm&gt;
+using namespace std;
+const int N=1e4+10,K=1e7+10;
+int query[N],head[N],sz[N],vis[N],maxp[N],d[N],a[N],b[N];
+int n,m,cnt,u,v,w,k,tot;
+bool ans[K];
+bool cmp(int x,int y){
+    return d[x]&lt;d[y];
+}
+struct node{
+    int v,w,nxt;
+}e[N&lt;&lt;1];
+void add(int u,int v,int w){
+    e[++cnt].v=v,e[cnt].w=w,e[cnt].nxt=head[u],head[u]=cnt;
+}
+void __dfs(int u,int p){
+    sz[u]=1;
+    for(int i=head[u];~i;i=e[i].nxt){
+        int v=e[i].v,w=e[i].w;
+        if(v==p || vis[v])continue;
+        __dfs(v,u);
+        sz[u]+=sz[v];
+    }
+}
+void dfs(int u,int p,int S,int &amp;rt,int &amp;tmp){
+    maxp[u]=0;
+    for(int i=head[u];~i;i=e[i].nxt){
+        int v=e[i].v,w=e[i].w;
+        if(v==p || vis[v])continue;
+        dfs(v,u,S,rt,tmp);
+        maxp[u]=max(maxp[u],sz[v]);
+    }
+    maxp[u]=max(maxp[u],S-sz[u]);
+    if(maxp[u]&lt;tmp) tmp=maxp[u],rt=u;
+}
+void _dfs(int u,int p,int dis,int P){
+    a[++tot]=u;d[u]=dis;b[u]=P;
+    for(int i=head[u];~i;i=e[i].nxt){
+        int v=e[i].v,w=e[i].w;
+        if(v==p || vis[v])continue;
+        _dfs(v,u,dis+w,P); 
+    }
+}
+void solve(int u){
+    tot=0;
+    a[++tot]=u;
+    b[u]=u;d[u]=0;
+    for(int i=head[u];~i;i=e[i].nxt){
+        int v=e[i].v,w=e[i].w;
+        if(vis[v])continue;
+        _dfs(v,u,w,v);  
+    }
+    sort(a+1,a+tot+1,cmp);
+    for(int i=1;i&lt;=m;++i){
+        int l=1,r=tot;
+        if(ans[i]) continue;
+        while(l&lt;r){
+            //cout&lt;&lt;u&lt;&lt;&quot; &quot;&lt;&lt;i&lt;&lt;&quot;: &quot;&lt;&lt;a[l]&lt;&lt;&quot; &quot;&lt;&lt;a[r]&lt;&lt;&quot; &quot;&lt;&lt;d[a[l]]&lt;&lt;&quot; &quot;&lt;&lt;d[a[r]]&lt;&lt;endl;
+            if(d[a[l]]+d[a[r]]&gt;query[i]) --r;
+            else if(d[a[l]]+d[a[r]]&lt;query[i]) ++l;
+            else if(b[a[l]]==b[a[r]]){
+                if(d[a[r]]==d[a[r-1]]) --r;
+                else ++l;
+            } 
+            else {
+                ans[i]=1;break;
+            }
+        }
+    }
+}
+void div(int u){
+    vis[u]=1;solve(u);
+    for(int i=head[u];~i;i=e[i].nxt){
+        int v=e[i].v,w=e[i].w;
+        if(vis[v])continue;
+        int rt=0,tmp=K;
+        __dfs(v,u);
+        dfs(v,u,sz[v],rt,tmp);
+        div(rt);
+    }
+}
+int main(){
+    memset(head,-1,sizeof head);cnt=-1;
+    scanf(&quot;%d%d&quot;,&amp;n,&amp;m);
+    for(int i=1;i&lt;n;++i) scanf(&quot;%d%d%d&quot;,&amp;u,&amp;v,&amp;w),add(u,v,w),add(v,u,w);
+    for(int i=1;i&lt;=m;++i){
+        scanf(&quot;%d&quot;,&amp;query[i]);
+        if(!query[i]) ans[i]=1;
+    }
+    int rt=0,tmp=K;
+    __dfs(1,0);
+    dfs(1,0,sz[1],rt,tmp);
+    div(rt);
+    for(int i=1;i&lt;=m;++i){
+        if(ans[i]) printf(&quot;AYE\n&quot;);
+        else printf(&quot;NAY\n&quot;);
+    }
+    return 0;
+} 
+
+/*
+7 1
+1 6 13 
+6 3 9 
+3 5 7 
+4 1 3 
+2 4 20 
+4 7 2 
+10
+
+6 4
+1 2 5
+1 3 7
+1 4 1
+3 5 2
+3 6 3
+0
+8
+13
+14
+
+
+11 1
+6 7 1
+6 8 1
+7 9 1
+7 10 1
+8 11 1
+1 2 1
+1 3 1
+2 4 1
+2 5 1
+3 6 1
+2
+*/
+
+</code></pre>
+<p>...然而，容斥真的毫无用武之地吗？</p>
+<blockquote>
+<p>P4178</p>
+</blockquote>
+<p>这道题只有一个询问，然而却变成$\leq k$地点对数量。这时我们就可以用容斥。当然，双指针是必需的。</p>
+<p>对于每次分治计算时，还是将$a[i]$按照$d[a[i]]$排序.然后，双指针$l=1,r=tot$从两头向中间扫。每次满足$d[a[l]]+d[a[r]]&lt;=k$时就$ans+=r-l$.而这些重复的点对用容斥即可解决。</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;algorithm&gt;
+using namespace std;
+const int N=4e4+10,K=2e4+10,INF=1e8+10;
+struct edge{
+    int v,w,nxt;
+}e[N&lt;&lt;1];
+int head[N],sz[N],vis[N],maxp[N],a[N],b[N],d[N];
+int cnt,n,u,v,w,tot,ans,k;
+bool cmp(int x,int y){
+    return d[x]&lt;d[y];
+}
+void add(int u,int v,int w){
+    e[++cnt].v=v,e[cnt].w=w,e[cnt].nxt=head[u],head[u]=cnt;
+}
+void get_size(int u,int p){
+    sz[u]=1;
+    for(int i=head[u];~i;i=e[i].nxt){
+        int v=e[i].v,w=e[i].w;
+        if(v==p || vis[v])continue;
+        get_size(v,u);
+        sz[u]+=sz[v];
+    }
+}
+void get_root(int u,int p,int S,int &amp;rt,int &amp;tmp){
+    maxp[u]=0;
+    for(int i=head[u];~i;i=e[i].nxt){
+        int v=e[i].v,w=e[i].w;
+        if(v==p || vis[v])continue;
+        get_root(v,u,S,rt,tmp);
+        maxp[u]=max(maxp[u],sz[v]);
+    }
+    maxp[u]=max(maxp[u],S-sz[u]);
+    if(maxp[u]&lt;tmp) tmp=maxp[u],rt=u;
+}
+void get_dis(int u,int p,int dis){
+    a[++tot]=u;
+    d[u]=dis;
+    for(int i=head[u];~i;i=e[i].nxt){
+        int v=e[i].v,w=e[i].w;
+        if(v==p || vis[v])continue;
+        get_dis(v,u,dis+w);
+    }
+}
+int calc(int u,int len){
+    tot=0;get_dis(u,0,len);
+    sort(a+1,a+tot+1,cmp);
+    int l=1,r=tot,res=0;
+    while(l&lt;r){
+        while(d[a[l]]+d[a[r]]&gt;k &amp;&amp; l&lt;r) --r;
+        res+=r-l;
+        ++l;
+    }
+    return res;
+}
+void div(int u){
+    vis[u]=1;
+    ans+=calc(u,0);
+    for(int i=head[u];~i;i=e[i].nxt){
+        int v=e[i].v,w=e[i].w;
+        if(vis[v]) continue;
+        ans-=calc(v,w);
+        int rt=0,tmp=INF;
+        get_size(v,u);
+        get_root(v,u,sz[v],rt,tmp);
+        div(rt);
+    }
+}
+int main(){
+    memset(head,-1,sizeof head);cnt=-1;
+    scanf(&quot;%d&quot;,&amp;n);
+    for(int i=1;i&lt;n;++i) scanf(&quot;%d%d%d&quot;,&amp;u,&amp;v,&amp;w),add(u,v,w),add(v,u,w);
+    scanf(&quot;%d&quot;,&amp;k);ans=0;
+
+    int rt=0,tmp=INF;
+    get_size(1,0);
+    get_root(1,0,sz[1],rt,tmp);
+    div(rt);
+
+    printf(&quot;%d&quot;,ans);
+    return 0;
+}
+</code></pre>
+<blockquote>
+<p>P2634</p>
+</blockquote>
+<p>树形$dp$可能会更简单一些，不过点分治也可做。</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+using namespace std;
+const int N=2e4+10,INF=1e8+10;
+struct edge{
+    int v,w,nxt;
+}e[N&lt;&lt;1];
+int cnt,ans,n,u,v,w;
+int gcd(int a,int b){
+    if(a&lt;b) swap(a,b);
+    return !b?a:gcd(b,a%b);
+}
+int head[N],vis[N],sz[N],maxp[N],f[N],d[N];
+void add(int u,int v,int w){
+    e[++cnt].v=v,e[cnt].w=w,e[cnt].nxt=head[u],head[u]=cnt;
+}
+
+void get_size(int u,int p){
+    sz[u]=1;
+    for(int i=head[u];~i;i=e[i].nxt){
+        int v=e[i].v,w=e[i].w;
+        if(v==p || vis[v])continue;
+        get_size(v,u);
+        sz[u]+=sz[v];
+    }
+}
+void get_root(int u,int p,int S,int &amp;rt,int &amp;tmp){
+    maxp[u]=0;
+    for(int i=head[u];~i;i=e[i].nxt){
+        int v=e[i].v,w=e[i].w;
+        if(v==p || vis[v])continue;
+        get_root(v,u,S,rt,tmp);
+        maxp[u]=max(maxp[u],sz[v]);
+    }
+    maxp[u]=max(maxp[u],S-sz[u]);
+    if(maxp[u]&lt;tmp) tmp=maxp[u],rt=u;
+}
+void get_dis(int u,int p,int dis){
+    d[u]=dis%3;
+    ++f[d[u]];
+    for(int i=head[u];~i;i=e[i].nxt){
+        int v=e[i].v,w=e[i].w;
+        if(v==p || vis[v])continue;
+        get_dis(v,u,(dis+w)%3);
+    }
+}
+int calc(int u,int len){
+    f[0]=f[1]=f[2]=0;
+    get_dis(u,0,len);
+    return f[0]*f[0]+f[1]*f[2]*2;
+}
+void div(int u){
+    vis[u]=1;ans+=calc(u,0);
+    for(int i=head[u];~i;i=e[i].nxt){
+        int v=e[i].v,w=e[i].w;
+        if(vis[v]) continue;
+        ans-=calc(v,w);
+        int rt=0,tmp=INF;
+        get_size(v,u);
+        get_root(v,u,sz[v],rt,tmp);
+        div(rt);
+    }
+}
+int main(){
+    memset(head,-1,sizeof head);cnt=-1;
+    scanf(&quot;%d&quot;,&amp;n);
+    for(int i=1;i&lt;n;++i) scanf(&quot;%d%d%d&quot;,&amp;u,&amp;v,&amp;w),add(u,v,w),add(v,u,w);
+    int rt=0,tmp=INF;
+    get_size(1,0);
+    get_root(1,0,sz[1],rt,tmp);
+    div(rt);
+    int g=gcd(ans,n*n);
+    printf(&quot;%d/%d&quot;,ans/g,n*n/g);
+    return 0;
+}
+</code></pre>
+<blockquote>
+<p>P4149</p>
+</blockquote>
+<p>点分治的裸题，与P3806相似，也是用双指针维护一下即可。</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt; 
+#include&lt;cstring&gt;
+#include&lt;algorithm&gt;
+#define int long long 
+using namespace std;
+const int N=2e5+10,INF=1e14;
+
+int n,k,u,v,rt,tmp,minn,tot,cnt,w;
+int head[N],sz[N],vis[N],maxp[N],d[N],a[N],b[N],c[N];
+struct node{
+    int v,w,nxt;
+}e[N&lt;&lt;1];
+bool cmp(int x,int y){
+    return d[x]&lt;d[y];
+}
+void add(int u,int v,int w){
+    e[++cnt].v=v,e[cnt].w=w,e[cnt].nxt=head[u],head[u]=cnt;
+}
+void get_size(int u,int p){
+    sz[u]=1;
+    for(int i=head[u];~i;i=e[i].nxt){
+        int v=e[i].v,w=e[i].w;
+        if(v==p || vis[v])continue;
+        get_size(v,u);
+        sz[u]+=sz[v];
+    }
+}
+void get_dis(int u,int p,int dis,int dep,int P){
+    a[++tot]=u;d[u]=dis;b[u]=P;c[u]=dep;
+    for(int i=head[u];~i;i=e[i].nxt){
+        int v=e[i].v,w=e[i].w;
+        if(v==p || vis[v])continue;
+        get_dis(v,u,dis+w,dep+1,P);
+    }
+}
+void get_root(int u,int p,int S,int &amp;rt,int &amp;tmp){
+    maxp[u]=0;
+    for(int i=head[u];~i;i=e[i].nxt){
+        int v=e[i].v,w=e[i].w;
+        if(v==p || vis[v])continue;
+        get_root(v,u,S,rt,tmp);
+        maxp[u]=max(maxp[u],sz[v]);
+    }
+    maxp[u]=max(maxp[u],S-sz[u]);
+    if(maxp[u]&lt;tmp) tmp=maxp[u],rt=u;
+}
+void calc(int u){
+    tot=0;a[++tot]=u;d[u]=0;b[u]=u;c[u]=0;
+    for(int i=head[u];~i;i=e[i].nxt){
+        int v=e[i].v,w=e[i].w;
+        if(vis[v]) continue;
+        get_dis(v,u,w,1,v);
+    }
+    sort(a+1,a+tot+1,cmp);
+    int l=1,r=tot;
+    while(l&lt;r){
+        if(d[a[l]]+d[a[r]]&gt;k) --r;
+        else if(d[a[l]]+d[a[r]]&lt;k) ++l;
+        else{
+            if(b[a[l]]!=b[a[r]]) minn=min(minn,c[a[l]]+c[a[r]]);
+            if(d[a[r]]==d[a[r-1]]) --r;
+            else ++l;           
+        }
+    }
+}
+void div(int u){
+    vis[u]=1;calc(u);
+    for(int i=head[u];~i;i=e[i].nxt){
+        int v=e[i].v,w=e[i].w;
+        if(vis[v])continue;
+        rt=0,tmp=INF;
+        get_size(v,u);
+        get_root(v,u,sz[v],rt,tmp);
+        div(rt);
+    }
+    return;
+}
+signed main(){
+    memset(head,-1,sizeof head);cnt=-1;minn=INF;
+    scanf(&quot;%lld%lld&quot;,&amp;n,&amp;k);
+    for(int i=1;i&lt;n;++i) scanf(&quot;%lld%lld%lld&quot;,&amp;u,&amp;v,&amp;w),add(u+1,v+1,w),add(v+1,u+1,w);
+    rt=0,tmp=INF;
+    get_size(1,0);
+    get_root(1,0,sz[1],rt,tmp);
+    div(rt);
+
+    if(minn==INF) printf(&quot;-1&quot;);
+    else printf(&quot;%lld&quot;,minn);
+    return 0;
+}
+</code></pre>
+<p>~~然后你会发现，WA#7~~</p>
+<p>看了讨论区才明白，是排序出了问题，改成<code>return (d[x]==d[y])?c[x]&lt;c[y]:d[x]&lt;d[y]</code>就行了。</p>
+<p>考虑一个中间状态的$hack$数据。</p>
+<pre><code class="language-cpp">d: 3 3 ... 5 5
+c: 6 4 ... 7 3
+</code></pre>
+<p>那么我们会搜到的是$6+3,6+7,4+7$,却没有搜到$4+3$,所以出错了。</p>
+<p>说白了，在$d[i]$相等的情况下，指针不会回退，此时必须要将$c[i]$排序。</p></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script src="../../../js/bootstrap.bundle.min.js"></script>
+        <script>
+            var base_url = "../../..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../../../js/base.js"></script>
+        <script src="../../../search/main.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

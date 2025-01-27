@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../../../img/favicon.ico">
+        <title>高精度 - My Docs</title>
+        <link href="../../../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../../../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../../../css/brands.min.css" rel="stylesheet">
+        <link href="../../../css/solid.min.css" rel="stylesheet">
+        <link href="../../../css/v4-font-face.min.css" rel="stylesheet">
+        <link href="../../../css/base.css" rel="stylesheet">
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="../../..">My Docs</a>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+
+                    <ul class="nav navbar-nav ms-md-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-bs-level="1"><a href="#_1" class="nav-link">高精度</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="2"><a href="#__int128" class="nav-link">__int128</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#_2" class="nav-link">朴素高精度</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#_3" class="nav-link">压缩高精度</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="_1">高精度</h1>
+<p>~~我愿称之为史上最烦人的算法~~</p>
+<h2 id="__int128">__int128</h2>
+<p>~~虽然理论上只能在linux环境中用，不知道考试时CCF的老年机能不能编译通过，但洛谷是可以的~~</p>
+<p>本质就是一个128位的大整数，大约40位，对于小部分对高精度要求较$_ { 小} $的题是可以用的，省事。</p>
+<p>gcc中官方给出的__int128有两种,为</p>
+<pre><code class="language-cpp">__int128_t a=10000000000000L;
+__uint128_t b=200000000000000L;
+//__int128 c=100000000000L
+a*=b;//long long 溢出，但__int128不会
+</code></pre>
+<p>~~事实上__int128和__int128_t都能用~~</p>
+<p>运算的话，同样支持取反，异或，位移，加减乘除等。
+就是输入输出要用快写快读</p>
+<pre><code class="language-cpp">#define int __int128
+int read1(){
+    int x=0,f=1;
+    char ch=getchar();
+    while(ch&gt;'9' || ch&lt;'0'){
+        if(ch=='-')f=-1;
+        ch=getchar();
+    }
+    while(ch&gt;='0' &amp;&amp; ch&lt;='9'){
+        x=(x&lt;&lt;1)+(x&lt;&lt;3)+ch-'0';
+        ch=getchar();
+    }
+    return x*f;
+}
+void write1(int x){
+    if(x&lt;0)putchar('-'),x=-x;
+    if(x&gt;9)write1(x/10);
+    putchar(x%10+'0');
+    return;
+}
+</code></pre>
+<blockquote>
+<p>P1005</p>
+</blockquote>
+<p>1.__int128</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#define int __int128_t
+using namespace std;
+const int N=110;
+int n,m;
+int f[N][N],a[N][N],tmp[N];
+int kp(int x,int p){
+    if(p&lt;=1)return x;
+    if(p%2==0)return kp(x*x,p&gt;&gt;1);
+    else return x*kp(x*x,p&gt;&gt;1);
+}
+int dp(int x){
+    memset(f,0,sizeof f);
+    for(int i=1;i&lt;=m;++i)tmp[i]=a[x][i];
+    tmp[0]=tmp[m+1]=0;
+    for(int i=1;i&lt;=m;++i){
+        f[i][i]=tmp[i]&lt;&lt;1;
+    }
+    for(int l=2;l&lt;=m;++l){
+        for(int b=1;b+l-1&lt;=m;++b){
+            int e=b+l-1;
+            f[b][e]=max(f[b][e],2*f[b][e-1]+2*tmp[e]);
+            f[b][e]=max(f[b][e],2*f[b+1][e]+2*tmp[b]);
+        }
+    }
+    return f[1][m];
+}
+int read1(){
+    int x=0,f=1;
+    char ch=getchar();
+    while(ch&gt;'9' || ch&lt;'0'){
+        if(ch=='-')f=-1;
+        ch=getchar();
+    }
+    while(ch&gt;='0' &amp;&amp; ch&lt;='9'){
+        x=(x&lt;&lt;1)+(x&lt;&lt;3)+ch-'0';
+        ch=getchar();
+    }
+    return x*f;
+}
+void write1(int x){
+    if(x&lt;0)putchar('-'),x=-x;
+    if(x&gt;9)write1(x/10);
+    putchar(x%10+'0');
+    return;
+}
+signed main(){
+    n=read1(),m=read1();
+    for(int i=1;i&lt;=n;++i){
+        for(int j=1;j&lt;=m;++j){
+            a[i][j]=read1();
+        }
+    }
+    int ans=0; 
+    for(int i=1;i&lt;=n;++i){
+        int tmp=dp(i);
+        //write1(tmp);
+        //putchar('\n');
+        ans+=tmp;
+    }
+    write1(ans);
+    return 0; 
+}
+/*
+5 5
+0 0 0 0 0
+0 0 0 0 1
+876 1 566 920 598
+259 945 123 659 997
+176 478 293 464 278
+2 3
+1 5 2
+3 4 2
+2 4
+1 4 2 3
+1 4 3 2
+*/
+
+</code></pre>
+<p>2.朴素</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#define int long long 
+using namespace std;
+const int N=110;
+int n,m;
+struct HP{
+    int p[N],len;
+    void clear1(){
+        memset(p,0,sizeof p);
+        len=1;
+        return;
+    }
+    void read1(){
+        memset(p,0,sizeof p);
+        len=1;
+        p[0]=1;
+        char ch=getchar();
+        while(ch&gt;'9' || ch&lt;'0'){
+            if(ch=='-')p[0]=-1;
+            ch=getchar();
+        }
+        while(ch&lt;='9' &amp;&amp; ch&gt;='0'){
+            p[++len]=ch-'0';
+            ch=getchar();
+        }
+        for(int i=1;i&lt;=len/2;++i){
+            swap(p[i],p[len-i+1]);
+        }
+    }
+    void write1(){
+        if(p[0]==-1)putchar('-');
+        for(int i=len;i&gt;=1;--i){
+            putchar(p[i]+'0');
+        }
+        putchar('\n');
+    }
+}f[N][N],a[N][N],tmp[N],ans,tp;
+HP operator +(const HP &amp;a,const HP &amp;b){
+    //if(a.p[0]==-1 || b.p[0]==-1)return a-b;
+    HP c;
+    c.clear1();
+    int la=a.len,lb=b.len,lc=max(la,lb);
+    int f=0;
+    for(int i=1;i&lt;=lc;++i){
+        c.p[i]=a.p[i]+b.p[i]+f;
+        f=c.p[i]/10;
+        c.p[i]%=10;
+    }
+    if(f)c.p[++lc]=f;
+    c.len=lc;
+    return c;
+}
+int cmp(const HP &amp;a,const HP &amp;b){
+    //cout&lt;&lt;a.len&lt;&lt;&quot; &quot;&lt;&lt;b.len&lt;&lt;endl;
+    if(a.len&lt;b.len)return -1;
+    if(a.len&gt;b.len)return 1;
+    for(int i=a.len;i&gt;=1;--i){
+        if(a.p[i]&lt;b.p[i])return -1;
+        if(a.p[i]&gt;b.p[i])return 1;
+    }
+    return 0;
+}
+HP max1(const HP &amp;a,const HP &amp;b){
+    int res=cmp(a,b);
+    if(res&gt;=0)return a;
+    else return b;
+}
+HP operator -(const HP &amp;x,const HP &amp;y){
+    HP c,a,b;
+    c.clear1();
+    if(cmp(x,y)==-1){
+        a=y,b=x;
+        c.p[0]=-1;  
+    }else{
+        a=x,b=y;
+        c.p[0]=1;
+    }
+    int la=a.len,lb=b.len,lc=max(la,lb);
+    int f=0;
+
+    for(int i=1;i&lt;=lc;++i){
+        if(a.p[i]&lt;b.p[i]){
+            a.p[i]+=10;
+            a.p[i+1]--;
+        }
+        c.p[i]=a.p[i]-b.p[i];
+    }
+    while(lc&gt;1 &amp;&amp; c.p[lc]==0)--lc;
+    c.len=lc;
+    return c;
+}
+HP operator *(const HP &amp;a,const HP &amp;b){
+    HP c;
+    c.clear1();
+    int la=a.len,lb=b.len,lc=la+lb;
+    for(int i=1;i&lt;=la;++i){
+        int x=0;
+        for(int j=1;j&lt;=lb;++j){
+            c.p[i+j-1]+=a.p[i]*b.p[j]+x;
+            x=c.p[i+j-1]/10;
+            c.p[i+j-1]%=10;
+        }
+        c.p[i+lb]=x;
+    }
+    while(lc&gt;1 &amp;&amp; c.p[lc]==0)--lc;
+    c.len=lc;
+    int tmp;
+    if(a.p[0]==-1 &amp;&amp; b.p[0]==-1)tmp=1;
+    else if(a.p[0]&gt;=0 &amp;&amp; b.p[0]&gt;=0)tmp=1;
+    else tmp=-1;
+    c.p[0]=tmp;
+    return c;
+}
+HP operator /=(const HP &amp;a,int b){
+    HP c;
+    c.clear1();
+    int la=a.len,f=0,lc=la;
+    for(int i=la;i&gt;=1;--i){
+        c.p[i]=(f*10+a.p[i])/b;
+        f=(f*10+a.p[i])%b;
+    }
+    while(lc&gt;1 &amp;&amp; c.p[lc]==0)--lc;
+    c.len=lc;
+    return c;
+}
+
+HP operator /(const HP &amp;x,const HP &amp;y){
+    HP c,a=x,b=y;
+    c.clear1();
+    int la=a.len,lb=b.len,lc=la-lb+1;
+    for(int i=lc;i&gt;=1;--i){
+        HP e;
+        e.clear1();
+        for(int k=1;k&lt;=lb;++k){
+            e.p[k+i-1]=b.p[k];
+        }
+        e.len=i+lb-1;
+        while(cmp(a,e)&gt;=0)c.p[i]++,a=a-e;
+    }
+    while(lc&gt;1 &amp;&amp; c.p[lc]==0)--lc;
+    c.len=lc;
+    return c;
+}
+HP kp(HP x,int p){
+    if(p&lt;=1)return x;
+    if(p%2==0)return kp(x*x,p&gt;&gt;1);
+    else return x*kp(x*x,p&gt;&gt;1);
+}
+HP dp(int x){
+    memset(f,0,sizeof f);
+    for(int i=1;i&lt;=m;++i)tmp[i]=a[x][i];
+    HP two;
+    two.clear1();
+    two.len=1,two.p[1]=2;
+    for(int i=1;i&lt;=m;++i){
+        f[i][i]=tmp[i]*two;
+    }
+    for(int l=2;l&lt;=m;++l){
+        for(int b=1;b+l-1&lt;=m;++b){
+            int e=b+l-1;
+            f[b][e]=max1(f[b][e],two*f[b][e-1]+two*tmp[e]);
+            f[b][e]=max1(f[b][e],two*f[b+1][e]+two*tmp[b]);
+        }
+    }
+    return f[1][m];
+}
+signed main(){
+    scanf(&quot;%d%d&quot;,&amp;n,&amp;m);
+    for(int i=1;i&lt;=n;++i){
+        for(int j=1;j&lt;=m;++j){
+            a[i][j].read1();
+        }
+    }
+    ans.clear1();
+
+    for(int i=1;i&lt;=n;++i){
+        tp=dp(i);
+        //write1(tmp);
+        //putchar('\n');
+        ans=ans+tp;
+    }
+    ans.write1();
+    return 0; 
+}
+/*
+5 5
+0 0 0 0 0
+0 0 0 0 1
+876 1 566 920 598
+259 945 123 659 997
+176 478 293 464 278
+2 3
+1 5 2
+3 4 2
+2 4
+1 4 2 3
+1 4 3 2
+*/
+</code></pre>
+<h2 id="_2">朴素高精度</h2>
+<pre><code class="language-cpp">struct HP{
+    int p[N],len;
+    void clear1(){
+        memset(p,0,sizeof p);
+        len=1;
+        return;
+    }
+    void read1(){
+        memset(p,0,sizeof p);
+        len=1;
+        p[0]=1;
+        char ch=getchar();
+        while(ch&gt;'9' || ch&lt;'0'){
+            if(ch=='-')p[0]=-1;
+            ch=getchar();
+        }
+        while(ch&lt;='9' &amp;&amp; ch&gt;='0'){
+            p[++len]=ch-'0';
+            ch=getchar();
+        }
+        for(int i=1;i&lt;=len/2;++i){
+            swap(p[i],p[len-i+1]);
+        }
+    }
+    void write1(){
+        if(p[0]==-1)putchar('-');
+        for(int i=len;i&gt;=1;--i){
+            putchar(p[i]+'0');
+        }
+        putchar('\n');
+    }
+};
+HP operator +(const HP &amp;a,const HP &amp;b){
+    //if(a.p[0]==-1 || b.p[0]==-1)return a-b;
+    HP c;
+    c.clear1();
+    int la=a.len,lb=b.len,lc=max(la,lb);
+    int f=0;
+    for(int i=1;i&lt;=lc;++i){
+        c.p[i]=a.p[i]+b.p[i]+f;
+        f=c.p[i]/10;
+        c.p[i]%=10;
+    }
+    if(f)c.p[++lc]=f;
+    c.len=lc;
+    return c;
+}
+int cmp(const HP &amp;a,const HP &amp;b){
+    //cout&lt;&lt;a.len&lt;&lt;&quot; &quot;&lt;&lt;b.len&lt;&lt;endl;
+    if(a.len&lt;b.len)return -1;
+    if(a.len&gt;b.len)return 1;
+    for(int i=a.len;i&gt;=1;--i){
+        if(a.p[i]&lt;b.p[i])return -1;
+        if(a.p[i]&gt;b.p[i])return 1;
+    }
+    return 0;
+}
+HP max1(const HP &amp;a,const HP &amp;b){
+    int res=cmp(a,b);
+    if(res&gt;=0)return a;
+    else return b;
+}
+HP operator -(const HP &amp;x,const HP &amp;y){
+    HP c,a,b;
+    c.clear1();
+    if(cmp(x,y)==-1){
+        a=y,b=x;
+        c.p[0]=-1;  
+    }else{
+        a=x,b=y;
+        c.p[0]=1;
+    }
+    int la=a.len,lb=b.len,lc=max(la,lb);
+    int f=0;
+
+    for(int i=1;i&lt;=lc;++i){
+        if(a.p[i]&lt;b.p[i]){
+            a.p[i]+=10;
+            a.p[i+1]--;
+        }
+        c.p[i]=a.p[i]-b.p[i];
+    }
+    while(lc&gt;1 &amp;&amp; c.p[lc]==0)--lc;
+    c.len=lc;
+    return c;
+}
+HP operator *(const HP &amp;a,const HP &amp;b){
+    HP c;
+    c.clear1();
+    int la=a.len,lb=b.len,lc=la+lb;
+    for(int i=1;i&lt;=la;++i){
+        int x=0;
+        for(int j=1;j&lt;=lb;++j){
+            c.p[i+j-1]+=a.p[i]*b.p[j]+x;
+            x=c.p[i+j-1]/10;
+            c.p[i+j-1]%=10;
+        }
+        c.p[i+lb]=x;
+    }
+    while(lc&gt;1 &amp;&amp; c.p[lc]==0)--lc;
+    c.len=lc;
+    int tmp;
+    if(a.p[0]==-1 &amp;&amp; b.p[0]==-1)tmp=1;
+    else if(a.p[0]&gt;=0 &amp;&amp; b.p[0]&gt;=0)tmp=1;
+    else tmp=-1;
+    c.p[0]=tmp;
+    return c;
+}
+HP operator /=(const HP &amp;a,int b){
+    HP c;
+    c.clear1();
+    int la=a.len,f=0,lc=la;
+    for(int i=la;i&gt;=1;--i){
+        c.p[i]=(f*10+a.p[i])/b;
+        f=(f*10+a.p[i])%b;
+    }
+    while(lc&gt;1 &amp;&amp; c.p[lc]==0)--lc;
+    c.len=lc;
+    return c;
+}
+
+HP operator /(const HP &amp;x,const HP &amp;y){
+    HP c,a=x,b=y;
+    c.clear1();
+    int la=a.len,lb=b.len,lc=la-lb+1;
+    for(int i=lc;i&gt;=1;--i){
+        HP e;
+        e.clear1();
+        for(int k=1;k&lt;=lb;++k){
+            e.p[k+i-1]=b.p[k];
+        }
+        e.len=i+lb-1;
+        while(cmp(a,e)&gt;=0)c.p[i]++,a=a-e;
+    }
+    while(lc&gt;1 &amp;&amp; c.p[lc]==0)--lc;
+    c.len=lc;
+    return c;
+}
+</code></pre>
+<p>记得常清零，少用局部变量，不然会出现初始值不为零的情况。</p>
+<h2 id="_3">压缩高精度</h2>
+<pre><code class="language-cpp">const int M=1000+5,base=1e8;
+int n;
+struct BigInt{
+    int sum[21];
+    void operator += (const BigInt &amp;x){
+        sum[0]=max(sum[0],x.sum[0]);
+        for(int i=1; i&lt;=sum[0]; i++){
+            sum[i]+=x.sum[i];
+            if(sum[i]&gt;=base) sum[i+1]++,sum[i]-=base;
+        }
+        if(sum[sum[0]+1]&gt;0) sum[0]++;
+    }
+    void operator *= (const BigInt &amp;x){
+        long long A[21]={};
+        for(int i=1; i&lt;=sum[0]; i++){
+            for(int j=1; j&lt;=x.sum[0]; j++){
+                A[i+j-1]+=1ll*sum[i]*x.sum[j];
+            }
+        }
+        for(int i=1; i&lt;=sum[0]+x.sum[0]; i++){
+            A[i+1]+=A[i]/base; A[i]%=base; sum[i]=A[i];
+        }
+        if(A[sum[0]+x.sum[0]]) sum[0]=sum[0]+x.sum[0];
+        else sum[0]=sum[0]+x.sum[0]-1;
+    }
+    void Print(){
+        printf(&quot;%d&quot;,sum[sum[0]]);
+        for(int i=sum[0]-1; i&gt;0; i--){
+            printf(&quot;%08d&quot;,sum[i]);
+        }
+    }
+}
+
+
+</code></pre></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script src="../../../js/bootstrap.bundle.min.js"></script>
+        <script>
+            var base_url = "../../..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../../../js/base.js"></script>
+        <script src="../../../search/main.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

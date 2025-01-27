@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../../../img/favicon.ico">
+        <title>线性dp/普通dp - My Docs</title>
+        <link href="../../../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../../../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../../../css/brands.min.css" rel="stylesheet">
+        <link href="../../../css/solid.min.css" rel="stylesheet">
+        <link href="../../../css/v4-font-face.min.css" rel="stylesheet">
+        <link href="../../../css/base.css" rel="stylesheet">
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="../../..">My Docs</a>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+
+                    <ul class="nav navbar-nav ms-md-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-bs-level="1"><a href="#dpdp" class="nav-link">线性dp/普通dp</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="2"><a href="#dp" class="nav-link">坐标dp</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="dpdp">线性dp/普通dp</h1>
+<h2 id="dp">坐标dp</h2>
+<blockquote>
+<p>P7074</p>
+</blockquote>
+<p>由于从上往下有后效性，所以旋转90度后再做dp</p>
+<p>对于每个坐标，都有两种方向，向左和向右。</p>
+<p>所以设f[i][j][0/1]表示左/右方向时的最大值。</p>
+<p>此时有转移方程：</p>
+<p>$$
+f[i][j][0]=max(f[i][j][0],max(f[i][j-1][0],f[i][j-1][1])+c[i][j]);(i=1\to n)\
+f[i][j][1]=max(f[i][j][1],max(f[i][j-1][0],f[i][j-1][1])+c[i][j]);(i=1\to n)\
+f[i][j][0]=max(f[i][j][0],f[i-1][j][0]+c[i][j]);(i=1\to n)\
+f[i][j][1]=max(f[i][j][1],f[i+1][j][1]+c[i][j]);(i=n\to 1)
+$$</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#define int long long 
+using namespace std;
+const int N=1e3+10,INF=1e12;
+int n,m;
+int c[N][N],f[N][N][2];
+
+signed main(){
+    scanf(&quot;%lld%lld&quot;,&amp;n,&amp;m);
+    for(int i=1;i&lt;=n;++i){
+        for(int j=1;j&lt;=m;++j){
+            scanf(&quot;%lld&quot;,&amp;c[i][j]);
+        }
+    }
+    for(int i=0;i&lt;=n+1;++i){
+        for(int j=0;j&lt;=m+1;++j){
+            f[i][j][0]=-INF;
+            f[i][j][1]=-INF;
+        }
+    }
+    f[1][1][0]=f[1][1][1]=c[1][1];
+    for(int j=1;j&lt;=m;++j){
+        for(int i=1;i&lt;=n;++i){
+            f[i][j][0]=max(f[i][j][0],max(f[i][j-1][0],f[i][j-1][1])+c[i][j]);
+            f[i][j][1]=max(f[i][j][1],max(f[i][j-1][0],f[i][j-1][1])+c[i][j]);
+            f[i][j][0]=max(f[i][j][0],f[i-1][j][0]+c[i][j]);
+        }
+        for(int i=n;i&gt;=1;--i){
+            f[i][j][1]=max(f[i][j][1],f[i+1][j][1]+c[i][j]);
+        }
+    }
+    printf(&quot;%lld&quot;,max(f[n][m][0],f[n][m][1]));
+    return 0;
+}
+</code></pre>
+<blockquote>
+<p>P1437</p>
+</blockquote>
+<p>因为从上往下搜会存在后效性，所以要从右往左搜。
+设f[i][j][k]表示第i列去了j个砖块且总共去取了k个砖块的状态。</p>
+<p>转移方程+code：</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstring&gt;
+#include&lt;cstdio&gt;
+using namespace std;
+const int N=55,M=N*N;
+int n,m;
+int a[N][N];
+int f[N][N][M];
+int t[N][N];
+int main(){
+    scanf(&quot;%d%d&quot;,&amp;n,&amp;m);
+    for(int i=1;i&lt;=n;++i){
+        for(int j=1;j&lt;=n-i+1;++j){
+            scanf(&quot;%d&quot;,&amp;a[i][j]);
+        }
+    }
+    memset(f,-0x3f,sizeof f); //避免不合法状态的转移。因为有v比k-j大的情况，这种情况不合法，因此应该为负无穷
+    f[n+1][0][0]=0;//初始化
+    int ans=0;
+    for(int i=n;i&gt;=1;--i){
+        for(int j=0,sum=0;j&lt;=n-i+1;++j,sum+=a[j][i]){
+            for(int v=max(j-1,0)/*防溢出*/;v&lt;=n-i;++v){//表示上一列至少要取j-1个，最多（n-i+1）-1个
+                for(int k=j;k&lt;=m;++k){
+                    f[i][j][k]=max(f[i][j][k],f[i+1][v][k-j]+sum);
+                }
+            }
+        }
+    }
+    for(int i=1;i&lt;=n;++i){
+        for(int j=1;j&lt;=n-i+1;++j)ans=max(ans,f[i][j][m]);
+    }
+    printf(&quot;%d&quot;,ans);
+    return 0;
+} 
+/*
+4 6
+2 2 3 4
+8 2 7
+2 3
+49
+
+*/
+</code></pre>
+<blockquote>
+<p>CF360B</p>
+</blockquote>
+<p>~~我是傻逼~~</p>
+<p>二分+dp</p>
+<p>设dp[i]表示$a_i$不改时1~i最多不改的个数。</p>
+<p>转移方程为：</p>
+<pre><code class="language-cpp">    for(int i=2;i&lt;=n;++i){
+        for(int j=1;j&lt;i;++j){
+            if(x*(i-j)&gt;=abs1(a[i]-a[j])){
+                dp[i]=max(dp[i],dp[j]+1);
+            }
+        }
+    }
+</code></pre>
+<p>条件是只要两个数相差在当前二分的长度范围内，那么就将i到j之间做更改，i和j保持不变，看最多留下几个数不改。</p>
+<p>正确性是因为如果i到j之间有其他与i符合这个条件的数k，那么k一定会被i搜到，可能存在更优的结果。</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#define int long long 
+using namespace std;
+const int N=2200,INF=0x7fffffff;
+int a[N],dp[N];
+int n,k;
+int abs1(int x){
+    return x&gt;0?x:-x;
+}
+bool check(int x){
+    int cnt=0;
+    for(int i=1;i&lt;=n;++i)dp[i]=1;
+    for(int i=2;i&lt;=n;++i){
+        for(int j=1;j&lt;i;++j){
+            if(x*(i-j)&gt;=abs1(a[i]-a[j])){
+                dp[i]=max(dp[i],dp[j]+1);
+            }
+        }
+    }
+    for(int i=1;i&lt;=n;++i){
+        if(i-dp[i]+n-i&lt;=k)return true;
+    }
+    return false;
+}
+signed main(){
+    scanf(&quot;%lld%lld&quot;,&amp;n,&amp;k);
+    for(int i=1;i&lt;=n;++i)scanf(&quot;%lld&quot;,&amp;a[i]);
+
+    int l=0,r=INF,ans=INF;
+    while(l&lt;r){
+        int mid=l+r&gt;&gt;1;
+        if(check(mid)){
+            r=mid;
+            ans=mid;
+        }else l=mid+1;
+    }
+    printf(&quot;%lld&quot;,ans);
+
+
+    return 0;
+} 
+</code></pre>
+<blockquote>
+<p>UVA1025</p>
+</blockquote>
+<p>设$f[i][j]$表示在第$j$秒到达第$i$个车站时的最小等待时间。</p>
+<p>那么每次由三种决策：</p>
+<p>1) 如果不是1号车站并且此时有向左的车，就向左边。
+2) 如果不是n号车站并且此时有向右的车，就向右边。
+3) 在这个车站等待1秒。</p>
+<p>判断此时有没有向左向右的车可以预处理出$g[i][j][0/1]$</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+using namespace std;
+const int N=55,T=220,INF=0x3f3f3f3f;
+int f[N][T],g[N][T][2];
+int u[T],v[T],a[N],b[N],s[N];
+int n,t,M1,M2,cnt;
+void init() {
+    memset(u,0,sizeof u);memset(v,0,sizeof v);memset(g,0,sizeof g);memset(f,0x3f,sizeof f);
+    scanf(&quot;%d&quot;,&amp;t);
+    for(int i=1;i&lt;n;++i)scanf(&quot;%d&quot;,&amp;s[i]);
+    a[1]=0;b[n]=0;
+    for(int i=2;i&lt;=n;++i)a[i]=a[i-1]+s[i-1];
+    for(int i=n-1;i&gt;=1;--i)b[i]=b[i+1]+s[i];
+    scanf(&quot;%d&quot;,&amp;M1);
+    for(int i=1,tmp; i&lt;=M1; ++i)scanf(&quot;%d&quot;,&amp;tmp),u[tmp]=1;
+    scanf(&quot;%d&quot;,&amp;M2);
+    for(int i=1,tmp; i&lt;=M2; ++i)scanf(&quot;%d&quot;,&amp;tmp),v[tmp]=1;
+    for(int i=1;i&lt;=n;++i)
+        for(int j=0;j&lt;=t;++j)
+            if(j&gt;=a[i] &amp;&amp; u[j-a[i]])g[i][j][1]=1;
+            if(j&gt;=b[i] &amp;&amp; v[j-b[i]])g[i][j][0]=1;
+    f[1][0]=0;
+}
+void dp(){
+    for(int j=0;j&lt;=t;++j)
+        for(int i=1;i&lt;=n;++i)
+            if(g[i][j][0] &amp;&amp; i&gt;1)f[i-1][j+s[i-1]]=min(f[i-1][j+s[i-1]],f[i][j]);
+            if(g[i][j][1] &amp;&amp; i&lt;n)f[i+1][j+s[i]]=min(f[i+1][j+s[i]],f[i][j]);
+            f[i][j+1]=min(f[i][j+1],f[i][j]+1); 
+}
+int main() {
+    while(1) {
+        scanf(&quot;%d&quot;,&amp;n);
+        if(!n)return 0;
+        ++cnt;
+        init();
+        dp();
+        printf(&quot;Case Number %d: &quot;,cnt);
+        if(f[n][t]==INF)printf(&quot;impossible\n&quot;);
+        else printf(&quot;%d\n&quot;,f[n][t]);
+    }
+    return 0;
+}
+</code></pre>
+<ul>
+<li>结论：将决策对应状态设成转移方程。</li>
+</ul>
+<blockquote>
+<p>P5017</p>
+</blockquote>
+<p>开始想到设$f[i][j]$表示有$i$个人等待，在第$j$分钟的情况。</p>
+<p>~~后来发现直接爆炸~~</p>
+<p>发现我们无法记录等待的人都是谁，所以就不记录，在转移时算出来。</p>
+<p>所以设$f[i][j]$表示考虑到第$i$个人，第$j$分钟的情况，将$f[i][j]$转移到$f[i+k][j+m]$和$f[i][j+1]$,表示立刻发车和等待一分钟的情况。</p>
+<p>~~结果还是爆炸~~</p>
+<p>正确做法是：</p>
+<p>我们发现有个性质，就是每个人等待时间不超过$m-1$，因为就算这个人到达的前一秒钟发车，还是能在$m-1$秒后上车。</p>
+<p>此时假设第$i$个人在$t[i]+j$秒上车，那么在$[t[i]+j+1,t[i]+j+m]$秒内的人的等待时间就是这次转移的所有贡献，而不用加上$[t[i]+j-m+1,t[i]+j+m]$秒内的贡献，因为这个在上一轮已经计算过了。</p>
+<p>此时我们只考虑第$i$个人等待$\min(m-1,t[i+1]-t[i])$秒的时间即可。</p>
+<p>设$f[i][j]$表示第$i$个人及之前的所有人要么已经到达了目的地，要么已经在车上时，且$i$恰好等了$j$秒才上车的最优解。</p>
+<p>因为第$i+1$个人到第$k$个人都不会上车，都要等到$t[i]+j+m=tmp+t[i+k]$秒，所以他们等待的总时间为$\sum_{v=i+1}^{i+k} tmp+t[i+k]-t[v]$,因为$tmp+t[i+k]$为定值，所以原式为$k* (tmp+t[i+k])-(s[i+k]-s[i]) $</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;algorithm&gt;
+using namespace std;
+const int N=550,INF=0x3f3f3f3f;
+int f[N][N];
+int t[N],s[N];
+int n,m;
+bool cmp(int a,int b){return a&lt;b;}
+int main(){
+    scanf(&quot;%d%d&quot;,&amp;n,&amp;m);
+    for(int i=1;i&lt;=n;++i)scanf(&quot;%d&quot;,&amp;t[i]);
+    sort(t+1,t+n+1,cmp);
+    for(int i=1;i&lt;=n;++i)s[i]=s[i-1]+t[i];
+    memset(f,0x3f,sizeof f);
+    t[0]=-INF;
+    f[0][0]=0;
+    for(int i=0;i&lt;=n;++i){
+        int maxn=min(m-1,t[i+1]-t[i]);
+        for(int j=0;j&lt;=maxn;++j){
+            if(f[i][j]&gt;=INF)continue;
+
+            for(int k=1;i+k&lt;=n;++k){
+                int tmp=max(t[i]+j+m-t[i+k],0);
+                f[i+k][tmp]=min(f[i+k][tmp],f[i][j]+(tmp+t[i+k])*k-(s[i+k]-s[i]));
+            }
+        }
+    }
+    int ans=INF;
+    for(int i=0;i&lt;m;++i)ans=min(ans,f[n][i]);
+    printf(&quot;%d&quot;,ans);
+    return 0;
+} 
+</code></pre>
+<blockquote>
+<p>P3957</p>
+</blockquote>
+<p>每次的$dp$就是取$[i-R,i-L]$内的$f[j]_ { \max } $,而这个东西显然可以用单调队列维护。</p>
+<p>注意每次的操作应该先从右加入元素，在从左删除，否则会出错~~这是个未解之谜？~~</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#define int long long
+using namespace std;
+const int N=5e5+10,INF=1e18;
+int n,d,k;
+int x[N],s[N],f[N];
+int q[N];
+bool check(int g) {
+    int L=max(d-g,1ll),R=d+g,ans=-INF,l=1,r=0,tot=0;//注意出视状态的设定
+    memset(f,-0x3f,sizeof f);
+    f[0]=0;
+    memset(q,0,sizeof q);//存储的是最优解的标号1~n
+    for(int i=1; i&lt;=n; ++i) {
+        while(x[tot]&lt;=x[i]-L &amp;&amp; tot&lt;i) {//1,与2的顺序
+            if(f[tot]&gt;-INF) {//防止非法状态转移
+                while(r&gt;=l &amp;&amp; f[tot]&gt;f[q[r]])--r;
+                q[++r]=tot;
+            } 
+            ++tot;
+        }
+        while(r&gt;=l &amp;&amp; x[i]-R&gt;x[q[l]])++l;//2，被坑死，注意与1的顺序不要颠倒
+        if(r&gt;=l){
+            f[i]=max(f[i],f[q[l]]+s[i]);
+        }
+        ans=max(ans,f[i]);  
+    }
+    return ans&gt;=k;
+}
+signed main() {
+    scanf(&quot;%lld%lld%lld&quot;,&amp;n,&amp;d,&amp;k);
+    for(int i=1; i&lt;=n; ++i)scanf(&quot;%lld%lld&quot;,&amp;x[i],&amp;s[i]);
+    int l=0,r=INF,ans=-1;
+    while(l&lt;r) {
+        int mid=l+r&gt;&gt;1;
+        if(check(mid)) {
+            ans=mid;
+            r=mid;
+        } else l=mid+1;
+    }
+    if(l&gt;=N) {
+        printf(&quot;-1&quot;);
+    } else printf(&quot;%lld&quot;,ans);
+    return 0;
+}
+</code></pre>
+<p>顺便练练双端队列$deque$来实现单调队列</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;queue&gt;
+#define int long long
+using namespace std;
+const int N=5e5+10,INF=1e18;
+int n,d,k;
+int x[N],s[N],f[N];
+int read1(){int x=0,f=1;char ch=getchar();while(ch&gt;'9' || ch&lt;'0'){if(ch=='-')f=-1;ch=getchar();}while(ch&lt;='9' &amp;&amp; ch&gt;='0'){x=(x&lt;&lt;1)+(x&lt;&lt;3)+ch-'0';ch=getchar();}return x*f;}
+bool check(int g) {
+    int L=max(d-g,1ll),R=d+g,ans=-INF,tot=0;
+    memset(f,-0x3f,sizeof f);
+    f[0]=0;
+    deque&lt;int&gt; q;
+    for(int i=1; i&lt;=n; ++i) {
+        while(x[tot]&lt;=x[i]-L &amp;&amp; tot&lt;i) {
+            if(f[tot]&gt;-INF) {
+                while(!q.empty() &amp;&amp; f[tot]&gt;f[q.back()])q.pop_back();
+                q.push_back(tot);
+            } 
+            ++tot;
+        }
+        while(!q.empty() &amp;&amp; x[i]-R&gt;x[q.front()])q.pop_front();
+        if(!q.empty()){
+            f[i]=max(f[i],f[q.front()]+s[i]);
+        }
+        ans=max(ans,f[i]);  
+    }
+    return ans&gt;=k;
+}
+signed main() {
+    n=read1(),d=read1(),k=read1();
+    for(int i=1; i&lt;=n; ++i)x[i]=read1(),s[i]=read1();
+    int l=0,r=INF,ans=-1;
+    while(l&lt;r) {
+        int mid=l+r&gt;&gt;1;
+        if(check(mid)) {
+            ans=mid;
+            r=mid;
+        } else l=mid+1;
+    }
+    if(l&gt;=N) {
+        printf(&quot;-1&quot;);
+    } else printf(&quot;%lld&quot;,ans);
+    return 0;
+}
+</code></pre>
+<p>~~实测STL是真的慢，快读吸氧都拯救不了~~</p></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script src="../../../js/bootstrap.bundle.min.js"></script>
+        <script>
+            var base_url = "../../..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../../../js/base.js"></script>
+        <script src="../../../search/main.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

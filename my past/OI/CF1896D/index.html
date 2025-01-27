@@ -4,27 +4,27 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="None">
         
         
-        <link rel="shortcut icon" href="img/favicon.ico">
-        <title>My Docs</title>
-        <link href="css/bootstrap.min.css" rel="stylesheet">
-        <link href="css/fontawesome.min.css" rel="stylesheet">
-        <link href="css/brands.min.css" rel="stylesheet">
-        <link href="css/solid.min.css" rel="stylesheet">
-        <link href="css/v4-font-face.min.css" rel="stylesheet">
-        <link href="css/base.css" rel="stylesheet">
+        
+        <link rel="shortcut icon" href="../../../img/favicon.ico">
+        <title>CF1896D - My Docs</title>
+        <link href="../../../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../../../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../../../css/brands.min.css" rel="stylesheet">
+        <link href="../../../css/solid.min.css" rel="stylesheet">
+        <link href="../../../css/v4-font-face.min.css" rel="stylesheet">
+        <link href="../../../css/base.css" rel="stylesheet">
         <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
         <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
         <script>hljs.highlightAll();</script> 
     </head>
 
-    <body class="homepage">
+    <body>
         <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
             <div class="container">
-                <a class="navbar-brand" href=".">My Docs</a>
+                <a class="navbar-brand" href="../../..">My Docs</a>
 
                 <!-- Expanded navigation -->
                 <div id="navbar-collapse" class="navbar-collapse collapse">
@@ -52,38 +52,104 @@
     
     <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
         <ul class="nav flex-column">
-            
-            <li class="nav-item" data-bs-level="1"><a href="#welcome-to-mkdocs" class="nav-link">Welcome to MkDocs</a>
-              <ul class="nav flex-column">
-            <li class="nav-item" data-bs-level="2"><a href="#commands" class="nav-link">Commands</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-bs-level="2"><a href="#project-layout" class="nav-link">Project layout</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-              </ul>
-            </li>
         </ul>
     </div>
 </div></div>
                     <div class="col-md-9" role="main">
 
-<h1 id="welcome-to-mkdocs">Welcome to MkDocs</h1>
-<p>For full documentation visit <a href="https://www.mkdocs.org">mkdocs.org</a>.</p>
-<h2 id="commands">Commands</h2>
-<ul>
-<li><code>mkdocs new [dir-name]</code> - Create a new project.</li>
-<li><code>mkdocs serve</code> - Start the live-reloading docs server.</li>
-<li><code>mkdocs build</code> - Build the documentation site.</li>
-<li><code>mkdocs -h</code> - Print help message and exit.</li>
-</ul>
-<h2 id="project-layout">Project layout</h2>
-<pre><code>mkdocs.yml    # The configuration file.
-docs/
-    index.md  # The documentation homepage.
-    ...       # Other markdown pages, images and other files.
+<p><a href="https://codeforces.com/problemset/problem/1896/D">CF1896D</a></p>
+<p>提供一种 ~~巨麻烦~~ 的 bitset 做法。</p>
+<p>对于一个串，我们写一个前缀和，用树状数组动态维护，则位置 $1\leq i &lt; j \leq n$ 对应子串的和可以表示成 $s_j-s_{i-1}$ ，原题就是求 $s_j-s_{i-1}=s$ 是否可以满足。</p>
+<p>受 <a href="https://www.luogu.com.cn/problem/P3674">这道题</a> 的启发，这道题里我们可以用 bitset 维护这个前缀和数组，对于一个 <code>bitset&lt;N&gt; f</code> ，通过位运算判断 <code>f&amp;(f&gt;&gt;s)</code> ，若结果不为零，则说明存在这样的子串。</p>
+<p>对于修改，我们发现，每次修改对于 bitset 中 $s_j-1$ 位置之前的位无影响，对于 $s_j$ 之后的位置，右移或左移一位即可。</p>
+<p>我们构造两个 bitset 串，一个串满足前 $s_j-1$ 位都为 $1$ ，另一个串为前一个串按位取反。将原串与这两个串分别与一下，后一个串左/右移一位，再或在一起，就完成了修改。</p>
+<p>现在的问题在于，如何快速构造这样的两个串。</p>
+<p>暴力不行，我们就用空间换时间。我们采取分块的思想，设块长为 $k$ ，构造 $\frac N k$ 个串，每个串依次增加 $k$ 个 $1$。每次根据 $s_j$ 暴力修改离他最“近”的串，就可以在 $O(k)$ 的时间内构造出我们要的串。</p>
+<p>协调一下时间空间，取 $k=N^{\frac 13}$ ，再稍稍卡常就可以通过本题了。</p>
+<pre><code class="language-cpp">#pragma GCC optimize(2)
+#include&lt;iostream&gt;
+#include&lt;bitset&gt;
+#include&lt;cmath&gt;
+using namespace std;
+const int N=2e5+10,K=4e3;
+int T,n,q,len;
+bitset&lt;N&gt; s[K];
+bitset&lt;N&gt; f,tmp,ttmp,g,h;
+int k[N],a[N],t[N];
+int read1() {
+    int x=0;
+    char ch=getchar();
+    while(ch&gt;'9' || ch&lt;'0') ch=getchar();
+    while(ch&lt;='9' &amp;&amp; ch&gt;='0') x=(x&lt;&lt;1)+(x&lt;&lt;3)+ch-'0',ch=getchar();
+    return x;
+}
+void write1(int x) {
+    if(x&gt;9) write1(x/10);
+    putchar(x%10+'0');
+}
+int lowbit(int x){
+    return x&amp;(-x);
+}
+void change(int x,int d){
+    while(x&lt;=n) t[x]+=d,x+=lowbit(x);
+}
+
+int sum(int x){
+    int ans=0;
+    while(x&gt;0) ans+=t[x],x-=lowbit(x);
+    return ans;
+}
+void init() {
+    s[0].set(0);
+    len=pow(N,0.33);
+    for(int i=1; i&lt;N; ++i) k[i]=(i-1)/len+1;
+    for(int i=1; i&lt;=k[N-1]; ++i) {
+        s[i]=s[i-1];
+        for(int j=(i-1)*len+1; j&lt;=min(i*len,N-1); ++j) s[i].set(j);
+    }
+
+}
+void solve() {
+    n=read1(),q=read1();
+    f=s[0];
+    int ssum=0;
+    for(int i=1;i&lt;=n+n;++i) t[i]=0;
+    for(int i=1; i&lt;=n; ++i) {
+        a[i]=read1();
+        ssum+=a[i];
+        f.set(ssum);
+        change(i,a[i]);
+    }
+    for(int i=1,op,j,v; i&lt;=q; ++i) {
+        op=read1();
+        if(op==1) {
+            j=read1();
+            if((f&amp;(f&gt;&gt;j)).any()) putchar('Y'),putchar('E'),putchar('S'),putchar('\n');
+            else putchar('N'),putchar('O'),putchar('\n');
+        } else {
+            j=read1(),v=read1();
+            if(v==a[j]) continue;
+            int sumj=sum(j);
+            int tmpk=k[sumj-1];
+            tmp=s[tmpk];
+            for(int t=min(N-1,tmpk*len); t&gt;=sumj; --t) tmp.reset(t);
+            ttmp=tmp;
+            ttmp.flip();
+            g=tmp&amp;f,h=ttmp&amp;f;
+            if(v-a[j]==1) f=(g)|(h&lt;&lt;1);
+            else f=(g)|(h&gt;&gt;1);
+            change(j,v-a[j]);
+            a[j]=v;
+        }
+    }
+}
+int main() {
+    T=read1();
+    init();
+    while(T--) solve();
+
+    return 0;
+}
 </code></pre></div>
             </div>
         </div>
@@ -92,13 +158,13 @@ docs/
             <hr>
             <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
         </footer>
-        <script src="js/bootstrap.bundle.min.js"></script>
+        <script src="../../../js/bootstrap.bundle.min.js"></script>
         <script>
-            var base_url = ".",
+            var base_url = "../../..",
                 shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
         </script>
-        <script src="js/base.js"></script>
-        <script src="search/main.js"></script>
+        <script src="../../../js/base.js"></script>
+        <script src="../../../search/main.js"></script>
 
         <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
@@ -163,8 +229,3 @@ docs/
 
     </body>
 </html>
-
-<!--
-MkDocs version : 1.6.1
-Build Date UTC : 2025-01-27 15:34:14.284361+00:00
--->

@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../../../img/favicon.ico">
+        <title>Python Bongo Cat - My Docs</title>
+        <link href="../../../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../../../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../../../css/brands.min.css" rel="stylesheet">
+        <link href="../../../css/solid.min.css" rel="stylesheet">
+        <link href="../../../css/v4-font-face.min.css" rel="stylesheet">
+        <link href="../../../css/base.css" rel="stylesheet">
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="../../..">My Docs</a>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+
+                    <ul class="nav navbar-nav ms-md-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-bs-level="1"><a href="#python-bongo-cat" class="nav-link">Python Bongo Cat</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="2"><a href="#1" class="nav-link">1.键盘监听</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#2" class="nav-link">2.窗口创建 &amp; 绘图</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#3" class="nav-link">3.状态切换</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#4" class="nav-link">4.总结 &amp; 一些坑点</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="python-bongo-cat">Python Bongo Cat</h1>
+<h2 id="1">1.键盘监听</h2>
+<p>如果使用$Pygame$的键盘事件，就只有在鼠标点进窗口时，程序才能接收到键盘输入，如果此时你正在用其他软件，那么程序无法接收到键盘信号。所以，我们要改用后台监听，监听键盘的一举一动。~~(这tm不是病毒吗)~~</p>
+<p>因此我们使用$pynput$库。</p>
+<pre><code class="language-python">from pynput import keyboard
+from pynput import mouse
+
+
+def listen_key_block():  
+    with keyboard.Listener(
+            on_press=on_press, on_release=on_release) as listener:
+        listener.join()  # 加入线程池，阻塞写法
+
+
+def listen_key_nblock():  # 可以和其他函数并行运行
+    listener = keyboard.Listener(
+        on_press=on_press, on_release=on_release
+    )
+    listener.start()  # 启动线程
+
+listen_key_nblock()
+while True:
+    pass
+</code></pre>
+<p>注意第一种阻塞写法的意思是阻塞主线程，直到当前子线程运行完毕。所以它不能与其他程序并行。</p>
+<p>而第二种写法可以解决这个问题,就是要加一个无限循环维持程序的执行。</p>
+<p>所以，某种程度上来说，阻塞写法也算一个无限循环。</p>
+<h2 id="2">2.窗口创建 &amp; 绘图</h2>
+<p>使用$Pygame$即可创建任意大小的窗口，并在左上角绘制图片。</p>
+<pre><code class="language-python"># canvas.py
+
+import pygame as pg
+
+class Background():
+    def __init__(self, screen):
+        self.screen = screen
+        self.image = pg.image.load('images/bongo_cat.png')# 初始化定义为抬起手的图片
+        self.rect = self.image.get_rect()  # 获取矩形
+        self.rect.x = 0  # 固定坐标为左上角
+        self.rect.y = 0
+
+    def draw(self, image):
+        self.image = pg.image.load(image)  # 加载图片
+        self.screen.blit(self.image, self.rect)  # 绘图
+
+</code></pre>
+<pre><code class="language-python"># bongo_cat.py
+import pygame as pg
+import sys
+from canvas import Background
+
+
+def run_game():
+    interval = 0.03
+    pg.init()
+    screen = pg.display.set_mode((300, 177))
+    pg.display.set_caption('bongo_cat')
+    bgc = (230, 230, 230)
+    bg = Background(screen)
+    while True:
+        for event in pg.event.get():
+            if event.type == pg.QUIT:  # 检测右上角鼠标点击退出事件
+                sys.exit()
+        screen.fill(bgc)  # 背景色
+        bg.draw('images/bongo_cat.png')
+        pg.display.flip()  # 更新当前图层
+        time.sleep(interval)  # 时间间隔，即帧率
+
+
+run_game()
+</code></pre>
+<h2 id="3">3.状态切换</h2>
+<p>当点击键盘时，$pynput$的$listener$会检测到参数$key$，里面包含了你按了哪个键。所以可以用一个列表存储下字符串$keys$,其中$keys = str(key)$。</p>
+<p>进一步地，我们用一个字典存储七个按键在一个时间间隔内对应的点击次数，每个间隔结束后清零。</p>
+<p>但是有个问题，键盘的输入是，先接受一次$on_press$事件，如果一段时间不松手，才会连续接受$on_press$。这就导致每次按下键盘，小猫的手都会先闪一下，才会持续按下，很不流畅。</p>
+<p>所以，我们改成$on_release$出发后再将字典中对应的按键的值清零。这样画面会比较流畅。</p>
+<p>而所有图片和这个字典都存储在一个$tmp$文件中，方便查表。</p>
+<p>至此，我们的程序就完成了。</p>
+<pre><code class="language-python">#image_tmp.py
+image = 'images/bongo_cat.png'
+bc = 'images/bongo_cat.png'
+bc_0 = 'images/bongo_cat_0.png'
+bc_1 = 'images/bongo_cat_1.png'
+bc_2 = 'images/bongo_cat_2.png'
+bc_d = 'images/bongo_cat_down.png'
+bc_u = 'images/bongo_cat_up.png'
+bc_r = 'images/bongo_cat_right.png'
+bc_l = 'images/bongo_cat_left.png'
+bc_R = 'images/bongo_cat_r.png'
+bc_s = 'images/bongo_cat_shift.png'
+bc_z = 'images/bongo_cat_z.png'
+bc_ds = 'images/bongo_cat_down_shift.png'
+bc_us = 'images/bongo_cat_up_shift.png'
+bc_ls = 'images/bongo_cat_left_shift.png'
+bc_rs = 'images/bongo_cat_right_shift.png'
+bc_dz = 'images/bongo_cat_down_z.png'
+bc_uz = 'images/bongo_cat_up_z.png'
+bc_lz = 'images/bongo_cat_left_z.png'
+bc_rz = 'images/bongo_cat_right_z.png'
+bc_dR = 'images/bongo_cat_down_r.png'
+bc_uR = 'images/bongo_cat_up_r.png'
+bc_lR = 'images/bongo_cat_left_r.png'
+bc_rR = 'images/bongo_cat_right_r.png'
+
+BC = [[bc,bc_l,bc_r,bc_u,bc_d],
+      [bc_R,bc_lR,bc_rR,bc_uR,bc_dR],
+      [bc_z,bc_lz,bc_rz,bc_uz,bc_dz],
+      [bc_s,bc_ls,bc_rs,bc_us,bc_ds]]
+tmp_0 = {'z': 0, 'R': 0, 's': 0, 'l': 0, 'r': 0, 'd': 0, 'u': 0}
+tmp = {'z': 0, 'R': 0, 's': 0, 'l': 0, 'r': 0, 'd': 0, 'u': 0}
+
+typen = 0
+typem = 0
+
+</code></pre>
+<pre><code class="language-python">#canvas.py
+
+import pygame as pg
+
+
+class Background():
+    def __init__(self, screen):
+        self.screen = screen
+        self.image = pg.image.load('images_0/bongo_cat.png')
+        self.rect = self.image.get_rect()
+        #print(self.rect)
+        #self.screen_rect = screen.get_rect()
+        self.rect.x = 0
+        self.rect.y = 0
+
+    def draw(self, image):
+        self.image = pg.image.load(image)
+        self.screen.blit(self.image, self.rect)
+</code></pre>
+<pre><code class="language-python">#listener.py
+from pynput import keyboard
+from pynput import mouse
+import image_tmp as imt
+import time
+
+
+def on_press(key):
+    keys = str(key)
+    if keys == 'Key.left':
+        imt.tmp['l'] += 1
+    elif keys == 'Key.right':
+        imt.tmp['r'] += 1
+    elif keys == 'Key.down':
+        imt.tmp['d'] += 1
+    elif keys == 'Key.up':
+        imt.tmp['u'] += 1
+    elif keys == 'Key.shift':
+        imt.tmp['s'] += 1
+    elif keys == &quot;'z'&quot;:
+        imt.tmp['z'] += 1
+    elif keys == &quot;'r'&quot;:
+        imt.tmp['R'] += 1
+
+
+def on_release(key):
+    keys = str(key)
+    if keys == 'Key.left':
+        imt.tmp['l'] = 0
+    elif keys == 'Key.right':
+        imt.tmp['r'] = 0
+    elif keys == 'Key.down':
+        imt.tmp['d'] = 0
+    elif keys == 'Key.up':
+        imt.tmp['u'] = 0
+    elif keys == 'Key.shift':
+        imt.tmp['s'] = 0
+    elif keys == &quot;'z'&quot;:
+        imt.tmp['z'] = 0
+    elif keys == &quot;'r'&quot;:
+        imt.tmp['R'] = 0
+
+
+def run_lsn():
+    maxn = 0
+    maxm = 0
+    imt.typen = 0
+    imt.typem = 0
+    for key, value in imt.tmp.items():
+        if key == 'r' or key == 'l' or key == 'u' or key == 'd':
+            maxn = max(maxn, value)
+        else:
+            maxm = max(maxm, value)
+    for key, value in imt.tmp.items():
+        if key == 'l' and value &gt;= maxn:
+            if maxn &gt; 0:
+                imt.typen = 1
+        elif key == 'r' and value &gt;= maxn:
+            if maxn &gt; 0:
+                imt.typen = 2
+        elif key == 'u' and value &gt;= maxn:
+            if maxn &gt; 0:
+                imt.typen = 3
+        elif key == 'd' and value &gt;= maxn:
+            if maxn &gt; 0:
+                imt.typen = 4
+        if key == 'R' and value &gt;= maxm:
+            if maxm &gt; 0:
+                imt.typem = 1
+        elif key == 'z' and value &gt;= maxm:
+            if maxm &gt; 0:
+                imt.typem = 2
+        elif key == 's' and value &gt;= maxm:
+            if maxm &gt; 0:
+                imt.typem = 3
+    #print(imt.typen, imt.typem)
+    #imt.tmp = imt.tmp_0.copy()
+
+
+def on_move(x, y):
+    print('move to', x, y)
+
+
+def on_click(x, y, button, pressed):
+    print('click at', x, y, button, pressed)
+
+
+def on_scroll(x, y, dx, dy):
+    print('scroll at', x, y, 'by', dx, dy)
+
+
+# 监听写法1
+def listen_key_block():  # 相当于一个无穷循环，所以不能套在while循环里
+    with keyboard.Listener(
+            on_press=on_press, on_release=on_release) as listener:
+        listener.join()  # 加入线程池，阻塞写法
+
+
+def listen_mouse_block():
+    with mouse.Listener(
+            on_move=None, on_click=on_click, on_scroll=on_scroll) as listener:
+        listener.join()
+
+
+# 监听写法2
+def listen_key_nblock():  # 可以和其他函数并行运行
+    listener = keyboard.Listener(
+        on_press=on_press, on_release=on_release
+    )
+    listener.start()  # 启动线程
+
+
+def listen_mouse_nblock():
+    listener = mouse.Listener(
+        on_move=None,  # 因为on_move太多输出了，就不放进来了，有兴趣可以加入
+        on_click=on_click,
+        on_scroll=on_scroll
+    )
+    listener.start()
+
+&quot;&quot;&quot;
+imt.tmp = imt.tmp_0.copy()
+listen_key_nblock()
+while True:
+    run_lsn()
+    time.sleep(1)
+&quot;&quot;&quot;
+
+
+&quot;&quot;&quot;
+Key.right
+Key.left
+Key.up
+Key.down
+'z'
+Key.shift
+'r'
+&quot;&quot;&quot;
+
+</code></pre>
+<pre><code class="language-python">#bongo_cat.py
+import pygame as pg
+import sys
+from canvas import Background
+import listener as lsn
+import image_tmp as imt
+import time
+
+
+def init():
+    imt.tmp = imt.tmp_0.copy()
+
+
+def run_game():
+    interval = 0.03
+    pg.init()
+    screen = pg.display.set_mode((300, 177))
+    pg.display.set_caption('bongo_cat')
+    bgc = (230, 230, 230)
+    bg = Background(screen)
+    init()
+    lsn.listen_key_nblock()
+    while True:
+        for event in pg.event.get():
+            if event.type == pg.QUIT:
+                sys.exit()
+        lsn.run_lsn()
+        screen.fill(bgc)
+        bg.draw(imt.BC[imt.typem][imt.typen])
+        pg.display.flip()
+        time.sleep(interval)
+
+
+run_game()
+
+</code></pre>
+<h2 id="4">4.总结 &amp; 一些坑点</h2>
+<ol>
+<li>
+<p>一开始主循环没有$time.sleep()$,导致$cpu$占用$20\%$</p>
+</li>
+<li>
+<p>写$listener.py$时被windows安全中心当成病毒隔离了就nm离谱</p>
+</li>
+<li>
+<p>最后用$Pyinstaller$封装成了$.exe$,不过图片文件要和$.exe$放在同一文件目录下。</p>
+</li>
+</ol>
+<pre><code class="language-python">Pyinstaller -F -w -i bongo_cat.ico bongo_cat.py
+</code></pre>
+<ol>
+<li>后期打算把这个放到$Github$上钓鱼，~~看有没有人给stars~~</li>
+</ol></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script src="../../../js/bootstrap.bundle.min.js"></script>
+        <script>
+            var base_url = "../../..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../../../js/base.js"></script>
+        <script src="../../../search/main.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

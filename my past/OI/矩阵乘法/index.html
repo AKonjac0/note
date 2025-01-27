@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../../../img/favicon.ico">
+        <title>矩阵乘法 - My Docs</title>
+        <link href="../../../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../../../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../../../css/brands.min.css" rel="stylesheet">
+        <link href="../../../css/solid.min.css" rel="stylesheet">
+        <link href="../../../css/v4-font-face.min.css" rel="stylesheet">
+        <link href="../../../css/base.css" rel="stylesheet">
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="../../..">My Docs</a>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+
+                    <ul class="nav navbar-nav ms-md-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-bs-level="1"><a href="#_1" class="nav-link">矩阵乘法</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="_1">矩阵乘法</h1>
+<blockquote>
+<p>P3328</p>
+</blockquote>
+<p>神题，线段树+矩阵乘法</p>
+<p><strong>1. 矩阵乘法预处理</strong></p>
+<p>首先，设$f[i]=F[a[i]]$，而这个可以用$3\times 3$矩阵预处理出来。</p>
+<p>具体地，设三元向量$[f_{k+2},f_{k+1},1]$，则有递推式</p>
+<p>$$[f_{k+2},f_{k+1},1]=[f_{k+1},f_k,1]\times\left[ \begin{array}{lll}1 &amp; 1&amp; 0\a &amp; 0 &amp; 0\b&amp; 0 &amp; 1 \end{array}  \right]$$</p>
+<p>则</p>
+<p>$$[f_{k+2},f_{k+1},1]=[2,1,1]\times\left[ \begin{array}{lll}1 &amp; 1&amp; 0\a &amp; 0 &amp; 0\b&amp; 0 &amp; 1 \end{array}  \right]^k$$</p>
+<p><strong>2. 线段树维护</strong></p>
+<p>有了$f[i]$数组，我们就可以用线段树维护了。</p>
+<p>每个线段树节点建两个二维$3\times 3$数组，$sum$和$data$,分别维护：</p>
+<p>$$sum:
+\left[\begin{array}{l}f_{a_{i-1}-1} &amp; f_{a_{i-1}}&amp; f_{a_{i-1}+1}\ f_{a_{i+1}-1}&amp; f_{a_{i+1}}&amp; f_{a_{i+1}+1}\end{array}\right]
+\
+data:\left[\begin{array}{l}f_{a_{i-1}-1}\times f_{a_{i+1}-1}&amp; f_{a_{i-1}-1}\times f_{a_{i+1}}&amp; f_{a_{i-1}-1}\times f_{a_{i+1}+1}\
+f_{a_{i-1}}\times f_{a_{i+1}-1}&amp; f_{a_{i}-1}\times f_{a_{i+1}}&amp; f_{a_{i-1}}\times f_{a_{i+1}+1}\
+f_{a_{i-1}+1}\times f_{a_{i+1}-1}&amp; f_{a_{i-1}+1}\times f_{a_{i+1}}&amp; f_{a_{i-1}+1}\times f_{a_{i+1}+1}\
+\end{array}\right]
+$$</p>
+<p>这样，每次遇到$+1,-1$操作时，可以直接用现有的值求出未知量。</p>
+<p>同时，因为同一个区间对$a_{i-1},a_{i+1}$的影响不同，每个$[l,r]$更改会对$[l+1,r+1]$的$a_{i-1}$进行更改，而对$[l-1,r-1]$的$a_{i+1}$进行更改。</p>
+<p>所以我们每次更改两次，记录一个$t$，表示是改$a_{i-1}$还是$a_{i+1}$.</p>
+<p>对于加操作，有$f_{k+2}=f_{k+1}+a\times f_k+b$:</p>
+<pre><code class="language-cpp">void add(int i,int t) {
+    int l=tre[i].l,r=tre[i].r;ll w=r-l+1;
+    for(int k=0; k&lt;=1; ++k) _s(i,t,k)=_s(i,t,k+1);
+    _s(i,t,2)=(_s(i,t,1)+a*_s(i,t,0)%P+b*w%P)%P;
+    if(t==0) { //a[i-1]
+        for(int k=0; k&lt;=2; ++k)
+            for(int j=0; j&lt;=1; ++j) _d(i,j,k)=_d(i,j+1,k);
+        for(int k=0; k&lt;=2; ++k) _d(i,2,k)=(_d(i,1,k)+_d(i,0,k)*a%P+b*_s(i,1,k)%P)%P;
+    } else {
+        for(int j=0; j&lt;=2; ++j)
+            for(int k=0; k&lt;=1; ++k) _d(i,j,k)=_d(i,j,k+1);
+        for(int j=0; j&lt;=2; ++j) _d(i,j,2)=(_d(i,j,1)+a*_d(i,j,0)%P+b*_s(i,0,j)%P)%P;
+    }//a[i+1]
+    return;
+}
+</code></pre>
+<p>注意线段树维护区间，所以$b$要乘以区间长$r-l+1$</p>
+<p>对于减操作需要解方程求出$f_k$。</p>
+<p>$f_k=\left{\begin{array}{r}\frac{f_{k+2}-f_{k+1}-b}{a}     (a\not =0) \ f_{k+1}-b (a=0) \end{array} \right.$</p>
+<p>则对于$a$特判，有：</p>
+<pre><code class="language-cpp">void del(int i,int t) {
+    int l=tre[i].l,r=tre[i].r;ll w=r-l+1;
+    if(a==0){
+        for(int k=2;k&gt;=1;--k) _s(i,t,k)=_s(i,t,k-1);
+        _s(i,t,0)=(_s(i,t,1)-b*w%P+P)%P;
+        if(t==0){//a[i-1]
+            for(int k=0;k&lt;=2;++k)
+                for(int j=2;j&gt;=1;--j) _d(i,j,k)=_d(i,j-1,k);
+            for(int k=0;k&lt;=2;++k) _d(i,0,k)=(_d(i,1,k)-b*_s(i,1,k)%P+P)%P;
+        }else{//a[i+1]
+            for(int j=0;j&lt;=2;++j)
+                for(int k=2;k&gt;=1;--k) _d(i,j,k)=_d(i,j,k-1);
+            for(int j=0;j&lt;=2;++j) _d(i,j,0)=(_d(i,j,1)-b*_s(i,0,j)%P+P)%P;
+        }
+    }else{
+        for(int k=2;k&gt;=1;--k) _s(i,t,k)=_s(i,t,k-1);
+        _s(i,t,0)=(_s(i,t,2)-_s(i,t,1)+P-b*w%P+P)%P*inva%P;
+        if(t==0){//a[i-1]
+            for(int k=0;k&lt;=2;++k)
+                for(int j=2;j&gt;=1;--j) _d(i,j,k)=_d(i,j-1,k);
+            for(int k=0;k&lt;=2;++k) _d(i,0,k)=(_d(i,2,k)-_d(i,1,k)+P-b*_s(i,1,k)%P+P)%P*inva%P;
+        }else{//a[i+1]
+            for(int j=0;j&lt;=2;++j)
+                for(int k=2;k&gt;=1;--k) _d(i,j,k)=_d(i,j,k-1);
+            for(int j=0;j&lt;=2;++j) _d(i,j,0)=(_d(i,j,2)-_d(i,j,1)+P-b*_s(i,0,j)%P+P)%P*inva%P;
+        }
+    }
+}
+</code></pre>
+<p>那么我们需要两个$lazytag$，分别表示$a_{i-1}$和$a_{i+1}$的变化量。</p>
+<p>$pushup$直接暴力合并，$pushdown$也直接计算即可。</p>
+<p>$change$需要区分$t$，$query$返回$data[2][0]$即可。</p>
+<p>至此，我们完整的过了一遍主要流程。</p>
+<p>~~卡常一直是我的痛，所以一下代码要吸氧才能过~~</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;ctime&gt;
+#define ls (i&lt;&lt;1)
+#define rs (i&lt;&lt;1|1)
+#define mid (l+r&gt;&gt;1)
+#define _s(i,j,k) tre[i].sum[j][k]
+#define _d(i,j,k) tre[i].data[j][k]
+#define ll long long 
+using namespace std;
+const int N=3e5+10,P=1e9+7;
+struct ma {
+    ll f[3][3];
+    int n,m;
+    ma() {
+        memset(f,0,sizeof f);n=m=0;
+    }
+} s,t;
+int read1(){
+    int x=0;char ch=getchar();
+    while(ch&lt;'0' || ch&gt;'9') ch=getchar();
+    while(ch&gt;='0' &amp;&amp; ch&lt;='9') x=(x&lt;&lt;1)+(x&lt;&lt;3)+ch-'0',ch=getchar();
+    return x;
+}
+void write1(ll x){
+    if(x&gt;9) write1(x/10);
+    putchar(x%10+'0');return;
+}
+ma operator *(ma x,ma y) {
+    ma z=ma();
+    int n=x.n,m=x.m,p=y.m;
+    z.n=n,z.m=p;
+    for(int i=0; i&lt;n; ++i)
+        for(int j=0; j&lt;p; ++j)
+            for(int k=0; k&lt;m; ++k) z.f[i][j]=(z.f[i][j]+x.f[i][k]*y.f[k][j]%P)%P;
+    return z;
+}
+struct tree {
+    int l,r,tag[2];
+    ll sum[3][3],data[3][3];
+} tre[N&lt;&lt;2];
+int n,q,_l,_r,x,y;
+ll inva,a,b;
+ll f[N][3];
+int A[N];
+char ch[10],_c;
+ll kp(ll x,int p) {
+    if(p==0) return 1;
+    if(p==1) return x%P;
+    if(p&amp;1) return x*kp(x*x%P,p&gt;&gt;1)%P;
+    else return kp(x*x%P,p&gt;&gt;1)%P;
+}
+ma Kp(ma x,int p) {
+    if(p==1) return x;
+    if(p&amp;1) return x*Kp(x*x,p&gt;&gt;1);
+    else return Kp(x*x,p&gt;&gt;1);
+}
+void initf() {
+    inva=kp(a,P-2)%P;
+    s.n=s.m=3;
+    s.f[0][0]=s.f[0][1]=s.f[2][2]=1;s.f[1][0]=a;s.f[2][0]=b;
+    t.n=1,t.m=3;
+    t.f[0][0]=2;t.f[0][1]=t.f[0][2]=1;
+    for(int i=1; i&lt;=n; ++i) {
+        if(A[i]==1) {
+            f[i][0]=-P,f[i][1]=1,f[i][2]=2;
+        } else if(A[i]==2) {
+            f[i][0]=1,f[i][1]=2;
+            f[i][2]=(f[i][1]+a*f[i][0]%P+b)%P;
+        } else {
+            ma tmp=t*Kp(s,A[i]-2);
+            f[i][0]=tmp.f[0][1];
+            f[i][1]=tmp.f[0][0];
+            f[i][2]=(f[i][1]+a*f[i][0]%P+b)%P;
+        }
+    }
+}
+void pushup(int i) {
+    for(int j=0; j&lt;=1; ++j)
+        for(int k=0; k&lt;=2; ++k) _s(i,j,k)=(_s(ls,j,k)+_s(rs,j,k))%P;
+    for(int j=0; j&lt;=2; ++j)
+        for(int k=0; k&lt;=2; ++k) _d(i,j,k)=(_d(ls,j,k)+_d(rs,j,k))%P;
+}
+void build(int i,int l,int r) {
+    tre[i].l=l,tre[i].r=r;
+    if(l==r) {
+        for(int k=0; k&lt;=2; ++k) _s(i,0,k)=f[l-1][k];
+        for(int k=0; k&lt;=2; ++k) _s(i,1,k)=f[l+1][k];
+        for(int j=0; j&lt;=2; ++j)
+            for(int k=0; k&lt;=2; ++k) _d(i,j,k)=_s(i,0,j)*_s(i,1,k)%P;
+        return;
+    }
+    int mid=l+r&gt;&gt;1;
+    build(ls,l,mid);
+    build(rs,mid+1,r);
+    pushup(i);return;
+}
+void add(int i,int t) {
+    int l=tre[i].l,r=tre[i].r;ll w=r-l+1;
+    for(int k=0; k&lt;=1; ++k) _s(i,t,k)=_s(i,t,k+1);
+    _s(i,t,2)=(_s(i,t,1)+a*_s(i,t,0)%P+b*w%P)%P;
+    if(t==0) { //a[i-1]
+        for(int k=0; k&lt;=2; ++k)
+            for(int j=0; j&lt;=1; ++j) _d(i,j,k)=_d(i,j+1,k);
+        for(int k=0; k&lt;=2; ++k) _d(i,2,k)=(_d(i,1,k)+_d(i,0,k)*a%P+b*_s(i,1,k)%P)%P;
+    } else {
+        for(int j=0; j&lt;=2; ++j)
+            for(int k=0; k&lt;=1; ++k) _d(i,j,k)=_d(i,j,k+1);
+        for(int j=0; j&lt;=2; ++j) _d(i,j,2)=(_d(i,j,1)+a*_d(i,j,0)%P+b*_s(i,0,j)%P)%P;
+    }//a[i+1]
+    return;
+}
+void del(int i,int t) {
+    int l=tre[i].l,r=tre[i].r;ll w=r-l+1;
+    if(a==0){
+        for(int k=2;k&gt;=1;--k) _s(i,t,k)=_s(i,t,k-1);
+        _s(i,t,0)=(_s(i,t,1)-b*w%P+P)%P;
+        if(t==0){//a[i-1]
+            for(int k=0;k&lt;=2;++k)
+                for(int j=2;j&gt;=1;--j) _d(i,j,k)=_d(i,j-1,k);
+            for(int k=0;k&lt;=2;++k) _d(i,0,k)=(_d(i,1,k)-b*_s(i,1,k)%P+P)%P;
+        }else{//a[i+1]
+            for(int j=0;j&lt;=2;++j)
+                for(int k=2;k&gt;=1;--k) _d(i,j,k)=_d(i,j,k-1);
+            for(int j=0;j&lt;=2;++j) _d(i,j,0)=(_d(i,j,1)-b*_s(i,0,j)%P+P)%P;
+        }
+    }else{
+        for(int k=2;k&gt;=1;--k) _s(i,t,k)=_s(i,t,k-1);
+        _s(i,t,0)=(_s(i,t,2)-_s(i,t,1)+P-b*w%P+P)%P*inva%P;
+        if(t==0){//a[i-1]
+            for(int k=0;k&lt;=2;++k)
+                for(int j=2;j&gt;=1;--j) _d(i,j,k)=_d(i,j-1,k);
+            for(int k=0;k&lt;=2;++k) _d(i,0,k)=(_d(i,2,k)-_d(i,1,k)+P-b*_s(i,1,k)%P+P)%P*inva%P;
+        }else{//a[i+1]
+            for(int j=0;j&lt;=2;++j)
+                for(int k=2;k&gt;=1;--k) _d(i,j,k)=_d(i,j,k-1);
+            for(int j=0;j&lt;=2;++j) _d(i,j,0)=(_d(i,j,2)-_d(i,j,1)+P-b*_s(i,0,j)%P+P)%P*inva%P;
+        }
+    }
+}
+void calc(int i,int t,int c) {
+    if(!c) return;
+    if(c&gt;0) for(int k=1; k&lt;=c; ++k) add(i,t);
+    else for(int k=1; k&lt;=-c; ++k) del(i,t);
+}
+void pushdown(int i) {
+    int l=tre[i].l,r=tre[i].r,c=tre[i].tag[0],d=tre[i].tag[1];
+    if(!c &amp;&amp; !d) return;
+    tre[ls].tag[0]+=c;tre[ls].tag[1]+=d;
+    tre[rs].tag[0]+=c;tre[rs].tag[1]+=d;
+    calc(ls,0,c);calc(ls,1,d);
+    calc(rs,0,c);calc(rs,1,d);
+    tre[i].tag[0]=tre[i].tag[1]=0;
+}
+void change(int i,int el,int er,int t,int c) {
+    int l=tre[i].l,r=tre[i].r;
+    if(el&lt;=l &amp;&amp; r&lt;=er) {
+        tre[i].tag[t]+=c;
+        calc(i,t,c);
+        return;
+    }
+    pushdown(i);
+    if(el&lt;=mid) change(ls,el,er,t,c);
+    if(er&gt;mid) change(rs,el,er,t,c);
+    pushup(i);
+    return;
+}
+ll query(int i,int el,int er) {
+    int l=tre[i].l,r=tre[i].r;
+    if(el&lt;=l &amp;&amp; r&lt;=er) return _d(i,2,0);
+    ll ans=0;
+    pushdown(i);
+    if(el&lt;=mid) ans=(ans+query(ls,el,er))%P;
+    if(er&gt;mid) ans=(ans+query(rs,el,er))%P;
+    return ans;
+}
+int main() {
+    n=read1(),q=read1(),a=(long long)read1(),b=(long long)read1();
+    for(int i=1; i&lt;=n; ++i) A[i]=read1();
+    initf();
+    build(1,1,n);
+    for(int i=1; i&lt;=q; ++i) {
+        scanf(&quot;%s&quot;,ch);_l=read1(),_r=read1();
+        if(ch[0]=='q') {
+            if(_l+1&lt;=_r-1) write1(query(1,_l+1,_r-1)),putchar('\n');
+            else putchar('0'),putchar('\n');
+        } else if(ch[0]=='p') {
+            x=_l+1,y=_r+1&lt;n?_r+1:n;change(1,x,y,0,1);
+            x=_l-1&gt;1?_l-1:1,y=_r-1;change(1,x,y,1,1);
+        } else { //m
+            x=_l+1,y=_r+1&lt;n?_r+1:n;change(1,x,y,0,-1);
+            x=_l-1&gt;1?_l-1:1,y=_r-1;change(1,x,y,1,-1);
+        }
+    }
+    return 0;
+}
+</code></pre>
+<p>~~学流程用了一天半，写代码不到两小时写了两百行，所以思路清晰是非常重要的。~~</p></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script src="../../../js/bootstrap.bundle.min.js"></script>
+        <script>
+            var base_url = "../../..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../../../js/base.js"></script>
+        <script src="../../../search/main.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

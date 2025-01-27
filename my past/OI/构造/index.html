@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../../../img/favicon.ico">
+        <title>构造 - My Docs</title>
+        <link href="../../../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../../../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../../../css/brands.min.css" rel="stylesheet">
+        <link href="../../../css/solid.min.css" rel="stylesheet">
+        <link href="../../../css/v4-font-face.min.css" rel="stylesheet">
+        <link href="../../../css/base.css" rel="stylesheet">
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="../../..">My Docs</a>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+
+                    <ul class="nav navbar-nav ms-md-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-bs-level="1"><a href="#_1" class="nav-link">构造</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="2"><a href="#_2" class="nav-link">递推构造+矩阵加速</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#_3" class="nav-link">方案构造</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="_1">构造</h1>
+<h2 id="_2">递推构造+矩阵加速</h2>
+<p>矩阵乘法有介绍。</p>
+<blockquote>
+<p>P3990</p>
+</blockquote>
+<ol>
+<li>朴素$dp$</li>
+</ol>
+<p>$$
+f[i][j]= \left{  \begin{array}{ll} f[i+1][j-1]+f[i+1][j-3]+...\f[i][j-1]+f[i][j-3]+...\f[i-1][j-1]+f[i-1][j-3]+... \end{array} \right .
+$$</p>
+<p>复杂度$O(nm^2)$</p>
+<p>2.小优化$dp$</p>
+<p>注意到
+$$
+f[i][j-2]= \left{  \begin{array}{ll} f[i+1][j-3]+...\f[i][j-3]+...\f[i-1][j-3]+... \end{array} \right .
+$$</p>
+<p>因此</p>
+<p>$$
+f[i][j]=f[i-1][j-1]+f[i][j-1]+f[i+1][j-1]+f[i][j-2]\times [j\geq 4]
+$$</p>
+<p>注意特判，因为只有$j\geq 4$时才有$f[i][j-3]...$这些项，才需要加上$f[i][j-2]$,不然会重复。如$f[1][3]$只会加上$f[1][1]$这个初始值，而$f[1][1]$不是递推得来的。</p>
+<p>复杂度$O(nm)$</p>
+<ol>
+<li>矩阵加速</li>
+</ol>
+<p>$$\left[ \begin{matrix} f_{1,j}\f_{2,j}\...\f_{n,j}\f_{1,j-1}\f_{2,j-1}\...\f_{n,j-1} \end{matrix} \right]= S \times  \left[ \begin{matrix} f_{1,j-1}\f_{2,j-1}\...\f_{n,j-1}\f_{1,j-2}\f_{2,j-2}\...\f_{n,j-2} \end{matrix} \right]
+\
+n=3时，S=\
+\left[
+\begin{matrix}1&amp;1&amp;0&amp;1&amp;0&amp;0\1&amp;1&amp;1&amp;0&amp;1&amp;0\0&amp;1&amp;1&amp;0&amp;0&amp;1\1&amp;0&amp;0&amp;0&amp;0&amp;0\0&amp;1&amp;0&amp;0&amp;0&amp;0\0&amp;0&amp;1&amp;0&amp;0&amp;0 \end{matrix}\right]
+$$</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#define int long long 
+using namespace std;
+const int N=110,P=30011;
+int n,m;
+int g[N][N];
+struct ma{
+    int f[N][N],n,m;
+    ma(){
+        memset(f,0,sizeof f),n=m=0;
+    }
+}s,t,ans;
+ma operator *(ma a,ma b){
+    ma c=ma();
+    int x=a.n,y=a.m,z=b.m;
+    c.n=x,c.m=z;
+    for(int i=0;i&lt;x;++i)
+        for(int j=0;j&lt;z;++j)
+            for(int k=0;k&lt;y;++k) c.f[i][j]=(c.f[i][j]+a.f[i][k]*b.f[k][j]%P)%P;
+    return c;
+}
+ma kp(ma x,int p){
+    if(p&lt;=1) return x;
+    if(p&amp;1) return x*kp(x*x,p&gt;&gt;1);
+    else return kp(x*x,p&gt;&gt;1);
+}
+void init(){
+    t.n=t.m=n+n;
+    for(int i=0;i&lt;n;++i){
+        int l=max(0ll,i-1),r=min(n-1,i+1);
+        for(int j=l;j&lt;=r;++j) t.f[i][j]=1;
+        t.f[i][n+i]=t.f[n+i][i]=1;  
+    }
+    memset(g,0,sizeof g);
+    g[1][1]=1;
+    for(int j=2;j&lt;=3;++j){
+        for(int i=1;i&lt;=n;++i){
+            if(i+1&lt;=n) g[i][j]+=g[i+1][j-1];
+            if(i-1&gt;=1) g[i][j]+=g[i-1][j-1];
+            g[i][j]+=g[i][j-1];
+            if(j-3&gt;=1) g[i][j]+=g[i][j-2];
+        }
+    }
+    s.n=n+n,s.m=1;
+    for(int i=0;i&lt;n;++i) s.f[i][0]=g[i+1][3];
+    for(int i=n;i&lt;n+n;++i) s.f[i][0]=g[i-n+1][2];
+}
+signed main(){
+    scanf(&quot;%lld%lld&quot;,&amp;n,&amp;m);
+    init();
+    if(m&lt;=3){
+        printf(&quot;%lld&quot;,g[n][m]%P);       
+    }else{
+        ans=kp(t,m-3)*s;
+        printf(&quot;%lld&quot;,ans.f[n-1][0]%P);
+    }
+    return 0;
+}
+
+</code></pre>
+<h2 id="_3">方案构造</h2>
+<blockquote>
+<p>P7854</p>
+</blockquote>
+<p>对于一个点想做别人的儿子，当且仅当它的权值$a_i$与父亲的权值$a_j$满足：$a_j|a_i$.</p>
+<p>所以，对于所有点，我们先按照权值大小从大到小排个序。</p>
+<p>然后对于当前点$(u,a_u)$将所有<strong>没有父亲节点</strong>并且$a_u|a_v$的点$v$连在$u$的下面。</p>
+<p>同时，如果一个点有父亲节点$(p,a_p)$,$a_v$还是$a_u$的倍数，并且$\gcd(a_p,a_u)=a_u$,说明$a_p$一定可以作为$a_u$的子节点(因为从大到小考虑，所以$a_u$一定比$a_p$小)，那么跳过不用处理；</p>
+<p>否则，说明$a_p$不能作为$a_u$的子节点，那么$v$同时有两个根节点$u,p$，不满足，输出$-1$.</p>
+<p>建完树后，这棵树满足所有节点有唯一父亲节点并且权值都是父亲节点的倍数。</p>
+<p>那么我们还需要判断是否出现$\gcd(i,j)=k$且$k$没出现过的情况。</p>
+<p>如：</p>
+<pre><code class="language-cpp">3
+1 4 6
+</code></pre>
+<p>这种。</p>
+<p>首先，将所有出现过的，是$k$倍数的节点拿出来。如果这些节点在原树种组成了多颗子树，那么说明这些子树的根节点权值两两求$\gcd$一定能求出$k$,而$k$不存在，则无解.</p>
+<p>否则，如果只有一颗子树，就只会求出那个根节点，不会求出$k$。</p>
+<p>那么怎么判断呢？我们直接判断这些节点是否有父亲，或者其父亲节点是不是$k$的倍数时，如果没有父亲或者没有是$k$倍数的父亲，说明它是某颗子树的根节点，计数器加一；当计数器$&gt;1$时，就无解了。</p>
+<p>所以最终复杂度$O((n+m)\log n)$</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;algorithm&gt;
+#include&lt;vector&gt;
+using namespace std;
+const int N=1e5+10,M=1e6+10;
+int gcd(int a,int b){
+    return !b?a:gcd(b,a%b);
+}
+int n,cnt;
+int fa[N],b[N],f[M],head[N];
+vector&lt;int&gt; vis[M];
+struct node{
+    int id,val; 
+}a[N];
+bool cmp(node a,node b){
+    return a.val&gt;b.val;
+}
+int main(){
+    scanf(&quot;%d&quot;,&amp;n);
+    for(int i=1;i&lt;=n;++i) scanf(&quot;%d&quot;,&amp;a[i].val),a[i].id=i,b[i]=a[i].val,vis[a[i].val].push_back(a[i].id);
+    sort(a+1,a+n+1,cmp);
+    int lst=0,flag=1;
+    for(int i=1;i&lt;=n;++i){
+        int pre=a[i].id;
+        if(lst==a[i].val) continue;
+        for(int j=a[i].val;j&lt;M;j+=a[i].val){
+            if(vis[j].size()){
+                for(int k=0;k&lt;vis[j].size();++k){
+                    int now=vis[j][k];
+                    if(now==pre) continue;
+                    if(!fa[now]) fa[now]=pre;
+                    else{
+                        int g=gcd(b[fa[now]],b[pre]);
+                        if(g!=b[pre]) flag=0;
+                    }
+                }
+            }
+        }
+        lst=a[i].val;
+    }
+    for(int i=1;i&lt;M;++i){
+        int tmp=0;
+        for(int j=i;j&lt;M;j+=i){
+            if(vis[j].size()){
+                for(int k=0;k&lt;vis[j].size();++k){
+                    int now=vis[j][k];
+                    if(fa[now]==0 || b[fa[now]]%i!=0) ++tmp;
+                }
+            }       
+        }
+        if(tmp&gt;1){
+            flag=0;break;
+        }
+    }
+    if(!flag) printf(&quot;-1&quot;);
+    else for(int i=1;i&lt;=n;++i) printf(&quot;%d &quot;,fa[i]);
+    return 0;
+}
+</code></pre>
+<blockquote>
+<p>P3557</p>
+</blockquote>
+<p>注意到距离为1的情况的<strong>最优解</strong>就是距离为2的情况的一个<strong>可行解</strong>,因为距离为1时，两个塔之间最多只能间隔两个节点，这样才能保证塔数量最少且覆盖全图,而这种构造方式等价于距离为2的情况下将所有未覆盖的节点选作塔，并覆盖上周围点的构造方式。而题目保证一定可以构造出等于$k$的最优解$1$。因此这种构造方式一定能构造出$\leq k$的可行解$2$。</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+using namespace std;
+const int N=5e5+10,M=1e6+10;
+int n,m,k,cnt,u,v;
+int head[N],ans[N],vis[N];
+struct edge{
+    int v,nxt;
+}e[M&lt;&lt;1];
+void add(int u,int v){
+    e[++cnt].v=v,e[cnt].nxt=head[u],head[u]=cnt;
+}
+void dfs(int u,int p,int dep){
+    vis[u]=1;
+    if(dep&gt;=2) return;
+    for(int i=head[u];~i;i=e[i].nxt){
+        int v=e[i].v;
+        if(v==p) continue;
+        dfs(v,u,dep+1);
+    }
+}
+int main(){
+    memset(head,-1,sizeof head);cnt=-1;
+    scanf(&quot;%d%d%d&quot;,&amp;n,&amp;m,&amp;k);
+    for(int i=1;i&lt;=m;++i) scanf(&quot;%d%d&quot;,&amp;u,&amp;v),add(u,v),add(v,u);
+    for(int i=1;i&lt;=n;++i) if(!vis[i]) ans[++ans[0]]=i,dfs(i,0,0);
+    printf(&quot;%d\n&quot;,ans[0]);
+    for(int i=1;i&lt;=ans[0];++i) printf(&quot;%d &quot;,ans[i]);
+    return 0;
+}
+</code></pre>
+<blockquote>
+<p>P5441</p>
+</blockquote>
+<p>~~名副其实的MO题~~</p>
+<p>初始答案显然，为$C_n^4$</p>
+<p>定义$S_k$表示$i\to ((i+k-1)\mod n+1)$的所有边的集合,即跳过了$k-1$个点。$S_k=S_{n-k},|S_k|=\frac n2$</p>
+<p>注意到最外层$S_1$/次外层$S_2$的边都可以按照一个方向放置，不需要双向边，对答案没有影响。</p>
+<p>而对于$k\geq 3$的情况，由于前两层的边是按照一个方向放置的，所以会出现两个不同方向的环共用这一条边，即需要双向边。如果不用双向边，就会丢失一部分方案数。</p>
+<p>那么我们贪心地取两环中最大环的方向作为这条边的方向，丢失一部分最小环上的方案数,这种边的数量为$n$条。(两环相等任取一个，但注意边数只有$\frac n2$条)</p>
+<p>可以发现$S_k$的所有边可以组成所有点数为$k$的环。</p>
+<p>小环方案数$=C_{k-2}^2$,因为一个边的两个点一定要取，不然状态有重复。</p>
+<p>那么我们按照从小到大的顺序，减去这些贡献，最后剩下的就是最大方案数。</p>
+<p>至于方案，只需要在统计$k\geq 3$边的时候记录一下两个端点，将减去的设为单向，剩下的设为双向即可。再加上$k\leq 2$即可。</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+using namespace std;
+const int N=110,M=1e5+10;
+int C[N],c[N],f[N][N];
+int n,cnt,sum,m;
+struct node{
+    int u,v,w;
+    node(int uu=0,int vv=0,int ww=0){
+        u=uu,v=vv,w=ww;
+    }
+}ans[M];
+void work(){
+    C[4]=1;c[2]=1;
+    for(int i=5;i&lt;=n;++i) C[i]=C[i-1]*i/(i-4);
+    for(int i=3;i&lt;=n;++i) c[i]=c[i-1]*i/(i-2);
+    cnt=0;sum=C[n];
+    for(int i=1;i&lt;=n;++i)
+        for(int j=1;j&lt;=2;++j) f[i][(i+j-1)%n+1]=1,f[i][i]=0;
+
+    for(int i=4;i&lt;=n-i+2;++i){
+        int tmp=c[i-2];
+        if(i==n-i+2) for(int j=1;j&lt;=n/2;++j) ans[++cnt]=node(j,(j+i-1-1)%n+1,tmp);//对应两环大小相等的情况。
+        else for(int j=1;j&lt;=n;++j) ans[++cnt]=node(j,(j+i-1-1)%n+1,tmp);    
+    }
+    m=max(0,n*(n-7)/2);
+    for(int i=1;i&lt;=m;++i){
+        int u=ans[i].u,v=ans[i].v,w=ans[i].w;
+        sum-=w;f[u][v]=1;
+    }
+    for(int i=m+1;i&lt;=cnt;++i){
+        int u=ans[i].u,v=ans[i].v;
+        f[u][v]=f[v][u]=1;
+    }   
+}
+int main(){
+    scanf(&quot;%d&quot;,&amp;n);
+    work();
+    printf(&quot;%d\n&quot;,sum);
+    for(int i=1;i&lt;=n;++i){
+        for(int j=1;j&lt;=n;++j) printf(&quot;%d &quot;,f[i][j]);
+        printf(&quot;\n&quot;);
+    }
+    return 0;
+}
+
+</code></pre></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script src="../../../js/bootstrap.bundle.min.js"></script>
+        <script>
+            var base_url = "../../..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../../../js/base.js"></script>
+        <script src="../../../search/main.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

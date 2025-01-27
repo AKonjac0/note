@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../../../img/favicon.ico">
+        <title>Dancing Links X - My Docs</title>
+        <link href="../../../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../../../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../../../css/brands.min.css" rel="stylesheet">
+        <link href="../../../css/solid.min.css" rel="stylesheet">
+        <link href="../../../css/v4-font-face.min.css" rel="stylesheet">
+        <link href="../../../css/base.css" rel="stylesheet">
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="../../..">My Docs</a>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+
+                    <ul class="nav navbar-nav ms-md-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-bs-level="1"><a href="#dancing-links-x" class="nav-link">Dancing Links X</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="2"><a href="#_1" class="nav-link">应用：解决精确覆盖问题。</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#_2" class="nav-link">模板</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="dancing-links-x">Dancing Links X</h1>
+<h2 id="_1">应用：解决精确覆盖问题。</h2>
+<p>例如数独，k皇后等涉及同一个数在一定范围内值出现一次的问题可以用DLX解决。</p>
+<h2 id="_2">模板</h2>
+<blockquote>
+<p>P4929</p>
+</blockquote>
+<ul>
+<li>注意：</li>
+</ul>
+<p>1.每次删除和恢复的都是表头下面的一整列以及含有1的一整行，而整个过程中更改的只有表头左右指针和不是表头那列的1的上下指针</p>
+<p>（因为恢复要从表头向下访问，再从行头向右访问）。</p>
+<p>只有这样才能实现访问到已删除的1。</p>
+<p>2.十字链表中上下，左右的顺序无所谓，但必须统一。</p>
+<p>3.注意所有链表都是双向，即是一个环。当自己指向自己时为空。</p>
+<p>4.算法判定结果错误的依据是表头还有剩余，但元素都删完了，说明之前有两个以上的1冲突。</p>
+<p>5.删除时更改上下元素的之中呢一定注意顺序。</p>
+<pre><code class="language-cpp">    f[++cnt].u=C;
+    f[cnt].d=f[C].d;
+    f[f[C].d].u=cnt;
+    f[C].d=cnt;
+    f[cnt].row=R;
+    f[cnt].col=C; 
+</code></pre>
+<p>6.每次选用1个数最小的列实际也是剪枝优化，为了让更多的1在当前回合就被筛掉，以减少搜索次数。</p>
+<p>7.去除元素时是去除除了表头元素意外所有下面的1，和除了行头外所有1.为了下次从表头，行头访问到被删除的点。
+<em>code time:</em></p>
+<p>1) 数组版：</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+using namespace std;
+const int N=550,M=N*N+N;
+int n,m,cnt;
+int d[M],u[M],l[M],r[M],row[M],col[M];
+int s[M],h[M],ans[M];
+
+
+void init(){
+    for(int i=0;i&lt;=m;++i){
+        l[i]=i-1;
+        r[i]=i+1;
+        u[i]=d[i]=i;
+    }
+    r[m]=0;
+    l[0]=m;//链表头尾特判
+    memset(h,-1,sizeof h);
+    memset(s,0,sizeof s);
+    cnt=m+1;
+}
+
+void add(int R,int C){
+    s[C]++;
+    row[cnt]=R;
+    col[cnt]=C;
+    u[cnt]=C;
+    d[cnt]=d[C];
+    u[d[C]]=cnt;
+    d[C]=cnt;//注意顺序！
+
+    if(h[R]==-1){
+        h[R]=l[cnt]=r[cnt]=cnt;
+    }else{
+        r[cnt]=h[R];
+        l[cnt]=l[h[R]];
+        r[l[h[R]]]=cnt;
+        l[h[R]]=cnt;//顺序
+    }
+    cnt++;
+}
+
+void remove(int C){
+    r[l[C]]=r[C],l[r[C]]=l[C];
+    for(int i=d[C];i!=C;i=d[i]){
+        for(int j=r[i];j!=i;j=r[j]){
+            u[d[j]]=u[j];
+            d[u[j]]=d[j];//只更改上下指针，为了下次还能访问到并恢复
+            s[col[j]]--;
+        }
+    }
+}
+void resume(int C){
+    for(int i=d[C];i!=C;i=d[i]){
+        for(int j=r[i];j!=i;j=r[j]){
+            u[d[j]]=j;
+            d[u[j]]=j;//再接回来
+            s[col[j]]++;
+        }
+    }
+    l[r[C]]=C,r[l[C]]=C;
+}
+
+void print1(int tot){
+    for(int i=0;i&lt;tot;++i)printf(&quot;%d &quot;,ans[i]);
+}
+int dfs(int dep){
+    if(r[0]==0){
+        print1(dep);
+        return 1;//一个解就退出
+    }
+    int c=r[0];
+    for(int i=r[0];i!=0;i=r[i]){
+        if(s[i]&lt;s[c])c=i;
+    }//剪枝优化
+    remove(c);//去除当前表头下那列（C'）的所有1，表示已经被纳入选择。
+    for(int i=d[c];i!=c;i=d[i]){
+        ans[dep]=row[i];//选择当前行。
+        for(int j=r[i];j!=i;j=r[j])remove(col[j]);//去除除了C'以外的当前行的1
+        if(dfs(dep+1))return 1;
+        for(int j=r[i];j!=i;j=r[j])resume(col[j]);
+    }
+    resume(c);//回溯
+    return 0;//无解
+}
+int read1(){
+    int x=0;
+    char ch=getchar();
+    while(ch&gt;'9' || ch&lt;'0'){
+        ch=getchar();
+    }
+    while(ch&lt;='9' &amp;&amp; ch&gt;='0'){
+        x=(x&lt;&lt;1)+(x&lt;&lt;3)+ch-'0';
+        ch=getchar();
+    }
+    return x;
+}
+int main(){
+    n=read1(),m=read1();
+    init();
+    for(int i=1;i&lt;=n;++i){
+        for(int j=1,tmp;j&lt;=m;++j){
+            tmp=read1();
+            if(tmp)add(i,j);
+        }
+    }
+    if(!dfs(0))printf(&quot;No Solution!&quot;);
+    return 0;
+}
+</code></pre>
+<p>2) 结构体版：</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;algorithm&gt;
+using namespace std;
+const int N=550,M=N*N;
+int n,m,cnt;
+int s[M],h[M],ans[M];
+struct node{
+    int u,d,l,r,row,col;
+}f[M];
+void init(){
+    for(int i=0;i&lt;=m;++i){
+        f[i].l=i-1;
+        f[i].r=i+1;
+        f[i].u=f[i].d=i;
+    }
+    f[m].r=0;
+    f[0].l=m;
+    cnt=m;
+    memset(h,-1,sizeof h);
+    memset(s,0,sizeof s);
+}
+void link(int R,int C){
+    s[C]++;
+    f[++cnt].u=C;
+    f[cnt].d=f[C].d;
+    f[f[C].d].u=cnt;
+    f[C].d=cnt;
+    f[cnt].row=R;
+    f[cnt].col=C; 
+
+    if(h[R]==-1){
+        h[R]=f[cnt].l=f[cnt].r=cnt;
+    }else{
+        f[cnt].l=h[R];
+        f[cnt].r=f[h[R]].r;
+        f[f[h[R]].r].l=cnt;
+        f[h[R]].r=cnt;
+    }
+
+}
+void remove(int C){
+    f[f[C].r].l=f[C].l,f[f[C].l].r=f[C].r;
+    for(int i=f[C].d;i!=C;i=f[i].d){
+        for(int j=f[i].r;j!=i;j=f[j].r){
+            f[f[j].d].u=f[j].u;
+            f[f[j].u].d=f[j].d;
+            s[f[j].col]--;
+        }
+    }
+}
+void resume(int C){
+    for(int i=f[C].d;i!=C;i=f[i].d){
+        for(int j=f[i].r;j!=i;j=f[j].r){
+            f[f[j].d].u=j;
+            f[f[j].u].d=j;
+            s[f[j].col]++;
+        }
+    }
+    f[f[C].l].r=C,f[f[C].r].l=C;
+}
+void print1(int tot){
+    for(int i=1;i&lt;=tot;++i)printf(&quot;%d &quot;,ans[i]);
+}
+int dfs(int dep){
+    if(f[0].r==0){
+        print1(dep-1);
+        return 1;
+    }
+    int c=f[0].r;
+    for(int i=f[0].r;i!=0;i=f[i].r)if(s[i]&lt;s[c])c=i;
+    remove(c);
+    for(int i=f[c].d;i!=c;i=f[i].d){
+        ans[dep]=f[i].row;
+        for(int j=f[i].r;j!=i;j=f[j].r)remove(f[j].col);
+        if(dfs(dep+1))return 1;
+        for(int j=f[i].r;j!=i;j=f[j].r)resume(f[j].col);
+    }
+    resume(c);
+    return 0;
+}
+int main(){
+    scanf(&quot;%d%d&quot;,&amp;n,&amp;m);
+    init();
+    for(int i=1;i&lt;=n;++i){
+        for(int j=1,tmp;j&lt;=m;++j){
+            scanf(&quot;%d&quot;,&amp;tmp);
+            if(tmp)link(i,j);
+        }
+    }   
+    if(!dfs(1))printf(&quot;No Solution!&quot;);
+    return 0;
+}
+
+</code></pre></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script src="../../../js/bootstrap.bundle.min.js"></script>
+        <script>
+            var base_url = "../../..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../../../js/base.js"></script>
+        <script src="../../../search/main.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

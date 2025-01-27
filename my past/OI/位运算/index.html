@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../../../img/favicon.ico">
+        <title>进制 &amp; 位运算 - My Docs</title>
+        <link href="../../../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../../../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../../../css/brands.min.css" rel="stylesheet">
+        <link href="../../../css/solid.min.css" rel="stylesheet">
+        <link href="../../../css/v4-font-face.min.css" rel="stylesheet">
+        <link href="../../../css/base.css" rel="stylesheet">
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="../../..">My Docs</a>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+
+                    <ul class="nav navbar-nav ms-md-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-bs-level="1"><a href="#_1" class="nav-link">进制 &amp; 位运算</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="_1">进制 &amp; 位运算</h1>
+<blockquote>
+<p>P7442</p>
+</blockquote>
+<p>~~众所周知，二进制有一类提需要你找规律~~</p>
+<p>每次的1操作相当于将$x$这个二进制数看成一个环，并且将它旋转$cnt \mod n$次，$cnt$为总的操作次数。</p>
+<p>而2操作就是在2操作前的$cnt\mod n$位上异或上一个1。</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#define int long long 
+using namespace std;
+int cnt,n,m,op,x,tmp;
+signed main(){
+    scanf(&quot;%lld%lld&quot;,&amp;n,&amp;m);
+    for(int i=1;i&lt;=m;++i){
+        scanf(&quot;%lld%lld&quot;,&amp;op,&amp;x);
+        if(op==1){
+            tmp^=(x)*(long long)(1ll&lt;&lt;cnt);cnt=(cnt+1ll)%n;
+        }else{
+            int tot=x&gt;&gt;(n-cnt);
+            x=x^(tot&lt;&lt;(n-cnt));
+            printf(&quot;%lld\n&quot;,(long long)(x&lt;&lt;cnt)^tot^tmp);
+        }
+    }
+    return 0;
+} 
+</code></pre>
+<blockquote>
+<p>P1582</p>
+</blockquote>
+<p>通过不断求得当前的n有多少个1，并与k判断，若小于k则符合题意，否则就将最后一位1加到贡献里去。</p>
+<pre><code class="language-cpp">//求最后一位1
+int lowbit(int x){
+    return x&amp;-x;
+}
+</code></pre>
+<p>完整code：</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#define int long long 
+using namespace std;
+const int K=1e3+10;
+int n,k;
+int lowbit(int x){
+    return x&amp;-x;
+}
+signed main(){
+    scanf(&quot;%lld%lld&quot;,&amp;n,&amp;k);
+    int m=n,t=0;
+    while(m){
+        m-=lowbit(m);
+        ++t;
+    }
+    if(t&lt;=k){
+        printf(&quot;0&quot;);
+        return 0;
+    }else{
+        int ans=0;
+        while(t&gt;k){
+            int tmp=lowbit(n);
+            ans+=tmp;
+            n+=tmp;
+            int m=n;
+            t=0;
+            while(m){
+                m-=lowbit(m);
+                t++;
+            }
+        }
+        printf(&quot;%lld&quot;,ans);
+    }
+    return 0;
+}
+
+</code></pre>
+<blockquote>
+<p>P1015</p>
+</blockquote>
+<p>模拟题.</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+using namespace std;
+const int N=1e4+10;
+int n;
+struct HP{
+    int p[N],len;
+    void clear1(){
+        memset(p,0,sizeof p);
+        len=1;
+    }
+    void read1(){
+        memset(p,0,sizeof p);
+        len=0;
+        p[0]=1;
+        char ch=getchar();
+        int x=0,f=1;
+        while(!(ch&lt;='9' &amp;&amp; ch&gt;='0' || ch&lt;='F' &amp;&amp; ch&gt;='A' || ch&lt;='f' &amp;&amp; ch&gt;='a')){
+            ch=getchar();
+        }
+        while((ch&lt;='9' &amp;&amp; ch&gt;='0' || ch&lt;='F' &amp;&amp; ch&gt;='A' || ch&lt;='f' &amp;&amp; ch&gt;='a')){
+            ++len;
+            if(n==16){
+                if(ch&lt;='F' &amp;&amp; ch&gt;='A'){
+                    p[len]=ch-'A'+10;   
+                }else if(ch&lt;='f' &amp;&amp; ch&gt;='a'){
+                    p[len]=ch-'a'+10;   
+                }else p[len]=ch-'0';
+            }else p[len]=ch-'0';
+            ch=getchar();
+        }
+        for(int i=1;i&lt;=len/2;++i){
+            swap(p[i],p[len-i+1]);
+        } 
+    }
+    void write1(){
+        for(int i=len;i&gt;=1;--i){
+            printf(&quot;%d&quot;,p[i]);
+        }
+        putchar('\n');
+    }
+};
+HP operator +(const HP &amp;a,const HP &amp;b){
+    HP c;
+    c.clear1();
+    int la=a.len,lb=b.len,lc=max(la,lb),x=0;
+    for(int i=1;i&lt;=lc;++i){
+        c.p[i]=a.p[i]+b.p[i]+x;
+        x=c.p[i]/n;
+        c.p[i]%=n;
+    }
+    if(x)c.p[++lc]=x;
+    c.len=lc;
+    return c;
+}
+HP new1(HP a){
+    HP b;
+    b.clear1();
+    int la=a.len;
+    b.len=la;
+    for(int i=1;i&lt;=la;++i){
+        b.p[la-i+1]=a.p[i];
+    }
+    a=a+b;
+    return a;
+}
+bool check(HP a){
+    bool flag=true;
+    for(int i=1;i&lt;=a.len/2;++i){
+        if(a.p[i]!=a.p[a.len-i+1])flag=false;
+    }
+    return flag;
+}
+int main(){
+    scanf(&quot;%d&quot;,&amp;n);
+    HP a;
+    a.read1();
+    int cnt=0;
+    while(!check(a) &amp;&amp; cnt&lt;=31){
+        a=new1(a);
+        cnt++;
+    }
+    if(cnt&gt;=31)printf(&quot;Impossible!&quot;);
+    else printf(&quot;STEP=%d&quot;,cnt);
+    return 0;
+}
+</code></pre>
+<blockquote>
+<p>P2852</p>
+</blockquote>
+<p>这道题时$hash$优化的字符串表示法，将每个字符串看成一个$C$进制数即可，并将它$mod$上一个大质数$P$,因为我们用前缀和的思想表示每一个子串，所以对于$n$个数的序列总共只有$n$个字符串，如果$P$足够大并且是质数就不会出现状态重复的情况。~~如果有，就换一个更♂大♂的~~</p>
+<p>代码在$hash$优化里有。</p>
+<blockquote>
+<p>P3760</p>
+</blockquote>
+<p>~~位运算好题~~</p>
+<p>对于所有复杂的位运算，我们有个常用的$Trick$，就是将每个数拆位，每个数只用记录$O(\log n)$个位.</p>
+<p>对于枚举的位数$v$，我们只需要统计有多少个$s$满足：</p>
+<p>$(s[j]-s[i]&gt;&gt;v)&amp;1==1$即可。</p>
+<p>那么可以开两个树状数组，记录第$v$位分别为0或1的状态。</p>
+<p>对于当前枚举到的$s[i]$：</p>
+<p>1) 第$v$位为1，那只需要找到第$v$位之前比他小且0的个数或比他大且1的个数。</p>
+<p>2) 第$v$位为0，那只需要找到第$v$位之前比他大且0的个数或比他小且1的个数。</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#define int long long 
+#define lowbit(x) (x&amp;-x)
+using namespace std;
+const int N=1e5+10,C=1e6+10;
+int s[N],a[N],f[C][2];
+int n,maxn,ans;
+void change(int i,int x,int d){
+    while(x&lt;C)f[x][i]+=d,x+=lowbit(x);
+}
+int sum(int i,int x){
+    int ans=0;
+    while(x&gt;0)ans+=f[x][i],x-=lowbit(x);
+    return ans;
+}
+signed main(){
+    scanf(&quot;%lld&quot;,&amp;n);
+    for(int i=1;i&lt;=n;++i)scanf(&quot;%lld&quot;,&amp;a[i]),s[i]=s[i-1]+a[i],maxn=max(maxn,s[i]);
+    for(int v=0;v&lt;=20;++v){
+        if((1&lt;&lt;v)&gt;maxn)break;
+        int cnt=0;
+        memset(f,0,sizeof f);
+        change(0,1,1);
+        for(int i=1;i&lt;=n;++i){
+            int tmp=s[i]&amp;((1&lt;&lt;v)-1),type=(s[i]&gt;&gt;v)&amp;1;
+
+            if(type)cnt+=sum(1,C-1)-sum(1,tmp+1)+sum(0,tmp+1);
+            else cnt+=sum(0,C-1)-sum(0,tmp+1)+sum(1,tmp+1);
+            change(type,tmp+1,1);
+        }
+        if(cnt%2)ans|=(1&lt;&lt;v);
+    }
+
+    printf(&quot;%lld&quot;,ans);
+    return 0;
+}
+
+</code></pre></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script src="../../../js/bootstrap.bundle.min.js"></script>
+        <script>
+            var base_url = "../../..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../../../js/base.js"></script>
+        <script src="../../../search/main.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

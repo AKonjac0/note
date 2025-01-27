@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../../../img/favicon.ico">
+        <title>最短路 - My Docs</title>
+        <link href="../../../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../../../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../../../css/brands.min.css" rel="stylesheet">
+        <link href="../../../css/solid.min.css" rel="stylesheet">
+        <link href="../../../css/v4-font-face.min.css" rel="stylesheet">
+        <link href="../../../css/base.css" rel="stylesheet">
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="../../..">My Docs</a>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+
+                    <ul class="nav navbar-nav ms-md-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-bs-level="1"><a href="#_1" class="nav-link">最短路</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="2"><a href="#floyd" class="nav-link">全源算法Floyd</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#_2" class="nav-link">全源之路径统计</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#_3" class="nav-link">分层图</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#dijkstra" class="nav-link">dijkstra</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#spfa" class="nav-link">SPFA</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#_4" class="nav-link">二分节点</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#_5" class="nav-link">反向建边</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="_1">最短路</h1>
+<h2 id="floyd">全源算法Floyd</h2>
+<p>Q.为什么中转点k要放在最外层？
+A.因为floyd的实质是dp.
+用f[k][i][j]表示经过i到j的通过1...k的路径</p>
+<p>则</p>
+<pre><code class="language-cpp">f[k][i][j]=min(f[k-1][i][j],f[k-1][i][k]+f[k-1][k][j]);
+</code></pre>
+<p>由于最外面一层省略掉，所以得出floyd常见的式子；
+但是：</p>
+<p>“你要知道他是从上一层k转移过来的，所以当前的f[i][j]都应该是完成上一层动态规划的，如果k不是在最外层，那么f[i][j]就不是完成上一层动态规划的后的状态，有可能有的点没有经过k-1这个点的松弛。”</p>
+<p>:)</p>
+<h2 id="_2">全源之路径统计</h2>
+<blockquote>
+<p>P2047 ($2^{11}-1$)</p>
+</blockquote>
+<p>这道题，一开始思路是对的，后来越做越错orz</p>
+<p>用C[i][j]表示i到j之间的最短路径数目</p>
+<p>转移方程:(floyd==dp)</p>
+<pre><code class="language-cpp">void floyd() {
+    for(int k=1; k&lt;=n; ++k) {
+        for(int i=1; i&lt;=n; ++i) {
+            for(int j=1; j&lt;=n; ++j) {
+                if(i==j || i==k || j==k)continue;
+                if(dis[i][j]&gt;dis[i][k]+dis[k][j]) {
+                    dis[i][j]=dis[i][k]+dis[k][j];
+                    C[i][j]=C[i][k]*C[k][j];
+                    continue;   
+                }
+                if(dis[i][j]==dis[i][k]+dis[k][j]){
+                    C[i][j]+=C[i][k]*C[k][j];
+                }
+            }
+        }
+    }
+    return;
+}
+
+</code></pre>
+<p>统计答案:当dis[i][k]+dis[k][j]==dis[i][j]时，这条经过k的路径一定是i到j的最短路，则:</p>
+<pre><code class="language-cpp">void sum() {
+    for(int k=1; k&lt;=n; ++k) {
+        for(int i=1; i&lt;=n; ++i) {
+            for(int j=1; j&lt;=n; ++j) {
+                if(i==k || j==k || i==j)continue;
+                if(dis[i][k]+dis[k][j]==dis[i][j]) {
+                    ans[k]+=(C[i][k]*C[k][j]*1.0)/(C[i][j]*1.0);
+                }
+            }
+        }
+    }
+}
+</code></pre>
+<ul>
+<li>
+<p>为什么floyd这种更新最短路条数的方式是对的呢，同一条路上的不同点会不会对这条路做出重复的贡献呢？</p>
+</li>
+<li>
+<p>其实是不会的，这是由于floyd是按中转点k的顺序实现的特性。</p>
+</li>
+</ul>
+<p><img alt="floyd" src="data:image/png;base64,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" /></p>
+<p>假设按照b,c,d的顺序(k)更新C[a][e]，则第一次C[a][e]=C[a][b]* C[b][e],因为C[b][e]没有更新过,其值为0，所以C[a][e]没有变化;c同b;只有d时，C[a][d]=C[d][e]=1,所以C[a][e]=1,符合实际情况。</p>
+<p>换句话说，$C[i][k]$是现在，$C[i][j]$是未来，因为$dp$的无后效性，所以未来与过去无关，即与$C[i][k]$里面的小区间无关，不会被更新到。</p>
+<p>综上，不会出现重复计算的情况，因为只有最后一次更新才有效。</p>
+<h2 id="_3">分层图</h2>
+<ul>
+<li>与网络流的建图类似，是一种特殊的建模<blockquote>
+<p>P4568</p>
+</blockquote>
+</li>
+</ul>
+<p>这题有两种思路，一种是dp，另一种是分层图，我用的第一种</p>
+<p>1.dp可以设dis[n][k]表示用k次免费优惠后到达n的最短路，则转移：</p>
+<pre><code class="language-cpp">        if(dis[v][k1]&gt;dis[u][k1]+w &amp;&amp; k1&lt;=k){
+                dis[v][k1]=dis[u][k1]+w;
+                if(!vis[v][k1]){
+                    q.push(node(dis[v][k1],v,k1));
+                }
+            }
+            if(dis[v][k1+1]&gt;dis[u][k1] &amp;&amp; k1+1&lt;=k){
+                dis[v][k1+1]=dis[u][k1];
+                if(!vis[v][k1+1]){
+                    q.push(node(dis[v][k1+1],v,k1+1));
+                }   
+            }
+        }
+</code></pre>
+<p>这里可以用结构体来保存每个节点用的k，在全都进队；</p>
+<p>也可以直接在最外层枚举k，做k次最短路</p>
+<p>2.分层图板子</p>
+<p>直接建出k层0边，表示每个航班免费搭乘后用0费用跳转到目的地。</p>
+<h2 id="dijkstra">dijkstra</h2>
+<p>1.priority_queue写法，最常用，注意结构体构造函数和重载运算符的写法，别记错了。</p>
+<pre><code class="language-cpp">struct node{
+    int dis,pos;
+   bool operator &lt;(const node &amp;x)const{
+        return x.dis&lt;dis; 
+   }
+   node(int d,int p){
+    dis=d,pos=p;
+   }
+}e[N&lt;&lt;1];
+void dijkstra()
+{
+    for(int i=0;i&lt;N;++i)dis[i]=INF;
+    dis[s] = 0;
+    q.push( node(0,s) );
+    while( !q.empty() )
+    {
+        node u = q.top().pos;
+        q.pop();
+        if( vis[u] )continue;
+        vis[u] = 1;
+        for( int i = head[u]; ~i; i = e[i].nxt )
+        {
+            int v = e[i].v,w=e[i].w;
+            if( dis[v] &gt; dis[u] + w )
+            {
+                dis[v] = dis[u] + w;
+                if( !vis[v] )
+                {
+                    q.push( node (dis[v], v) );
+                }
+            }
+        }
+    }
+}
+
+</code></pre>
+<p>2.手写堆：比第一种快了hin多，费用流等很多用到最短路且数据量很大的题就要用手写堆了，能快1倍左右。</p>
+<blockquote>
+<p>P1629 模板题</p>
+</blockquote>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#define int long long 
+using namespace std;
+const int N=1e4+10,M=2e5+10,INF=1e14;
+struct hp{
+    int dis,pos;
+}heap[N];
+struct node{
+    int v,w,nxt,t;
+}e[M&lt;&lt;1];
+int head[N],dis[N],vis[N];
+int cnt,n,m,u,v,w,tot;
+void add(int u,int v,int w,int t){
+    e[++cnt].v=v;
+    e[cnt].w=w;
+    e[cnt].t=t;
+    e[cnt].nxt=head[u];
+    head[u]=cnt;
+    return;
+}
+void push(int d,int p){
+    heap[++tot].dis=d,heap[tot].pos=p;
+    int now=tot;
+    while(now&gt;1){
+        int nxt=now&gt;&gt;1;
+        if(heap[nxt].dis&lt;=heap[now].dis)break;
+        swap(heap[nxt],heap[now]);
+        now=nxt;
+    }
+    return;
+}
+int pop(){
+    int ans=heap[1].pos;
+    swap(heap[1],heap[tot]);
+    tot--;
+    int now=1;
+    while(now*2&lt;=tot){
+        int nxt=now&lt;&lt;1;
+        if(now*2+1&lt;=tot &amp;&amp; heap[nxt].dis&gt;heap[nxt+1].dis)nxt++;
+        if(heap[nxt].dis&gt;=heap[now].dis)break;
+        swap(heap[nxt],heap[now]);
+        now=nxt;
+    }
+    return ans;
+}
+bool empty(){
+    return tot==0;
+}
+void dij(){
+    //memset(dis,0x3f,sizeof dis);
+    for(int i=0;i&lt;N;++i)dis[i]=INF;
+    memset(vis,0,sizeof vis);
+    dis[1]=0;
+    tot=0;
+    push(0,1);
+    while(!empty()){
+        int u=pop();
+        if(vis[u])continue;
+        vis[u]=1;
+        for(int i=head[u];~i;i=e[i].nxt){
+            int v=e[i].v,w=e[i].w,t=e[i].t;
+            if(t &amp;&amp; dis[v]&gt;dis[u]+w){
+                dis[v]=dis[u]+w;
+                if(!vis[v]){
+                    push(dis[v],v);
+                }
+            }
+        }
+    }
+    return;
+}
+signed main(){
+    memset(head,-1,sizeof head);
+    cnt=-1;
+    scanf(&quot;%lld%lld&quot;,&amp;n,&amp;m);
+    for(int i=1;i&lt;=m;++i){
+        scanf(&quot;%lld%lld%lld&quot;,&amp;u,&amp;v,&amp;w);
+        add(u,v,w,1);
+        add(v,u,w,0);
+    }
+    dij();
+    int ans=0;
+    for(int i=2;i&lt;=n;++i){
+        ans+=dis[i];
+    }
+    for(int i=0;i&lt;=m*2-1;i+=2){
+        e[i].t=0;
+        e[i^1].t=1;
+    }
+    dij();
+    for(int i=2;i&lt;=n;++i){
+        ans+=dis[i];
+    }
+    printf(&quot;%lld&quot;,ans);
+    return 0;
+} 
+</code></pre>
+<h2 id="spfa">SPFA</h2>
+<p>~~据说它死了~~
+bellman-ford 的民间加强版。</p>
+<pre><code class="language-cpp">bool SPFA(){
+    int s=1;
+    for(int i=0;i&lt;N;++i)dis[i]=INF;
+    memset(vis,0,sizeof vis);
+    vis[s]=1;
+    dis[s]=0;
+    q.push(s);
+    while(!q.empty()){
+        int u=q.front();q.pop();
+        vis[u]=0;
+        for(int i=head[u];~i;i=e[i].nxt){
+            int v=e[i].v,w=e[i].w;
+            if(dis[v]&gt;dis[u]+w){
+                dis[v]=dis[u]+w;
+                if(!vis[v]){
+                    vis[v]=1;
+                    q.push(v);
+                }
+            }
+        }
+    }
+}
+</code></pre>
+<h2 id="_4">二分节点</h2>
+<p>在一些题中会给你节点的权值，并要求经过的节点的权值最大值不超过k，求最短路。这时候，就可以二分权值的限制，将不满足的节点~~ban掉~~,然后跑最短路即可。</p>
+<blockquote>
+<p>P1462 模板题</p>
+</blockquote>
+<h2 id="_5">反向建边</h2>
+<p>经典的最短路解题方法</p>
+<blockquote>
+<p>P1629 模板题</p>
+<p>P5663</p>
+</blockquote>
+<p>~~考场上送走我的题，祭我的2019~~</p>
+<p>直接搜索直接爆炸，更何况我考场上根本没写对</p>
+<p>我们发现，假设从$u$出发去$v$,如果$u,v$之间的距离等于$L$,那么所有距离$u$为$L+2,L+4,...$的点都可以到达；</p>
+<p>而对于$L+1$，则不一定有，需要从$L$转移而来。</p>
+<p>所以这道题变成了一道求奇偶路径的题。</p>
+<p>奇偶路径就是指将整个图分成长度为奇数的路径核偶数的路径，并分别互相更新。</p>
+<p>那么我们只需要$dijkstra$即可求出所有路径距离。</p>
+<p>如果$dis[a][t]&gt;L(L \&amp; 1= t)$,则不用提供零件,否则就要提供零件。</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;queue&gt;
+#define int long long 
+using namespace std;
+const int N=1e5+10;
+int n,m,q,cnt,u,v,a,L;
+int head[N],dis[N][2],vis[N][2];
+struct edge{
+    int v,nxt;
+}e[N&lt;&lt;1];
+struct node{
+    int dis,pos,type;
+    bool operator &lt;(const node &amp;x)const{
+        return x.dis&lt;dis;
+    }
+    node(int d,int p,int t){
+        dis=d,pos=p,type=t;
+    }
+};
+void add(int u,int v){
+    e[++cnt].v=v,e[cnt].nxt=head[u],head[u]=cnt;
+}
+void dij(int s){
+    memset(dis,0x3f,sizeof dis);
+    memset(vis,0,sizeof vis);
+    priority_queue&lt;node&gt; q;
+    q.push(node(0,s,0));
+    dis[s][0]=0;
+
+    while(!q.empty()){
+        node tmp=q.top();q.pop();
+        int u=tmp.pos,t=tmp.type;
+        if(vis[u][t])continue;
+        vis[u][t]=1;
+        for(int i=head[u];~i;i=e[i].nxt){
+            int v=e[i].v;
+            if(dis[v][1]&gt;dis[u][0]+1){
+                dis[v][1]=dis[u][0]+1;
+                if(!vis[v][1])q.push(node(dis[v][1],v,1));
+            }
+            if(dis[v][0]&gt;dis[u][1]+1){
+                dis[v][0]=dis[u][1]+1;
+                if(!vis[v][0])q.push(node(dis[v][0],v,0));
+            }
+        }
+    }
+}
+signed main(){
+    memset(head,-1,sizeof head);
+    cnt=-1;
+    scanf(&quot;%lld%lld%lld&quot;,&amp;n,&amp;m,&amp;q);
+    for(int i=1;i&lt;=m;++i){
+        scanf(&quot;%lld%lld&quot;,&amp;u,&amp;v);
+        add(u,v),add(v,u);
+    }   
+    dij(1);
+    for(int i=1;i&lt;=q;++i){
+        scanf(&quot;%lld%lld&quot;,&amp;a,&amp;L);
+        if(L&amp;1){
+            if(dis[a][1]&gt;L)printf(&quot;No\n&quot;);
+            else printf(&quot;Yes\n&quot;);
+        }else{
+            if(dis[a][0]&gt;L)printf(&quot;No\n&quot;);
+            else printf(&quot;Yes\n&quot;);
+        }
+    }
+    return 0;
+} 
+</code></pre>
+<blockquote>
+<p>P7997</p>
+</blockquote>
+<p>~~又是考场上虐我千百遍的题~~</p>
+<p>这题也是奇偶路径的板子题，如果一个数$i$小于$a[j]$，则一定可以去到$i+a[j]$后再回到$i$;并且总点数只有$2* MAXa=4000$个点，所以直接最短路。</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;queue&gt;
+#define int long long 
+using namespace std;
+const int N=1e4+10,M=4e6+10;
+int n,T,L,m,cnt,MAX;
+int a[N],head[N],vis[N][2],dis[N][2],ans[N];
+struct node{
+    int dis,pos,type;
+    bool operator &lt;(const node &amp;x)const{
+        return x.dis&lt;dis;
+    }
+    node(int d,int p,int t){
+        dis=d,pos=p,type=t;
+    }
+};
+struct edge{
+    int v,nxt;
+}e[M&lt;&lt;1];
+void add(int u,int v){
+    e[++cnt].v=v,e[cnt].nxt=head[u],head[u]=cnt;
+}
+void init(){
+    for(int i=0;i&lt;=MAX+MAX-1;++i)
+        for(int j=1;j&lt;=n;++j)
+            add(i,i&gt;=a[j]?i-a[j]:i+a[j]);
+}
+void dij(int s){
+    memset(dis,0x3f,sizeof dis);
+    memset(vis,0,sizeof vis);
+    priority_queue&lt;node&gt; q;
+    q.push(node(0,s,0));
+    dis[s][0]=0;
+    while(!q.empty()){
+        node tmp=q.top();q.pop();
+        int u=tmp.pos,t=tmp.type;
+        if(vis[u][t])continue;
+        vis[u][t]=1;
+        for(int i=head[u];~i;i=e[i].nxt){
+            int v=e[i].v;
+            if(dis[v][1]&gt;dis[u][0]+1){
+                dis[v][1]=dis[u][0]+1;
+                if(!vis[v][1])q.push(node(dis[v][1],v,1));
+            }
+            if(dis[v][0]&gt;dis[u][1]+1){
+                dis[v][0]=dis[u][1]+1;
+                if(!vis[v][0])q.push(node(dis[v][0],v,0));
+            }
+        }
+    }
+}
+signed main(){
+    memset(head,-1,sizeof head);
+    cnt=-1;
+    scanf(&quot;%lld%lld&quot;,&amp;n,&amp;T);
+    for(int i=1;i&lt;=n;++i) scanf(&quot;%lld&quot;,&amp;a[i]),MAX=max(MAX,a[i]);
+    init();
+    dij(0);
+    for(int i=1;i&lt;=T;++i){
+        scanf(&quot;%lld&quot;,&amp;m);
+        for(int i=MAX+MAX-1;i&gt;=0;--i){
+            if(dis[i][m&amp;1]&lt;=m){
+                printf(&quot;%lld\n&quot;,i);
+                break;
+            }
+        }
+    }
+    return 0;
+}
+</code></pre>
+<blockquote>
+<p>P1027</p>
+</blockquote>
+<p>~~sb题真麻烦，写nm两小时~~</p>
+<p>就...直接最短路就行了，但建图贼麻烦。SPFA还没死。</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;cmath&gt;
+#include&lt;queue&gt;
+using namespace std;
+typedef double db;
+const int N=1e3+10,INF=0x3f3f3f3f,M=1e6+10;
+int cnt,n,m,T,s,A,B;
+db tmp,t;
+int num[N];
+int vis[N],head[N];
+db dis[N];
+struct edge{
+    int v,nxt;
+    db w;
+}e[M];
+struct city{
+    int x,y;
+    db T;
+}c[N];
+inline db Dis(int i,int j){int _x=c[i].x-c[j].x,_y=c[i].y-c[j].y;return (db)sqrt(_x*_x+_y*_y);}
+inline int _Dis(int i,int j){int _x=c[i].x-c[j].x,_y=c[i].y-c[j].y;return (_x*_x+_y*_y);}
+inline int g(int x,int y){return 4*(x-1)+y;}
+void add(int u,int v,db w){e[++cnt].v=v,e[cnt].w=w,e[cnt].nxt=head[u],head[u]=cnt;}
+void init(){for(int i=1;i&lt;=4*s;++i)dis[i]=(db)INF;}
+void cal(int i){
+    int n1=g(i,1),n2=g(i,2),n3=g(i,3);
+    int x1=c[n1].x, y1=c[n1].y, x2=c[n2].x, y2=c[n2].y, x3=c[n3].x, y3=c[n3].y;
+    int ab=_Dis(n1,n2),bc=_Dis(n2,n3),ac=_Dis(n1,n3);
+    int x4=0,y4=0;
+    if(ab+ac==bc)x4=x2+x3-x1,y4=y2+y3-y1;
+    if(ab+bc==ac)x4=x1+x3-x2,y4=y1+y3-y2;
+    if(bc+ac==ab)x4=x1+x2-x3,y4=y1+y2-y3;
+    c[g(i,4)].x=x4,c[g(i,4)].y=y4;
+}
+
+void SPFA(int S){
+    queue&lt;int&gt; q;
+    init();
+    memset(vis,0,sizeof vis);
+    dis[S]=0.0;vis[S]=1;
+    q.push(S);
+    while(!q.empty()){
+        int u=q.front();q.pop();
+        vis[u]=0;
+        for(int i=head[u];~i;i=e[i].nxt){
+            int v=e[i].v;db w=e[i].w;
+            if(dis[u]+w&lt;dis[v]){
+                dis[v]=dis[u]+w;
+                if(!vis[v]) vis[v]=1,q.push(v); 
+            }   
+        }
+    }
+}
+db Min(db a,db b){
+    return a&lt;b?a:b;
+}
+int main(){
+    scanf(&quot;%d&quot;,&amp;T);
+    while(T--){
+        memset(head,-1,sizeof head);
+        cnt=-1;
+        scanf(&quot;%d%lf%d%d&quot;,&amp;s,&amp;t,&amp;A,&amp;B);
+        for(int i=1;i&lt;=s;++i){
+            for(int j=1;j&lt;=3;++j) scanf(&quot;%d%d&quot;,&amp;c[g(i,j)].x,&amp;c[g(i,j)].y),num[g(i,j)]=i;
+            cal(i);num[g(i,4)]=i;
+            scanf(&quot;%lf&quot;,&amp;tmp);
+            for(int j=1;j&lt;=4;++j) c[g(i,j)].T=tmp;
+        }
+        for(int i=1;i&lt;=4*s;++i){
+            for(int j=1;j&lt;=4*s;++j){
+                if(i==j)continue;
+                if(num[i]==num[j]) add(i,j,c[i].T*Dis(i,j));
+                else add(i,j,t*Dis(i,j));
+            }
+        }
+        db ans=(db)INF;
+        for(int i=0;i&lt;=3;++i){
+            SPFA(4*A-i);
+            for(int j=0;j&lt;=3;++j) ans=Min(ans,dis[4*B-j]);
+        }
+        printf(&quot;%.1lf\n&quot;,ans);
+    }
+    return 0;
+}
+</code></pre></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script src="../../../js/bootstrap.bundle.min.js"></script>
+        <script>
+            var base_url = "../../..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../../../js/base.js"></script>
+        <script src="../../../search/main.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

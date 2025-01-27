@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../../../img/favicon.ico">
+        <title>倍增 - My Docs</title>
+        <link href="../../../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../../../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../../../css/brands.min.css" rel="stylesheet">
+        <link href="../../../css/solid.min.css" rel="stylesheet">
+        <link href="../../../css/v4-font-face.min.css" rel="stylesheet">
+        <link href="../../../css/base.css" rel="stylesheet">
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="../../..">My Docs</a>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+
+                    <ul class="nav navbar-nav ms-md-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-bs-level="1"><a href="#_1" class="nav-link">倍增</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="2"><a href="#_2" class="nav-link">普通倍增</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#_3" class="nav-link">树上倍增</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="_1">倍增</h1>
+<h2 id="_2">普通倍增</h2>
+<blockquote>
+<p>P7167</p>
+</blockquote>
+<p>这道题非常坑
+要注意倍增到最后可能有剩余，这时候要特判一下，如果有剩余则应该流向下一个盘子(喷泉)中</p>
+<h2 id="_3">树上倍增</h2>
+<p>经典应用：倍增$lca$，维护树上一段区间(链)信息，寻找树上节点。</p>
+<blockquote>
+<p>P1084</p>
+</blockquote>
+<p>假设当前有一个时间限制，可以发现对于每个军队，一定时越靠近根节点越优。并且一个时间限制如果能满足，那么比他大的时间限制就都能满足。</p>
+<p>有这两个单调性，就可以树上倍增+二分。每次二分一个时间限制，并将所有军队用树上倍增的方式推到它能到的深度最小的节点。并找出所有能自由活动的军队去满足那些没有军队驻守的根的子节点。</p>
+<p>按照剩余时间的排序顺序贪心的去一一解决就行了。</p>
+<p>最后返回是否满足这个时间限制。</p>
+<p>update.2022.4.5</p>
+<p>昨天写了这个题，发现比我想象地恶心得多啊，再来吐槽一下。</p>
+<ol>
+<li>预处理</li>
+</ol>
+<p>首先，树上倍增求出$dis[u][j]$,表示一段距离。</p>
+<ol>
+<li>上移军队 </li>
+</ol>
+<p>然后，对于每个军队，我们将他向上推到深度最小(不是根)的地方。如果该节点不在根节点下面，或它剩余时间无法到达根，就在当前节点驻扎($vis[u]=1$)</p>
+<p>否则将军队加入一个二元组$h$中备用，二元组第一维是它到达根节点时的剩余时间，第二维时它来自根的哪个子节点。</p>
+<ol>
+<li>统计答案</li>
+</ol>
+<p>先对于根的子节点做深搜，得出那些节点不用军队驻扎，剩余那些节点需要军队驻扎。</p>
+<p>之后，对于二元组按第一维从小到大排序。如果满足：<code>!vis[h[i].n] &amp;&amp; h[i].d&lt;dis[h[i].n][0]</code>,就将军队驻扎在$h[i].n$.<strong>（这个贪心后面会说明）</strong></p>
+<p>最后，将那些仍然需要驻扎的子节点拿出来，按照到根的距离从小到大排序，与空闲军队匹配(双指针)。这里也用到了很显然的贪心。</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;algorithm&gt;
+#include&lt;queue&gt;
+#define int long long 
+using namespace std;
+const int N=1e5+10,K=21,INF=1e15;
+struct edge{
+    int v,w,nxt;
+}e[N&lt;&lt;1];
+struct node{
+    int d,n;
+    node(int dd=0,int nn=0){
+        d=dd,n=nn;
+    }
+}h[N],s[N];
+int n,m,u,v,w,cnt;
+int head[N],fa[N][K],dis[N][K],vis[N],t[N],a[N];
+void add(int u,int v,int w){
+    e[++cnt].v=v,e[cnt].w=w,e[cnt].nxt=head[u],head[u]=cnt;
+}
+void dfs(int u,int p){
+    for(int i=1;i&lt;K;++i) fa[u][i]=fa[fa[u][i-1]][i-1],dis[u][i]=dis[u][i-1]+dis[fa[u][i-1]][i-1];
+    for(int i=head[u];~i;i=e[i].nxt){
+        int v=e[i].v,w=e[i].w;
+        if(v==p) continue;
+        fa[v][0]=u,dis[v][0]=w;
+        dfs(v,u);
+    }
+}
+bool _dfs(int u,int p){
+    if(vis[u]) return 1;
+    int o=0;
+    for(int i=head[u];~i;i=e[i].nxt){
+        int v=e[i].v;
+        if(v==p) continue;
+        if(!_dfs(v,u)) return 0;
+        o=1;
+    }
+    if(!o) return 0;
+    return 1;
+}
+bool cmp(node a,node b){
+    if(a.d==b.d) return a.n&lt;b.n;
+    return a.d&lt;b.d;
+}
+bool Cmp(int a,int b){
+    return a&lt;b;
+}
+bool _cmp(int a,int b){
+    return dis[a][0]&lt;dis[b][0];
+}
+bool check(int x){
+    memset(vis,0,sizeof vis);
+    memset(h,0,sizeof h);
+    memset(s,0,sizeof s);
+    memset(t,0,sizeof t);
+    int tot=0,top=0,cur=0,atot=0,btot=0;
+    for(int i=1;i&lt;=m;++i){
+        int u=a[i],tmp=0;
+        for(int j=K-1;j&gt;=0;--j) if(fa[u][j]&gt;1 &amp;&amp; tmp+dis[u][j]&lt;=x) tmp+=dis[u][j],u=fa[u][j];
+        if(fa[u][0]==1 &amp;&amp; tmp+dis[u][0]&lt;=x){
+            h[++tot]=node(x-tmp-dis[u][0],u);
+        }else vis[u]=1;
+    }
+    for(int i=head[1];~i;i=e[i].nxt){
+        int v=e[i].v;
+        vis[v]=_dfs(v,1);
+    }
+    sort(h+1,h+tot+1,cmp);
+    for(int i=1;i&lt;=tot;++i){
+        if(!vis[h[i].n] &amp;&amp; h[i].d&lt;dis[h[i].n][0]) vis[h[i].n]=1;
+        else s[++top]=h[i];
+    }
+    for(int i=head[1];~i;i=e[i].nxt){
+        int v=e[i].v;
+        if(!vis[v]) t[++cur]=v;
+    }
+    sort(s+1,s+top+1,cmp);
+    sort(t+1,t+cur+1,_cmp);
+    int l=1;
+    for(int i=1;i&lt;=cur;++i){
+        while(l&lt;=top &amp;&amp; s[l].d&lt;dis[t[i]][0]) ++l;
+        if(l&lt;=top) vis[t[i]]=1,++l;
+        else return 0;
+    }
+    return 1;
+}
+signed main(){
+    //freopen(&quot;P1084_2.in&quot;,&quot;r&quot;,stdin);
+    memset(head,-1,sizeof head),cnt=-1;
+    scanf(&quot;%lld&quot;,&amp;n);
+    for(int i=1;i&lt;n;++i) scanf(&quot;%lld%lld%lld&quot;,&amp;u,&amp;v,&amp;w),add(u,v,w),add(v,u,w);
+    dfs(1,0);
+    scanf(&quot;%lld&quot;,&amp;m);
+    for(int i=1;i&lt;=m;++i) scanf(&quot;%lld&quot;,&amp;a[i]);
+    int l=0,r=INF,ans=-1;
+    while(l&lt;=r){
+        int mid=l+r&gt;&gt;1;
+        if(check(mid)) ans=mid,r=mid-1;
+        else l=mid+1;
+    }
+    printf(&quot;%lld&quot;,ans);
+    return 0;
+}
+/*
+10 
+2 1 3
+2 3 4
+1 4 7
+5 1 9
+6 1 2
+4 7 9
+7 8 8
+9 8 8
+1 10 2
+5
+2 8 5 4 2 
+*/
+</code></pre>
+<p>下面说说坑点：</p>
+<ol>
+<li>树上倍增</li>
+</ol>
+<p>树上倍增一定要在递归到下一层前就递推出这一层得$dis[u][j],fa[u][j]$,不然，相当于递归到底，前面的$dis[u][j]$还都是空的，就会出错了</p>
+<ol>
+<li>贪心部分</li>
+</ol>
+<p>先考虑一个反例：</p>
+<p><img alt="hack_0" src="data:image/png;base64,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" /></p>
+<p>这里就不用二元组表示了，直接展示原始状态，红色表示剩余时间，蓝色表示边权。</p>
+<p>可以发现，如果让$9$驻扎在$2$号节点，最终就只能驻扎$3$个，而正确答案为$4$.</p>
+<p>然后尝试~~证明~~说明一下原理。</p>
+<p>因为军队$i$满足<code>h[i].d&lt;dis[h[i].n][0]</code>,那这个军队无法再回到它所属的子节点，所以该子节点一定由另一个<strong>剩余时间大于它</strong>的军队$j$控制。而显然$j$可以到达的节点数多于$i$，所以直接让$i$管控这个子节点更优。</p>
+<p>而如果$i$不满足，说明它能回去，那就将他加入最后的数组与后面的军队一起考虑。虽然让他折返会浪费时间，但是<strong>结果不会更差</strong>，这样简化了决策复杂度。</p>
+<blockquote>
+<p>P3233</p>
+</blockquote>
+<p>~~关于虚树模板写假了调了一上午这件事~~</p>
+<p>这道题及其~~恶心~~复杂,需要$6$次$dfs$。</p>
+<ol>
+<li>预处理$lca,dep,size$</li>
+</ol>
+<p>倍增处理$fa$，因为后面除了求$lca$还会用到。</p>
+<ol>
+<li>求出虚树中每个虚树节点子树中距离此节点最近的"关键节点"</li>
+</ol>
+<p>所有关键节点都在虚树上，所以第一遍从下而上$dfs$，可以求出每个节点在它子树中距离它最近的关键节点(可以是自己)。</p>
+<ol>
+<li>求出虚树中距离每个虚树节点最近的"关键节点"</li>
+</ol>
+<p>第二遍从上而下求出子树外贡献。</p>
+<p>注意，我们维护的是一个二元组$g[u]$，第一关键字为距离，第二关键字为编号。</p>
+<ol>
+<li>求出虚树上每个节点距离最近的点编号，以及节点上的贡献。</li>
+</ol>
+<p>最近节点就是$num[u]=g[u].second$,而节点上的贡献是指：对于虚树节点$u$，其所有<strong>没有关键点</strong>的子树，都将归$num[u]$管理。</p>
+<p>所以，我们遍历虚树时，可以用$u$所在的子树总结点数减去有关键点的子树大小。</p>
+<p>有关键点的子树大小需要在原树上倍增求出对于$v$所在子树的根$up[v]$，这时$up[v]$在$u$下面，减掉$sz[up[v]]$即可。</p>
+<ol>
+<li>求出虚树上每条边的贡献 </li>
+</ol>
+<p>对于每条边两端点$u,v$，有两种情况：</p>
+<p>一是$num[u]=num[v]$,这种情况这条边上所有节点都归$num[u]$管即可。</p>
+<p>二是$num[u]\not =num[v]$,这种情况先求出中间点的深度，再从$v$倍增找出中间点标号即可。</p>
+<p>具体地，从$num[u]$到$num[v]$的链长度$L$=$dep[num[v]]-dep[u]+g[u].first$.</p>
+<p>那么中间点的深度=$\frac{dep[num[v]]-L} 2$.</p>
+<ol>
+<li>清空虚树及点标记</li>
+</ol>
+<p>需要清空$vis[i],ans[i],up[i],num[i]$.</p>
+<p>至此，这道题才算做完。</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;algorithm&gt;
+#include&lt;utility&gt;
+using namespace std;
+typedef pair&lt;int,int&gt; PI;
+const int N=3e5+10,K=20,INF=0x3f3f3f3f;
+int fa[N][K],dep[N],head[2][N],vis[N],a[N],b[N],sz[N],stk[N],ans[N],id[N],num[N],up[N];
+int n,q,u,v,cnt[2],tmp,m,top,tot,rt;
+PI g[N];
+struct edge {
+    int v,nxt;
+} e[2][N&lt;&lt;1];
+void add(int u,int v,int i) {
+    e[i][++cnt[i]].v=v,e[i][cnt[i]].nxt=head[i][u],head[i][u]=cnt[i];
+}
+bool cmp(int a,int b) {
+    return id[a]&lt;id[b];
+}
+int read1(){
+    int x=0;char ch=getchar();
+    while(ch&lt;'0' || ch&gt;'9') ch=getchar();
+    while(ch&gt;='0' &amp;&amp; ch&lt;='9') x=(x&lt;&lt;1)+(x&lt;&lt;3)+ch-'0',ch=getchar();
+    return x;
+}
+void write1(int x){
+    if(x&gt;9) write1(x/10);
+    putchar(x%10+'0');  
+}
+void dfs0(int u,int p) {
+    id[u]=++tot;fa[u][0]=p;sz[u]=1;
+    for(int i=1; i&lt;K; ++i) fa[u][i]=fa[fa[u][i-1]][i-1];
+    for(int i=head[0][u]; ~i; i=e[0][i].nxt) {
+        int v=e[0][i].v;
+        if(v==p) continue;
+        dep[v]=dep[u]+1;
+        dfs0(v,u);
+        sz[u]+=sz[v];
+    }
+}
+void dfs1(int u,int p) {
+    if(vis[u]) g[u]=make_pair(0,u);
+    else g[u]=make_pair(INF,0);
+    for(int i=head[1][u]; ~i; i=e[1][i].nxt) {
+        int v=e[1][i].v;
+        if(v==p) continue;
+        dfs1(v,u);
+        g[u]=min(g[u],make_pair(g[v].first+dep[v]-dep[u],g[v].second));
+    }
+}
+void dfs2(int u,int p,int d,int x) {
+    PI tmp=make_pair(d,x);
+    if(tmp&lt;g[u]) g[u]=tmp;
+    else d=g[u].first,x=g[u].second;
+    for(int i=head[1][u]; ~i; i=e[1][i].nxt) {
+        int v=e[1][i].v;
+        if(v==p) continue;
+        dfs2(v,u,d+dep[v]-dep[u],x);
+    }
+}
+void dfs3(int u,int p) {
+    num[u]=g[u].second;
+    ans[num[u]]+=sz[u];
+    for(int i=head[1][u]; ~i; i=e[1][i].nxt) {
+        int v=e[1][i].v;
+        if(v==p) continue;
+        int k=v;
+        for(int j=K-1;j&gt;=0;--j) if(fa[k][j] &amp;&amp; dep[fa[k][j]]&gt;dep[u]) k=fa[k][j];
+        ans[num[u]]-=sz[up[v]=k];
+        dfs3(v,u);
+    }
+}
+void dfs4(int u,int p){
+    for(int i=head[1][u]; ~i; i=e[1][i].nxt) {
+        int v=e[1][i].v;
+        if(v==p) continue;
+        if(num[v]==num[u]) ans[num[u]]+=(sz[up[v]]-sz[v]);
+        else{
+            int dis=dep[num[v]]+dep[u]-g[u].first;
+            dis=dis&amp;1?dis+1&gt;&gt;1:(num[v]&lt;num[u]?dis&gt;&gt;1:(dis&gt;&gt;1)+1);
+            int k=v;
+            for(int j=K-1;j&gt;=0;--j) if(fa[k][j] &amp;&amp; dep[fa[k][j]]&gt;=dis) k=fa[k][j];
+            ans[num[u]]+=sz[up[v]]-sz[k];
+            ans[num[v]]+=sz[k]-sz[v];
+        }
+        dfs4(v,u);
+    }
+}
+void dfs5(int u,int p){//clear
+    up[u]=num[u]=0;
+    for(int i=head[1][u]; ~i; i=e[1][i].nxt) {
+        int v=e[1][i].v;
+        if(v==p) continue;
+        dfs5(v,u);
+    }
+    head[1][u]=-1;
+}
+int getlca(int u,int v) {
+    if(dep[u]&lt;dep[v]) swap(u,v);
+    int k=dep[u]-dep[v];
+    for(int i=K-1; i&gt;=0; --i) if(k&amp;(1&lt;&lt;i)) u=fa[u][i];
+    if(v==u) return u;
+    for(int i=K-1; i&gt;=0; --i) if(fa[u][i]!=fa[v][i]) u=fa[u][i],v=fa[v][i];
+    return fa[u][0];
+}
+void insert(int u) {
+    int lca=getlca(u,stk[top]);
+    while(top&gt;1 &amp;&amp; id[stk[top-1]]&gt;=id[lca]) add(stk[top],stk[top-1],1),add(stk[top-1],stk[top],1),--top;
+    if(lca!=stk[top]) add(stk[top],lca,1),add(lca,stk[top],1),stk[top]=lca;
+    stk[++top]=u;
+}
+void build() {
+    cnt[1]=-1;
+    sort(a+1,a+m+1,cmp);
+    stk[top=1]=a[1];
+    for(int i=2; i&lt;=m; ++i) insert(a[i]);
+    while(top&gt;1) add(stk[top],stk[top-1],1),add(stk[top-1],stk[top],1),--top;
+    rt=stk[1];
+}
+int main() {
+    memset(head,-1,sizeof head);
+    cnt[0]=-1;
+    scanf(&quot;%d&quot;,&amp;n);
+    for(int i=1; i&lt;n; ++i) scanf(&quot;%d%d&quot;,&amp;u,&amp;v),add(u,v,0),add(v,u,0);
+    dfs0(1,0);
+    scanf(&quot;%d&quot;,&amp;q);
+    for(int i=1; i&lt;=q; ++i) {
+        scanf(&quot;%d&quot;,&amp;m);
+        for(int j=1; j&lt;=m; ++j) scanf(&quot;%d&quot;,&amp;a[j]),b[j]=a[j],vis[b[j]]=1;
+        build();
+        dfs1(rt,0);
+        dfs2(rt,0,g[rt].first,g[rt].second);
+        dfs3(rt,0);
+        dfs4(rt,0);
+        ans[num[rt]]+=sz[1]-sz[rt];
+        for(int j=1; j&lt;=m; ++j) printf(&quot;%d &quot;,ans[b[j]]),ans[b[j]]=vis[b[j]]=0;printf(&quot;\n&quot;);
+        dfs5(rt,0);
+    }
+    return 0;
+}
+
+
+</code></pre>
+<blockquote>
+<p>P7518</p>
+</blockquote>
+<p>~~做了整整两天才过的恶心题~~</p>
+<p>~~100紫题祭！~~</p>
+<p>~~思路很简单，代码100行，但细节真的多~~</p>
+<p>首先可以将路径$s\to t$拆分为上行$s\to lca$和下行$lca\to t$</p>
+<p>对于每个树上的节点，我们都可以通过倍增来求出$f[u][j]$，表示它经过原序列$2^j$个宝石后向上跳到了哪个节点。</p>
+<p>每次二分找到上行路径中的第一个于原序列对应的节点(起点)，从它开始倍增，便可以解决上行的情况。下行也同理。</p>
+<p>接下来就是一堆细节了。</p>
+<ol>
+<li>求解$f[u][j]$.</li>
+</ol>
+<p>我们发现，只要有了$f[u][0]$,剩余就可以递推解决。</p>
+<p>而$f[u][0]$可以用$c$个栈$h$维护一下，即对于每个宝石开一个栈。</p>
+<p>而因为我们要知道每个宝石下一个宝石的编号，所以可以提前求一个$nxt[i]$表示宝石$i$的下一个，也可以求出$rk[i]$,表示宝石$i$的相对排名。</p>
+<p>$dfs$每经过一个节点，就将这个节点的编号加入$rk[a[u]]$这个栈里。(栈的下标为宝石相对排名。)</p>
+<p>每次对于节点$u$，访问$h[rk[a[u]]+1]$的栈顶(注意特判栈为空，不然会$RE$)，就是深度最深的$f[u][0]$了。</p>
+<ol>
+<li>二分起点</li>
+</ol>
+<p>二分一定要利用单调性，然而只看宝石种类无法得出单调性。</p>
+<p>所以我们要用到$dfs$序。</p>
+<p>对于每个宝石$i$，求出它在那些$dfs$序对应的节点出现过，记为$d[i]$。$dfs$序从小到大。</p>
+<p>那么，我么就可以根据$dfs$序的性质，用树剖将树分成几条重链。重链上$dfs$序连续，所以可以在$d[i]$中二分最后一个$\leq$树链下端点$dfs$序的$dfs$序值$tmp$。如果$tmp$在$id[top[t]],id[t]$之间，就说明找到了，否则继续向上找。</p>
+<p>复杂度$O(\log^2n)$,一共$O(\log n)$条链。</p>
+<ol>
+<li>倍增</li>
+</ol>
+<p>如果找到起点再进行倍增，不然倍增就没意义了。</p>
+<ol>
+<li>下行</li>
+</ol>
+<p>~~《下行也同理》，当时我是这么想的~~</p>
+<p>首先，我们注意到一个事：倍增数组只能向上，不能向下，因为一个父亲对应多个儿子。</p>
+<p>所以这里我们仍然要求一个向上的倍增数组$g[u][j]$,只不过要求$h[rk[a[u]-1]$,逆着向上即顺着向下。</p>
+<p>求出这个后发现，我们需要知道最终答案才能从$t$开始二分起点+倍增，不然起点不确定，没法倍增。</p>
+<p>还好这个答案具有单调性，即如果较大的答案已经满足，那么较小的答案一定满足。(相当于求出的序列和前面序列可以有重合，但不能有空隙。)</p>
+<p>这样，我们就二分一个最终答案，然后从找到的起点向上倍增，注意要减掉所有贡献，之后判断一下两段是否有重叠即可。(这里的两段就是做多向前/向后倍增了多少个宝石。)</p>
+<p>并且，这个二分要判断如果$mid$小于上行的答案，那么明显成立。</p>
+<p>至此，我们解决了这道题。</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;algorithm&gt;
+#include&lt;vector&gt;
+#include&lt;stack&gt;
+using namespace std;
+const int N=2e5+10,M=5e4+10,K=23;
+int b[N],a[N],head[N],sz[N],top[N],son[N],fa[N],dep[N],id[N],dfn[N],f[N][K],g[N][K],rk[N];
+int n,m,c,q,cnt,tot,u,v,lca,num;
+vector&lt;int&gt; d[N];
+stack&lt;int&gt; h[N];
+struct edge{
+    int v,nxt;
+}e[N&lt;&lt;1];
+void add(int u,int v){
+    e[++cnt].v=v,e[cnt].nxt=head[u],head[u]=cnt;
+}
+int read1(){
+    int x=0;char ch=getchar();
+    while(ch&lt;'0' || ch&gt;'9') ch=getchar();
+    while(ch&gt;='0' &amp;&amp; ch&lt;='9') x=(x&lt;&lt;1)+(x&lt;&lt;3)+ch-'0',ch=getchar();
+    return x;
+}
+void write1(int x){
+    if(x&gt;9) write1(x/10);
+    putchar(x%10+'0');
+}
+void dfs1(int u,int p){
+    sz[u]=1;
+    h[rk[a[u]]].push(u);
+    f[u][0]=h[rk[a[u]]+1].empty()?0:h[rk[a[u]]+1].top(),g[u][0]=h[rk[a[u]]-1].empty()?0:h[rk[a[u]]-1].top();
+    for(int i=1;i&lt;K;++i) f[u][i]=f[f[u][i-1]][i-1],g[u][i]=g[g[u][i-1]][i-1];
+    for(int i=head[u];~i;i=e[i].nxt){
+        int v=e[i].v;
+        if(v==p) continue;
+        fa[v]=u,dep[v]=dep[u]+1;
+        dfs1(v,u);
+        sz[u]+=sz[v];
+        if(sz[son[u]]&lt;sz[v]) son[u]=v;
+    }
+    h[rk[a[u]]].pop();
+}
+void dfs2(int u,int t){
+    top[u]=t,id[u]=++tot,dfn[tot]=u;
+    if(son[u]) dfs2(son[u],t);
+    for(int i=head[u];~i;i=e[i].nxt){
+        int v=e[i].v;
+        if(v==fa[u] || v==son[u]) continue;
+        dfs2(v,v);
+    }
+}
+int getlca(int u,int v){
+    while(top[u]!=top[v]){
+        if(dep[top[u]]&lt;dep[top[v]]) swap(v,u);
+        u=fa[top[u]];
+    }
+    return dep[u]&lt;dep[v]?u:v;
+}
+void Get(int &amp;u,int &amp;now,int x,int t){
+    u=0,now=0;
+    while(id[t]&gt;=id[lca]){
+        int idx=upper_bound(d[b[x]].begin(),d[b[x]].end(),id[t])-d[b[x]].begin()-1;
+        if(idx&gt;=0 &amp;&amp; d[b[x]][idx]&gt;=max(id[lca],id[top[t]])) {
+            u=dfn[d[b[x]][idx]];now=x;
+            break;
+        }
+        t=fa[top[t]];
+    }
+}
+bool check(int ans,int x,int t){
+    if(x&lt;ans) return true;
+    int u=0,now=0;
+    Get(u,now,x,t);
+    if(!now) return false;
+    for(int j=K-1;j&gt;=0;--j) if(g[u][j] &amp;&amp; id[g[u][j]]&gt;id[lca]) u=g[u][j],now-=(1&lt;&lt;j);
+    return now&lt;=ans;
+}
+void work(int s,int t){
+    lca=getlca(s,t);int u=0,now=0;
+    Get(u,now,1,s);
+    if(now) for(int j=K-1;j&gt;=0;--j) if(f[u][j] &amp;&amp; id[f[u][j]]&gt;=id[lca]) u=f[u][j],now+=(1&lt;&lt;j);
+    int l=1,r=c,ans=0;
+    while(l&lt;=r){
+        int mid=l+r&gt;&gt;1;
+        if(check(now+1,mid,t)) ans=mid,l=mid+1;
+        else r=mid-1;
+    }
+    write1(ans),putchar('\n');
+}
+int main(){
+    memset(head,-1,sizeof head),cnt=-1;
+    n=read1(),m=read1(),c=read1();
+    for(int i=1;i&lt;=c;++i) b[i]=read1();
+    for(int i=1;i&lt;=n;++i) a[i]=read1();
+    for(int i=1;i&lt;=c;++i) rk[b[i]]=i;
+    for(int i=1;i&lt;n;++i) u=read1(),v=read1(),add(u,v),add(v,u);
+    dfs1(1,0);
+    dfs2(1,1);
+    for(int i=1;i&lt;=tot;++i) d[a[dfn[i]]].push_back(i);
+    q=read1();
+    for(int i=1;i&lt;=q;++i) u=read1(),v=read1(),work(u,v);
+    return 0;
+}
+</code></pre>
+<blockquote>
+<p>P2597</p>
+</blockquote>
+<p>对于每个点会灭绝，当且仅当它的所有食物都灭绝了。也就是说，这些食物的共同lca一定灭绝。所以可以在拓扑排序过程中对于每个点维护一个$dad$数组，存所有食物的共同lca。求出数组后，将$dad[i]$与i连边，构成新的灭绝树。答案为$sz[u]-1$。在每次拓扑时，由于拓扑序决定当前点之前所有点已经搜索过，所以它在新的灭绝树的倍增数组可以唯一确定。所以直接更新倍增数组。$dad$默认为-1。遍历$u$的食物$v$,若当前点$dad$已经有值，则更新$dad[i]=lca(dad[i],v)$。</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstring&gt;
+#include&lt;vector&gt;
+#include&lt;queue&gt;
+using namespace std;
+const int N=1e5+10,M=2e5+10,K=20;
+struct edge{
+    int v,nxt;
+}e[M&lt;&lt;1];
+int head[N],dad[N],ind[N],dep[N],fa[N][K],sz[N];
+int cnt,n,u;
+void add(int u,int v){
+    e[++cnt].v=v,e[cnt].nxt=head[u],head[u]=cnt;
+}
+vector&lt;int&gt; g[N];
+queue&lt;int&gt; q;
+int getlca(int u,int v){
+    if(u==v) return u;
+    if(dep[u]&lt;dep[v]) swap(u,v);
+    int k=dep[u]-dep[v];
+    for(int i=0;i&lt;K;++i){
+        if((k&gt;&gt;i)&amp;1) u=fa[u][i];
+    }
+    if(u==v) return u;
+    for(int i=K-1;i&gt;=0;--i){
+        if(fa[u][i]!=fa[v][i]) u=fa[u][i],v=fa[v][i];
+    }
+    return fa[u][0];
+}
+void dfs(int u,int p){
+    sz[u]=1;
+    for(int i=head[u];~i;i=e[i].nxt){
+        int v=e[i].v;
+        if(v==p) continue;
+        dfs(v,u);
+        sz[u]+=sz[v];
+    }
+}
+int main(){
+    memset(head,-1,sizeof head);
+    memset(dad,-1,sizeof dad);
+    cnt=-1;
+    scanf(&quot;%d&quot;,&amp;n);
+    for(int v=1;v&lt;=n;++v){
+        while(1){
+            scanf(&quot;%d&quot;,&amp;u);
+            if(u==0) break;
+            ++ind[v];
+            g[u].push_back(v);
+        }
+    }
+
+
+    for(int i=1;i&lt;=n;++i){
+        if(!ind[i]){
+            q.push(i);
+            dad[i]=0;
+        }
+    }
+    while(!q.empty()){
+        int u=q.front();q.pop();
+        add(u,dad[u]),add(dad[u],u);
+        fa[u][0]=dad[u],dep[u]=dep[dad[u]]+1;
+        for(int i=1;i&lt;K;++i) fa[u][i]=fa[fa[u][i-1]][i-1]; 
+        for(int i=0;i&lt;g[u].size();++i){
+            int v=g[u][i];
+            if(dad[v]==-1){
+                dad[v]=u;
+            }else{
+                dad[v]=getlca(u,dad[v]);
+            }
+            if(!(--ind[v])){
+                q.push(v);
+            } 
+        }
+    }
+    dfs(0,0);
+    for(int i=1;i&lt;=n;++i){
+        printf(&quot;%d\n&quot;,sz[i]-1);
+    }
+    return 0;
+}
+
+</code></pre></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script src="../../../js/bootstrap.bundle.min.js"></script>
+        <script>
+            var base_url = "../../..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../../../js/base.js"></script>
+        <script src="../../../search/main.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

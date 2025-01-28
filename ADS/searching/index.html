@@ -1,0 +1,4495 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../scapegoat%20tree/">
+      
+      
+        <link rel="next" href="../skew%20heap/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.50">
+    
+    
+      
+        <title>searching - My Docs</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.a40c8224.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue-grey" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#searching-a-alpha-beta-and-mcts" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="My Docs" class="md-header__button md-logo" aria-label="My Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            My Docs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              searching
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="blue-grey" data-md-color-accent="blue"  aria-label="切换到暗色模式"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="切换到暗色模式" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="deep-purple" data-md-color-accent="purple"  aria-label="切换到亮色模式"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="切换到亮色模式" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/akonjac0/note" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Ako's Note
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../about/" class="md-tabs__link">
+        
+  
+    
+  
+  About
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../BPlusTree/" class="md-tabs__link">
+          
+  
+  ADS
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../CO/computer%20organization%20and%20design/" class="md-tabs__link">
+          
+  
+  CO
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../general%20physics/General%20Pyhsics%20II/" class="md-tabs__link">
+          
+  
+  General physics
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../misc/CTF/" class="md-tabs__link">
+          
+  
+  Misc
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../my%20past/MCU/51/" class="md-tabs__link">
+          
+  
+  My past
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../probability/martingale%20and%20stopping%20times/" class="md-tabs__link">
+          
+  
+  Probability
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../x86asm/ASM/" class="md-tabs__link">
+          
+  
+  X86asm
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="My Docs" class="md-nav__button md-logo" aria-label="My Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    My Docs
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/akonjac0/note" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Ako's Note
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    About
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    ADS
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            ADS
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../BPlusTree/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    BPlusTree
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Binomial%20Queue/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Binomial Queue
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Fibonacci%20Heap/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Fibonacci Heap
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Galois%20Field/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Galois Field
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../IFI/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IFI
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Master%20Theorem/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Master Theorem
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Mersenne%20twister/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Mersenne Twister
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Misra-Gries/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Misra-Gries
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../NPC%20and%20Approximation%20and%20Local%20Search/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    NPC and Approximation and Local Search
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Particle%20Swarm%20Optimization/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Particle Swarm Optimization
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Shor/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Shor
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../SkipList/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Skip List
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../WBLT/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    WBLT
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../amortized%20analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    amortized analysis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../binet%20cauchy/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Binet-Cauchy
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cardinality%20of%20sets/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    cardinality of sets
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../closest%20pairs/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    closest pairs
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../computation%20problem/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    computation problem
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../convex/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    convex
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../error%20correction/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    error correction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../external%20sorting/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    external sorting
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../game%20theory/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    组合游戏
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../group%20theory/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    group theory
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../linear%20programming/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    linear programming
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../miller%20rabin/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    miller rabin
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pairing%20heap/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Pairing Heap
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../parallel/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    parallel
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pollard%20rho/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    pollard rho
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../randomized/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    randomized
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../red%20black%20tree/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    red black tree
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scapegoat%20tree/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    scapegoat
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    searching
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    searching
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#a" class="md-nav__link">
+    <span class="md-ellipsis">
+      A*
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="A*">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      算法
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      定义
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      可容性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      一致性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      最优性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      可容性与一致性的关系
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hat-gn-hat-hn" class="md-nav__link">
+    <span class="md-ellipsis">
+      \(\hat g(n)\) 与 \(\hat h(n)\) 的选取
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      参考文献
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#alpha-beta" class="md-nav__link">
+    <span class="md-ellipsis">
+      \(\alpha-\beta\)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="\(\alpha-\beta\)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#minimax" class="md-nav__link">
+    <span class="md-ellipsis">
+      Minimax
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#alpha-beta-pruning" class="md-nav__link">
+    <span class="md-ellipsis">
+      \(\alpha-\beta\) pruning
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mcts" class="md-nav__link">
+    <span class="md-ellipsis">
+      MCTS
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="MCTS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ucb-upper-confidence-bounds" class="md-nav__link">
+    <span class="md-ellipsis">
+      UCB (Upper Confidence Bounds)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#uct" class="md-nav__link">
+    <span class="md-ellipsis">
+      UCT
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="UCT">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#node-definition" class="md-nav__link">
+    <span class="md-ellipsis">
+      node definition
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#selectpolicy" class="md-nav__link">
+    <span class="md-ellipsis">
+      SelectPolicy
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#expand" class="md-nav__link">
+    <span class="md-ellipsis">
+      Expand
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#simulatepolicy" class="md-nav__link">
+    <span class="md-ellipsis">
+      SimulatePolicy
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#backpropagate" class="md-nav__link">
+    <span class="md-ellipsis">
+      BackPropagate
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../skew%20heap/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    skew heap
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../splay/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    splay
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../van%20Emde%20Boas%20Tree/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    van Emde Boas Tree
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    CO
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            CO
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CO/computer%20organization%20and%20design/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    computer organization and design
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    General physics
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            General physics
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../general%20physics/General%20Pyhsics%20II/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    General Pyhsics II
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../general%20physics/Geometrical%20Optics/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Geometrical Optics
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../general%20physics/Schr%C3%B6dinger%20equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Schrödinger equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../general%20physics/optical%20conic/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    optical conic
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../general%20physics/quantum%20computation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    quantum computation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Misc
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Misc
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../misc/CTF/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CTF-WriteUp
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../misc/why%20r%20ur%20head%20sharp/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    why r ur head sharp
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    My past
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            My past
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_7_1" id="__nav_7_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    MCU
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_1">
+            <span class="md-nav__icon md-icon"></span>
+            MCU
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/MCU/51/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    51单片机
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_7_2" id="__nav_7_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    OI
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_2">
+            <span class="md-nav__icon md-icon"></span>
+            OI
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/0.9loop%3D1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    0.999...=1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/01%E5%BA%8F%E5%88%97/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    将复杂序列问题转换成01序列求解的优化
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/2022%E6%95%B0%E8%81%94%E6%B8%B8%E8%AE%B0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2022数联游记
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/AC%E8%87%AA%E5%8A%A8%E6%9C%BA/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    AC自动机
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/CF1896D/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CF1896D
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/CRT/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    中国剩余定理
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/CSP-S%202021/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CSP-S 2021
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/DLX/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Dancing Links X
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/FFT/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    快速傅里叶变换 FFT
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/Fast%20IO/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Fast io
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/Game%20with%20Marbles%20%28Hard%20Version%29/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CF1914E2
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/MST/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    最小生成树MST
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/NOI%20Online%202022/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    NOI Online 2022
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/P1633/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    P1633
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/STL/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    STL
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/Trie/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Trie
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/algorithm/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    algorithm
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/cstring/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    cstring
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/dp/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    期望dp
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/dp%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    dp常用方法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/dp%E8%BD%AC%E7%A7%BB/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    dp转移
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/gcd/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    欧几里得&amp;扩展欧几里得
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/kruskal%E9%87%8D%E6%9E%84%E6%A0%91/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    kruskal重构树
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/manacher/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    manacher算法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/wqs%E4%BA%8C%E5%88%86/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    wqs二分
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/xor/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    异或
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/%E4%B8%BB%E5%B8%AD%E6%A0%91/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    主席树
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/%E4%BA%8C%E5%88%86/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    二分
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/%E4%BA%8C%E7%BA%A7%E6%8C%87%E9%92%88/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    二维数组与二级指针
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/%E4%BC%98%E5%85%88%E9%98%9F%E5%88%97/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    优先队列/二叉堆
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/%E4%BC%98%E5%8C%96dp/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    斜率优化dp
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/%E4%BD%8D%E8%BF%90%E7%AE%97/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    进制 &amp; 位运算
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/%E5%80%8D%E5%A2%9E/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    倍增
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/%E5%87%8F%E5%B0%91%E6%97%A0%E7%94%A8%E7%8A%B6%E6%80%81/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    减少无用状态
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/%E5%88%86%E6%B2%BB/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    分治
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/%E5%8C%BA%E9%97%B4dp/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    区间dp总结
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/%E5%8F%8C%E6%8C%87%E9%92%88/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    尺取法 two-pointers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/%E5%9B%BE%E8%AE%BA/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    图论
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/%E5%A4%8D%E6%9D%82%E5%BA%A6/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    看似错误的复杂度的渐近处理
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/%E5%B9%B6%E6%9F%A5%E9%9B%86/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    并查集
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/%E6%95%B0%E5%AD%A6/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    泰勒级数
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/%E6%9C%80%E7%9F%AD%E8%B7%AF/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    最短路
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/%E6%9E%84%E9%80%A0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    构造
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/%E6%A0%91%E5%BD%A2dp/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    树形dp总结
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/%E6%A0%91%E7%9A%84%E7%9B%B4%E5%BE%84/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    树的直径
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/%E6%A0%91%E9%93%BE%E5%89%96%E5%88%86/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    树链剖分
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/%E6%A8%A1%E6%8B%9F/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    模拟
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/%E6%AC%A7%E6%8B%89%E5%87%BD%E6%95%B0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    欧拉函数
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/%E7%82%B9%E5%88%86%E6%B2%BB/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    点分治
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/%E7%8A%B6%E5%8E%8Bdp/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    状压dp总结
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/%E7%9F%A9%E9%98%B5%E4%B9%98%E6%B3%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    矩阵乘法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/%E7%A6%BB%E6%95%A3%E5%8C%96_%E5%93%88%E5%B8%8C/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    离散优化
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/%E7%BA%BF%E6%80%A7dp/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    线性dp/普通dp
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    线性代数
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/%E7%BA%BF%E6%80%A7%E7%AD%9B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    欧拉筛
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/%E7%BA%BF%E6%AE%B5%E6%A0%91/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    线段树
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/%E7%BA%BF%E6%AE%B5%E6%A0%91%E5%90%88%E5%B9%B6/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    线段树合并
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/%E7%BB%93%E6%9E%84%E4%BD%93/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    结构体
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/%E7%BC%A9%E7%82%B9/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    缩点
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/%E7%BD%91%E7%BB%9C%E6%B5%81/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    网络流
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/%E8%83%8C%E5%8C%85/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    背包总结
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/%E8%8E%AB%E6%AF%94%E4%B9%8C%E6%96%AF%E5%8F%8D%E6%BC%94/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    莫比乌斯反演
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/%E8%8E%AB%E9%98%9F/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    莫队
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/%E8%99%9A%E6%A0%91/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    虚树
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/%E8%AE%B0%E5%BF%86%E5%8C%96%E6%90%9C%E7%B4%A2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    记忆化搜索
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/%E8%B4%AA%E5%BF%83/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    贪心
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/%E9%80%86%E5%85%83/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    乘法逆元
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/%E9%80%92%E5%BD%92/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    递归 &amp; 递推
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/%E9%AB%98%E6%96%AF%E6%B6%88%E5%85%83/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    高斯消元
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/%E9%AB%98%E7%B2%BE%E5%BA%A6/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    高精度
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_7_3" id="__nav_7_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Bangumi
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_3">
+            <span class="md-nav__icon md-icon"></span>
+            Bangumi
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/bangumi/bangumi/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Bangumi
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_7_4" id="__nav_7_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Python
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_4">
+            <span class="md-nav__icon md-icon"></span>
+            Python
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/python/Bongo%20Cat/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python Bongo Cat
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/python/pokemon/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python Pokemon自动刷怪
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/python/spider/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    python 爬虫总结
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/python/tool/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python常用库/工具
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Probability
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            Probability
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../probability/martingale%20and%20stopping%20times/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    martingale and stopping times
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../probability/probability/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    probability
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    X86asm
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            X86asm
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../x86asm/ASM/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    asm
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#a" class="md-nav__link">
+    <span class="md-ellipsis">
+      A*
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="A*">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      算法
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      定义
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      可容性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      一致性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      最优性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      可容性与一致性的关系
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hat-gn-hat-hn" class="md-nav__link">
+    <span class="md-ellipsis">
+      \(\hat g(n)\) 与 \(\hat h(n)\) 的选取
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      参考文献
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#alpha-beta" class="md-nav__link">
+    <span class="md-ellipsis">
+      \(\alpha-\beta\)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="\(\alpha-\beta\)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#minimax" class="md-nav__link">
+    <span class="md-ellipsis">
+      Minimax
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#alpha-beta-pruning" class="md-nav__link">
+    <span class="md-ellipsis">
+      \(\alpha-\beta\) pruning
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mcts" class="md-nav__link">
+    <span class="md-ellipsis">
+      MCTS
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="MCTS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ucb-upper-confidence-bounds" class="md-nav__link">
+    <span class="md-ellipsis">
+      UCB (Upper Confidence Bounds)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#uct" class="md-nav__link">
+    <span class="md-ellipsis">
+      UCT
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="UCT">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#node-definition" class="md-nav__link">
+    <span class="md-ellipsis">
+      node definition
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#selectpolicy" class="md-nav__link">
+    <span class="md-ellipsis">
+      SelectPolicy
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#expand" class="md-nav__link">
+    <span class="md-ellipsis">
+      Expand
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#simulatepolicy" class="md-nav__link">
+    <span class="md-ellipsis">
+      SimulatePolicy
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#backpropagate" class="md-nav__link">
+    <span class="md-ellipsis">
+      BackPropagate
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="searching-a-alpha-beta-and-mcts">searching: A*, <span class="arithmatex">\(\alpha-\beta\)</span> and MCTS</h1>
+<h2 id="a">A*</h2>
+<h3 id="_1">算法</h3>
+<div class="highlight"><pre><span></span><code><span class="k">function</span><span class="w"> </span><span class="nf">A</span><span class="o">*</span><span class="p">():</span>
+<span class="w">  </span><span class="o">//</span><span class="w"> </span><span class="k">Step</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span>
+<span class="w">  </span><span class="n">Mark</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="s">&quot;open&quot;</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">calculate</span><span class="w"> </span><span class="n">f</span><span class="p">(</span><span class="n">s</span><span class="p">).</span>
+
+<span class="w">  </span><span class="o">//</span><span class="w"> </span><span class="k">Step</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span>
+<span class="w">  </span><span class="k">Select</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">open</span><span class="w"> </span><span class="n">node</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="n">whose</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="ow">is</span><span class="w"> </span><span class="n">smallest</span><span class="p">.</span>
+<span class="w">  </span><span class="n">Resolve</span><span class="w"> </span><span class="n">ties</span><span class="w"> </span><span class="n">arbitrarily</span><span class="p">,</span><span class="w"> </span><span class="n">but</span><span class="w"> </span><span class="n">always</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">favor</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">any</span><span class="w"> </span><span class="n">node</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">T</span><span class="p">.</span>
+
+<span class="w">  </span><span class="o">//</span><span class="w"> </span><span class="k">Step</span><span class="w"> </span><span class="mi">3</span>
+<span class="w">   </span><span class="k">If</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="ow">is</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">T</span><span class="p">,</span><span class="w"> </span><span class="n">mark</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="s">&quot;closed&quot;</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">terminate</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">algorithm</span><span class="p">.</span>
+
+<span class="w">  </span><span class="o">//</span><span class="w"> </span><span class="k">Step</span><span class="w"> </span><span class="mi">4</span><span class="w"> </span>
+<span class="w">  </span><span class="n">Otherwise</span><span class="p">,</span><span class="w"> </span><span class="n">mark</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="s">&quot;closed&quot;</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">apply</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">successor</span><span class="w"> </span><span class="k">operator</span><span class="w"> </span><span class="n">V</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">n</span><span class="p">.</span><span class="w"> </span>
+
+<span class="w">  </span><span class="n">Calculate</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="k">each</span><span class="w"> </span><span class="n">successor</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">mark</span><span class="w"> </span><span class="ow">as</span><span class="w"> </span><span class="n">open</span><span class="w"> </span><span class="k">each</span><span class="w"> </span><span class="n">successor</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="n">already</span><span class="w"> </span><span class="n">marked</span><span class="w"> </span><span class="n">closed</span><span class="p">.</span>
+
+<span class="w">  </span><span class="n">Remark</span><span class="w"> </span><span class="ow">as</span><span class="w"> </span><span class="n">open</span><span class="w"> </span><span class="n">any</span><span class="w"> </span><span class="n">closed</span><span class="w"> </span><span class="n">node</span><span class="w"> </span><span class="n">m</span><span class="p">,</span><span class="w"> </span><span class="n">which</span><span class="w"> </span><span class="ow">is</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">successor</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">n</span><span class="p">,</span>
+<span class="w">  </span><span class="ow">and</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">which</span><span class="w"> </span><span class="n">f</span><span class="p">(</span><span class="n">m</span><span class="p">)</span><span class="w"> </span><span class="ow">is</span><span class="w"> </span><span class="n">smaller</span><span class="w"> </span><span class="n">now</span><span class="w"> </span><span class="n">than</span><span class="w"> </span><span class="n">it</span><span class="w"> </span><span class="n">was</span><span class="w"> </span><span class="k">when</span><span class="w"> </span><span class="n">m</span><span class="w"> </span><span class="n">was</span><span class="w"> </span><span class="n">marked</span><span class="w"> </span><span class="n">closed</span><span class="p">.</span><span class="w"> </span>
+
+<span class="w">  </span><span class="n">Go</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="k">Step</span><span class="w"> </span><span class="mf">2.</span>
+</code></pre></div>
+<h3 id="_2">定义</h3>
+<p>我们使用如下定义：</p>
+<p>一个图 <span class="arithmatex">\(G\)</span> 含有起点 <span class="arithmatex">\(s\)</span> 和目标点集 <span class="arithmatex">\(T\)</span>, 边表示为 <span class="arithmatex">\(d(m,n)\)</span></p>
+<p><span class="arithmatex">\(f(n)\)</span> 表示经过 <span class="arithmatex">\(n\)</span> 的从 <span class="arithmatex">\(s\)</span> 到目标点集 <span class="arithmatex">\(T\)</span> 的最短距离</p>
+<p>我们有 <span class="arithmatex">\(f(n)=g(n)+h(n)\)</span>, <span class="arithmatex">\(g(n)\)</span> 表示从 <span class="arithmatex">\(s\)</span> 到 <span class="arithmatex">\(n\)</span> 的最短距离，<span class="arithmatex">\(h(n)\)</span> 表示从 <span class="arithmatex">\(n\)</span> 到目标点集的最短距离</p>
+<p>同时我们需要两个估计函数 <span class="arithmatex">\(\hat g(n)\)</span> 和 <span class="arithmatex">\(\hat h(n)\)</span></p>
+<p>我们可以取 <span class="arithmatex">\(\hat g(n)\)</span> 为<strong>当前</strong>从 <span class="arithmatex">\(s\)</span> 到 <span class="arithmatex">\(n\)</span> 的最短距离</p>
+<p><span class="arithmatex">\(\hat g(n)\geq g(n)\)</span>, 因为任何局部最优解不会比全局最优解更优</p>
+<p>同时可以取 <span class="arithmatex">\(\hat h(n)\)</span> 为我们在反图上跑出来的，从目标点集到 <span class="arithmatex">\(n\)</span> 的最短距离</p>
+<p>这里要求 <span class="arithmatex">\(\hat h(n)\leq h(n)\)</span>，即 <span class="arithmatex">\(\hat h(n)\)</span> 是 <span class="arithmatex">\(h(n)\)</span> 的一个 lower bound</p>
+<h3 id="_3">可容性</h3>
+<p>A*算法可以找到最优解，则满足可容性/可采纳性 (admissible)</p>
+<p>在之前的定义中，<span class="arithmatex">\(\hat h(n)\leq h(n)\)</span>, 意为我们不会过分估计未来需要的花费</p>
+<p>我们接下来要证明，如果 <span class="arithmatex">\(\hat h(n)\leq h(n)\)</span>, 则 A* 算法满足可容性</p>
+<blockquote>
+<p>Lemma 1: 对于任意一个未关闭节点 <span class="arithmatex">\(n\)</span> 和对应的从 <span class="arithmatex">\(s\)</span> 到 <span class="arithmatex">\(n\)</span> 的最短路 <span class="arithmatex">\(P\)</span>, 存在一个节点 <span class="arithmatex">\(n'\)</span> 使得 <span class="arithmatex">\(\hat g(n') = g(n')\)</span></p>
+</blockquote>
+<p>证明：</p>
+<p>如果 <span class="arithmatex">\(s\)</span> 是打开的，那么令 <span class="arithmatex">\(n'=s\)</span> 即可</p>
+<p>如果 <span class="arithmatex">\(s\)</span> 关闭，令 <span class="arithmatex">\(\Delta\)</span> 为 <span class="arithmatex">\(P\)</span> 上的节点 <span class="arithmatex">\(n_i\)</span> 组成的集合，<span class="arithmatex">\(n_i\)</span> 满足已关闭且满足 <span class="arithmatex">\(\hat g(n_i) = g(n_i)\)</span></p>
+<p>由于 <span class="arithmatex">\(s\)</span> 关闭，所以 <span class="arithmatex">\(\Delta\)</span> 非空</p>
+<p>选出一个标号最大的点 <span class="arithmatex">\(n^*\)</span>, 由于 <span class="arithmatex">\(n\)</span> 未关闭，所以 <span class="arithmatex">\(n^* \not= n\)</span></p>
+<p>令 <span class="arithmatex">\(n'\)</span> 为 <span class="arithmatex">\(n^*\)</span> 的后继节点</p>
+<p>由 <span class="arithmatex">\(\hat g\)</span> 的定义我们有 <span class="arithmatex">\(\hat g(n') \leq \hat g(n^*) + d(n^*,n')\)</span></p>
+<p>同时 <span class="arithmatex">\(\hat g(n^*) = g(n^*)\)</span>, 因为 <span class="arithmatex">\(n^*\in\Delta\)</span></p>
+<p><span class="arithmatex">\(g(n')=g(n^*)+d(n^*,n')\)</span>, 因为 <span class="arithmatex">\(P\)</span> 是最短路</p>
+<p>所以我们有 <span class="arithmatex">\(\hat g(n') \leq g(n')\)</span></p>
+<p>而一般地，<span class="arithmatex">\(\hat g(n') \geq g(n')\)</span> 一定成立</p>
+<p>所以 <span class="arithmatex">\(\hat g(n') = g(n')\)</span>, 且 <span class="arithmatex">\(n'\not\in\Delta\)</span> 未关闭</p>
+<blockquote>
+<p>Corollary: 假设 <span class="arithmatex">\(\hat h(n) \leq h(n)\)</span>, 且 A* 算法未停止。那么在任意一条最短路 <span class="arithmatex">\(P\)</span> 上, 存在一个 <span class="arithmatex">\(P\)</span> 上未关闭点 <span class="arithmatex">\(n'\)</span> 满足 <span class="arithmatex">\(\hat f(n') \leq f(s)\)</span></p>
+</blockquote>
+<p>证明：由引理1，存在一个 <span class="arithmatex">\(n'\)</span> 使得 <span class="arithmatex">\(\hat g(n') = g(n')\)</span></p>
+<p>所以</p>
+<p><span class="arithmatex">\(\hat f(n') = \hat g(n') + \hat h(n') = g(n') + \hat h(n') \leq g(n') + h(n') = f(n')\)</span></p>
+<p>而因为是最短路，所以有 <span class="arithmatex">\(f(n')=f(s)\)</span> 对所有 <span class="arithmatex">\(n'\)</span> 成立</p>
+<p>所以存在一个 <span class="arithmatex">\(n'\)</span> 使得 <span class="arithmatex">\(\hat f(n') \leq f(s)\)</span></p>
+<blockquote>
+<p>Theorem 1: 如果 <span class="arithmatex">\(\hat h(n) \leq h(n)\)</span> 对所有 <span class="arithmatex">\(n\)</span> 成立，那么 A* 是 Admissable (可容) 的</p>
+</blockquote>
+<p>证明：反证</p>
+<p>假设不成立，有 3 中情况：</p>
+<ul>
+<li>Case 1: 不会停止在目标点集</li>
+</ul>
+<p>这与停止条件矛盾</p>
+<ul>
+<li>Case 2: 不会停止</li>
+</ul>
+<p>假设每条边最小值是 <span class="arithmatex">\(\delta\)</span>, 那么对于距离 <span class="arithmatex">\(s\)</span> 点步数大于 <span class="arithmatex">\(M=f(s)/\delta\)</span> 步的所有点 <span class="arithmatex">\(n\)</span>，我们有 <span class="arithmatex">\(\hat f(n) \geq \hat g(n)\geq g(n)&gt; M\delta = f(s)\)</span>, 这说明这些节点都不会被拓展</p>
+<p>这是由于引理1的推论，存在点 <span class="arithmatex">\(n'\)</span> 使得 <span class="arithmatex">\(\hat f(n') \leq f(s) &lt; \hat f(n)\)</span>, 所以算法选点时会选择 <span class="arithmatex">\(n'\)</span> 而不是 <span class="arithmatex">\(n\)</span></p>
+<p>那么算法不停止只会是因为距离起点 <span class="arithmatex">\(M\)</span> 步以内的点被重复打开</p>
+<p><span class="arithmatex">\(\chi(M)\)</span> 表示这些点组成的点集, <span class="arithmatex">\(v(M)\)</span> 表示点集大小</p>
+<p>但是经过这些点的路径只有有限条，记为 <span class="arithmatex">\(\rho(n, M)\)</span></p>
+<p>记 <span class="arithmatex">\(\rho(M) = \max_{n\in \chi(M)}\rho(n, M)\)</span></p>
+<p>那么经过 <span class="arithmatex">\(\rho(M)v(M)\)</span> 步后，所有节点一定都关闭，此时算法结束</p>
+<ul>
+<li>Case 3: 停止时解不是最优解</li>
+</ul>
+<p>假设算法停在了 目标点 <span class="arithmatex">\(t\)</span> 上，满足 <span class="arithmatex">\(\hat f(t) = \hat g(t) &gt; f(s)\)</span>，后一个不等式说明了不是最优解</p>
+<p>但是由引理1的推论，在终止前存在一个点 <span class="arithmatex">\(n'\)</span> 满足 <span class="arithmatex">\(\hat f(n') \leq f(s) &lt; \hat f(t)\)</span></p>
+<p>所以算法应该先选择 <span class="arithmatex">\(n'\)</span> 而不是 <span class="arithmatex">\(t\)</span>, 故得出矛盾</p>
+<p>综上，三种情况都不满足，命题得证</p>
+<h3 id="_4">一致性</h3>
+<p>如果 <span class="arithmatex">\(h(m, n) +\hat h(n) \geq \hat h(m)\)</span>, 则满足一致性</p>
+<p>这里 <span class="arithmatex">\(h(m,n) \geq d(m,n)\)</span>, 可以直接看成实际距离 <span class="arithmatex">\(d(m,n)\)</span></p>
+<blockquote>
+<p>Lemma 2: 在一致性条件下，如果一个节点 <span class="arithmatex">\(n\)</span> 被关闭，那么 <span class="arithmatex">\(g(n)=\hat g(n)\)</span></p>
+</blockquote>
+<p>先说一下这个引理的重要性</p>
+<p>它主要重要在两方面：</p>
+<p>首先，它可以用来证明 A* 的最优性</p>
+<p><strong>其次，它说明算法不需要重新打开一个已经关闭的节点</strong> </p>
+<p>即 A* 算法不会重复扩展同一节点</p>
+<p>这样，我们就可以把算法第 <span class="arithmatex">\(4\)</span> 步的重新打开节点的操作省去</p>
+<p>这一点与 Dijkstra 是一样的</p>
+<p>下面是证明</p>
+<p>证明：反证</p>
+<p>假设关闭 <span class="arithmatex">\(n\)</span> 之前有 <span class="arithmatex">\(\hat g(n)&gt;g(n)\)</span></p>
+<p>此时存在一个从 <span class="arithmatex">\(s\)</span> 到 <span class="arithmatex">\(n\)</span> 的最短路 <span class="arithmatex">\(P\)</span></p>
+<p>因为 <span class="arithmatex">\(\hat g(n)&gt;g(n)\)</span>，所以当前的路径不是最短路，即算法尚未发现 <span class="arithmatex">\(P\)</span></p>
+<p>根据引理1， 存在一个 <span class="arithmatex">\(P\)</span> 上的点 <span class="arithmatex">\(n'\)</span> 满足 <span class="arithmatex">\(\hat g(n') = g(n')\)</span></p>
+<p>如果 <span class="arithmatex">\(n'=n\)</span>, 我们就证明了这个引理</p>
+<p>否则我们有 <span class="arithmatex">\(g(n) =g(n') + h(n', n)= \hat g(n')+h(n',n)\)</span></p>
+<p>所以 <span class="arithmatex">\(\hat g(n)&gt;\hat g(n')+h(n',n)\)</span></p>
+<p>两边同加 <span class="arithmatex">\(\hat h(n)\)</span>:</p>
+<p><span class="arithmatex">\(\hat g(n) + \hat h(n)&gt;\hat g(n')+h(n',n) + \hat h(n)\)</span></p>
+<p>由于一致性: <span class="arithmatex">\(h(n', n) +\hat h(n) \geq \hat h(n')\)</span></p>
+<p>所以 <span class="arithmatex">\(\hat g(n) + \hat h(n)&gt;\hat g(n')+\hat h(n')\)</span></p>
+<p>即 <span class="arithmatex">\(\hat f(n)&gt;\hat f(n')\)</span></p>
+<p>这与我们选择 <span class="arithmatex">\(n\)</span> 矛盾，因为我们应该选择 <span class="arithmatex">\(n'\)</span></p>
+<p>故得证</p>
+<blockquote>
+<p>Lemma 3: 令 <span class="arithmatex">\((n_1\cdots n_t)\)</span> 表示 A* 依次关闭的节点. 那么对于 <span class="arithmatex">\(p\leq q\)</span>, 有<span class="arithmatex">\(\hat f(n_p) \leq \hat f(n_q)\)</span></p>
+</blockquote>
+<p>这说明了 <span class="arithmatex">\(\hat f\)</span> 的单调不降性</p>
+<p>证明：</p>
+<p>假设 <span class="arithmatex">\(n\)</span> 是 A* 关闭 <span class="arithmatex">\(m\)</span> 后要关闭的节点</p>
+<p>如果到 <span class="arithmatex">\(n\)</span> 的最短路不经过 <span class="arithmatex">\(m\)</span>，说明 <span class="arithmatex">\(n\)</span> 不由 <span class="arithmatex">\(m\)</span> 拓展，他们是并列关系</p>
+<p>在选择 <span class="arithmatex">\(m\)</span> 后才选 <span class="arithmatex">\(n\)</span>, 就说明了 <span class="arithmatex">\(\hat f(m) \leq \hat f(n)\)</span>, 则引理成立</p>
+<p>如果到 <span class="arithmatex">\(n\)</span> 的最短路经过 <span class="arithmatex">\(m\)</span>，我们有 <span class="arithmatex">\(g(n)=g(m)+h(m,n)\)</span></p>
+<p>由引理2， 我们有 <span class="arithmatex">\(\hat g(n)=g(n)\)</span> 和 <span class="arithmatex">\(\hat g(m)=g(m)\)</span></p>
+<p>则</p>
+<p><span class="arithmatex">\(\hat f(n) = \hat g(n) + \hat h(n)\)</span></p>
+<p><span class="arithmatex">\(= g(n) + \hat h(n)\)</span></p>
+<p><span class="arithmatex">\(= g(m) + h(m, n) + \hat h(n)\)</span></p>
+<p><span class="arithmatex">\(\geq  g(m) + \hat h(m)\)</span></p>
+<p><span class="arithmatex">\(= \hat g(m) + \hat h(m) = \hat f(m)\)</span></p>
+<p>故得证</p>
+<blockquote>
+<p>Corollary: 如果 <span class="arithmatex">\(n\)</span> 关闭，那么 <span class="arithmatex">\(\hat f(n)\leq f(s)\)</span></p>
+</blockquote>
+<p>证明：</p>
+<p>由引理3，<span class="arithmatex">\(\hat f(n) \leq \hat f(t) = f(t) = f(s)\)</span></p>
+<h3 id="_5">最优性</h3>
+<p>下面的定理和推论我们都不加证明地给出，具体证明参见原论文</p>
+<p>首先是没有出现 ties 的情况</p>
+<p>这里的 ties 指 A* 同时可以选择两个及以上的节点</p>
+<p>具体地，存在 <span class="arithmatex">\(n_1\cdots n_k\)</span> 满足 <span class="arithmatex">\(\hat f(n_1)=\cdots=\hat f(n_k)&lt;\hat f(n)\)</span> 对其他 <span class="arithmatex">\(n\)</span> 成立</p>
+<blockquote>
+<p>Theorem 2: 令 A 是任意可容的，不比 A<em> 有更多信息 (informed) 的算法，<span class="arithmatex">\(G\)</span> 为边权最小值为 <span class="arithmatex">\(\delta\)</span> ，满足 <span class="arithmatex">\(\hat f(n)\not=\hat f(m)，n\not=m\)</span> 的图, 且满足一致性。则如果 <span class="arithmatex">\(n\)</span> 在 A</em> 中被拓展，则在 A 中也会被拓展</p>
+</blockquote>
+<p>这里的 informed 未定义，可以感性理解一下，就是 <span class="arithmatex">\(\hat h\)</span> 函数包含的信息有效性</p>
+<p>比如，<span class="arithmatex">\(\hat h = 0\)</span> 就不如之前从 <span class="arithmatex">\(t\)</span> 到 <span class="arithmatex">\(n\)</span> 的最短路更有信息</p>
+<blockquote>
+<p>Corollary: 定义 <span class="arithmatex">\(N(A, G)\)</span> 为 A 算法在 <span class="arithmatex">\(G\)</span> 图上拓展的节点，那么 <span class="arithmatex">\(N(A^*, G) \leq N(A, G)\)</span></p>
+</blockquote>
+<p>这样我们就说 A* 是一个最优的算法， 因为它拓展了最少的节点</p>
+<p>然后是有 ties 存在的情况</p>
+<p>令 G<em> 表示所有处理 ties 方式不同的 A</em> 算法的集合</p>
+<blockquote>
+<p>Theorem 3: 令 A 是任意可容的，不比 G<em> 有更多信息的算法，<span class="arithmatex">\(G\)</span> 为边权最小值为 <span class="arithmatex">\(\delta\)</span> ，满足 <span class="arithmatex">\(\hat f(n)\not=\hat f(m)，n\not=m\)</span> 的图, 且满足一致性。则存在一个 A</em> <span class="arithmatex">\(\in\)</span> G<em>, 如果 <span class="arithmatex">\(n\)</span> 在 A</em> 中被拓展，则在 A 中也会被拓展</p>
+<p>Corollary 1: 存在一个 A<em> <span class="arithmatex">\(\in\)</span> G</em> 满足 <span class="arithmatex">\(N(A^*, G) \leq N(A, G)\)</span></p>
+<p>Corollary 2: 定义 <span class="arithmatex">\(R(A^*, G)\)</span> 为 A<em> 应用于 <span class="arithmatex">\(G\)</span> 上的总 critical ties 个数, 则对任意一个 A</em> <span class="arithmatex">\(\in\)</span> G*, 我们有 <span class="arithmatex">\(N(A*,G)\leq N(A,G)+R(A^*,G)\)</span></p>
+</blockquote>
+<p>对于 noncritical ties, 满足所有其他可选的节点一定同时被 A 和 A* 拓展</p>
+<p>critical ties 即为相反定义</p>
+<h3 id="_6">可容性与一致性的关系</h3>
+<blockquote>
+<p>Theorem 4: 如果启发函数满足一致性， 一定满足可容性</p>
+</blockquote>
+<p>证明：</p>
+<p>对于任意节点 <span class="arithmatex">\(x_0\)</span>, 从 <span class="arithmatex">\(x_0\)</span> 到目标点集的最短路为 <span class="arithmatex">\(P\)</span>，最短路上节点为 <span class="arithmatex">\(x_1 \cdots x_n\)</span> </p>
+<p><span class="arithmatex">\(\displaystyle \hat h(x_0) \leq \hat h(x_1)+h(x_0, x_1)\leq \hat h(x_2)+h(x_0,x_1)+h(x_1,x_2)\leq \cdots\leq\sum_{i=1}^nh(x_{i-1},x_i)=h(x_0)\)</span></p>
+<h3 id="hat-gn-hat-hn"><span class="arithmatex">\(\hat g(n)\)</span> 与 <span class="arithmatex">\(\hat h(n)\)</span> 的选取</h3>
+<p><span class="arithmatex">\(\hat h=0\)</span> 退化为 Dijkstra</p>
+<p><span class="arithmatex">\(\hat h=0\)</span> 且边权为 <span class="arithmatex">\(1\)</span> 退化为 BFS</p>
+<p><span class="arithmatex">\(\hat g=0\)</span> 退化为 Greedy Best First Search</p>
+<h3 id="_7">参考文献</h3>
+<p>更加严谨，具体的证明与分析可以见A*算法的原论文</p>
+<p><a href="https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&amp;arnumber=4082128"><em>A Formal Basis for the Heuristic Determination of Minimum Cost Paths</em></a></p>
+<h2 id="alpha-beta"><span class="arithmatex">\(\alpha-\beta\)</span></h2>
+<h3 id="minimax">Minimax</h3>
+<p>在对抗博弈中，Alice希望得到最大收益，Bob希望得到最小收益，在整个搜索树中，如果奇数层是Alice，偶数层是Bob，那么奇数层取子结点中最大，偶数层取最小</p>
+<h3 id="alpha-beta-pruning"><span class="arithmatex">\(\alpha-\beta\)</span> pruning</h3>
+<p>每个节点有两个参数， <span class="arithmatex">\(\alpha\)</span>表示最大下界，<span class="arithmatex">\(\beta\)</span>表示最小上界</p>
+<p>每次递归地搜索，将当前节点的<span class="arithmatex">\(\alpha\)</span>, <span class="arithmatex">\(\beta\)</span> 下传到子节点</p>
+<p>如果有<span class="arithmatex">\(\alpha\geq \beta\)</span>, 则可以直接退出当前节点，因为剩余子节点不会产生更优解</p>
+<p>这个条件的意义是，如果当前节点要对父亲节点产生贡献，就必须满足<span class="arithmatex">\(\alpha\leq v \leq\beta\)</span>, 而<span class="arithmatex">\(\alpha\)</span>, <span class="arithmatex">\(\beta\)</span> 是由父亲节点传下来的，如果<span class="arithmatex">\(\alpha\geq \beta\)</span>，说明能够更新父节点的最值条件已经不被满足了（最小值超过了父节点要求的最大值，或最大值超过了父节点要求的最小值），那么剩余子节点就不用再搜了，直接退出即可</p>
+<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="nf">alpha_beta</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">u</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">alpha</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">beta</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">minimax</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="c1">// minimax = 0 表示最小值点， 反之为最大值点</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">son</span><span class="p">[</span><span class="n">u</span><span class="p">].</span><span class="n">size</span><span class="p">())</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">val</span><span class="p">[</span><span class="n">u</span><span class="p">];</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">minimax</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">auto</span><span class="w"> </span><span class="n">d</span><span class="o">:</span><span class="n">son</span><span class="p">[</span><span class="n">u</span><span class="p">])</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">alpha</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">max</span><span class="p">(</span><span class="n">alpha</span><span class="p">,</span><span class="w"> </span><span class="n">alpha_beta</span><span class="p">(</span><span class="n">d</span><span class="p">,</span><span class="w"> </span><span class="n">alpha</span><span class="p">,</span><span class="w"> </span><span class="n">beta</span><span class="p">,</span><span class="w"> </span><span class="n">minimax</span><span class="w"> </span><span class="o">^</span><span class="w"> </span><span class="mi">1</span><span class="p">));</span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">alpha</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">beta</span><span class="p">)</span><span class="w"> </span><span class="k">break</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">alpha</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">auto</span><span class="w"> </span><span class="n">d</span><span class="o">:</span><span class="n">son</span><span class="p">[</span><span class="n">u</span><span class="p">])</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">beta</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">min</span><span class="p">(</span><span class="n">beta</span><span class="p">,</span><span class="w"> </span><span class="n">alpha_beta</span><span class="p">(</span><span class="n">d</span><span class="p">,</span><span class="w"> </span><span class="n">alpha</span><span class="p">,</span><span class="w"> </span><span class="n">beta</span><span class="p">,</span><span class="w"> </span><span class="n">minimax</span><span class="w"> </span><span class="o">^</span><span class="w"> </span><span class="mi">1</span><span class="p">));</span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">alpha</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">beta</span><span class="p">)</span><span class="w"> </span><span class="k">break</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">beta</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h2 id="mcts">MCTS</h2>
+<h3 id="ucb-upper-confidence-bounds">UCB (Upper Confidence Bounds)</h3>
+<p>定义<span class="arithmatex">\(UCB\)</span>函数为 <span class="arithmatex">\(\displaystyle\frac{w_i}{n_i}+c\cdot \sqrt{\frac{2\ln N_i}{n_i}}\)</span></p>
+<p><span class="arithmatex">\(w_i\)</span> 是当前节点胜利次数 (如果胜利有分数，则<span class="arithmatex">\(w_i\)</span>可以更正为胜利所得分数)， <span class="arithmatex">\(n_i\)</span> 是节点模拟次数， <span class="arithmatex">\(N_i\)</span> 是父亲节点总模拟次数， <span class="arithmatex">\(c\)</span> 是常数，理论为<span class="arithmatex">\(\frac{1}{\sqrt 2}\)</span></p>
+<p>可以看到，如果只有前一部分，算法将不断搜索胜率最高的节点，而导致新节点不被搜索</p>
+<p>如果只有后一部分，在 <span class="arithmatex">\(N\)</span> 一定时，算法优先搜索没被访问的节点，但忽略的新节点的胜率问题</p>
+<p>所以，这个置信度综合考虑了最大胜率与探索新节点</p>
+<p>这个式子是怎么构造的呢？</p>
+<p>我们考虑霍夫丁不等式：</p>
+<p><span class="arithmatex">\(\displaystyle P(\mu_i-\bar x_{i,t-1}&gt;\delta)\leq e^{-2T_{(i,t-1)}\delta^2}\)</span></p>
+<p>这个式子的意义是，期望奖励 <span class="arithmatex">\(\mu_i\)</span> 大小超过当前动作 <span class="arithmatex">\(a_i\)</span> 的奖励均值 <span class="arithmatex">\(\bar x_{i,t-1}\)</span> 加上标准差 <span class="arithmatex">\(\delta\)</span> 的概率不超过 <span class="arithmatex">\(e^{-2T_{(i,t-1)}\delta^2}\)</span></p>
+<p>那么我们只要让 <span class="arithmatex">\(e^{-2T_{(i,t-1)}\delta^2}\)</span> 快速收敛就行</p>
+<p>所以我们找到了一个函数 <span class="arithmatex">\(t^{-4}\)</span></p>
+<p>我们让 <span class="arithmatex">\(e^{-2T_{(i,t-1)}\delta^2} = t^{-4}\)</span>, 取log得出 <span class="arithmatex">\(-2T_{(i,t-1)}\delta^2 = -4\ln t\)</span></p>
+<p>则 <span class="arithmatex">\(\delta = \sqrt{\frac{2\ln t}{T_{(i,t-1)}}}\)</span>, 即 <span class="arithmatex">\(\sqrt{\frac{2\ln N_i}{n_i}}\)</span></p>
+<h3 id="uct">UCT</h3>
+<h4 id="node-definition">node definition</h4>
+<p>那么<span class="arithmatex">\(UCB\)</span>函数：
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">UCB</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">v</span><span class="o">.</span><span class="n">total_value</span><span class="o">/</span><span class="n">v</span><span class="o">.</span><span class="n">num_visited</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">constant</span><span class="o">*</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">num_visited</span><span class="p">)</span><span class="o">/</span><span class="n">v</span><span class="o">.</span><span class="n">num_visited</span><span class="p">)</span><span class="o">**</span><span class="mf">0.5</span>
+</code></pre></div></p>
+<h4 id="selectpolicy">SelectPolicy</h4>
+<p>先从根开始，不断向下递归博弈树，当遇到叶子节点时，停止并返回当前节点<span class="arithmatex">\(v_{select}\)</span>；当遇到有未扩展的子节点的节点时，可以以<span class="arithmatex">\(\frac12\)</span>的概率向下递归，以<span class="arithmatex">\(\frac12\)</span>的概率停止并返回</p>
+<p>这样的目的是为了更多地选择更优的分支，来判断这一分支是否更好，而不是更多地扩展未扩展的节点</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">SelectPolicy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="n">all_actions</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">get_legal_actions</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">color</span><span class="p">))</span>
+        <span class="n">children_actions</span> <span class="o">=</span> <span class="p">[</span><span class="n">action</span> <span class="k">for</span> <span class="n">action</span><span class="p">,</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">v</span><span class="o">.</span><span class="n">children</span><span class="o">.</span><span class="n">items</span><span class="p">()]</span>
+        <span class="n">actions</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">all_actions</span><span class="p">)</span> <span class="o">-</span> <span class="nb">set</span><span class="p">(</span><span class="n">children_actions</span><span class="p">))</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">v</span><span class="o">.</span><span class="n">children</span><span class="p">:</span>  <span class="c1"># leaf node</span>
+            <span class="k">break</span>
+        <span class="n">choice</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">choice</span> <span class="o">&lt;</span> <span class="mf">0.5</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">actions</span><span class="p">):</span>  <span class="c1"># not fully expanded</span>
+            <span class="k">break</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">v</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">children</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">UCB</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]))[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">v</span>
+</code></pre></div>
+<h4 id="expand">Expand</h4>
+<p>随机选择当前节点<span class="arithmatex">\(v_{select}\)</span>一个为扩展的节点<span class="arithmatex">\(v_{expand}\)</span>并创建节点，返回<span class="arithmatex">\(v_{expand}\)</span></p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">Expand</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
+    <span class="n">all_actions</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">get_legal_actions</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">color</span><span class="p">))</span>
+    <span class="n">children_actions</span> <span class="o">=</span> <span class="p">[</span><span class="n">action</span> <span class="k">for</span> <span class="n">action</span><span class="p">,</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">v</span><span class="o">.</span><span class="n">children</span><span class="o">.</span><span class="n">items</span><span class="p">()]</span>
+    <span class="n">actions</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">all_actions</span><span class="p">)</span> <span class="o">-</span> <span class="nb">set</span><span class="p">(</span><span class="n">children_actions</span><span class="p">))</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">actions</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="n">action</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">actions</span><span class="p">)</span>
+    <span class="n">state</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">state</span><span class="p">)</span>
+    <span class="n">state</span><span class="o">.</span><span class="n">_move</span><span class="p">(</span><span class="n">action</span><span class="p">,</span> <span class="n">v</span><span class="o">.</span><span class="n">color</span><span class="p">)</span>
+    <span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;X&quot;</span> <span class="k">if</span> <span class="n">v</span><span class="o">.</span><span class="n">color</span> <span class="o">==</span> <span class="s2">&quot;O&quot;</span> <span class="k">else</span> <span class="s2">&quot;O&quot;</span>
+    <span class="n">v</span><span class="o">.</span><span class="n">children</span><span class="p">[</span><span class="n">action</span><span class="p">]</span> <span class="o">=</span> <span class="n">TreeNode</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="n">v</span><span class="o">.</span><span class="n">depth</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">action</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">v</span><span class="o">.</span><span class="n">children</span><span class="p">[</span><span class="n">action</span><span class="p">]</span>
+</code></pre></div>
+<h4 id="simulatepolicy">SimulatePolicy</h4>
+<p>使用一个更简单的策略，如随机策略，模拟<span class="arithmatex">\(v_{expand}\)</span>至游戏结束，得到输赢结果，同色赢贡献为<span class="arithmatex">\(1\)</span>，平局为<span class="arithmatex">\(0.5\)</span>，输为<span class="arithmatex">\(0\)</span></p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">game_over</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">):</span>  <span class="c1"># 如果双方都不能落子，游戏结束</span>
+    <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">state</span><span class="o">.</span><span class="n">get_legal_actions</span><span class="p">(</span><span class="s2">&quot;X&quot;</span><span class="p">)))</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">state</span><span class="o">.</span><span class="n">get_legal_actions</span><span class="p">(</span><span class="s2">&quot;O&quot;</span><span class="p">)))</span> <span class="o">==</span> <span class="mi">0</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">SimulatePolicy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
+    <span class="n">s_result</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">state</span><span class="p">)</span>
+    <span class="n">color</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">color</span>
+    <span class="k">while</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">game_over</span><span class="p">(</span><span class="n">s_result</span><span class="p">):</span>
+        <span class="n">actions</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">s_result</span><span class="o">.</span><span class="n">get_legal_actions</span><span class="p">(</span><span class="n">color</span><span class="p">))</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">actions</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;X&quot;</span> <span class="k">if</span> <span class="n">color</span> <span class="o">==</span> <span class="s2">&quot;O&quot;</span> <span class="k">else</span> <span class="s2">&quot;O&quot;</span>
+            <span class="k">continue</span>
+        <span class="n">action</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">actions</span><span class="p">)</span>
+        <span class="n">s_result</span><span class="o">.</span><span class="n">_move</span><span class="p">(</span><span class="n">action</span><span class="p">,</span> <span class="n">color</span><span class="p">)</span>
+        <span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;X&quot;</span> <span class="k">if</span> <span class="n">color</span> <span class="o">==</span> <span class="s2">&quot;O&quot;</span> <span class="k">else</span> <span class="s2">&quot;O&quot;</span>
+    <span class="k">return</span> <span class="n">s_result</span>
+</code></pre></div>
+<h4 id="backpropagate">BackPropagate</h4>
+<p>从<span class="arithmatex">\(v_{expand}\)</span>开始向上更新整个分支</p>
+<p>如果当前节点为<span class="arithmatex">\(MAX\)</span>节点，则要减去贡献，因为对手是<span class="arithmatex">\(MIN\)</span>节点，他选择子节点时会选择对于他最有利的分支，所以贡献越高，说明对手的对手(自己)赢得越多，对手越不会选择，所以要减去贡献</p>
+<p>反之，<span class="arithmatex">\(MIN\)</span>节点加上贡献，因为自己是<span class="arithmatex">\(MAX\)</span>节点，选择<span class="arithmatex">\(MIN\)</span>节点中贡献最大的分支</p>
+<p>同时，每个节点的访问次数加<span class="arithmatex">\(1\)</span></p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">BackPropagate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">s_result</span><span class="p">):</span>
+    <span class="n">winner</span><span class="p">,</span> <span class="n">diff</span> <span class="o">=</span> <span class="n">s_result</span><span class="o">.</span><span class="n">get_winner</span><span class="p">()</span>
+    <span class="c1"># print(&quot;winner is: &quot;, winner, diff)</span>
+    <span class="n">color</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">color</span> <span class="o">==</span> <span class="s2">&quot;X&quot;</span> <span class="k">else</span> <span class="mi">1</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="mi">1</span> <span class="k">if</span> <span class="n">winner</span> <span class="o">==</span> <span class="n">color</span> <span class="k">else</span> <span class="mf">0.5</span> <span class="k">if</span> <span class="n">winner</span> <span class="o">==</span> <span class="mi">2</span> <span class="k">else</span> <span class="mi">0</span>
+    <span class="k">while</span> <span class="n">v</span><span class="p">:</span>
+        <span class="n">v</span><span class="o">.</span><span class="n">num_visited</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">v</span><span class="o">.</span><span class="n">total_value</span> <span class="o">+=</span> <span class="n">result</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span> <span class="k">if</span> <span class="n">v</span><span class="o">.</span><span class="n">color</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">color</span> <span class="k">else</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">v</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">parent</span>
+</code></pre></div>
+<p>整体的<span class="arithmatex">\(AIPlayer\)</span>代码：</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">datetime</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">math</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">copy</span><span class="w"> </span><span class="kn">import</span> <span class="n">deepcopy</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">random</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">TreeNode</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="n">depth</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">state</span> <span class="o">=</span> <span class="n">state</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parent</span> <span class="o">=</span> <span class="n">parent</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">children</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">num_visited</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">total_value</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">depth</span> <span class="o">=</span> <span class="n">depth</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">color</span> <span class="o">=</span> <span class="n">color</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">action</span> <span class="o">=</span> <span class="n">action</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">AIPlayer</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    AI 玩家</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="n">time</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">constant</span><span class="o">=</span><span class="mi">1</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">**</span> <span class="mf">0.5</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        玩家初始化</span>
+<span class="sd">        :param color: 下棋方，&#39;X&#39; - 黑棋，&#39;O&#39; - 白棋</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">color</span> <span class="o">=</span> <span class="n">color</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">time</span> <span class="o">=</span> <span class="n">time</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">constant</span> <span class="o">=</span> <span class="n">constant</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_move</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">board</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        根据当前棋盘状态获取最佳落子位置</span>
+<span class="sd">        :param board: 棋盘</span>
+<span class="sd">        :return: action 最佳落子位置, e.g. &#39;A1&#39;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">color</span> <span class="o">==</span> <span class="s1">&#39;X&#39;</span><span class="p">:</span>
+            <span class="n">player_name</span> <span class="o">=</span> <span class="s1">&#39;黑棋&#39;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">player_name</span> <span class="o">=</span> <span class="s1">&#39;白棋&#39;</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;请等一会，对方 </span><span class="si">{}</span><span class="s2">-</span><span class="si">{}</span><span class="s2"> 正在思考中...&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">player_name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">color</span><span class="p">))</span>
+        <span class="n">action</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">UCTSearch</span><span class="p">(</span><span class="n">board</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">action</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">UCTSearch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">):</span>
+        <span class="c1"># state = board</span>
+        <span class="n">root</span> <span class="o">=</span> <span class="n">TreeNode</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">color</span><span class="p">)</span>
+        <span class="n">start_time</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time</span> <span class="o">&gt;</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">):</span>
+                <span class="k">break</span>
+            <span class="n">v_select</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">SelectPolicy</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
+            <span class="n">v_expand</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Expand</span><span class="p">(</span><span class="n">v_select</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">v_expand</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="n">s_result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">SimulatePolicy</span><span class="p">(</span><span class="n">v_expand</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">BackPropagate</span><span class="p">(</span><span class="n">v_expand</span><span class="p">,</span> <span class="n">s_result</span><span class="p">)</span>
+        <span class="n">action</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_action</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">action</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">SelectPolicy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
+        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">all_actions</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">get_legal_actions</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">color</span><span class="p">))</span>
+            <span class="n">children_actions</span> <span class="o">=</span> <span class="p">[</span><span class="n">action</span> <span class="k">for</span> <span class="n">action</span><span class="p">,</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">v</span><span class="o">.</span><span class="n">children</span><span class="o">.</span><span class="n">items</span><span class="p">()]</span>
+            <span class="n">actions</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">all_actions</span><span class="p">)</span> <span class="o">-</span> <span class="nb">set</span><span class="p">(</span><span class="n">children_actions</span><span class="p">))</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">v</span><span class="o">.</span><span class="n">children</span><span class="p">:</span>  <span class="c1"># leaf node or not fully expanded</span>
+                <span class="k">break</span>
+            <span class="n">choice</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">choice</span> <span class="o">&lt;</span> <span class="mf">0.5</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">actions</span><span class="p">):</span>
+                <span class="k">break</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">v</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">children</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">UCB</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]))[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">v</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">UCB</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">v</span><span class="o">.</span><span class="n">total_value</span><span class="o">/</span><span class="n">v</span><span class="o">.</span><span class="n">num_visited</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">constant</span><span class="o">*</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">num_visited</span><span class="p">)</span><span class="o">/</span><span class="n">v</span><span class="o">.</span><span class="n">num_visited</span><span class="p">)</span><span class="o">**</span><span class="mf">0.5</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">Expand</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
+        <span class="n">all_actions</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">get_legal_actions</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">color</span><span class="p">))</span>
+        <span class="n">children_actions</span> <span class="o">=</span> <span class="p">[</span><span class="n">action</span> <span class="k">for</span> <span class="n">action</span><span class="p">,</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">v</span><span class="o">.</span><span class="n">children</span><span class="o">.</span><span class="n">items</span><span class="p">()]</span>
+        <span class="n">actions</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">all_actions</span><span class="p">)</span> <span class="o">-</span> <span class="nb">set</span><span class="p">(</span><span class="n">children_actions</span><span class="p">))</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">actions</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="n">action</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">actions</span><span class="p">)</span>
+        <span class="n">state</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">state</span><span class="p">)</span>
+        <span class="n">state</span><span class="o">.</span><span class="n">_move</span><span class="p">(</span><span class="n">action</span><span class="p">,</span> <span class="n">v</span><span class="o">.</span><span class="n">color</span><span class="p">)</span>
+        <span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;X&quot;</span> <span class="k">if</span> <span class="n">v</span><span class="o">.</span><span class="n">color</span> <span class="o">==</span> <span class="s2">&quot;O&quot;</span> <span class="k">else</span> <span class="s2">&quot;O&quot;</span>
+        <span class="n">v</span><span class="o">.</span><span class="n">children</span><span class="p">[</span><span class="n">action</span><span class="p">]</span> <span class="o">=</span> <span class="n">TreeNode</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="n">v</span><span class="o">.</span><span class="n">depth</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">action</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">v</span><span class="o">.</span><span class="n">children</span><span class="p">[</span><span class="n">action</span><span class="p">]</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">game_over</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">state</span><span class="o">.</span><span class="n">get_legal_actions</span><span class="p">(</span><span class="s2">&quot;X&quot;</span><span class="p">)))</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">state</span><span class="o">.</span><span class="n">get_legal_actions</span><span class="p">(</span><span class="s2">&quot;O&quot;</span><span class="p">)))</span> <span class="o">==</span> <span class="mi">0</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">SimulatePolicy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
+        <span class="n">s_result</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">state</span><span class="p">)</span>
+        <span class="n">color</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">color</span>
+        <span class="k">while</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">game_over</span><span class="p">(</span><span class="n">s_result</span><span class="p">):</span>
+            <span class="n">actions</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">s_result</span><span class="o">.</span><span class="n">get_legal_actions</span><span class="p">(</span><span class="n">color</span><span class="p">))</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">actions</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;X&quot;</span> <span class="k">if</span> <span class="n">color</span> <span class="o">==</span> <span class="s2">&quot;O&quot;</span> <span class="k">else</span> <span class="s2">&quot;O&quot;</span>
+                <span class="k">continue</span>
+            <span class="n">action</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">actions</span><span class="p">)</span>
+            <span class="n">s_result</span><span class="o">.</span><span class="n">_move</span><span class="p">(</span><span class="n">action</span><span class="p">,</span> <span class="n">color</span><span class="p">)</span>
+            <span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;X&quot;</span> <span class="k">if</span> <span class="n">color</span> <span class="o">==</span> <span class="s2">&quot;O&quot;</span> <span class="k">else</span> <span class="s2">&quot;O&quot;</span>
+        <span class="k">return</span> <span class="n">s_result</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">BackPropagate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">s_result</span><span class="p">):</span>
+        <span class="n">winner</span><span class="p">,</span> <span class="n">diff</span> <span class="o">=</span> <span class="n">s_result</span><span class="o">.</span><span class="n">get_winner</span><span class="p">()</span>
+        <span class="n">color</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">color</span> <span class="o">==</span> <span class="s2">&quot;X&quot;</span> <span class="k">else</span> <span class="mi">1</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="mi">1</span> <span class="k">if</span> <span class="n">winner</span> <span class="o">==</span> <span class="n">color</span> <span class="k">else</span> <span class="mf">0.5</span> <span class="k">if</span> <span class="n">winner</span> <span class="o">==</span> <span class="mi">2</span> <span class="k">else</span> <span class="mi">0</span>
+        <span class="k">while</span> <span class="n">v</span><span class="p">:</span>
+            <span class="n">v</span><span class="o">.</span><span class="n">num_visited</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">v</span><span class="o">.</span><span class="n">total_value</span> <span class="o">+=</span> <span class="n">result</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span> <span class="k">if</span> <span class="n">v</span><span class="o">.</span><span class="n">color</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">color</span> <span class="k">else</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="n">v</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">parent</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="n">root</span><span class="o">.</span><span class="n">children</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">total_value</span><span class="o">/</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">num_visited</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+</code></pre></div>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2025 - 2077 AKonjac_
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs"], "search": "../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.60a45f97.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

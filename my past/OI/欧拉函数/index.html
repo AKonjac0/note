@@ -46,6 +46,8 @@
       
     
     
+      <link rel="stylesheet" href="https://unpkg.com/katex@0/dist/katex.min.css">
+    
     <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
@@ -889,27 +891,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../ADS/quantum%20computation/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    quantum computation
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../../../ADS/randomized/" class="md-nav__link">
         
   
@@ -1168,53 +1149,11 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../general%20physics/Geometrical%20Optics/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Geometrical Optics
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../../../general%20physics/Schr%C3%B6dinger%20equation/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
     Schrödinger equation
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../general%20physics/optical%20conic/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    optical conic
   </span>
   
 
@@ -3630,8 +3569,9 @@
 <div class="arithmatex">\[\phi(x)=x\prod_{i=1}^n(1-\frac{1}{p_i})\]</div>
 <h2 id="_3">线性筛求欧拉函数</h2>
 <h3 id="1-on">1.性质法(欧拉筛) O(n)</h3>
-<p>1) $\phi(i<em> j)_ {j|i}=\phi(i)</em> j $
-2) <span class="arithmatex">\(\phi(i* j)_ {j⊥i}=\phi(i)* \phi(j)\)</span>
+<ol>
+<li><span class="arithmatex">\(\phi(i* j)_ {j|i}=\phi(i)* j\)</span></li>
+<li><span class="arithmatex">\(\phi(i* j)_ {j⊥i}=\phi(i)* \phi(j)\)</span>
 <div class="highlight"><pre><span></span><code><span class="w">    </span><span class="n">euler</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
 <span class="w">    </span><span class="k">for</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;=</span><span class="n">n</span><span class="p">;</span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="n">v</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span>
 <span class="w">    </span><span class="k">for</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="o">=</span><span class="mi">2</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;=</span><span class="n">n</span><span class="p">;</span><span class="o">++</span><span class="n">i</span><span class="p">){</span>
@@ -3649,7 +3589,8 @@
 <span class="w">            </span><span class="p">}</span>
 <span class="w">        </span><span class="p">}</span>
 <span class="w">    </span><span class="p">}</span>
-</code></pre></div></p>
+</code></pre></div></li>
+</ol>
 <h3 id="2-onlogn">2.定义法 O(nlogn)</h3>
 <div class="highlight"><pre><span></span><code><span class="w">    </span><span class="n">phi</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span>
 <span class="w">    </span><span class="k">for</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="o">=</span><span class="mi">2</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;=</span><span class="n">n</span><span class="p">;</span><span class="o">++</span><span class="n">i</span><span class="p">){</span>
@@ -3662,12 +3603,26 @@
 <span class="w">    </span><span class="p">}</span>
 </code></pre></div>
 <h2 id="_4">欧拉函数的性质：</h2>
-<p>1) 若<span class="arithmatex">\(p\)</span>为质数，则<span class="arithmatex">\(\phi(p)=p-1\)</span></p>
-<p>2) 若<span class="arithmatex">\(n=p^k\)</span>且<span class="arithmatex">\(p\)</span>为质数，则<span class="arithmatex">\(\phi(n)=p^k-p^{k-1}\)</span></p>
-<p>3) 若<span class="arithmatex">\(m⊥n\)</span>，有<span class="arithmatex">\(\phi(m* n)= \phi(m)* \phi(n)\)</span>; 若<span class="arithmatex">\(m|n\)</span>，有<span class="arithmatex">\(\phi(m* n) = m * \phi(n)\)</span></p>
-<p>4) 欧拉定理，若<span class="arithmatex">\(m⊥a\)</span>,则<span class="arithmatex">\(a^{\phi(m)}\equiv 1\pmod m\)</span></p>
-<p>5) 当<span class="arithmatex">\(n\)</span>为奇数时，<span class="arithmatex">\(\phi(2n)=\phi(n)\)</span></p>
-<p>6) <span class="arithmatex">\(n=\sum_{d|n}\phi(d)\)</span></p>
+<ol>
+<li>
+<p>若<span class="arithmatex">\(p\)</span>为质数，则<span class="arithmatex">\(\phi(p)=p-1\)</span></p>
+</li>
+<li>
+<p>若<span class="arithmatex">\(n=p^k\)</span>且<span class="arithmatex">\(p\)</span>为质数，则<span class="arithmatex">\(\phi(n)=p^k-p^{k-1}\)</span></p>
+</li>
+<li>
+<p>若<span class="arithmatex">\(m⊥n\)</span>，有<span class="arithmatex">\(\phi(m* n)= \phi(m)* \phi(n)\)</span>; 若<span class="arithmatex">\(m|n\)</span>，有<span class="arithmatex">\(\phi(m* n) = m * \phi(n)\)</span></p>
+</li>
+<li>
+<p>欧拉定理，若<span class="arithmatex">\(m⊥a\)</span>,则<span class="arithmatex">\(a^{\phi(m)}\equiv 1\pmod m\)</span></p>
+</li>
+<li>
+<p>当<span class="arithmatex">\(n\)</span>为奇数时，<span class="arithmatex">\(\phi(2n)=\phi(n)\)</span></p>
+</li>
+<li>
+<p><span class="arithmatex">\(n=\sum_{d|n}\phi(d)\)</span></p>
+</li>
+</ol>
 <h3 id="_5">给出其中一些定理的证明：</h3>
 <h4 id="1">性质1</h4>
 <p>因为<span class="arithmatex">\(p\)</span>为质数，所以所有小于他的<span class="arithmatex">\(p-1\)</span>个数都与它互素。</p>
@@ -3683,15 +3638,13 @@
 <p>2.</p>
 <p>因为<span class="arithmatex">\(m|n\)</span>,所以<span class="arithmatex">\(n\)</span>包含了<span class="arithmatex">\(m\)</span>的所有质因数。</p>
 <p>所以设<span class="arithmatex">\(n\)</span>含有的相同的质因数为<span class="arithmatex">\(a_n\)</span>,则<span class="arithmatex">\(m * n\)</span>所含质因数与<span class="arithmatex">\(n\)</span>完全相同.(不计质因子个数)</p>
-<p>$$\therefore \phi(m * n)=m * n  * \prod_{i=1}^{a_n}(1-\frac{1}{p_i}) \</p>
-<p>=m*\phi(n)
-$$</p>
+<div class="arithmatex">\[\therefore \phi(m * n)=m * n  * \prod_{i=1}^{a_n}(1-\frac{1}{p_i}) \\
+=m*\phi(n)\]</div>
 <h4 id="6">性质6</h4>
 <ol>
 <li>证<span class="arithmatex">\(F(n)=\sum_{d|n}\phi(d)\)</span>为积性函数</li>
 </ol>
-<p>设 $ F(m)<em> F(n)=\sum_{i|m}\phi(i) * \sum_{j|n}\phi(j)=
-\phi(i_1)</em> \phi(j_1)+\phi(i_1)<em> \phi(j_2)+...+\phi(i_{k_m})</em> \phi(j_{k_n}) $</p>
+<p>设 <span class="arithmatex">\(F(m)* F(n)=\sum_{i|m}\phi(i) * \sum_{j|n}\phi(j)=\phi(i_1)* \phi(j_1)+\phi(i_1)* \phi(j_2)+...+\phi(i_{k_m})* \phi(j_{k_n})\)</span></p>
 <p>因为<span class="arithmatex">\(m⊥n\)</span>，所以所有的<span class="arithmatex">\(i\)</span>与<span class="arithmatex">\(j\)</span>互质，所以原式<span class="arithmatex">\(=\phi(i_1* j_1)+...+\phi(i_{k_m}* \phi(j_{k_n}))\)</span></p>
 <p>又因为<span class="arithmatex">\(i_1* j_1,...,i_{k_m}* j_{k_n}\)</span>构成了<span class="arithmatex">\(m* n\)</span>所有因数，所以<span class="arithmatex">\(F(m) * F(n)=F(m* n)\)</span>.</p>
 <p>2.证明<span class="arithmatex">\(F(p^k)=\sum_{d|p^k}\phi(d)\)</span></p>
@@ -3756,9 +3709,11 @@ $$</p>
     
       <script src="../../../assets/javascripts/bundle.60a45f97.min.js"></script>
       
-        <script src="../../../javascripts/mathjax.js"></script>
+        <script src="../../../javascripts/katex.js"></script>
       
-        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
       
     
   </body>

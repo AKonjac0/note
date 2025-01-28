@@ -12,7 +12,7 @@
         <link rel="prev" href="../../CO/computer%20organization%20and%20design/">
       
       
-        <link rel="next" href="../Geometrical%20Optics/">
+        <link rel="next" href="../Schr%C3%B6dinger%20equation/">
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
@@ -45,6 +45,8 @@
         <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
       
     
+    
+      <link rel="stylesheet" href="https://unpkg.com/katex@0/dist/katex.min.css">
     
     <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -887,27 +889,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../../ADS/quantum%20computation/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    quantum computation
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../../ADS/randomized/" class="md-nav__link">
         
   
@@ -1355,53 +1336,11 @@
   
   
     <li class="md-nav__item">
-      <a href="../Geometrical%20Optics/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Geometrical Optics
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../Schr%C3%B6dinger%20equation/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
     Schrödinger equation
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../optical%20conic/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    optical conic
   </span>
   
 
@@ -4249,7 +4188,10 @@ F-y'\frac{\partial F}{\partial y'}=c
 <p><span class="arithmatex">\(\displaystyle D=\frac{\Delta \theta}{\Delta \lambda}=\frac{m}{d\cos\theta}\)</span></p>
 <p>表示单位波长差可以分开的两个极大的角度差</p>
 <h2 id="_104">分辨本领</h2>
-<p><img alt="alt text" src="../../images/general_physics/image_1%2813%29.png" /></p>
+<p><span class="arithmatex">\(\displaystyle \Delta \theta_w=\frac{\lambda}{Nd\cos\theta}\)</span></p>
+<p><span class="arithmatex">\(\displaystyle \Delta \lambda = \frac{\Delta \theta_w}{D_\theta}=\frac{d\cos\theta}{m}\cdot \frac{\lambda}{Nd\cos\theta}=\frac{\lambda}{Nm}\)</span></p>
+<p>分辨本领 <span class="arithmatex">\(\displaystyle R=\frac{\lambda}{\Delta \lambda}=Nm\)</span></p>
+<p>与 <span class="arithmatex">\(d\)</span> 无关, 只与 <span class="arithmatex">\(N,m\)</span> 有关</p>
 <p>代入半角宽度是因为这是最大的宽度, 所以是最严苛的条件</p>
 <p><span class="arithmatex">\(\Delta \lambda\)</span> 表示两束光的波长差</p>
 <p><span class="arithmatex">\(\lambda\)</span> 表示波长短的光波长</p>
@@ -4440,9 +4382,11 @@ F-y'\frac{\partial F}{\partial y'}=c
     
       <script src="../../assets/javascripts/bundle.60a45f97.min.js"></script>
       
-        <script src="../../javascripts/mathjax.js"></script>
+        <script src="../../javascripts/katex.js"></script>
       
-        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
       
     
   </body>

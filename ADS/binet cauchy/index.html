@@ -46,6 +46,8 @@
       
     
     
+      <link rel="stylesheet" href="https://unpkg.com/katex@0/dist/katex.min.css">
+    
     <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
@@ -989,27 +991,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../quantum%20computation/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    quantum computation
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../randomized/" class="md-nav__link">
         
   
@@ -1268,53 +1249,11 @@
   
   
     <li class="md-nav__item">
-      <a href="../../general%20physics/Geometrical%20Optics/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Geometrical Optics
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../../general%20physics/Schr%C3%B6dinger%20equation/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
     Schrödinger equation
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../general%20physics/optical%20conic/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    optical conic
   </span>
   
 
@@ -3525,25 +3464,25 @@
 <p>$
 \left|A\right| = \sum_{1\leq j_1\leq j_2\leq \ldots \leq j_k\leq n} A
 \left( \begin{matrix}
-i_1 &amp; i_2 &amp; \ldots &amp; i_k\\
+i_1 &amp; i_2 &amp; \ldots &amp; i_k\
 j_1 &amp; j_2 &amp; \ldots &amp; j_k
 \end{matrix}
 \right)
 \cdot (-1)^{\sum_{t=1}^k i_t+\sum_{t=1}^k j_t}\cdot
 \left[ \begin{matrix}
-i_1 &amp; i_2 &amp; \ldots &amp; i_k\\
+i_1 &amp; i_2 &amp; \ldots &amp; i_k\
 j_1 &amp; j_2 &amp; \ldots &amp; j_k
 \end{matrix}
 \right]
 $</p>
 <p>其含义为，取定第<span class="arithmatex">\(1\leq i_1\leq \ldots \leq i_k\leq n\)</span>行，<span class="arithmatex">\(\det A\)</span> 等于这 <span class="arithmatex">\(k\)</span> 行形成的所有 <span class="arithmatex">\(k\)</span> 阶子式与它自己的代数余子式的乘积之和. </p>
 <p>其中, <span class="arithmatex">\(A\left( \begin{matrix}
-i_1 &amp; i_2 &amp; \ldots &amp; i_k\\\\
+i_1 &amp; i_2 &amp; \ldots &amp; i_k\\
 j_1 &amp; j_2 &amp; \ldots &amp; j_k
 \end{matrix}
 \right)\)</span>表示<span class="arithmatex">\(A\)</span>矩阵保留第<span class="arithmatex">\(i_1\ldots i_k\)</span>行，第<span class="arithmatex">\(j_1\ldots j_k\)</span>列的子式</p>
 <p><span class="arithmatex">\(A\left[ \begin{matrix}
-i_1 &amp; i_2 &amp; \ldots &amp; i_k\\\\
+i_1 &amp; i_2 &amp; \ldots &amp; i_k\\
 j_1 &amp; j_2 &amp; \ldots &amp; j_k
 \end{matrix}
 \right]\)</span>表示<span class="arithmatex">\(A\)</span>矩阵去除第<span class="arithmatex">\(i_1\ldots i_k\)</span>行，第<span class="arithmatex">\(j_1\ldots j_k\)</span>列的子式</p>
@@ -3551,11 +3490,11 @@ j_1 &amp; j_2 &amp; \ldots &amp; j_k
 <h2 id="0x01">0x01描述</h2>
 <p>$
 \left|AB\right| = \sum_{1\leq v_1\leq v_2\leq \ldots \leq v_s\leq n} A\left( \begin{array}{}
-1 &amp; 2 &amp; \ldots &amp; s\\
+1 &amp; 2 &amp; \ldots &amp; s\
 v_1 &amp; v_2 &amp; \ldots &amp; v_s
 \end{array}
 \right)\cdot B\left( \begin{array}{}
-v_1 &amp; v_2 &amp; \ldots &amp; v_s\\
+v_1 &amp; v_2 &amp; \ldots &amp; v_s\
 1 &amp; 2 &amp; \ldots &amp; s
 \end{array}
 \right)
@@ -3564,45 +3503,45 @@ $</p>
 <h3 id="1">1. 代数证明</h3>
 <p>构造一个行列式:$
 \left|\begin{matrix}
-A &amp; 0\\
-I_n &amp; B\\
+A &amp; 0\
+I_n &amp; B\
 \end{matrix}\right|
 $,对其进行初等行变换：</p>
 <div class="arithmatex">\[
 \left| \begin{matrix}
-A &amp; 0\\\\
+A &amp; 0\\
 I_n &amp; B
 \end{matrix} \right| =
 \]</div>
 <div class="arithmatex">\[
 \left|\begin{matrix}
-0 &amp; -AB\\\\
+0 &amp; -AB\\
 I_n &amp; B
 \end{matrix}\right| =
 \]</div>
 <div class="arithmatex">\[
 (-1)^{ns}
 \left|\begin{array}{}
--AB &amp; 0\\\\
+-AB &amp; 0\\
 B &amp; I_n
 \end{array}\right| =
-$$
-$$
+\]</div>
+<div class="arithmatex">\[
 (-1)^{ns}
 \left|\begin{array}{}
 -AB
 \end{array}\right|\left|\begin{array}{}
 I_n
 \end{array}\right| =
-$$
-$$
+\]</div>
+<div class="arithmatex">\[
 (-1)^{ns}
 \left|\begin{array}{}
 AB
 \end{array}\right|
 (-1)^s = 
-$$
-$$
+\]</div>
+<div class="arithmatex">\[
 \left|\begin{array}{}
 AB
 \end{array}\right|
@@ -3610,34 +3549,33 @@ AB
 \]</div>
 <p>得到<span class="arithmatex">\(\left| AB \right|\)</span>相关的形式</p>
 <p>接下来计算行列式的值：</p>
-<p>$$
+<div class="arithmatex">\[
 \left|\begin{array}{}
 a_{11} &amp; a_{12} &amp; \cdots &amp; a_{1n} \\
 a_{21} &amp; a_{22} &amp; \cdots &amp; a_{2n} \\
 \vdots &amp; \vdots &amp; \ddots &amp; \vdots &amp; 0 \\
-a_{s1} &amp; a_{s2} &amp; \cdots &amp; a_{sn}
- \\
+a_{s1} &amp; a_{s2} &amp; \cdots &amp; a_{sn} \\
 0 &amp; 0 &amp; \cdots &amp; 0\\
 1 &amp; 0 &amp; \cdots &amp; 0\\
 0 &amp; 1 &amp; \cdots &amp; 0\\
 \vdots &amp; \vdots&amp; \ddots&amp; \vdots&amp; B\\
 0 &amp; 0 &amp; \cdots &amp; 1\\
 \end{array}\right|
-$$
-固定了矩阵的前<span class="arithmatex">\(s\)</span>行，从前<span class="arithmatex">\(n\)</span>列中选取任意<span class="arithmatex">\(s\)</span>列(<span class="arithmatex">\(v_1\cdots v_s\)</span>)，进行Laplace展开：</p>
+\]</div>
+<p>固定了矩阵的前<span class="arithmatex">\(s\)</span>行，从前<span class="arithmatex">\(n\)</span>列中选取任意<span class="arithmatex">\(s\)</span>列(<span class="arithmatex">\(v_1\cdots v_s\)</span>)，进行Laplace展开：</p>
 <p>$$
 =\sum_{1\leq v_1\leq\cdots\leq v_s\leq n}
-A\left( \begin{array}{}
-1 &amp; 2 &amp; \ldots &amp; s\\
-v_1 &amp; v_2 &amp; \ldots &amp; v_s
-\end{array}
-\right)\cdot(-1)^{\sum_s+\sum_{v_s}}\cdot
-\left|\begin{array}{}
-0 &amp; 0 &amp; \cdots &amp; 0\\
-1 &amp; 0 &amp; \cdots &amp; 0\\
-0 &amp; 1 &amp; \cdots &amp; 0\\
-\vdots &amp; \vdots&amp; \ddots&amp; \vdots&amp; B\\
-0 &amp; 0 &amp; \cdots &amp; 1\\
+A\left( \begin{array}{l}
+1 &amp; 2 &amp; \cdots &amp; s \\
+v_1 &amp; v_2 &amp; \cdots &amp; v_s
+\end{array}\right)
+\cdot(-1)^{\sum_s+\sum_{v_s}}\cdot
+\left|\begin{array}{l}
+0 &amp; 0 &amp; \cdots &amp; 0 \\
+1 &amp; 0 &amp; \cdots &amp; 0 \\
+0 &amp; 1 &amp; \cdots &amp; 0 \\
+\vdots &amp; \vdots&amp; \ddots&amp; \vdots&amp; B \\
+0 &amp; 0 &amp; \cdots &amp; 1 
 \end{array}\right|
 $$
 即可得到我们想要的前半部分.</p>
@@ -3645,14 +3583,14 @@ $$
 <p>而<span class="arithmatex">\(B\)</span>中剩下的行与第<span class="arithmatex">\(u_1\cdots u_{n-s}\)</span>行互补，所以剩下的就是第<span class="arithmatex">\(v_1\cdots v_s\)</span>行。</p>
 <div class="arithmatex">\[
 \sum_{1 \leq v_1 \leq \cdots \leq v_s \leq n}^{}A\left(\begin{array}{}
-1 &amp; 2 &amp; \ldots &amp; s\\\\
+1 &amp; 2 &amp; \ldots &amp; s\\
 v_1 &amp; v_2 &amp; \ldots &amp; v_s
 \end{array}\right) \cdot (-1)^{\sum_s+\sum_{v_s} }
 \cdot
 \left|I_{n-s}\right|\cdot (-1)^{\sum_{n-s}+\sum_{u_{n-s}}}\cdot
 B\left( \begin{array}{}
-v_1 &amp; v_2 &amp; \ldots &amp; v_s\\\\
-1 &amp; 2 &amp; \ldots &amp; s\\\\
+v_1 &amp; v_2 &amp; \ldots &amp; v_s\\
+1 &amp; 2 &amp; \ldots &amp; s\\
 \end{array}
 \right)
 \]</div>
@@ -3660,34 +3598,34 @@ v_1 &amp; v_2 &amp; \ldots &amp; v_s\\\\
 <div class="arithmatex">\[
 =\sum_{1\leq v_1\leq\cdots\leq v_s\leq n}
 A\left( \begin{array}{}
-1 &amp; 2 &amp; \ldots &amp; s\\\\
+1 &amp; 2 &amp; \ldots &amp; s\\
 v_1 &amp; v_2 &amp; \ldots &amp; v_s
 \end{array}
 \right)\cdot(-1)^{\sum_s+\sum_{v_s}+\sum_{n-s}+\sum_{u_{n-s}}}\cdot
 B\left( \begin{array}{}
-v_1 &amp; v_2 &amp; \ldots &amp; v_s\\\\
-1 &amp; 2 &amp; \ldots &amp; s\\\\
+v_1 &amp; v_2 &amp; \ldots &amp; v_s\\
+1 &amp; 2 &amp; \ldots &amp; s\\
 \end{array}\right)
 \]</div>
 <p>因为<span class="arithmatex">\(v_s\)</span>与<span class="arithmatex">\(u_{n-s}\)</span>互补，所以他们的和就是<span class="arithmatex">\(1+\cdots+n\)</span></p>
 <div class="arithmatex">\[
-\sum_s+\sum_{v_s}+\sum_{n-s}+\sum_{u_{n-s}}\\\\=(1+\cdots+s)+(1+\cdots+n-s)+(1+\cdots+n)
-\\\\=s^2+n^2+n-sn
+\sum_s+\sum_{v_s}+\sum_{n-s}+\sum_{u_{n-s}}\\=(1+\cdots+s)+(1+\cdots+n-s)+(1+\cdots+n)
+\\=s^2+n^2+n-sn
 \]</div>
 <p>现在有</p>
 <div class="arithmatex">\[
 \left|\begin{array}{}
 AB
 \end{array}\right|
-(-1)^{s+ns}\\\\=\sum_{1\leq v_1\leq\cdots\leq v_s\leq n}
+(-1)^{s+ns}\\=\sum_{1\leq v_1\leq\cdots\leq v_s\leq n}
 A\left( \begin{array}{}
-1 &amp; 2 &amp; \ldots &amp; s\\\\
+1 &amp; 2 &amp; \ldots &amp; s\\
 v_1 &amp; v_2 &amp; \ldots &amp; v_s
 \end{array}
 \right)\cdot(-1)^{s^2+n^2+n-sn}\cdot
 B\left( \begin{array}{}
-v_1 &amp; v_2 &amp; \ldots &amp; v_s\\\\
-1 &amp; 2 &amp; \ldots &amp; s\\\\
+v_1 &amp; v_2 &amp; \ldots &amp; v_s\\
+1 &amp; 2 &amp; \ldots &amp; s\\
 \end{array}
 \right)
 \]</div>
@@ -3699,13 +3637,13 @@ AB
 \end{array}\right|
 =\sum_{1\leq v_1\leq\cdots\leq v_s\leq n}
 A\left( \begin{array}{}
-1 &amp; 2 &amp; \ldots &amp; s\\
+1 &amp; 2 &amp; \ldots &amp; s\
 v_1 &amp; v_2 &amp; \ldots &amp; v_s
 \end{array}
 \right)\cdot
 B\left( \begin{array}{}
-v_1 &amp; v_2 &amp; \ldots &amp; v_s\\
-1 &amp; 2 &amp; \ldots &amp; s\\
+v_1 &amp; v_2 &amp; \ldots &amp; v_s\
+1 &amp; 2 &amp; \ldots &amp; s\
 \end{array}
 \right)
 $$
@@ -3768,9 +3706,11 @@ $$
     
       <script src="../../assets/javascripts/bundle.60a45f97.min.js"></script>
       
-        <script src="../../javascripts/mathjax.js"></script>
+        <script src="../../javascripts/katex.js"></script>
       
-        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
       
     
   </body>

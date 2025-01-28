@@ -46,6 +46,8 @@
       
     
     
+      <link rel="stylesheet" href="https://unpkg.com/katex@0/dist/katex.min.css">
+    
     <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
@@ -889,27 +891,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../ADS/quantum%20computation/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    quantum computation
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../../../ADS/randomized/" class="md-nav__link">
         
   
@@ -1168,53 +1149,11 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../general%20physics/Geometrical%20Optics/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Geometrical Optics
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../../../general%20physics/Schr%C3%B6dinger%20equation/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
     Schrödinger equation
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../general%20physics/optical%20conic/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    optical conic
   </span>
   
 
@@ -3627,11 +3566,13 @@
 <h1 id="_1">莫比乌斯反演</h1>
 <h2 id="_2">莫比乌斯函数</h2>
 <h3 id="_3">定义</h3>
-<p>1) 莫比乌斯函数<span class="arithmatex">\(\mu(n)\)</span>的定义域是<span class="arithmatex">\(N\)</span>
-2) <span class="arithmatex">\(\mu(1)=1\)</span>
-3) 当<span class="arithmatex">\(n\)</span>存在平方因子时,<span class="arithmatex">\(\mu(n)=0\)</span>
-4) 当<span class="arithmatex">\(n\)</span>是素数或奇数个不同素数之积时,<span class="arithmatex">\(\mu(n)=-1\)</span>
-5) 当<span class="arithmatex">\(n\)</span>是偶数个不同素数之积时,<span class="arithmatex">\(\mu(n)=1\)</span></p>
+<ol>
+<li>莫比乌斯函数<span class="arithmatex">\(\mu(n)\)</span>的定义域是<span class="arithmatex">\(N\)</span></li>
+<li><span class="arithmatex">\(\mu(1)=1\)</span></li>
+<li>当<span class="arithmatex">\(n\)</span>存在平方因子时,<span class="arithmatex">\(\mu(n)=0\)</span></li>
+<li>当<span class="arithmatex">\(n\)</span>是素数或奇数个不同素数之积时,<span class="arithmatex">\(\mu(n)=-1\)</span></li>
+<li>当<span class="arithmatex">\(n\)</span>是偶数个不同素数之积时,<span class="arithmatex">\(\mu(n)=1\)</span></li>
+</ol>
 <h3 id="mun">线性筛求<span class="arithmatex">\(\mu(n)\)</span></h3>
 <div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">prime</span><span class="p">(){</span>
 <span class="w">    </span><span class="n">mu</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span>
@@ -3665,23 +3606,21 @@
 \sum_{i=0}^k(-1)^iC_k^i=[1+(-1)]^k=0
 \]</div>
 <h4 id="2">性质2</h4>
-<p>$$ 即证n\sum_{d|n}\frac{\mu(d)}d=\phi(n)\
-令F(n)=n,f(n)=\phi(n),则\
-f(n)=n\sum_{d|n}\frac{\mu(d)}d=\sum_{d|n}\frac{n\mu(d)}d=\sum_{d|n}\mu(d)\frac{n}d=\sum_{d|n}\mu(d)F(\frac nd)\</p>
-<p>同时，上式成立的条件是F(n)=\sum_{d|n}f(d),即\
-n=\sum_{d|n}\phi(d)\
-这个式子在欧拉函数的笔记中以证明。\</p>
-<p>故原命题得证。
-$$</p>
+<div class="arithmatex">\[即证n\sum_{d|n}\frac{\mu(d)}d=\phi(n)\\
+令F(n)=n,f(n)=\phi(n),则\\
+f(n)=n\sum_{d|n}\frac{\mu(d)}d=\sum_{d|n}\frac{n\mu(d)}d=\sum_{d|n}\mu(d)\frac{n}d=\sum_{d|n}\mu(d)F(\frac nd)\\
+同时，上式成立的条件是F(n)=\sum_{d|n}f(d),即\\
+n=\sum_{d|n}\phi(d)\\
+这个式子在欧拉函数的笔记中以证明。\\
+故原命题得证。\]</div>
 <h2 id="_6">莫比乌斯反演</h2>
 <h3 id="_7">定理</h3>
-<p>$$设f(n)和F(n)是定义在正整数集合上的两个函数\</p>
-<p>F(n)=\sum_{d|n}f(d)=\sum_{d|n}f(\frac nd)\</p>
-<p>则f(n)=\sum_{d|n}\mu(d)F(\frac nd)=\sum_{d|n}\mu(\frac nd)F(d)\</p>
-<p>或：\</p>
-<p>F(n)=\sum_{n|d}f(d)\</p>
-<p>则f(n)=\sum_{n|d}\mu(\frac dn)F(d)\
-$$</p>
+<div class="arithmatex">\[设f(n)和F(n)是定义在正整数集合上的两个函数\\
+F(n)=\sum_{d|n}f(d)=\sum_{d|n}f(\frac nd)\\
+则f(n)=\sum_{d|n}\mu(d)F(\frac nd)=\sum_{d|n}\mu(\frac nd)F(d)\\
+或：\\
+F(n)=\sum_{n|d}f(d)\\
+则f(n)=\sum_{n|d}\mu(\frac dn)F(d)\]</div>
 <h3 id="_8">套路</h3>
 <p>套路1:优先枚举<span class="arithmatex">\(\gcd k\)</span></p>
 <p>套路2:<span class="arithmatex">\(\gcd(i,j)=k等价于 \gcd(\frac ik,\frac jk)=1\)</span></p>
@@ -3692,23 +3631,20 @@ $$</p>
 <p>P2257</p>
 </blockquote>
 <p>废话不说，直接开始推导。</p>
-<p>$$
-求\sum_{i=1}^n\sum_{j=1}^m [gcd(i,j)\in prime]\</p>
-<p>=\sum_{k=1}^n\sum_{i=1}^n\sum_{j=1}^m [gcd(i,j)=k] (k\in prime)\
- = \sum_{k=1}^n\sum_{i=1}^{\lfloor \frac nk \rfloor}\sum_{j=1}^{\lfloor \frac mk\rfloor } [gcd(i,j)=1] (k\in prime)\
- \because \sum_{d|n}\mu(d)=[n=1]
- \
- \therefore \sum_{d|\gcd(i,j)}\mu(d)=[\gcd(i,j)=1]\
- \therefore =\sum_{k=1}^n\sum_{i=1}^{\lfloor \frac nk \rfloor}\sum_{j=1}^{\lfloor \frac mk\rfloor } \sum_{d|\gcd(i,j)}\mu(d)(k\in prime)</p>
-<p>\
- \because d|\gcd(i,j),\therefore i,j是d的倍数\
- 又\because d_{max}=\lfloor \frac nk\rfloor\
- \therefore = \sum_{k=1}^n\sum_{d=1}^{\lfloor \frac nk\rfloor}\mu(d)<em> \lfloor \frac n{kd}\rfloor</em> \lfloor \frac m{kd}\rfloor (k\in prime)（注_1）
- \
-设T=kd,则T_{max}=k<em>\lfloor \frac nk\rfloor=n\
-\therefore 原式=\sum_{T=1}^n\lfloor \frac nT\rfloor</em> \lfloor \frac mT\rfloor \sum_{k|T,k\in prime}\mu(\frac Tk)(注_2)
-$$
-这样后面可以在线性筛时做<span class="arithmatex">\(O(n)\)</span>预处理+前缀和，前面可以做<span class="arithmatex">\(O(T\sqrt n)\)</span>整除分块.</p>
+<div class="arithmatex">\[
+求\sum_{i=1}^n\sum_{j=1}^m [gcd(i,j)\in prime]\\
+=\sum_{k=1}^n\sum_{i=1}^n\sum_{j=1}^m [gcd(i,j)=k] (k\in prime)\\
+= \sum_{k=1}^n\sum_{i=1}^{\lfloor \frac nk \rfloor}\sum_{j=1}^{\lfloor \frac mk\rfloor } [gcd(i,j)=1] (k\in prime)\\
+\because \sum_{d|n}\mu(d)=[n=1]\\
+\therefore \sum_{d|\gcd(i,j)}\mu(d)=[\gcd(i,j)=1\\
+\therefore =\sum_{k=1}^n\sum_{i=1}^{\lfloor \frac nk \rfloor}\sum_{j=1}^{\lfloor \frac mk\rfloor } \sum_{d|\gcd(i,j)}\mu(d)(k\in prime)\\
+\because d|\gcd(i,j),\therefore i,j是d的倍数\\
+又\because d_{max}=\lfloor \frac nk\rfloor\\
+\therefore = \sum_{k=1}^n\sum_{d=1}^{\lfloor \frac nk\rfloor}\mu(d)* \lfloor \frac n{kd}\rfloor* \lfloor \frac m{kd}\rfloor (k\in prime)（注_1）\\
+设T=kd,则T_{max}=k*\lfloor \frac nk\rfloor=n\\
+\therefore 原式=\sum_{T=1}^n\lfloor \frac nT\rfloor* \lfloor \frac mT\rfloor \sum_{k|T,k\in prime}\mu(\frac Tk)(注_2)
+\]</div>
+<p>这样后面可以在线性筛时做<span class="arithmatex">\(O(n)\)</span>预处理+前缀和，前面可以做<span class="arithmatex">\(O(T\sqrt n)\)</span>整除分块.</p>
 <div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="cpf">&lt;iostream&gt;</span>
 <span class="cp">#include</span><span class="cpf">&lt;cstdio&gt;</span>
 <span class="cp">#include</span><span class="cpf">&lt;cstring&gt;</span>
@@ -3815,25 +3751,21 @@ $$
 <blockquote>
 <p>P3327</p>
 </blockquote>
-<p>$$
-已知d(i* j)=\sum_{x|i}\sum_{y|j}[\gcd(x,y)=1] （注_1）\</p>
-<p>则原式= \sum_{i=1}^n\sum_{j=1}^m\sum_{x|i}\sum_{y|j}[\gcd(x,y)=1]\</p>
-<p>= \sum_{i=1}^n\sum_{j=1}^m\sum_{x|i}\sum_{y|j}\sum_{d|\gcd(x,y)}\mu(d)\</p>
-<p>将枚举项i,j改为枚举x,y</p>
-<p>\
+<div class="arithmatex">\[
+已知d(i* j)=\sum_{x|i}\sum_{y|j}[\gcd(x,y)=1] （注_1）\\
+则原式= \sum_{i=1}^n\sum_{j=1}^m\sum_{x|i}\sum_{y|j}[\gcd(x,y)=1]\\
+= \sum_{i=1}^n\sum_{j=1}^m\sum_{x|i}\sum_{y|j}\sum_{d|\gcd(x,y)}\mu(d)\\
+将枚举项i,j改为枚举x,y\\
 =\sum_{x=1}^n
-\sum_{y=1}^m \lfloor\frac nx\rfloor\lfloor\frac my\rfloor \sum_{d|\gcd(x,y)}\mu(d)\
-继续枚举d
-\
+\sum_{y=1}^m \lfloor\frac nx\rfloor\lfloor\frac my\rfloor \sum_{d|\gcd(x,y)}\mu(d)\\
+继续枚举d\\
 =\sum_{x=1}^n
-\sum_{y=1}^m \lfloor\frac nx\rfloor\lfloor\frac my\rfloor \sum_{d=1}^n\mu(d)[d|\gcd(x,y)]\</p>
-<p>因为\mu(d)与x,y无关，可以提到前面去\</p>
-<p>=\sum_{d=1}^n\mu(d)\sum_{x=1}^n\sum_{y=1}^m \lfloor\frac nx\rfloor\lfloor\frac my\rfloor [d|\gcd(x,y)]\
-将枚举项x,y
-改为dx,dy,则[d|\gcd(x,y)]恒满足，可以去掉\
-= \sum_{d=1}^n\mu(d)\sum_{x=1}^{\lfloor\frac nd\rfloor}\sum_{y=1}^{\lfloor\frac md\rfloor} \lfloor\frac n{dx}\rfloor\lfloor\frac m{dy}\rfloor\</p>
-<p>= \sum_{d=1}^n\mu(d)\sum_{x=1}^{\lfloor\frac nd\rfloor}\lfloor\frac n{dx}\rfloor\sum_{y=1}^{\lfloor\frac md\rfloor} \lfloor\frac m{dy}\rfloor
-$$</p>
+\sum_{y=1}^m \lfloor\frac nx\rfloor\lfloor\frac my\rfloor \sum_{d=1}^n\mu(d)[d|\gcd(x,y)]\\
+因为\mu(d)与x,y无关，可以提到前面去\\
+=\sum_{d=1}^n\mu(d)\sum_{x=1}^n\sum_{y=1}^m \lfloor\frac nx\rfloor\lfloor\frac my\rfloor [d|\gcd(x,y)]\\
+将枚举项x,y改为dx,dy,则[d|\gcd(x,y)]恒满足，可以去掉\\
+= \sum_{d=1}^n\mu(d)\sum_{x=1}^{\lfloor\frac nd\rfloor}\sum_{y=1}^{\lfloor\frac md\rfloor} \lfloor\frac n{dx}\rfloor\lfloor\frac m{dy}\rfloor\\
+= \sum_{d=1}^n\mu(d)\sum_{x=1}^{\lfloor\frac nd\rfloor}\lfloor\frac n{dx}\rfloor\sum_{y=1}^{\lfloor\frac md\rfloor} \lfloor\frac m{dy}\rfloor\]</div>
 <p>此时后面两项可以<span class="arithmatex">\(O(n\sqrt n)\)</span>整除分块预处理出<span class="arithmatex">\(f\)</span>数组，前面也可以用整除分块<span class="arithmatex">\(O(T\sqrt n)\)</span>做。</p>
 <p><div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="cpf">&lt;iostream&gt;</span>
 <span class="cp">#include</span><span class="cpf">&lt;cstdio&gt;</span>
@@ -3892,8 +3824,7 @@ $$</p>
 = \sum_{d=1}^n\sum_{i=1}^n\sum_{j=1}^m \frac{i* j}{d}[\gcd(i,j)=d]\\
 = \sum_{d=1}^n\sum_{i=1}^{\lfloor\frac nd\rfloor}\sum_{j=1}^{\lfloor\frac md\rfloor} i* j* d[\gcd(i,j)=1]（注_1）\\
 = \sum_{d=1}^n\sum_{i=1}^{\lfloor\frac nd\rfloor}\sum_{j=1}^{\lfloor\frac md\rfloor} i* j* d\sum_{k|\gcd(i,j)}\mu(k)\\
-=  \sum_{d=1}^nd\sum_{k=1}^{\lfloor\frac nd\rfloor}\mu(k)* k^2\sum_{i=1}^{\lfloor\frac n{dk}\rfloor}i\sum_{j=1}^{\lfloor\frac n{dk}\rfloor}j(注_2)
-\]</div>
+=  \sum_{d=1}^nd\sum_{k=1}^{\lfloor\frac nd\rfloor}\mu(k)* k^2\sum_{i=1}^{\lfloor\frac n{dk}\rfloor}i\sum_{j=1}^{\lfloor\frac n{dk}\rfloor}j(注_2)\]</div>
 <p>此时可以两次分块来做，一次在<span class="arithmatex">\(\lfloor\frac n{dk}\rfloor\)</span>时，一次在<span class="arithmatex">\(\lfloor\frac nd\rfloor\)</span>时，时间复杂度为<span class="arithmatex">\(O(\sqrt n * \sqrt n)=O(n)\)</span></p>
 <div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="cpf">&lt;iostream&gt;</span>
 <span class="cp">#include</span><span class="cpf">&lt;cstdio&gt;</span>
@@ -3971,24 +3902,22 @@ $$</p>
 <blockquote>
 <p>P3911</p>
 </blockquote>
-<p>$$
-设c_i表示i出现的个数，则原题求\</p>
-<p>\sum_{i=1}^N\sum_{j=1}^N\frac{i<em> j}{\gcd(i,j)}</em> c_i<em> c_j,N表示\max_{i=1}^nA_i\
-1.\
-= \sum_{d=1}^N\sum_{i=1}^N\sum_{j=1}^N\frac{i</em> j}{d}<em> c_i * c_j [\gcd(i,j)=d]\
-= \sum_{d=1}^N \sum_{i=1}^{\lfloor \frac Nd\rfloor} \sum_{j=1}^{\lfloor\frac Nd \rfloor}i</em> j<em> d</em> c_{d i} * c_{d j} <a href="注_1">\gcd(i,j)=1</a>\
-=\sum_{d=1}^N \sum_{i=1}^{\lfloor \frac Nd\rfloor} \sum_{j=1}^{\lfloor\frac Nd \rfloor}i<em> j</em> d* c_{d i} * c_{d j} \sum_{k|\gcd(i,j)}\mu(k)\</p>
-<p>\</p>
-<p>=\sum_{d=1}^Nd\sum_{k=1}^{\lfloor\frac Nd \rfloor}\mu(k) k^2(\sum_{i=1}^{\lfloor\frac N {dk}\rfloor}i<em> c_{kdi})(\sum_{j=1}^{\lfloor\frac N {dk}\rfloor}j</em> c_{kdj})\
-2.\
-= \sum_{d=1}^N\sum_{i=1}^N\sum_{j=1}^N\frac{i<em> j}{d}</em> c_i * c_j [\gcd(i,j)=d]\
-= \sum_{d=1}^N \sum_{i=1}^{\lfloor \frac Nd\rfloor} \sum_{j=1}^{\lfloor\frac Nd \rfloor}i<em> j</em> d<em> c_{d i} * c_{d j} [\gcd(i,j)=1]\
-=\sum_{d=1}^N \sum_{i=1}^{\lfloor \frac Nd\rfloor} \sum_{j=1}^{\lfloor\frac Nd \rfloor}i</em> j<em> d</em> c_{d i} * c_{d j} \sum_{k|\gcd(i,j)}\mu(k)\
-=\sum_{d=1}^N d\sum_{k=1}^{\lfloor \frac Nd\rfloor}\mu(k)k^2\sum_{i=1}^{\lfloor \frac N{kd}\rfloor} \sum_{j=1}^{\lfloor\frac N{kd} \rfloor}i<em> j * c_{d ki} * c_{d kj} 
-\
-设T=dk,则\
-= \sum_{T=1}^N T(\sum_{i=1}^{\lfloor \frac NT \rfloor} i</em> c_{iT})^2 \sum_{k|T}\mu(k)k</p>
-<p>$$</p>
+<div class="arithmatex">\[
+设c_i表示i出现的个数，则原题求\\
+\sum_{i=1}^N\sum_{j=1}^N\frac{i* j}{\gcd(i,j)}* c_i* c_j,N表示\max_{i=1}^nA_i\\
+1.\\
+= \sum_{d=1}^N\sum_{i=1}^N\sum_{j=1}^N\frac{i* j}{d}* c_i * c_j [\gcd(i,j)=d]\\
+= \sum_{d=1}^N \sum_{i=1}^{\lfloor \frac Nd\rfloor} \sum_{j=1}^{\lfloor\frac Nd \rfloor}i* j* d* c_{d i} * c_{d j} [\gcd(i,j)=1](注_1)\\
+=\sum_{d=1}^N \sum_{i=1}^{\lfloor \frac Nd\rfloor} \sum_{j=1}^{\lfloor\frac Nd \rfloor}i* j* d* c_{d i} * c_{d j} \sum_{k|\gcd(i,j)}\mu(k)\\
+=\sum_{d=1}^Nd\sum_{k=1}^{\lfloor\frac Nd \rfloor}\mu(k) k^2(\sum_{i=1}^{\lfloor\frac N {dk}\rfloor}i* c_{kdi})(\sum_{j=1}^{\lfloor\frac N {dk}\rfloor}j* c_{kdj})\\
+2.\\
+= \sum_{d=1}^N\sum_{i=1}^N\sum_{j=1}^N\frac{i* j}{d}* c_i * c_j [\gcd(i,j)=d]\\
+= \sum_{d=1}^N \sum_{i=1}^{\lfloor \frac Nd\rfloor} \sum_{j=1}^{\lfloor\frac Nd \rfloor}i* j* d* c_{d i} * c_{d j} [\gcd(i,j)=1]\\
+=\sum_{d=1}^N \sum_{i=1}^{\lfloor \frac Nd\rfloor} \sum_{j=1}^{\lfloor\frac Nd \rfloor}i* j* d* c_{d i} * c_{d j} \sum_{k|\gcd(i,j)}\mu(k)\\
+=\sum_{d=1}^N d\sum_{k=1}^{\lfloor \frac Nd\rfloor}\mu(k)k^2\sum_{i=1}^{\lfloor \frac N{kd}\rfloor} \sum_{j=1}^{\lfloor\frac N{kd} \rfloor}i* j * c_{d ki} * c_{d kj} 
+\\
+设T=dk,则\\
+= \sum_{T=1}^N T(\sum_{i=1}^{\lfloor \frac NT \rfloor} i* c_{iT})^2 \sum_{k|T}\mu(k)k\]</div>
 <ul>
 <li>注_1: 因为<span class="arithmatex">\(i,j\)</span>的大小减小，而<span class="arithmatex">\(c\)</span>的下标不能变，所以一定要乘<span class="arithmatex">\(d\)</span></li>
 </ul>
@@ -4047,9 +3976,11 @@ $$</p>
     
       <script src="../../../assets/javascripts/bundle.60a45f97.min.js"></script>
       
-        <script src="../../../javascripts/mathjax.js"></script>
+        <script src="../../../javascripts/katex.js"></script>
       
-        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
       
     
   </body>

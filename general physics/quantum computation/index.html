@@ -9,7 +9,7 @@
       
       
       
-        <link rel="prev" href="../optical%20conic/">
+        <link rel="prev" href="../Schr%C3%B6dinger%20equation/">
       
       
         <link rel="next" href="../../misc/CTF/">
@@ -45,6 +45,8 @@
         <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
       
     
+    
+      <link rel="stylesheet" href="https://unpkg.com/katex@0/dist/katex.min.css">
     
     <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -887,27 +889,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../../ADS/quantum%20computation/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    quantum computation
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../../ADS/randomized/" class="md-nav__link">
         
   
@@ -1171,53 +1152,11 @@
   
   
     <li class="md-nav__item">
-      <a href="../Geometrical%20Optics/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Geometrical Optics
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../Schr%C3%B6dinger%20equation/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
     Schrödinger equation
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../optical%20conic/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    optical conic
   </span>
   
 
@@ -3919,21 +3858,21 @@
 <p>它具体长成这样：</p>
 <div class="arithmatex">\[
 \left[\begin{matrix}
-0\\\\
-0\\\\
-\vdots\\\\
-1\\\\
-\vdots\\\\
-0\\\\
+0\\
+0\\
+\vdots\\
+1\\
+\vdots\\
+0\\
 \end{matrix}
 \right]
 \begin{matrix}
-(第0位)\\\\
-\\\\
-\vdots\\\\
-(第i位)\\\\
-\vdots\\\\
-(第2^n-1位)\\\\
+(第0位)\\
+\\
+\vdots\\
+(第i位)\\
+\vdots\\
+(第2^n-1位)\\
 \end{matrix}
 \]</div>
 <p>用<span class="arithmatex">\(\ket\phi= \frac1{\sqrt{2^n}}\sum_{x=0}^{2^n-1}{\ket{x}}\)</span>来表示一个量子叠加态</p>
@@ -3952,10 +3891,10 @@
 <p>例如，将<span class="arithmatex">\(\ket{11}\)</span>反转的<span class="arithmatex">\(4\times4\)</span><span class="arithmatex">\(U_f\)</span>算子如下：</p>
 <div class="arithmatex">\[
 \left[ \begin{matrix}
-1 &amp; 0 &amp; 0 &amp; 0\\\\
-0 &amp; 1 &amp; 0 &amp; 0\\\\
-0 &amp; 0 &amp; 1 &amp; 0\\\\
-0 &amp; 0 &amp; 0 &amp; -1\\\\
+1 &amp; 0 &amp; 0 &amp; 0\\
+0 &amp; 1 &amp; 0 &amp; 0\\
+0 &amp; 0 &amp; 1 &amp; 0\\
+0 &amp; 0 &amp; 0 &amp; -1\\
 \end{matrix}
 \right]
 \]</div>
@@ -4206,11 +4145,11 @@ $$
 <p>相对应的酉矩阵为 <span class="arithmatex">\(\displaystyle U_{QFT} = \frac1{\sqrt{N}} \sum_{j=0}^{N-1}\sum_{k=0}^{N-1}\omega_N^{jk}\ket{k}\bra{j}\)</span></p>
 <p>具体为 </p>
 <p><span class="arithmatex">\(\left[
-\begin{array}{c} 1&amp;1 &amp;1&amp;\cdots&amp;1 \\\\
-1 &amp;\omega_N^1 &amp;\omega_N^2 &amp;\cdots &amp; \omega_N^{N-1}\\\\
-1 &amp;\omega_N^2 &amp;\omega_N^4 &amp;\cdots &amp; \omega_N^{2(N-1)}\\\\
-\vdots&amp;\vdots&amp;\vdots&amp;\ddots&amp;\vdots\\\\
-1 &amp;\omega_N^{N-1} &amp;\omega_N^{2(N-1)} &amp;\cdots &amp; \omega_N^{(N-1)(N-1)}\\\\
+\begin{array}{c} 1&amp;1 &amp;1&amp;\cdots&amp;1 \\
+1 &amp;\omega_N^1 &amp;\omega_N^2 &amp;\cdots &amp; \omega_N^{N-1}\\
+1 &amp;\omega_N^2 &amp;\omega_N^4 &amp;\cdots &amp; \omega_N^{2(N-1)}\\
+\vdots&amp;\vdots&amp;\vdots&amp;\ddots&amp;\vdots\\
+1 &amp;\omega_N^{N-1} &amp;\omega_N^{2(N-1)} &amp;\cdots &amp; \omega_N^{(N-1)(N-1)}\\
 \end{array} 
 \right]\)</span></p>
 <h4 id="qft_1">整理 QFT 得出量子电路易实现的形式</h4>
@@ -4225,8 +4164,8 @@ $$
 <p><span class="arithmatex">\(\displaystyle=\frac{1}{\sqrt{N}}(\ket 0 + e^{2\pi ix/2}\ket{1})\otimes(\ket 0 + e^{2\pi ix/2^2}\ket{1})\otimes\cdots\otimes(\ket 0 + e^{2\pi ix/2^n}\ket{1})\)</span></p>
 <h4 id="_9">电路实现</h4>
 <p>Hadamard 门可以实现 <span class="arithmatex">\(\displaystyle H\ket{x_k}=\frac1{\sqrt2}(\ket0 + \exp(\frac{2\pi i}{2}x_k)\ket1)\)</span> 的功能</p>
-<p>除此之外，一个 <span class="arithmatex">\(CROT_k\)</span> 门为 <span class="arithmatex">\(\left[\begin{array}{rcl}I&amp;0\\\\ 0&amp;UROT_k\end{array}\right]\)</span>, 是可控 <span class="arithmatex">\(UROT_k\)</span> 门</p>
-<p>其中 <span class="arithmatex">\(UROT_k=\left[\begin{array}{rcl}1&amp;0\\\\ 0&amp;\exp(\frac{2\pi i}{2^k})\end{array}\right]\)</span></p>
+<p>除此之外，一个 <span class="arithmatex">\(CROT_k\)</span> 门为 <span class="arithmatex">\(\left[\begin{array}{rcl}I&amp;0\\ 0&amp;UROT_k\end{array}\right]\)</span>, 是可控 <span class="arithmatex">\(UROT_k\)</span> 门</p>
+<p>其中 <span class="arithmatex">\(UROT_k=\left[\begin{array}{rcl}1&amp;0\\ 0&amp;\exp(\frac{2\pi i}{2^k})\end{array}\right]\)</span></p>
 <p>我们对两个量子比特 <span class="arithmatex">\(\ket{x_ix_j}\)</span> 施加 <span class="arithmatex">\(CROT_k\)</span> 门，有如下效果：</p>
 <p><span class="arithmatex">\(CROT_k\ket{0x_j}=\ket{0x_j}\)</span></p>
 <p><span class="arithmatex">\(CROT_k\ket{1x_j}=\exp(\frac{2\pi i}{2^k} x_j)\ket{1x_j}\)</span></p>
@@ -4261,48 +4200,38 @@ $</p>
 <p>由于
 <span class="arithmatex">\(\displaystyle x = 2^{n-1}x_1 + 2^{n-2}x_2 + \ldots + 2^1x_{n-1} + 2^0x_n\)</span></p>
 <p>代入得到</p>
-<p>$\displaystyle
-     \frac{1}{\sqrt{2}} 
-     \left[\vert0\rangle +<br />
-     \exp\left( 
-     \frac{2\pi i}{2^n}x<br />
-     \right) 
-     \vert1\rangle\right] 
-     \otimes 
-     \vert x_2x_3\ldots x_n\rangle 
-$ </p>
+<p><span class="arithmatex">\(\displaystyle\frac{1}{\sqrt{2}} \left[\vert0\rangle + \exp\left(\frac{2\pi i}{2^n}x\right) \vert1\rangle\right] \otimes \vert x_2x_3\ldots x_n\rangle\)</span> </p>
 <p>类似地运行完剩余电路，对后 <span class="arithmatex">\(n-1\)</span> 位进行变换，得到：</p>
-<p>$\displaystyle= 
+<p><span class="arithmatex">\(\displaystyle= 
      \frac{1}{\sqrt{2}} 
-     \left[\vert0\rangle +<br />
+     \left[\vert0\rangle +  
      \exp\left( 
-     \frac{2\pi i}{2^n}x<br />
+     \frac{2\pi i}{2^n}x  
      \right) 
      \vert1\rangle\right] 
      \otimes 
      \frac{1}{\sqrt{2}} 
-     \left[\vert0\rangle +<br />
+     \left[\vert0\rangle +  
      \exp\left( 
-     \frac{2\pi i}{2^{n-1}}x<br />
+     \frac{2\pi i}{2^{n-1}}x  
      \right) 
      \vert1\rangle\right] 
      \otimes 
      \ldots 
      \otimes 
      \frac{1}{\sqrt{2}} 
-     \left[\vert0\rangle +<br />
+     \left[\vert0\rangle +  
      \exp\left( 
-     \frac{2\pi i}{2^{2}}x<br />
+     \frac{2\pi i}{2^{2}}x  
      \right) 
      \vert1\rangle\right] 
      \otimes 
      \frac{1}{\sqrt{2}} 
-     \left[\vert0\rangle +<br />
+     \left[\vert0\rangle +  
      \exp\left( 
-     \frac{2\pi i}{2^{1}}x<br />
+     \frac{2\pi i}{2^{1}}x  
     \right) 
-    \vert1\rangle\right] 
-$ </p>
+    \vert1\rangle\right]\)</span> </p>
 <p>注意到此时得到的状态与上面我们推导出的状态在比特位上相反，所以要交换所有的比特来得到最终状态</p>
 <h3 id="_10">模指</h3>
 <h4 id="_11">量子加法器</h4>
@@ -4336,7 +4265,7 @@ $ </p>
 <p>如果 <span class="arithmatex">\(c=1\)</span>, 那么所有模加器都收到使能，可以正常运作；同时如果 <span class="arithmatex">\(x_i=1\)</span>, 那么第 <span class="arithmatex">\(i\)</span> 个加法器两位都使能，就会将状态转换为加上 <span class="arithmatex">\(2^ia\)</span> 后的结果</p>
 <p>由于 <span class="arithmatex">\(x=x_0+2x_1+\cdots+2^{n-1}x_n\)</span>, 那么每一位 <span class="arithmatex">\(x_i\)</span> 接在模加器 <span class="arithmatex">\(\Phi ADD(2^ia)\mod N\)</span> 的控制位上，如果 <span class="arithmatex">\(x_i=1\)</span>, 就将结果加上 <span class="arithmatex">\(2^ia\)</span> 并对 <span class="arithmatex">\(N\)</span> 取模</p>
 <p>最后得到的结果即为 </p>
-<p><span class="arithmatex">\(\left\\{ \begin{array}{l}\ket{(b+a\cdot x)\mod N}&amp;, c=1\\\\ \ket{b}&amp;, c=0\end{array}\right.\)</span></p>
+<p><span class="arithmatex">\(\left\{ \begin{array}{l}\ket{(b+a\cdot x)\mod N}&amp;, c=1\\\\ \ket{b}&amp;, c=0\end{array}\right.\)</span></p>
 <h4 id="_14">模指模块</h4>
 <p>有了模乘器，我们用两个模乘器和一个交换器即可完成最后的模指模块：</p>
 <p><img alt="alt text" src="../../images/quantum_pic/image-6.png" /></p>
@@ -4378,10 +4307,10 @@ $ </p>
 <p>如果 <span class="arithmatex">\(r\)</span> 是偶数，那么 <span class="arithmatex">\(y^r-1=0\mod N\)</span> 可以变为 <span class="arithmatex">\((y^{r/2}-1)\cdot (y^{r/2}+1) = 0 \mod N\)</span></p>
 <p>于是可以设 <span class="arithmatex">\((y^{r/2}-1)\cdot (y^{r/2}+1) = m\cdot N = ts\cdot P_1P_2 = (tP_1) \cdot (sP_2)\)</span></p>
 <p>则解为： </p>
-<p><span class="arithmatex">\(\left\\{ \begin{array}{l}P_1 = \gcd(y^{r/2}-1, N)\\\\ P_2 = \gcd(y^{r/2}+1, N)
+<p><span class="arithmatex">\(\left\{ \begin{array}{l}P_1 = \gcd(y^{r/2}-1, N)\\\\ P_2 = \gcd(y^{r/2}+1, N)
 \end{array}\right.\)</span></p>
 <p>如果这组解是一组平庸解，即</p>
-<p><span class="arithmatex">\(\left\\{ \begin{array}{l}P_1 = \gcd(y^{r/2}-1, N) = 1\\\\ P_2 = \gcd(y^{r/2}+1, N) = N
+<p><span class="arithmatex">\(\left\{ \begin{array}{l}P_1 = \gcd(y^{r/2}-1, N) = 1\\\\ P_2 = \gcd(y^{r/2}+1, N) = N
 \end{array}\right.\)</span></p>
 <p>那么就换一个 <span class="arithmatex">\(y\)</span>, 否则就求出了 <span class="arithmatex">\(P_1,P_2\)</span></p>
 <p>于是问题转化为求解 <span class="arithmatex">\(f(x)=a^x\mod N\)</span> 的周期</p>
@@ -4495,9 +4424,11 @@ $ </p>
     
       <script src="../../assets/javascripts/bundle.60a45f97.min.js"></script>
       
-        <script src="../../javascripts/mathjax.js"></script>
+        <script src="../../javascripts/katex.js"></script>
       
-        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
       
     
   </body>

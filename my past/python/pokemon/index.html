@@ -20,7 +20,7 @@
     
     
       
-        <title>Python Pokemon自动刷怪 - My Docs</title>
+        <title>python - My Docs</title>
       
     
     
@@ -74,7 +74,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#python-pokemon" class="md-skip">
+        <a href="#python" class="md-skip">
           Skip to content
         </a>
       
@@ -108,7 +108,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Python Pokemon自动刷怪
+              python
             
           </span>
         </div>
@@ -2981,7 +2981,7 @@
         
   
   <span class="md-ellipsis">
-    Python Bongo Cat
+    python
   </span>
   
 
@@ -3007,81 +3007,15 @@
         
       
       
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  <span class="md-ellipsis">
-    Python Pokemon自动刷怪
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
-    Python Pokemon自动刷怪
+    python
   </span>
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#1" class="md-nav__link">
-    <span class="md-ellipsis">
-      1.攻击
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#2" class="md-nav__link">
-    <span class="md-ellipsis">
-      2.移动
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#3" class="md-nav__link">
-    <span class="md-ellipsis">
-      3.检测颜色并转换模式
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      坑点
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
       
     </li>
   
@@ -3120,7 +3054,7 @@
         
   
   <span class="md-ellipsis">
-    Python常用库/工具
+    python
   </span>
   
 
@@ -3318,50 +3252,6 @@
     
   
   
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#1" class="md-nav__link">
-    <span class="md-ellipsis">
-      1.攻击
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#2" class="md-nav__link">
-    <span class="md-ellipsis">
-      2.移动
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#3" class="md-nav__link">
-    <span class="md-ellipsis">
-      3.检测颜色并转换模式
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      坑点
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
 </nav>
                   </div>
                 </div>
@@ -3378,10 +3268,15 @@
   
 
 
-<div><h1 id="python-pokemon">Python Pokemon自动刷怪</h1>
-<p>花了一天时间写的<span class="arithmatex">\(_{小程序}\)</span>, 分成了三个部分</p>
-<h2 id="1">1.攻击</h2>
-<p>设置间隔<span class="arithmatex">\(0.4\)</span>秒按一次<span class="arithmatex">\(j\)</span>(自带讲究围巾效果)</p>
+<div><h1 id="python">Python</h1>
+<!-- # Python Pokemon自动刷怪
+
+花了一天时间写的$_{小程序}$, 分成了三个部分
+
+## 1.攻击
+
+设置间隔$0.4$秒按一次$j$(自带讲究围巾效果)
+
 <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">pyautogui</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">datetime</span>
 
@@ -3393,12 +3288,14 @@
 <span class="k">while</span> <span class="n">a</span><span class="o">-</span><span class="n">end</span> <span class="o">&lt;</span> <span class="mi">60</span><span class="p">:</span>
     <span class="k">if</span> <span class="n">a</span><span class="o">-</span><span class="n">t</span> <span class="o">&gt;=</span> <span class="mf">0.4</span><span class="p">:</span>
         <span class="n">t</span> <span class="o">=</span> <span class="n">a</span>
-        <span class="n">pyautogui</span><span class="o">.</span><span class="n">keyUp</span><span class="p">(</span><span class="s1">'j'</span><span class="p">)</span>
-        <span class="n">pyautogui</span><span class="o">.</span><span class="n">keyDown</span><span class="p">(</span><span class="s1">'j'</span><span class="p">)</span>
+        <span class="n">pyautogui</span><span class="o">.</span><span class="n">keyUp</span><span class="p">(</span><span class="s1">&#39;j&#39;</span><span class="p">)</span>
+        <span class="n">pyautogui</span><span class="o">.</span><span class="n">keyDown</span><span class="p">(</span><span class="s1">&#39;j&#39;</span><span class="p">)</span>
     <span class="n">a</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">timestamp</span><span class="p">()</span>
 </code></pre></div>
-<h2 id="2">2.移动</h2>
-<p>间隔一秒换一次方向，可以是上下移动，也可以左右。</p>
+## 2.移动
+
+间隔一秒换一次方向，可以是上下移动，也可以左右。
+
 <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">pyautogui</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">datetime</span>
 
@@ -3412,17 +3309,19 @@
     <span class="k">if</span> <span class="n">a</span><span class="o">-</span><span class="n">t</span><span class="o">&gt;=</span><span class="mi">1</span><span class="p">:</span>
         <span class="n">t</span><span class="o">=</span><span class="n">a</span>
         <span class="k">if</span> <span class="n">cnt</span><span class="o">%</span><span class="mi">2</span><span class="o">==</span><span class="mi">0</span><span class="p">:</span>
-            <span class="n">pyautogui</span><span class="o">.</span><span class="n">keyUp</span><span class="p">(</span><span class="s1">'a'</span><span class="p">)</span>
-            <span class="n">pyautogui</span><span class="o">.</span><span class="n">keyDown</span><span class="p">(</span><span class="s1">'d'</span><span class="p">)</span>
+            <span class="n">pyautogui</span><span class="o">.</span><span class="n">keyUp</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">)</span>
+            <span class="n">pyautogui</span><span class="o">.</span><span class="n">keyDown</span><span class="p">(</span><span class="s1">&#39;d&#39;</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">pyautogui</span><span class="o">.</span><span class="n">keyUp</span><span class="p">(</span><span class="s1">'d'</span><span class="p">)</span>
-            <span class="n">pyautogui</span><span class="o">.</span><span class="n">keyDown</span><span class="p">(</span><span class="s1">'a'</span><span class="p">)</span>
+            <span class="n">pyautogui</span><span class="o">.</span><span class="n">keyUp</span><span class="p">(</span><span class="s1">&#39;d&#39;</span><span class="p">)</span>
+            <span class="n">pyautogui</span><span class="o">.</span><span class="n">keyDown</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">)</span>
 
         <span class="n">cnt</span><span class="o">=</span><span class="p">(</span><span class="n">cnt</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">%</span><span class="mi">2</span>
     <span class="n">a</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">timestamp</span><span class="p">()</span>
 </code></pre></div>
-<h2 id="3">3.检测颜色并转换模式</h2>
-<p>将游戏窗口放在右上角后，根据对话框在战斗时变白，战斗结束时变黑的特点，在定点设置颜色检测</p>
+## 3.检测颜色并转换模式
+
+将游戏窗口放在右上角后，根据对话框在战斗时变白，战斗结束时变黑的特点，在定点设置颜色检测
+
 <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">pyautogui</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pag</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">datetime</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">ctypes</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
@@ -3445,28 +3344,30 @@
 <span class="n">a</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">timestamp</span><span class="p">()</span>
 <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span>
 <span class="n">t</span> <span class="o">=</span> <span class="n">a</span>
-<span class="n">timer</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">(</span><span class="s2">"total time(s)"</span><span class="p">))</span>
+<span class="n">timer</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">(</span><span class="s2">&quot;total time(s)&quot;</span><span class="p">))</span>
 <span class="n">timer</span> <span class="o">=</span> <span class="n">timer</span>
-<span class="n">state</span> <span class="o">=</span> <span class="s2">"walk"</span>
+<span class="n">state</span> <span class="o">=</span> <span class="s2">&quot;walk&quot;</span>
 <span class="n">pag</span><span class="o">.</span><span class="n">moveTo</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
 <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">timer</span><span class="p">:</span>
     <span class="k">if</span> <span class="n">a</span><span class="o">-</span><span class="n">t</span> <span class="o">&gt;=</span> <span class="mf">0.2</span><span class="p">:</span>
         <span class="c1"># x, y = pag.position()</span>
         <span class="n">RGB</span> <span class="o">=</span> <span class="n">get_color</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">RGB</span> <span class="o">==</span> <span class="p">[</span><span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">]</span> <span class="ow">and</span> <span class="n">state</span> <span class="o">==</span> <span class="s2">"walk"</span> <span class="p">:</span>
-            <span class="n">state</span> <span class="o">=</span> <span class="s2">"fight"</span>
+        <span class="k">if</span> <span class="n">RGB</span> <span class="o">==</span> <span class="p">[</span><span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">]</span> <span class="ow">and</span> <span class="n">state</span> <span class="o">==</span> <span class="s2">&quot;walk&quot;</span> <span class="p">:</span>
+            <span class="n">state</span> <span class="o">=</span> <span class="s2">&quot;fight&quot;</span>
             <span class="nb">print</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="n">RGB</span> <span class="o">==</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="ow">and</span> <span class="n">state</span> <span class="o">==</span> <span class="s2">"fight"</span><span class="p">:</span>
-            <span class="n">state</span> <span class="o">=</span> <span class="s2">"walk"</span>
+        <span class="k">elif</span> <span class="n">RGB</span> <span class="o">==</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="ow">and</span> <span class="n">state</span> <span class="o">==</span> <span class="s2">&quot;fight&quot;</span><span class="p">:</span>
+            <span class="n">state</span> <span class="o">=</span> <span class="s2">&quot;walk&quot;</span>
             <span class="nb">print</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
         <span class="n">t</span> <span class="o">=</span> <span class="n">a</span>
         <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
         <span class="c1">#if i % 5 == 0:</span>
             <span class="c1">#print(i/5)</span>
-            <span class="c1">#print("s")</span>
+            <span class="c1">#print(&quot;s&quot;)</span>
     <span class="n">a</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">timestamp</span><span class="p">()</span>
 </code></pre></div>
-<p>最后合在一起就行了</p>
+
+最后合在一起就行了
+
 <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">pyautogui</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pag</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">datetime</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">ctypes</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
@@ -3495,13 +3396,13 @@
 <span class="k">def</span><span class="w"> </span><span class="nf">walk</span><span class="p">(</span><span class="n">_t2</span><span class="p">,</span> <span class="n">_cnt</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">a</span> <span class="o">-</span> <span class="n">_t2</span> <span class="o">&gt;=</span> <span class="mf">1.0</span><span class="p">:</span>
         <span class="n">_t2</span> <span class="o">=</span> <span class="n">a</span>
-        <span class="k">if</span> <span class="n">state</span> <span class="o">==</span> <span class="s2">"walk"</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">state</span> <span class="o">==</span> <span class="s2">&quot;walk&quot;</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">_cnt</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-                <span class="n">pag</span><span class="o">.</span><span class="n">keyUp</span><span class="p">(</span><span class="s1">'w'</span><span class="p">)</span>
-                <span class="n">pag</span><span class="o">.</span><span class="n">keyDown</span><span class="p">(</span><span class="s1">'s'</span><span class="p">)</span>
+                <span class="n">pag</span><span class="o">.</span><span class="n">keyUp</span><span class="p">(</span><span class="s1">&#39;w&#39;</span><span class="p">)</span>
+                <span class="n">pag</span><span class="o">.</span><span class="n">keyDown</span><span class="p">(</span><span class="s1">&#39;s&#39;</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">pag</span><span class="o">.</span><span class="n">keyUp</span><span class="p">(</span><span class="s1">'s'</span><span class="p">)</span>
-                <span class="n">pag</span><span class="o">.</span><span class="n">keyDown</span><span class="p">(</span><span class="s1">'w'</span><span class="p">)</span>
+                <span class="n">pag</span><span class="o">.</span><span class="n">keyUp</span><span class="p">(</span><span class="s1">&#39;s&#39;</span><span class="p">)</span>
+                <span class="n">pag</span><span class="o">.</span><span class="n">keyDown</span><span class="p">(</span><span class="s1">&#39;w&#39;</span><span class="p">)</span>
             <span class="n">_cnt</span> <span class="o">=</span> <span class="p">(</span><span class="n">_cnt</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="mi">2</span>
     <span class="k">return</span> <span class="p">[</span><span class="n">_t2</span><span class="p">,</span> <span class="n">_cnt</span><span class="p">]</span>
 
@@ -3509,9 +3410,9 @@
 <span class="k">def</span><span class="w"> </span><span class="nf">fight</span><span class="p">(</span><span class="n">_t3</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">a</span> <span class="o">-</span> <span class="n">_t3</span> <span class="o">&gt;=</span> <span class="mf">0.4</span><span class="p">:</span>
         <span class="n">_t3</span> <span class="o">=</span> <span class="n">a</span>
-        <span class="k">if</span> <span class="n">state</span> <span class="o">==</span> <span class="s2">"fight"</span><span class="p">:</span>
-            <span class="n">pag</span><span class="o">.</span><span class="n">keyUp</span><span class="p">(</span><span class="s1">'j'</span><span class="p">)</span>
-            <span class="n">pag</span><span class="o">.</span><span class="n">keyDown</span><span class="p">(</span><span class="s1">'j'</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">state</span> <span class="o">==</span> <span class="s2">&quot;fight&quot;</span><span class="p">:</span>
+            <span class="n">pag</span><span class="o">.</span><span class="n">keyUp</span><span class="p">(</span><span class="s1">&#39;j&#39;</span><span class="p">)</span>
+            <span class="n">pag</span><span class="o">.</span><span class="n">keyDown</span><span class="p">(</span><span class="s1">&#39;j&#39;</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">_t3</span>
 
 
@@ -3520,39 +3421,51 @@
         <span class="n">_t1</span> <span class="o">=</span> <span class="n">a</span>
         <span class="c1"># x, y = pag.position()</span>
         <span class="n">RGB</span> <span class="o">=</span> <span class="n">get_color</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">RGB</span> <span class="o">==</span> <span class="p">[</span><span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">]</span> <span class="ow">and</span> <span class="n">_state</span> <span class="o">==</span> <span class="s2">"walk"</span><span class="p">:</span>
-            <span class="n">_state</span> <span class="o">=</span> <span class="s2">"fight"</span>
+        <span class="k">if</span> <span class="n">RGB</span> <span class="o">==</span> <span class="p">[</span><span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">]</span> <span class="ow">and</span> <span class="n">_state</span> <span class="o">==</span> <span class="s2">&quot;walk&quot;</span><span class="p">:</span>
+            <span class="n">_state</span> <span class="o">=</span> <span class="s2">&quot;fight&quot;</span>
             <span class="nb">print</span><span class="p">(</span><span class="n">_state</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="n">RGB</span> <span class="o">==</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="ow">and</span> <span class="n">_state</span> <span class="o">==</span> <span class="s2">"fight"</span><span class="p">:</span>
-            <span class="n">_state</span> <span class="o">=</span> <span class="s2">"walk"</span>
+        <span class="k">elif</span> <span class="n">RGB</span> <span class="o">==</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="ow">and</span> <span class="n">_state</span> <span class="o">==</span> <span class="s2">&quot;fight&quot;</span><span class="p">:</span>
+            <span class="n">_state</span> <span class="o">=</span> <span class="s2">&quot;walk&quot;</span>
             <span class="nb">print</span><span class="p">(</span><span class="n">_state</span><span class="p">)</span>
     <span class="k">return</span> <span class="p">[</span><span class="n">_t1</span><span class="p">,</span> <span class="n">_state</span><span class="p">]</span>
 
 
-<span class="n">timer</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">(</span><span class="s2">"total time(s)"</span><span class="p">))</span>
+<span class="n">timer</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">(</span><span class="s2">&quot;total time(s)&quot;</span><span class="p">))</span>
 <span class="n">timer</span> <span class="o">=</span> <span class="n">timer</span>
-<span class="n">state</span> <span class="o">=</span> <span class="s2">"walk"</span>
+<span class="n">state</span> <span class="o">=</span> <span class="s2">&quot;walk&quot;</span>
 
 <span class="k">while</span> <span class="n">a</span> <span class="o">-</span> <span class="n">start</span> <span class="o">&lt;</span> <span class="n">timer</span><span class="p">:</span>
-    <span class="k">if</span> <span class="n">state</span> <span class="o">==</span> <span class="s2">"fight"</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">state</span> <span class="o">==</span> <span class="s2">&quot;fight&quot;</span><span class="p">:</span>
         <span class="n">cnt</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="n">T1</span><span class="p">,</span> <span class="n">state</span> <span class="o">=</span> <span class="n">get_state</span><span class="p">(</span><span class="n">T1</span><span class="p">,</span> <span class="n">state</span><span class="p">)</span>
     <span class="n">T2</span><span class="p">,</span> <span class="n">cnt</span> <span class="o">=</span> <span class="n">walk</span><span class="p">(</span><span class="n">T2</span><span class="p">,</span> <span class="n">cnt</span><span class="p">)</span>
     <span class="n">T3</span> <span class="o">=</span> <span class="n">fight</span><span class="p">(</span><span class="n">T3</span><span class="p">)</span>
     <span class="n">a</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">timestamp</span><span class="p">()</span>
 </code></pre></div>
-<h2 id="_1">坑点</h2>
-<p>一开始做的移动，发现可以在<span class="arithmatex">\(Pycharm,Word,Google\)</span>这些软件里打出<span class="arithmatex">\(A,D\)</span>,但是在游戏里和<span class="arithmatex">\(Dev C++\)</span>里不行。</p>
-<p>后来一查，可能是没有获得管理员权限(我这辣鸡电脑的传统艺能)，于是以管理员身份运行，可以控制<span class="arithmatex">\(Dev C++\)</span>了，但是游戏还是不行。</p>
-<p>我以为是键盘实际输入信号与程序模拟信号不同导致，于是换用了<span class="arithmatex">\(PyUserInput\)</span>(费了半天劲搞<span class="arithmatex">\(pip\)</span>)，还是不行。</p>
-<p>~~此时，我们考虑放弃~~</p>
-<p>此时，可能是模拟器的原因，只有它无法接受字符信号。</p>
-<p>开始用的<span class="arithmatex">\(no\$gba\)</span>,后来换用<span class="arithmatex">\(DeSmuME2\)</span>后，奇迹发生了，能移动了！(~~no$gba是什么辣鸡模拟器~~)</p>
-<p>至此，我们完成了这个程序</p>
-<hr>
-<p>2022.5.31 update</p>
-<p>我们发现上述程序的计算量比较大，就是一秒计算了许多次时间。其实我们只需要至多计算5次即可。</p>
-<p>因此，我们可以用<code>time.sleep(0.2)</code>来更改<code>while</code>循环，达到减少计算次数的目的。</p>
+
+## 坑点
+
+一开始做的移动，发现可以在$Pycharm,Word,Google$这些软件里打出$A,D$,但是在游戏里和$Dev C++$里不行。
+
+后来一查，可能是没有获得管理员权限(我这辣鸡电脑的传统艺能)，于是以管理员身份运行，可以控制$Dev C++$了，但是游戏还是不行。
+
+我以为是键盘实际输入信号与程序模拟信号不同导致，于是换用了$PyUserInput$(费了半天劲搞$pip$)，还是不行。
+
+~~此时，我们考虑放弃~~
+
+此时，可能是模拟器的原因，只有它无法接受字符信号。
+
+开始用的$no\$gba$,后来换用$DeSmuME2$后，奇迹发生了，能移动了！(~~no\$gba是什么辣鸡模拟器~~)
+
+至此，我们完成了这个程序
+
+--- 
+2022.5.31 update
+
+我们发现上述程序的计算量比较大，就是一秒计算了许多次时间。其实我们只需要至多计算5次即可。
+
+因此，我们可以用```time.sleep(0.2)```来更改```while```循环，达到减少计算次数的目的。
+
 <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">pyautogui</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pag</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">datetime</span>
@@ -3576,42 +3489,42 @@
 
 <span class="k">def</span><span class="w"> </span><span class="nf">walk</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">s</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">c</span> <span class="o">%</span> <span class="mi">5</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">state</span> <span class="o">==</span> <span class="s2">"walk"</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">state</span> <span class="o">==</span> <span class="s2">&quot;walk&quot;</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">s</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-                <span class="n">pag</span><span class="o">.</span><span class="n">keyUp</span><span class="p">(</span><span class="s1">'w'</span><span class="p">)</span>
-                <span class="n">pag</span><span class="o">.</span><span class="n">keyDown</span><span class="p">(</span><span class="s1">'s'</span><span class="p">)</span>
+                <span class="n">pag</span><span class="o">.</span><span class="n">keyUp</span><span class="p">(</span><span class="s1">&#39;w&#39;</span><span class="p">)</span>
+                <span class="n">pag</span><span class="o">.</span><span class="n">keyDown</span><span class="p">(</span><span class="s1">&#39;s&#39;</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">pag</span><span class="o">.</span><span class="n">keyUp</span><span class="p">(</span><span class="s1">'s'</span><span class="p">)</span>
-                <span class="n">pag</span><span class="o">.</span><span class="n">keyDown</span><span class="p">(</span><span class="s1">'w'</span><span class="p">)</span>
+                <span class="n">pag</span><span class="o">.</span><span class="n">keyUp</span><span class="p">(</span><span class="s1">&#39;s&#39;</span><span class="p">)</span>
+                <span class="n">pag</span><span class="o">.</span><span class="n">keyDown</span><span class="p">(</span><span class="s1">&#39;w&#39;</span><span class="p">)</span>
             <span class="n">s</span> <span class="o">=</span> <span class="p">(</span><span class="n">s</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="mi">2</span>
     <span class="k">return</span> <span class="n">s</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">fight</span><span class="p">(</span><span class="n">c</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">c</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">state</span> <span class="o">==</span> <span class="s2">"fight"</span><span class="p">:</span>
-            <span class="n">pag</span><span class="o">.</span><span class="n">keyUp</span><span class="p">(</span><span class="s1">'j'</span><span class="p">)</span>
-            <span class="n">pag</span><span class="o">.</span><span class="n">keyDown</span><span class="p">(</span><span class="s1">'j'</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">state</span> <span class="o">==</span> <span class="s2">&quot;fight&quot;</span><span class="p">:</span>
+            <span class="n">pag</span><span class="o">.</span><span class="n">keyUp</span><span class="p">(</span><span class="s1">&#39;j&#39;</span><span class="p">)</span>
+            <span class="n">pag</span><span class="o">.</span><span class="n">keyDown</span><span class="p">(</span><span class="s1">&#39;j&#39;</span><span class="p">)</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">get_state</span><span class="p">(</span><span class="n">_state</span><span class="p">):</span>
     <span class="c1"># x, y = pag.position()</span>
     <span class="n">RGB</span> <span class="o">=</span> <span class="n">get_color</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">RGB</span> <span class="o">==</span> <span class="p">[</span><span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">]</span> <span class="ow">and</span> <span class="n">_state</span> <span class="o">==</span> <span class="s2">"walk"</span><span class="p">:</span>
-        <span class="n">_state</span> <span class="o">=</span> <span class="s2">"fight"</span>
+    <span class="k">if</span> <span class="n">RGB</span> <span class="o">==</span> <span class="p">[</span><span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">]</span> <span class="ow">and</span> <span class="n">_state</span> <span class="o">==</span> <span class="s2">&quot;walk&quot;</span><span class="p">:</span>
+        <span class="n">_state</span> <span class="o">=</span> <span class="s2">&quot;fight&quot;</span>
         <span class="nb">print</span><span class="p">(</span><span class="n">_state</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="n">RGB</span> <span class="o">==</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="ow">and</span> <span class="n">_state</span> <span class="o">==</span> <span class="s2">"fight"</span><span class="p">:</span>
-        <span class="n">_state</span> <span class="o">=</span> <span class="s2">"walk"</span>
+    <span class="k">elif</span> <span class="n">RGB</span> <span class="o">==</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="ow">and</span> <span class="n">_state</span> <span class="o">==</span> <span class="s2">&quot;fight&quot;</span><span class="p">:</span>
+        <span class="n">_state</span> <span class="o">=</span> <span class="s2">&quot;walk&quot;</span>
         <span class="nb">print</span><span class="p">(</span><span class="n">_state</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">_state</span>
 
 
-<span class="n">timer</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">(</span><span class="s2">"total time(s)"</span><span class="p">))</span>
-<span class="n">state</span> <span class="o">=</span> <span class="s2">"walk"</span>
+<span class="n">timer</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">(</span><span class="s2">&quot;total time(s)&quot;</span><span class="p">))</span>
+<span class="n">state</span> <span class="o">=</span> <span class="s2">&quot;walk&quot;</span>
 
 
 <span class="k">while</span> <span class="n">timecnt</span> <span class="o">&lt;</span> <span class="p">(</span><span class="n">timer</span> <span class="o">*</span> <span class="mi">5</span><span class="p">):</span>
-    <span class="k">if</span> <span class="n">state</span> <span class="o">==</span> <span class="s2">"fight"</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">state</span> <span class="o">==</span> <span class="s2">&quot;fight&quot;</span><span class="p">:</span>
         <span class="n">cnt</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="n">state</span> <span class="o">=</span> <span class="n">get_state</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
     <span class="n">cnt</span> <span class="o">=</span> <span class="n">walk</span><span class="p">(</span><span class="n">timecnt</span><span class="p">,</span> <span class="n">cnt</span><span class="p">)</span>
@@ -3619,13 +3532,17 @@
     <span class="n">timecnt</span> <span class="o">+=</span> <span class="mi">1</span>
     <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.2</span><span class="p">)</span>
 </code></pre></div>
-<p>这样可以将<span class="arithmatex">\(cpu\)</span>计算量减少$ \%5 $左右。</p></div>
+
+这样可以将$cpu$计算量减少$ \%5 $左右。 --></div>
 
 
 
 
 
 
+
+  
+  
 
 
 

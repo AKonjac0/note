@@ -20,7 +20,7 @@
     
     
       
-        <title>Python Bongo Cat - My Docs</title>
+        <title>python - My Docs</title>
       
     
     
@@ -74,7 +74,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#python-bongo-cat" class="md-skip">
+        <a href="#python" class="md-skip">
           Skip to content
         </a>
       
@@ -108,7 +108,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Python Bongo Cat
+              python
             
           </span>
         </div>
@@ -2986,81 +2986,15 @@
         
       
       
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  <span class="md-ellipsis">
-    Python Bongo Cat
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
-    Python Bongo Cat
+    python
   </span>
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#1" class="md-nav__link">
-    <span class="md-ellipsis">
-      1.键盘监听
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#2" class="md-nav__link">
-    <span class="md-ellipsis">
-      2.窗口创建 &amp; 绘图
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#3" class="md-nav__link">
-    <span class="md-ellipsis">
-      3.状态切换
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#4" class="md-nav__link">
-    <span class="md-ellipsis">
-      4.总结 &amp; 一些坑点
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
       
     </li>
   
@@ -3078,7 +3012,7 @@
         
   
   <span class="md-ellipsis">
-    Python Pokemon自动刷怪
+    python
   </span>
   
 
@@ -3120,7 +3054,7 @@
         
   
   <span class="md-ellipsis">
-    Python常用库/工具
+    python
   </span>
   
 
@@ -3318,50 +3252,6 @@
     
   
   
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#1" class="md-nav__link">
-    <span class="md-ellipsis">
-      1.键盘监听
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#2" class="md-nav__link">
-    <span class="md-ellipsis">
-      2.窗口创建 &amp; 绘图
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#3" class="md-nav__link">
-    <span class="md-ellipsis">
-      3.状态切换
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#4" class="md-nav__link">
-    <span class="md-ellipsis">
-      4.总结 &amp; 一些坑点
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
 </nav>
                   </div>
                 </div>
@@ -3378,11 +3268,15 @@
   
 
 
-<div><h1 id="python-bongo-cat">Python Bongo Cat</h1>
-<h2 id="1">1.键盘监听</h2>
-<p>如果使用<span class="arithmatex">\(Pygame\)</span>的键盘事件，就只有在鼠标点进窗口时，程序才能接收到键盘输入，如果此时你正在用其他软件，那么程序无法接收到键盘信号。所以，我们要改用后台监听，监听键盘的一举一动。~~(这tm不是病毒吗)~~</p>
-<p>因此我们使用<span class="arithmatex">\(pynput\)</span>库。</p>
-<p></p><div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">pynput</span><span class="w"> </span><span class="kn">import</span> <span class="n">keyboard</span>
+<div><h1 id="python">Python</h1>
+<!-- # Python Bongo Cat
+## 1.键盘监听
+
+如果使用$Pygame$的键盘事件，就只有在鼠标点进窗口时，程序才能接收到键盘输入，如果此时你正在用其他软件，那么程序无法接收到键盘信号。所以，我们要改用后台监听，监听键盘的一举一动。~~(这tm不是病毒吗)~~
+
+因此我们使用$pynput$库。
+
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">pynput</span><span class="w"> </span><span class="kn">import</span> <span class="n">keyboard</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pynput</span><span class="w"> </span><span class="kn">import</span> <span class="n">mouse</span>
 
 
@@ -3403,18 +3297,23 @@
     <span class="k">pass</span>
 </code></pre></div>
 注意第一种阻塞写法的意思是阻塞主线程，直到当前子线程运行完毕。所以它不能与其他程序并行。
-<p>而第二种写法可以解决这个问题,就是要加一个无限循环维持程序的执行。</p>
-<p>所以，某种程度上来说，阻塞写法也算一个无限循环。</p>
-<h2 id="2">2.窗口创建 &amp; 绘图</h2>
-<p>使用<span class="arithmatex">\(Pygame\)</span>即可创建任意大小的窗口，并在左上角绘制图片。</p>
-<p></p><div class="highlight"><pre><span></span><code><span class="c1"># canvas.py</span>
+
+而第二种写法可以解决这个问题,就是要加一个无限循环维持程序的执行。
+
+所以，某种程度上来说，阻塞写法也算一个无限循环。
+
+## 2.窗口创建 & 绘图
+
+使用$Pygame$即可创建任意大小的窗口，并在左上角绘制图片。
+
+<div class="highlight"><pre><span></span><code><span class="c1"># canvas.py</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">pygame</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pg</span>
 
 <span class="k">class</span><span class="w"> </span><span class="nc">Background</span><span class="p">():</span>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">screen</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">screen</span> <span class="o">=</span> <span class="n">screen</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">image</span> <span class="o">=</span> <span class="n">pg</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">'images/bongo_cat.png'</span><span class="p">)</span><span class="c1"># 初始化定义为抬起手的图片</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">image</span> <span class="o">=</span> <span class="n">pg</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;images/bongo_cat.png&#39;</span><span class="p">)</span><span class="c1"># 初始化定义为抬起手的图片</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">rect</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">get_rect</span><span class="p">()</span>  <span class="c1"># 获取矩形</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># 固定坐标为左上角</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="mi">0</span>
@@ -3433,7 +3332,7 @@
     <span class="n">interval</span> <span class="o">=</span> <span class="mf">0.03</span>
     <span class="n">pg</span><span class="o">.</span><span class="n">init</span><span class="p">()</span>
     <span class="n">screen</span> <span class="o">=</span> <span class="n">pg</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">set_mode</span><span class="p">((</span><span class="mi">300</span><span class="p">,</span> <span class="mi">177</span><span class="p">))</span>
-    <span class="n">pg</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">set_caption</span><span class="p">(</span><span class="s1">'bongo_cat'</span><span class="p">)</span>
+    <span class="n">pg</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">set_caption</span><span class="p">(</span><span class="s1">&#39;bongo_cat&#39;</span><span class="p">)</span>
     <span class="n">bgc</span> <span class="o">=</span> <span class="p">(</span><span class="mi">230</span><span class="p">,</span> <span class="mi">230</span><span class="p">,</span> <span class="mi">230</span><span class="p">)</span>
     <span class="n">bg</span> <span class="o">=</span> <span class="n">Background</span><span class="p">(</span><span class="n">screen</span><span class="p">)</span>
     <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
@@ -3441,52 +3340,59 @@
             <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">pg</span><span class="o">.</span><span class="n">QUIT</span><span class="p">:</span>  <span class="c1"># 检测右上角鼠标点击退出事件</span>
                 <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>
         <span class="n">screen</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="n">bgc</span><span class="p">)</span>  <span class="c1"># 背景色</span>
-        <span class="n">bg</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="s1">'images/bongo_cat.png'</span><span class="p">)</span>
+        <span class="n">bg</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="s1">&#39;images/bongo_cat.png&#39;</span><span class="p">)</span>
         <span class="n">pg</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">flip</span><span class="p">()</span>  <span class="c1"># 更新当前图层</span>
         <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">interval</span><span class="p">)</span>  <span class="c1"># 时间间隔，即帧率</span>
 
 
 <span class="n">run_game</span><span class="p">()</span>
 </code></pre></div>
-<h2 id="3">3.状态切换</h2>
-<p>当点击键盘时，<span class="arithmatex">\(pynput\)</span>的<span class="arithmatex">\(listener\)</span>会检测到参数<span class="arithmatex">\(key\)</span>，里面包含了你按了哪个键。所以可以用一个列表存储下字符串<span class="arithmatex">\(keys\)</span>,其中<span class="arithmatex">\(keys = str(key)\)</span>。</p>
-<p>进一步地，我们用一个字典存储七个按键在一个时间间隔内对应的点击次数，每个间隔结束后清零。</p>
-<p>但是有个问题，键盘的输入是，先接受一次<span class="arithmatex">\(on_press\)</span>事件，如果一段时间不松手，才会连续接受<span class="arithmatex">\(on_press\)</span>。这就导致每次按下键盘，小猫的手都会先闪一下，才会持续按下，很不流畅。</p>
-<p>所以，我们改成<span class="arithmatex">\(on_release\)</span>出发后再将字典中对应的按键的值清零。这样画面会比较流畅。</p>
-<p>而所有图片和这个字典都存储在一个<span class="arithmatex">\(tmp\)</span>文件中，方便查表。</p>
-<p>至此，我们的程序就完成了。
-</p><div class="highlight"><pre><span></span><code><span class="c1">#image_tmp.py</span>
-<span class="n">image</span> <span class="o">=</span> <span class="s1">'images/bongo_cat.png'</span>
-<span class="n">bc</span> <span class="o">=</span> <span class="s1">'images/bongo_cat.png'</span>
-<span class="n">bc_0</span> <span class="o">=</span> <span class="s1">'images/bongo_cat_0.png'</span>
-<span class="n">bc_1</span> <span class="o">=</span> <span class="s1">'images/bongo_cat_1.png'</span>
-<span class="n">bc_2</span> <span class="o">=</span> <span class="s1">'images/bongo_cat_2.png'</span>
-<span class="n">bc_d</span> <span class="o">=</span> <span class="s1">'images/bongo_cat_down.png'</span>
-<span class="n">bc_u</span> <span class="o">=</span> <span class="s1">'images/bongo_cat_up.png'</span>
-<span class="n">bc_r</span> <span class="o">=</span> <span class="s1">'images/bongo_cat_right.png'</span>
-<span class="n">bc_l</span> <span class="o">=</span> <span class="s1">'images/bongo_cat_left.png'</span>
-<span class="n">bc_R</span> <span class="o">=</span> <span class="s1">'images/bongo_cat_r.png'</span>
-<span class="n">bc_s</span> <span class="o">=</span> <span class="s1">'images/bongo_cat_shift.png'</span>
-<span class="n">bc_z</span> <span class="o">=</span> <span class="s1">'images/bongo_cat_z.png'</span>
-<span class="n">bc_ds</span> <span class="o">=</span> <span class="s1">'images/bongo_cat_down_shift.png'</span>
-<span class="n">bc_us</span> <span class="o">=</span> <span class="s1">'images/bongo_cat_up_shift.png'</span>
-<span class="n">bc_ls</span> <span class="o">=</span> <span class="s1">'images/bongo_cat_left_shift.png'</span>
-<span class="n">bc_rs</span> <span class="o">=</span> <span class="s1">'images/bongo_cat_right_shift.png'</span>
-<span class="n">bc_dz</span> <span class="o">=</span> <span class="s1">'images/bongo_cat_down_z.png'</span>
-<span class="n">bc_uz</span> <span class="o">=</span> <span class="s1">'images/bongo_cat_up_z.png'</span>
-<span class="n">bc_lz</span> <span class="o">=</span> <span class="s1">'images/bongo_cat_left_z.png'</span>
-<span class="n">bc_rz</span> <span class="o">=</span> <span class="s1">'images/bongo_cat_right_z.png'</span>
-<span class="n">bc_dR</span> <span class="o">=</span> <span class="s1">'images/bongo_cat_down_r.png'</span>
-<span class="n">bc_uR</span> <span class="o">=</span> <span class="s1">'images/bongo_cat_up_r.png'</span>
-<span class="n">bc_lR</span> <span class="o">=</span> <span class="s1">'images/bongo_cat_left_r.png'</span>
-<span class="n">bc_rR</span> <span class="o">=</span> <span class="s1">'images/bongo_cat_right_r.png'</span>
+
+## 3.状态切换
+
+当点击键盘时，$pynput$的$listener$会检测到参数$key$，里面包含了你按了哪个键。所以可以用一个列表存储下字符串$keys$,其中$keys = str(key)$。
+
+进一步地，我们用一个字典存储七个按键在一个时间间隔内对应的点击次数，每个间隔结束后清零。
+
+但是有个问题，键盘的输入是，先接受一次$on_press$事件，如果一段时间不松手，才会连续接受$on_press$。这就导致每次按下键盘，小猫的手都会先闪一下，才会持续按下，很不流畅。
+
+所以，我们改成$on_release$出发后再将字典中对应的按键的值清零。这样画面会比较流畅。
+
+而所有图片和这个字典都存储在一个$tmp$文件中，方便查表。
+
+至此，我们的程序就完成了。
+<div class="highlight"><pre><span></span><code><span class="c1">#image_tmp.py</span>
+<span class="n">image</span> <span class="o">=</span> <span class="s1">&#39;images/bongo_cat.png&#39;</span>
+<span class="n">bc</span> <span class="o">=</span> <span class="s1">&#39;images/bongo_cat.png&#39;</span>
+<span class="n">bc_0</span> <span class="o">=</span> <span class="s1">&#39;images/bongo_cat_0.png&#39;</span>
+<span class="n">bc_1</span> <span class="o">=</span> <span class="s1">&#39;images/bongo_cat_1.png&#39;</span>
+<span class="n">bc_2</span> <span class="o">=</span> <span class="s1">&#39;images/bongo_cat_2.png&#39;</span>
+<span class="n">bc_d</span> <span class="o">=</span> <span class="s1">&#39;images/bongo_cat_down.png&#39;</span>
+<span class="n">bc_u</span> <span class="o">=</span> <span class="s1">&#39;images/bongo_cat_up.png&#39;</span>
+<span class="n">bc_r</span> <span class="o">=</span> <span class="s1">&#39;images/bongo_cat_right.png&#39;</span>
+<span class="n">bc_l</span> <span class="o">=</span> <span class="s1">&#39;images/bongo_cat_left.png&#39;</span>
+<span class="n">bc_R</span> <span class="o">=</span> <span class="s1">&#39;images/bongo_cat_r.png&#39;</span>
+<span class="n">bc_s</span> <span class="o">=</span> <span class="s1">&#39;images/bongo_cat_shift.png&#39;</span>
+<span class="n">bc_z</span> <span class="o">=</span> <span class="s1">&#39;images/bongo_cat_z.png&#39;</span>
+<span class="n">bc_ds</span> <span class="o">=</span> <span class="s1">&#39;images/bongo_cat_down_shift.png&#39;</span>
+<span class="n">bc_us</span> <span class="o">=</span> <span class="s1">&#39;images/bongo_cat_up_shift.png&#39;</span>
+<span class="n">bc_ls</span> <span class="o">=</span> <span class="s1">&#39;images/bongo_cat_left_shift.png&#39;</span>
+<span class="n">bc_rs</span> <span class="o">=</span> <span class="s1">&#39;images/bongo_cat_right_shift.png&#39;</span>
+<span class="n">bc_dz</span> <span class="o">=</span> <span class="s1">&#39;images/bongo_cat_down_z.png&#39;</span>
+<span class="n">bc_uz</span> <span class="o">=</span> <span class="s1">&#39;images/bongo_cat_up_z.png&#39;</span>
+<span class="n">bc_lz</span> <span class="o">=</span> <span class="s1">&#39;images/bongo_cat_left_z.png&#39;</span>
+<span class="n">bc_rz</span> <span class="o">=</span> <span class="s1">&#39;images/bongo_cat_right_z.png&#39;</span>
+<span class="n">bc_dR</span> <span class="o">=</span> <span class="s1">&#39;images/bongo_cat_down_r.png&#39;</span>
+<span class="n">bc_uR</span> <span class="o">=</span> <span class="s1">&#39;images/bongo_cat_up_r.png&#39;</span>
+<span class="n">bc_lR</span> <span class="o">=</span> <span class="s1">&#39;images/bongo_cat_left_r.png&#39;</span>
+<span class="n">bc_rR</span> <span class="o">=</span> <span class="s1">&#39;images/bongo_cat_right_r.png&#39;</span>
 
 <span class="n">BC</span> <span class="o">=</span> <span class="p">[[</span><span class="n">bc</span><span class="p">,</span><span class="n">bc_l</span><span class="p">,</span><span class="n">bc_r</span><span class="p">,</span><span class="n">bc_u</span><span class="p">,</span><span class="n">bc_d</span><span class="p">],</span>
       <span class="p">[</span><span class="n">bc_R</span><span class="p">,</span><span class="n">bc_lR</span><span class="p">,</span><span class="n">bc_rR</span><span class="p">,</span><span class="n">bc_uR</span><span class="p">,</span><span class="n">bc_dR</span><span class="p">],</span>
       <span class="p">[</span><span class="n">bc_z</span><span class="p">,</span><span class="n">bc_lz</span><span class="p">,</span><span class="n">bc_rz</span><span class="p">,</span><span class="n">bc_uz</span><span class="p">,</span><span class="n">bc_dz</span><span class="p">],</span>
       <span class="p">[</span><span class="n">bc_s</span><span class="p">,</span><span class="n">bc_ls</span><span class="p">,</span><span class="n">bc_rs</span><span class="p">,</span><span class="n">bc_us</span><span class="p">,</span><span class="n">bc_ds</span><span class="p">]]</span>
-<span class="n">tmp_0</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'z'</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">'R'</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">'s'</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">'l'</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">'r'</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">'d'</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">'u'</span><span class="p">:</span> <span class="mi">0</span><span class="p">}</span>
-<span class="n">tmp</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'z'</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">'R'</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">'s'</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">'l'</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">'r'</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">'d'</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">'u'</span><span class="p">:</span> <span class="mi">0</span><span class="p">}</span>
+<span class="n">tmp_0</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;z&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;R&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;s&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;l&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;d&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;u&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">}</span>
+<span class="n">tmp</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;z&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;R&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;s&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;l&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;d&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;u&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">}</span>
 
 <span class="n">typen</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="n">typem</span> <span class="o">=</span> <span class="mi">0</span>
@@ -3499,7 +3405,7 @@
 <span class="k">class</span><span class="w"> </span><span class="nc">Background</span><span class="p">():</span>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">screen</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">screen</span> <span class="o">=</span> <span class="n">screen</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">image</span> <span class="o">=</span> <span class="n">pg</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">'images_0/bongo_cat.png'</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">image</span> <span class="o">=</span> <span class="n">pg</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;images_0/bongo_cat.png&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">rect</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">get_rect</span><span class="p">()</span>
         <span class="c1">#print(self.rect)</span>
         <span class="c1">#self.screen_rect = screen.get_rect()</span>
@@ -3510,7 +3416,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">image</span> <span class="o">=</span> <span class="n">pg</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">screen</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="p">)</span>
 </code></pre></div>
-<p></p><div class="highlight"><pre><span></span><code><span class="c1">#listener.py</span>
+
+<div class="highlight"><pre><span></span><code><span class="c1">#listener.py</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pynput</span><span class="w"> </span><span class="kn">import</span> <span class="n">keyboard</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pynput</span><span class="w"> </span><span class="kn">import</span> <span class="n">mouse</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">image_tmp</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">imt</span>
@@ -3519,38 +3426,38 @@
 
 <span class="k">def</span><span class="w"> </span><span class="nf">on_press</span><span class="p">(</span><span class="n">key</span><span class="p">):</span>
     <span class="n">keys</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">keys</span> <span class="o">==</span> <span class="s1">'Key.left'</span><span class="p">:</span>
-        <span class="n">imt</span><span class="o">.</span><span class="n">tmp</span><span class="p">[</span><span class="s1">'l'</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
-    <span class="k">elif</span> <span class="n">keys</span> <span class="o">==</span> <span class="s1">'Key.right'</span><span class="p">:</span>
-        <span class="n">imt</span><span class="o">.</span><span class="n">tmp</span><span class="p">[</span><span class="s1">'r'</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
-    <span class="k">elif</span> <span class="n">keys</span> <span class="o">==</span> <span class="s1">'Key.down'</span><span class="p">:</span>
-        <span class="n">imt</span><span class="o">.</span><span class="n">tmp</span><span class="p">[</span><span class="s1">'d'</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
-    <span class="k">elif</span> <span class="n">keys</span> <span class="o">==</span> <span class="s1">'Key.up'</span><span class="p">:</span>
-        <span class="n">imt</span><span class="o">.</span><span class="n">tmp</span><span class="p">[</span><span class="s1">'u'</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
-    <span class="k">elif</span> <span class="n">keys</span> <span class="o">==</span> <span class="s1">'Key.shift'</span><span class="p">:</span>
-        <span class="n">imt</span><span class="o">.</span><span class="n">tmp</span><span class="p">[</span><span class="s1">'s'</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
-    <span class="k">elif</span> <span class="n">keys</span> <span class="o">==</span> <span class="s2">"'z'"</span><span class="p">:</span>
-        <span class="n">imt</span><span class="o">.</span><span class="n">tmp</span><span class="p">[</span><span class="s1">'z'</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
-    <span class="k">elif</span> <span class="n">keys</span> <span class="o">==</span> <span class="s2">"'r'"</span><span class="p">:</span>
-        <span class="n">imt</span><span class="o">.</span><span class="n">tmp</span><span class="p">[</span><span class="s1">'R'</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">if</span> <span class="n">keys</span> <span class="o">==</span> <span class="s1">&#39;Key.left&#39;</span><span class="p">:</span>
+        <span class="n">imt</span><span class="o">.</span><span class="n">tmp</span><span class="p">[</span><span class="s1">&#39;l&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">elif</span> <span class="n">keys</span> <span class="o">==</span> <span class="s1">&#39;Key.right&#39;</span><span class="p">:</span>
+        <span class="n">imt</span><span class="o">.</span><span class="n">tmp</span><span class="p">[</span><span class="s1">&#39;r&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">elif</span> <span class="n">keys</span> <span class="o">==</span> <span class="s1">&#39;Key.down&#39;</span><span class="p">:</span>
+        <span class="n">imt</span><span class="o">.</span><span class="n">tmp</span><span class="p">[</span><span class="s1">&#39;d&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">elif</span> <span class="n">keys</span> <span class="o">==</span> <span class="s1">&#39;Key.up&#39;</span><span class="p">:</span>
+        <span class="n">imt</span><span class="o">.</span><span class="n">tmp</span><span class="p">[</span><span class="s1">&#39;u&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">elif</span> <span class="n">keys</span> <span class="o">==</span> <span class="s1">&#39;Key.shift&#39;</span><span class="p">:</span>
+        <span class="n">imt</span><span class="o">.</span><span class="n">tmp</span><span class="p">[</span><span class="s1">&#39;s&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">elif</span> <span class="n">keys</span> <span class="o">==</span> <span class="s2">&quot;&#39;z&#39;&quot;</span><span class="p">:</span>
+        <span class="n">imt</span><span class="o">.</span><span class="n">tmp</span><span class="p">[</span><span class="s1">&#39;z&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">elif</span> <span class="n">keys</span> <span class="o">==</span> <span class="s2">&quot;&#39;r&#39;&quot;</span><span class="p">:</span>
+        <span class="n">imt</span><span class="o">.</span><span class="n">tmp</span><span class="p">[</span><span class="s1">&#39;R&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">on_release</span><span class="p">(</span><span class="n">key</span><span class="p">):</span>
     <span class="n">keys</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">keys</span> <span class="o">==</span> <span class="s1">'Key.left'</span><span class="p">:</span>
-        <span class="n">imt</span><span class="o">.</span><span class="n">tmp</span><span class="p">[</span><span class="s1">'l'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="k">elif</span> <span class="n">keys</span> <span class="o">==</span> <span class="s1">'Key.right'</span><span class="p">:</span>
-        <span class="n">imt</span><span class="o">.</span><span class="n">tmp</span><span class="p">[</span><span class="s1">'r'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="k">elif</span> <span class="n">keys</span> <span class="o">==</span> <span class="s1">'Key.down'</span><span class="p">:</span>
-        <span class="n">imt</span><span class="o">.</span><span class="n">tmp</span><span class="p">[</span><span class="s1">'d'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="k">elif</span> <span class="n">keys</span> <span class="o">==</span> <span class="s1">'Key.up'</span><span class="p">:</span>
-        <span class="n">imt</span><span class="o">.</span><span class="n">tmp</span><span class="p">[</span><span class="s1">'u'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="k">elif</span> <span class="n">keys</span> <span class="o">==</span> <span class="s1">'Key.shift'</span><span class="p">:</span>
-        <span class="n">imt</span><span class="o">.</span><span class="n">tmp</span><span class="p">[</span><span class="s1">'s'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="k">elif</span> <span class="n">keys</span> <span class="o">==</span> <span class="s2">"'z'"</span><span class="p">:</span>
-        <span class="n">imt</span><span class="o">.</span><span class="n">tmp</span><span class="p">[</span><span class="s1">'z'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="k">elif</span> <span class="n">keys</span> <span class="o">==</span> <span class="s2">"'r'"</span><span class="p">:</span>
-        <span class="n">imt</span><span class="o">.</span><span class="n">tmp</span><span class="p">[</span><span class="s1">'R'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">if</span> <span class="n">keys</span> <span class="o">==</span> <span class="s1">&#39;Key.left&#39;</span><span class="p">:</span>
+        <span class="n">imt</span><span class="o">.</span><span class="n">tmp</span><span class="p">[</span><span class="s1">&#39;l&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">elif</span> <span class="n">keys</span> <span class="o">==</span> <span class="s1">&#39;Key.right&#39;</span><span class="p">:</span>
+        <span class="n">imt</span><span class="o">.</span><span class="n">tmp</span><span class="p">[</span><span class="s1">&#39;r&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">elif</span> <span class="n">keys</span> <span class="o">==</span> <span class="s1">&#39;Key.down&#39;</span><span class="p">:</span>
+        <span class="n">imt</span><span class="o">.</span><span class="n">tmp</span><span class="p">[</span><span class="s1">&#39;d&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">elif</span> <span class="n">keys</span> <span class="o">==</span> <span class="s1">&#39;Key.up&#39;</span><span class="p">:</span>
+        <span class="n">imt</span><span class="o">.</span><span class="n">tmp</span><span class="p">[</span><span class="s1">&#39;u&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">elif</span> <span class="n">keys</span> <span class="o">==</span> <span class="s1">&#39;Key.shift&#39;</span><span class="p">:</span>
+        <span class="n">imt</span><span class="o">.</span><span class="n">tmp</span><span class="p">[</span><span class="s1">&#39;s&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">elif</span> <span class="n">keys</span> <span class="o">==</span> <span class="s2">&quot;&#39;z&#39;&quot;</span><span class="p">:</span>
+        <span class="n">imt</span><span class="o">.</span><span class="n">tmp</span><span class="p">[</span><span class="s1">&#39;z&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">elif</span> <span class="n">keys</span> <span class="o">==</span> <span class="s2">&quot;&#39;r&#39;&quot;</span><span class="p">:</span>
+        <span class="n">imt</span><span class="o">.</span><span class="n">tmp</span><span class="p">[</span><span class="s1">&#39;R&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">run_lsn</span><span class="p">():</span>
@@ -3559,30 +3466,30 @@
     <span class="n">imt</span><span class="o">.</span><span class="n">typen</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="n">imt</span><span class="o">.</span><span class="n">typem</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">imt</span><span class="o">.</span><span class="n">tmp</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-        <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="s1">'r'</span> <span class="ow">or</span> <span class="n">key</span> <span class="o">==</span> <span class="s1">'l'</span> <span class="ow">or</span> <span class="n">key</span> <span class="o">==</span> <span class="s1">'u'</span> <span class="ow">or</span> <span class="n">key</span> <span class="o">==</span> <span class="s1">'d'</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="s1">&#39;r&#39;</span> <span class="ow">or</span> <span class="n">key</span> <span class="o">==</span> <span class="s1">&#39;l&#39;</span> <span class="ow">or</span> <span class="n">key</span> <span class="o">==</span> <span class="s1">&#39;u&#39;</span> <span class="ow">or</span> <span class="n">key</span> <span class="o">==</span> <span class="s1">&#39;d&#39;</span><span class="p">:</span>
             <span class="n">maxn</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">maxn</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">maxm</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">maxm</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">imt</span><span class="o">.</span><span class="n">tmp</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-        <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="s1">'l'</span> <span class="ow">and</span> <span class="n">value</span> <span class="o">&gt;=</span> <span class="n">maxn</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="s1">&#39;l&#39;</span> <span class="ow">and</span> <span class="n">value</span> <span class="o">&gt;=</span> <span class="n">maxn</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">maxn</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
                 <span class="n">imt</span><span class="o">.</span><span class="n">typen</span> <span class="o">=</span> <span class="mi">1</span>
-        <span class="k">elif</span> <span class="n">key</span> <span class="o">==</span> <span class="s1">'r'</span> <span class="ow">and</span> <span class="n">value</span> <span class="o">&gt;=</span> <span class="n">maxn</span><span class="p">:</span>
+        <span class="k">elif</span> <span class="n">key</span> <span class="o">==</span> <span class="s1">&#39;r&#39;</span> <span class="ow">and</span> <span class="n">value</span> <span class="o">&gt;=</span> <span class="n">maxn</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">maxn</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
                 <span class="n">imt</span><span class="o">.</span><span class="n">typen</span> <span class="o">=</span> <span class="mi">2</span>
-        <span class="k">elif</span> <span class="n">key</span> <span class="o">==</span> <span class="s1">'u'</span> <span class="ow">and</span> <span class="n">value</span> <span class="o">&gt;=</span> <span class="n">maxn</span><span class="p">:</span>
+        <span class="k">elif</span> <span class="n">key</span> <span class="o">==</span> <span class="s1">&#39;u&#39;</span> <span class="ow">and</span> <span class="n">value</span> <span class="o">&gt;=</span> <span class="n">maxn</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">maxn</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
                 <span class="n">imt</span><span class="o">.</span><span class="n">typen</span> <span class="o">=</span> <span class="mi">3</span>
-        <span class="k">elif</span> <span class="n">key</span> <span class="o">==</span> <span class="s1">'d'</span> <span class="ow">and</span> <span class="n">value</span> <span class="o">&gt;=</span> <span class="n">maxn</span><span class="p">:</span>
+        <span class="k">elif</span> <span class="n">key</span> <span class="o">==</span> <span class="s1">&#39;d&#39;</span> <span class="ow">and</span> <span class="n">value</span> <span class="o">&gt;=</span> <span class="n">maxn</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">maxn</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
                 <span class="n">imt</span><span class="o">.</span><span class="n">typen</span> <span class="o">=</span> <span class="mi">4</span>
-        <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="s1">'R'</span> <span class="ow">and</span> <span class="n">value</span> <span class="o">&gt;=</span> <span class="n">maxm</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="s1">&#39;R&#39;</span> <span class="ow">and</span> <span class="n">value</span> <span class="o">&gt;=</span> <span class="n">maxm</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">maxm</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
                 <span class="n">imt</span><span class="o">.</span><span class="n">typem</span> <span class="o">=</span> <span class="mi">1</span>
-        <span class="k">elif</span> <span class="n">key</span> <span class="o">==</span> <span class="s1">'z'</span> <span class="ow">and</span> <span class="n">value</span> <span class="o">&gt;=</span> <span class="n">maxm</span><span class="p">:</span>
+        <span class="k">elif</span> <span class="n">key</span> <span class="o">==</span> <span class="s1">&#39;z&#39;</span> <span class="ow">and</span> <span class="n">value</span> <span class="o">&gt;=</span> <span class="n">maxm</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">maxm</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
                 <span class="n">imt</span><span class="o">.</span><span class="n">typem</span> <span class="o">=</span> <span class="mi">2</span>
-        <span class="k">elif</span> <span class="n">key</span> <span class="o">==</span> <span class="s1">'s'</span> <span class="ow">and</span> <span class="n">value</span> <span class="o">&gt;=</span> <span class="n">maxm</span><span class="p">:</span>
+        <span class="k">elif</span> <span class="n">key</span> <span class="o">==</span> <span class="s1">&#39;s&#39;</span> <span class="ow">and</span> <span class="n">value</span> <span class="o">&gt;=</span> <span class="n">maxm</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">maxm</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
                 <span class="n">imt</span><span class="o">.</span><span class="n">typem</span> <span class="o">=</span> <span class="mi">3</span>
     <span class="c1">#print(imt.typen, imt.typem)</span>
@@ -3590,15 +3497,15 @@
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">on_move</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">'move to'</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;move to&#39;</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">on_click</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">button</span><span class="p">,</span> <span class="n">pressed</span><span class="p">):</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">'click at'</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">button</span><span class="p">,</span> <span class="n">pressed</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;click at&#39;</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">button</span><span class="p">,</span> <span class="n">pressed</span><span class="p">)</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">on_scroll</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">dx</span><span class="p">,</span> <span class="n">dy</span><span class="p">):</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">'scroll at'</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s1">'by'</span><span class="p">,</span> <span class="n">dx</span><span class="p">,</span> <span class="n">dy</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;scroll at&#39;</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s1">&#39;by&#39;</span><span class="p">,</span> <span class="n">dx</span><span class="p">,</span> <span class="n">dy</span><span class="p">)</span>
 
 
 <span class="c1"># 监听写法1</span>
@@ -3630,24 +3537,24 @@
     <span class="p">)</span>
     <span class="n">listener</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
 
-<span class="sd">"""</span>
+<span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">imt.tmp = imt.tmp_0.copy()</span>
 <span class="sd">listen_key_nblock()</span>
 <span class="sd">while True:</span>
 <span class="sd">    run_lsn()</span>
 <span class="sd">    time.sleep(1)</span>
-<span class="sd">"""</span>
+<span class="sd">&quot;&quot;&quot;</span>
 
 
-<span class="sd">"""</span>
+<span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Key.right</span>
 <span class="sd">Key.left</span>
 <span class="sd">Key.up</span>
 <span class="sd">Key.down</span>
-<span class="sd">'z'</span>
+<span class="sd">&#39;z&#39;</span>
 <span class="sd">Key.shift</span>
-<span class="sd">'r'</span>
-<span class="sd">"""</span>
+<span class="sd">&#39;r&#39;</span>
+<span class="sd">&quot;&quot;&quot;</span>
 </code></pre></div>
 <div class="highlight"><pre><span></span><code><span class="c1">#bongo_cat.py</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">pygame</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pg</span>
@@ -3666,7 +3573,7 @@
     <span class="n">interval</span> <span class="o">=</span> <span class="mf">0.03</span>
     <span class="n">pg</span><span class="o">.</span><span class="n">init</span><span class="p">()</span>
     <span class="n">screen</span> <span class="o">=</span> <span class="n">pg</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">set_mode</span><span class="p">((</span><span class="mi">300</span><span class="p">,</span> <span class="mi">177</span><span class="p">))</span>
-    <span class="n">pg</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">set_caption</span><span class="p">(</span><span class="s1">'bongo_cat'</span><span class="p">)</span>
+    <span class="n">pg</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">set_caption</span><span class="p">(</span><span class="s1">&#39;bongo_cat&#39;</span><span class="p">)</span>
     <span class="n">bgc</span> <span class="o">=</span> <span class="p">(</span><span class="mi">230</span><span class="p">,</span> <span class="mi">230</span><span class="p">,</span> <span class="mi">230</span><span class="p">)</span>
     <span class="n">bg</span> <span class="o">=</span> <span class="n">Background</span><span class="p">(</span><span class="n">screen</span><span class="p">)</span>
     <span class="n">init</span><span class="p">()</span>
@@ -3684,29 +3591,26 @@
 
 <span class="n">run_game</span><span class="p">()</span>
 </code></pre></div>
-<h2 id="4">4.总结 &amp; 一些坑点</h2>
-<ol>
-<li>
-<p>一开始主循环没有<span class="arithmatex">\(time.sleep()\)</span>,导致<span class="arithmatex">\(cpu\)</span>占用<span class="arithmatex">\(20\%\)</span></p>
-</li>
-<li>
-<p>写<span class="arithmatex">\(listener.py\)</span>时被windows安全中心当成病毒隔离了就nm离谱</p>
-</li>
-<li>
-<p>最后用<span class="arithmatex">\(Pyinstaller\)</span>封装成了<span class="arithmatex">\(.exe\)</span>,不过图片文件要和<span class="arithmatex">\(.exe\)</span>放在同一文件目录下。</p>
-</li>
-</ol>
+## 4.总结 & 一些坑点
+1. 一开始主循环没有$time.sleep()$,导致$cpu$占用$20\%$
+
+2. 写$listener.py$时被windows安全中心当成病毒隔离了就nm离谱
+
+3. 最后用$Pyinstaller$封装成了$.exe$,不过图片文件要和$.exe$放在同一文件目录下。
+
 <div class="highlight"><pre><span></span><code><span class="n">Pyinstaller</span> <span class="o">-</span><span class="n">F</span> <span class="o">-</span><span class="n">w</span> <span class="o">-</span><span class="n">i</span> <span class="n">bongo_cat</span><span class="o">.</span><span class="n">ico</span> <span class="n">bongo_cat</span><span class="o">.</span><span class="n">py</span>
 </code></pre></div>
-<ol>
-<li>后期打算把这个放到<span class="arithmatex">\(Github\)</span>上钓鱼，~~看有没有人给stars~~</li>
-</ol></div>
+
+4. 后期打算把这个放到$Github$上钓鱼，~~看有没有人给stars~~ --></div>
 
 
 
 
 
 
+
+  
+  
 
 
 

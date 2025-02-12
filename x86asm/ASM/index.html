@@ -144,43 +144,6 @@
     
     
     
-      <label class="md-header__button md-icon" for="__search">
-        
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
-      </label>
-      <div class="md-search" data-md-component="search" role="dialog">
-  <label class="md-search__overlay" for="__search"></label>
-  <div class="md-search__inner" role="search">
-    <form class="md-search__form" name="search">
-      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
-      <label class="md-search__icon md-icon" for="__search">
-        
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
-        
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
-      </label>
-      <nav class="md-search__options" aria-label="Search">
-        
-        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
-          
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
-        </button>
-      </nav>
-      
-    </form>
-    <div class="md-search__output">
-      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
-        <div class="md-search-result" data-md-component="search-result">
-          <div class="md-search-result__meta">
-            Initializing search
-          </div>
-          <ol class="md-search-result__list" role="presentation"></ol>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-    
     
       <div class="md-header__source">
         <a href="https://github.com/akonjac0/note" title="Go to repository" class="md-source" data-md-component="source">
@@ -3299,10 +3262,10 @@
   
 
 
-<ol>
+<div><ol>
 <li><code>use16</code>: 16位寻址</li>
 <li><code>segment</code>: 是段定义语法</li>
-<li></li>
+<li>
 </ol>
 <div class="highlight"><pre><span></span><code>assume cs:code, ds:data
 </code></pre></div>
@@ -3328,9 +3291,9 @@
 <span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">N</span><span class="o">=</span><span class="mf">2e5</span><span class="o">+</span><span class="mi">10</span><span class="p">;</span>
 <span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">argv</span><span class="p">[])</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">argc</span><span class="o">==</span><span class="mi">3</span><span class="p">){</span>
-<span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;%s %s %s&quot;</span><span class="p">,</span><span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span>
+<span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">"%s %s %s"</span><span class="p">,</span><span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span>
 <span class="w">    </span><span class="p">}</span>
-<span class="w">    </span><span class="n">system</span><span class="p">(</span><span class="s">&quot;pause&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="n">system</span><span class="p">(</span><span class="s">"pause"</span><span class="p">);</span>
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
@@ -3372,7 +3335,7 @@ ss:sp指向堆栈顶端。
 18. 发生Divide overflow时，cpu会在当前指令上方插入一条int00h并执行
 19. int00h的函数地址保存在dword ptr 0:[0]中
 20. softice:
-<div class="highlight"><pre><span></span><code><span class="n">ldr</span><span class="w"> </span><span class="c1">//调试某个程序</span>
+</p><div class="highlight"><pre><span></span><code><span class="n">ldr</span><span class="w"> </span><span class="c1">//调试某个程序</span>
 <span class="n">F6</span><span class="o">/</span><span class="n">ec</span><span class="w"> </span><span class="n">entercode</span><span class="c1">//进入代码窗</span>
 <span class="n">d</span><span class="w"> </span><span class="mi">0</span><span class="o">:</span><span class="mi">0</span><span class="w"> </span><span class="n">跳转到地址0</span><span class="o">:</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 <span class="n">u</span><span class="w"> </span><span class="mi">684</span><span class="o">:</span><span class="mi">8</span><span class="w"> </span><span class="n">观察code段中的指令</span>
@@ -3409,19 +3372,19 @@ jne not_equal
 29. scasb 扫描
 <div class="highlight"><pre><span></span><code>cmp al, es:[di]
 </code></pre></div>
-可用来计算字符串长度/跳过前导重复字符</p>
+可用来计算字符串长度/跳过前导重复字符
 </li>
 <li>
 <p>stosb 赋值store
-<div class="highlight"><pre><span></span><code>mov es:[di], al
+</p><div class="highlight"><pre><span></span><code>mov es:[di], al
 </code></pre></div>
-相当于memset</p>
+相当于memset
 </li>
 <li>
 <p>lodsb 加载load
-<div class="highlight"><pre><span></span><code>mov al, ds:[si]
+</p><div class="highlight"><pre><span></span><code>mov al, ds:[si]
 </code></pre></div>
-lodsb 加rep没有意义  </p>
+lodsb 加rep没有意义  
 </li>
 <li>
 <p>几个特殊位置</p>
@@ -3463,7 +3426,7 @@ far ptr  用来修饰一个远的标号
 damn who knew all the place we flew good things we been through that i'll be standing right there talking to you bout another path i know we love to hit the road and laugh</p>
 </li>
 <li>
-<p><div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="cpf">&lt;stdio.h&gt;</span>
+<p></p><div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="cpf">&lt;stdio.h&gt;</span>
 <span class="kt">int</span><span class="w"> </span><span class="o">*</span><span class="nf">f</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">){</span>
 <span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">=</span><span class="p">{</span><span class="mi">10</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">30</span><span class="p">};</span>
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="o">*</span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
@@ -3471,7 +3434,7 @@ damn who knew all the place we flew good things we been through that i'll be sta
 <span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(){</span>
 <span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="o">*</span><span class="n">p</span><span class="p">;</span>
 <span class="w">    </span><span class="n">p</span><span class="o">=</span><span class="n">f</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
-<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="o">*</span><span class="n">p</span><span class="p">);</span>
+<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">"%d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="o">*</span><span class="n">p</span><span class="p">);</span>
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
@@ -3485,31 +3448,31 @@ damn who knew all the place we flew good things we been through that i'll be sta
 <span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(){</span>
 <span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="o">*</span><span class="n">p</span><span class="p">;</span>
 <span class="w">    </span><span class="n">p</span><span class="o">=</span><span class="n">f</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
-<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="o">*</span><span class="n">p</span><span class="p">);</span>
+<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">"%d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="o">*</span><span class="n">p</span><span class="p">);</span>
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
 <span class="p">}</span>
-</code></pre></div></p>
+</code></pre></div>
 </li>
 <li>
 <p>事实上不被覆盖就可以正确显示，但是有<code>[Warning] address of local variable 'a' returned [-Wreturn-local-addr]</code></p>
 </li>
 <li>
 <p>gcc内嵌asm:
-<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="cpf">&lt;stdio.h&gt;</span>
+</p><div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="cpf">&lt;stdio.h&gt;</span>
 <span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(){</span>
 <span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">input</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">output</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">temp</span><span class="o">=</span><span class="mi">-1</span><span class="p">;</span>
-<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="n">output</span><span class="p">);</span>
-<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="n">temp</span><span class="p">);</span>
+<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">"%d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="n">output</span><span class="p">);</span>
+<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">"%d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="n">temp</span><span class="p">);</span>
 <span class="w">    </span><span class="n">__asm__</span><span class="w"> </span><span class="n">__volatile__</span>
-<span class="w">    </span><span class="p">(</span><span class="s">&quot;movl $0, %%eax; movl  %%eax, %1;     movl  %2, %%eax; movl  %%eax, %0; &quot;</span>
-<span class="w">    </span><span class="o">:</span><span class="s">&quot;=m&quot;</span><span class="p">(</span><span class="n">output</span><span class="p">),</span><span class="s">&quot;=m&quot;</span><span class="p">(</span><span class="n">temp</span><span class="p">)</span><span class="w">    </span><span class="cm">/* output */</span>
-<span class="w">    </span><span class="o">:</span><span class="s">&quot;r&quot;</span><span class="p">(</span><span class="n">input</span><span class="p">)</span><span class="w">     </span><span class="cm">/* input */</span>
-<span class="w">    </span><span class="o">:</span><span class="s">&quot;eax&quot;</span><span class="p">);</span><span class="w">  </span><span class="cm">/* 描述符 */</span>
-<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="n">output</span><span class="p">);</span>
-<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="n">temp</span><span class="p">);</span>
+<span class="w">    </span><span class="p">(</span><span class="s">"movl $0, %%eax; movl  %%eax, %1;     movl  %2, %%eax; movl  %%eax, %0; "</span>
+<span class="w">    </span><span class="o">:</span><span class="s">"=m"</span><span class="p">(</span><span class="n">output</span><span class="p">),</span><span class="s">"=m"</span><span class="p">(</span><span class="n">temp</span><span class="p">)</span><span class="w">    </span><span class="cm">/* output */</span>
+<span class="w">    </span><span class="o">:</span><span class="s">"r"</span><span class="p">(</span><span class="n">input</span><span class="p">)</span><span class="w">     </span><span class="cm">/* input */</span>
+<span class="w">    </span><span class="o">:</span><span class="s">"eax"</span><span class="p">);</span><span class="w">  </span><span class="cm">/* 描述符 */</span>
+<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">"%d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="n">output</span><span class="p">);</span>
+<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">"%d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="n">temp</span><span class="p">);</span>
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
 <span class="p">}</span>
-</code></pre></div></p>
+</code></pre></div>
 </li>
 <li>
 <p><strong>__declspec(naked)?</strong></p>
@@ -3520,7 +3483,7 @@ damn who knew all the place we flew good things we been through that i'll be sta
 <li>sgbt 把gbtr中内容复制到gbt中</li>
 <li>指令+中断汇总</li>
 </ol>
-<p><div class="highlight"><pre><span></span><code>int 21h(ah=01h,02h,09h,0ah)
+<p></p><div class="highlight"><pre><span></span><code>int 21h(ah=01h,02h,09h,0ah)
 int 8h;时钟中断
 int 0h;除法溢出
 int 1h;单步执行
@@ -3580,7 +3543,7 @@ jcxz
 </code></pre></div>
 48. shl,shr,sal,sar,rol,ror都会把移位溢出的位移入CF
 48. TF要通过popf,pushf赋值
-49. in al, 60h; 从端口60h读取一个字节并存放到AL中 </p>
+49. in al, 60h; 从端口60h读取一个字节并存放到AL中 
 <ol>
 <li>以读取键盘为例, 以下为从高层到低层的编程方式排序:
 <div class="highlight"><pre><span></span><code>dos         高   mov ah, 1; int 21h 功能弱,但编程简单
@@ -3599,8 +3562,8 @@ fword ptr
 <div class="highlight"><pre><span></span><code>mul eax, ebx; eax = eax * ebx
 imul eax, ebx, 3; eax = ebx * 3
 </code></pre></div></li>
-<li></li>
-</ol>
+<li>
+</ol></div>
 
 
 

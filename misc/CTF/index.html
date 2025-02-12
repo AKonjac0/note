@@ -146,43 +146,6 @@
     
     
     
-      <label class="md-header__button md-icon" for="__search">
-        
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
-      </label>
-      <div class="md-search" data-md-component="search" role="dialog">
-  <label class="md-search__overlay" for="__search"></label>
-  <div class="md-search__inner" role="search">
-    <form class="md-search__form" name="search">
-      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
-      <label class="md-search__icon md-icon" for="__search">
-        
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
-        
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
-      </label>
-      <nav class="md-search__options" aria-label="Search">
-        
-        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
-          
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
-        </button>
-      </nav>
-      
-    </form>
-    <div class="md-search__output">
-      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
-        <div class="md-search-result" data-md-component="search-result">
-          <div class="md-search-result__meta">
-            Initializing search
-          </div>
-          <ol class="md-search-result__list" role="presentation"></ol>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-    
     
       <div class="md-header__source">
         <a href="https://github.com/akonjac0/note" title="Go to repository" class="md-source" data-md-component="source">
@@ -3301,7 +3264,7 @@
   
 
 
-<h1 id="picture-lock-writeup">Picture Lock WriteUp</h1>
+<div><h1 id="picture-lock-writeup">Picture Lock WriteUp</h1>
 <p>已经看不懂自己写的什么东西了</p>
 <p>大概就是要先弄懂利用有限域 <span class="arithmatex">\(GF\)</span> 进行可逆乘法的操作，然后暴力枚举解出一个 <span class="arithmatex">\(key\)</span>，最后用这个 <span class="arithmatex">\(key\)</span> 把原图像解出来就行了</p>
 <div class="highlight"><pre><span></span><code><span class="cm">/*#include&lt;bits/stdc++.h&gt;</span>
@@ -3368,7 +3331,7 @@
 <span class="cm">            if(f[r][i]&lt;f[j][i]) r=j;</span>
 <span class="cm">        }</span>
 <span class="cm">        if(!f[r][i]){</span>
-<span class="cm">            printf(&quot;No Solution&quot;);</span>
+<span class="cm">            printf("No Solution");</span>
 <span class="cm">            return;</span>
 <span class="cm">        }</span>
 <span class="cm">        if(i!=r) swap(f[r],f[i]);</span>
@@ -3381,7 +3344,7 @@
 <span class="cm">        }</span>
 <span class="cm">    }</span>
 <span class="cm">    for(int i=1;i&lt;=n;++i){</span>
-<span class="cm">        for(int j=1;j&lt;=n+1;++j) cout&lt;&lt;f[i][j]&lt;&lt;&quot; &quot;;</span>
+<span class="cm">        for(int j=1;j&lt;=n+1;++j) cout&lt;&lt;f[i][j]&lt;&lt;" ";</span>
 <span class="cm">        cout&lt;&lt;endl;</span>
 <span class="cm">    }</span>
 <span class="cm">}</span>
@@ -3457,7 +3420,7 @@
 <span class="w">        </span><span class="n">v4</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
 <span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">k</span><span class="w"> </span><span class="p">)</span>
 <span class="w">        </span><span class="p">{</span>
-<span class="w">          </span><span class="c1">//cout&lt;&lt;(int)*((unsigned __int8 *)v9 + k)&lt;&lt;&quot; &quot;;</span>
+<span class="w">          </span><span class="c1">//cout&lt;&lt;(int)*((unsigned __int8 *)v9 + k)&lt;&lt;" ";</span>
 <span class="w">          </span><span class="n">v2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sub_40094D</span><span class="p">(</span><span class="o">*</span><span class="p">((</span><span class="kt">unsigned</span><span class="w"> </span><span class="kr">__int8</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="n">v9</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">k</span><span class="p">),</span><span class="w"> </span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="kr">__int8</span><span class="p">)</span><span class="n">a1</span><span class="p">[</span><span class="mi">4</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">k</span><span class="p">]);</span>
 <span class="w">          </span><span class="n">v4</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sub_400936</span><span class="p">(</span><span class="n">v4</span><span class="p">,</span><span class="w"> </span><span class="n">v2</span><span class="p">);</span>
 <span class="w">        </span><span class="p">}</span>
@@ -3541,7 +3504,7 @@
 <span class="w">            </span><span class="k">if</span><span class="p">(</span><span class="n">f</span><span class="p">[</span><span class="n">r</span><span class="p">][</span><span class="n">i</span><span class="p">]</span><span class="o">&lt;</span><span class="n">f</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">i</span><span class="p">])</span><span class="w"> </span><span class="n">r</span><span class="o">=</span><span class="n">j</span><span class="p">;</span>
 <span class="w">        </span><span class="p">}</span>
 <span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">f</span><span class="p">[</span><span class="n">r</span><span class="p">][</span><span class="n">i</span><span class="p">]){</span>
-<span class="w">            </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;No Solution&quot;</span><span class="p">);</span>
+<span class="w">            </span><span class="n">printf</span><span class="p">(</span><span class="s">"No Solution"</span><span class="p">);</span>
 <span class="w">            </span><span class="k">return</span><span class="p">;</span>
 <span class="w">        </span><span class="p">}</span>
 <span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="n">i</span><span class="o">!=</span><span class="n">r</span><span class="p">)</span><span class="w"> </span><span class="n">swap</span><span class="p">(</span><span class="n">f</span><span class="p">[</span><span class="n">r</span><span class="p">],</span><span class="n">f</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
@@ -3554,7 +3517,7 @@
 <span class="w">        </span><span class="p">}</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="c1">//  for(int i=1;i&lt;=n;++i){</span>
-<span class="c1">//      for(int j=1;j&lt;=n+1;++j) cout&lt;&lt;f[i][j]&lt;&lt;&quot; &quot;;</span>
+<span class="c1">//      for(int j=1;j&lt;=n+1;++j) cout&lt;&lt;f[i][j]&lt;&lt;" ";</span>
 <span class="c1">//      cout&lt;&lt;endl;</span>
 <span class="c1">//  }</span>
 <span class="p">}</span>
@@ -3600,14 +3563,14 @@
 <span class="cm">                v4 = a1[4 * i + j];</span>
 <span class="cm">                for (k = 0; k &lt;= 3; ++k)</span>
 <span class="cm">                {</span>
-<span class="cm">                    //cout&lt;&lt;(int)*((unsigned __int8 *)v9 + k)&lt;&lt;&quot; &quot;;</span>
+<span class="cm">                    //cout&lt;&lt;(int)*((unsigned __int8 *)v9 + k)&lt;&lt;" ";</span>
 <span class="cm">                    v2 = sub_40094D(*((unsigned __int8 *)v9 + k), v4);</span>
 <span class="cm">                    v4 = sub_400936(v4, v2);</span>
 <span class="cm">                }</span>
 <span class="cm">                //cout&lt;&lt;endl;</span>
 <span class="cm">                *((_BYTE *)src + (int)(4 * i + j))= v4;</span>
 
-<span class="cm">                //printf(&quot;%x &quot;,v4);</span>
+<span class="cm">                //printf("%x ",v4);</span>
 <span class="cm">            }</span>
 <span class="cm">        }</span>
 <span class="cm">    }</span>
@@ -3636,16 +3599,16 @@
 <span class="w">        </span><span class="p">}</span>
 <span class="w">        </span><span class="k">else</span>
 <span class="w">        </span><span class="p">{</span><span class="w">   </span>
-<span class="w">            </span><span class="c1">//cout&lt;&lt;&quot;!&quot;&lt;&lt;endl;</span>
+<span class="w">            </span><span class="c1">//cout&lt;&lt;"!"&lt;&lt;endl;</span>
 <span class="w">            </span><span class="k">for</span><span class="p">(</span><span class="n">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">j</span><span class="p">){</span>
 <span class="w">                </span><span class="n">b</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">char</span><span class="p">)</span><span class="n">a1</span><span class="p">[</span><span class="mi">4</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">j</span><span class="p">];</span>
-<span class="w">                </span><span class="c1">//cout&lt;&lt;b[j]&lt;&lt;&quot; &quot;;</span>
+<span class="w">                </span><span class="c1">//cout&lt;&lt;b[j]&lt;&lt;" ";</span>
 <span class="w">            </span><span class="p">}</span>
 <span class="w">            </span><span class="c1">//cout&lt;&lt;endl;</span>
 <span class="w">            </span><span class="n">gauss</span><span class="p">();</span>
 <span class="w">            </span><span class="k">for</span><span class="p">(</span><span class="n">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">j</span><span class="p">){</span>
 <span class="w">                </span><span class="o">*</span><span class="p">((</span><span class="n">_BYTE</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="n">src</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="p">)(</span><span class="mi">4</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">j</span><span class="p">))</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">char</span><span class="p">)</span><span class="n">f</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">][</span><span class="mi">5</span><span class="p">];</span>
-<span class="w">                </span><span class="c1">//cout&lt;&lt;(int)(unsigned char)*((_BYTE *)src + (int)(4 * i + j))&lt;&lt;&quot; &quot;;</span>
+<span class="w">                </span><span class="c1">//cout&lt;&lt;(int)(unsigned char)*((_BYTE *)src + (int)(4 * i + j))&lt;&lt;" ";</span>
 <span class="w">            </span><span class="p">}</span>
 
 <span class="w">            </span><span class="c1">//cout&lt;&lt;endl;</span>
@@ -3681,12 +3644,12 @@
 <span class="w">  </span><span class="p">}</span>
 
 <span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="n">m</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">m</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">a2</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">m</span><span class="w"> </span><span class="p">){</span>
-<span class="w">    </span><span class="c1">//cout&lt;&lt;(int)*(_BYTE *)(src+(int)m)&lt;&lt;&quot; &quot;;</span>
+<span class="w">    </span><span class="c1">//cout&lt;&lt;(int)*(_BYTE *)(src+(int)m)&lt;&lt;" ";</span>
 <span class="w">    </span><span class="o">*</span><span class="p">((</span><span class="n">_BYTE</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="n">src</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">m</span><span class="p">)</span><span class="w"> </span><span class="o">^=</span><span class="w"> </span><span class="o">*</span><span class="p">(</span><span class="n">_BYTE</span><span class="w"> </span><span class="o">*</span><span class="p">)((</span><span class="kt">int</span><span class="p">)</span><span class="n">m</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="mi">8</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">a3</span><span class="p">);</span>
 <span class="w">    </span><span class="c1">//cout&lt;&lt;(int)*(_BYTE *)((int)m % 8 + a3)&lt;&lt;endl;</span>
 <span class="w">  </span><span class="p">}</span>
 
-<span class="w">  </span><span class="c1">//for ( m = 0; m &lt; 8; ++m )cout&lt;&lt;(int)*(_BYTE *)(src+(int)m)&lt;&lt;&quot; &quot;;</span>
+<span class="w">  </span><span class="c1">//for ( m = 0; m &lt; 8; ++m )cout&lt;&lt;(int)*(_BYTE *)(src+(int)m)&lt;&lt;" ";</span>
 <span class="w">  </span><span class="c1">//cout&lt;&lt;endl;</span>
 <span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">memcpy</span><span class="p">(</span><span class="n">a1</span><span class="p">,</span><span class="w"> </span><span class="n">src</span><span class="p">,</span><span class="w"> </span><span class="n">a2</span><span class="p">);</span>
 <span class="p">}</span>
@@ -3725,26 +3688,26 @@
 <span class="kt">int</span><span class="w"> </span><span class="n">get_hex</span><span class="p">(){</span>
 <span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">ans</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
 <span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">strlen</span><span class="p">((</span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="n">in</span><span class="p">)</span><span class="o">==</span><span class="mi">2</span><span class="p">){</span>
-<span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="n">in</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">&gt;=</span><span class="sc">&#39;a&#39;</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">in</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">&lt;=</span><span class="sc">&#39;z&#39;</span><span class="p">){</span>
-<span class="w">            </span><span class="kt">int</span><span class="w"> </span><span class="n">c</span><span class="o">=</span><span class="n">in</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="sc">&#39;a&#39;</span><span class="o">+</span><span class="mi">10</span><span class="p">;</span>
+<span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="n">in</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">&gt;=</span><span class="sc">'a'</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">in</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">&lt;=</span><span class="sc">'z'</span><span class="p">){</span>
+<span class="w">            </span><span class="kt">int</span><span class="w"> </span><span class="n">c</span><span class="o">=</span><span class="n">in</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="sc">'a'</span><span class="o">+</span><span class="mi">10</span><span class="p">;</span>
 <span class="w">            </span><span class="n">ans</span><span class="o">+=</span><span class="n">c</span><span class="o">*</span><span class="mi">16</span><span class="p">;</span>
 <span class="w">        </span><span class="p">}</span><span class="k">else</span><span class="p">{</span>
-<span class="w">            </span><span class="kt">int</span><span class="w"> </span><span class="n">c</span><span class="o">=</span><span class="n">in</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="sc">&#39;0&#39;</span><span class="p">;</span>
+<span class="w">            </span><span class="kt">int</span><span class="w"> </span><span class="n">c</span><span class="o">=</span><span class="n">in</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="sc">'0'</span><span class="p">;</span>
 <span class="w">            </span><span class="n">ans</span><span class="o">+=</span><span class="n">c</span><span class="o">*</span><span class="mi">16</span><span class="p">;</span>
 <span class="w">        </span><span class="p">}</span>
-<span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="n">in</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">&gt;=</span><span class="sc">&#39;a&#39;</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">in</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">&lt;=</span><span class="sc">&#39;z&#39;</span><span class="p">){</span>
-<span class="w">            </span><span class="kt">int</span><span class="w"> </span><span class="n">c</span><span class="o">=</span><span class="n">in</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="sc">&#39;a&#39;</span><span class="o">+</span><span class="mi">10</span><span class="p">;</span>
+<span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="n">in</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">&gt;=</span><span class="sc">'a'</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">in</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">&lt;=</span><span class="sc">'z'</span><span class="p">){</span>
+<span class="w">            </span><span class="kt">int</span><span class="w"> </span><span class="n">c</span><span class="o">=</span><span class="n">in</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="sc">'a'</span><span class="o">+</span><span class="mi">10</span><span class="p">;</span>
 <span class="w">            </span><span class="n">ans</span><span class="o">+=</span><span class="n">c</span><span class="p">;</span>
 <span class="w">        </span><span class="p">}</span><span class="k">else</span><span class="p">{</span>
-<span class="w">            </span><span class="kt">int</span><span class="w"> </span><span class="n">c</span><span class="o">=</span><span class="n">in</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="sc">&#39;0&#39;</span><span class="p">;</span>
+<span class="w">            </span><span class="kt">int</span><span class="w"> </span><span class="n">c</span><span class="o">=</span><span class="n">in</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="sc">'0'</span><span class="p">;</span>
 <span class="w">            </span><span class="n">ans</span><span class="o">+=</span><span class="n">c</span><span class="p">;</span>
 <span class="w">        </span><span class="p">}</span>
 <span class="w">    </span><span class="p">}</span><span class="k">else</span><span class="p">{</span>
-<span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="n">in</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">&gt;=</span><span class="sc">&#39;a&#39;</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">in</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">&lt;=</span><span class="sc">&#39;z&#39;</span><span class="p">){</span>
-<span class="w">            </span><span class="kt">int</span><span class="w"> </span><span class="n">c</span><span class="o">=</span><span class="n">in</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="sc">&#39;a&#39;</span><span class="o">+</span><span class="mi">10</span><span class="p">;</span>
+<span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="n">in</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">&gt;=</span><span class="sc">'a'</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">in</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">&lt;=</span><span class="sc">'z'</span><span class="p">){</span>
+<span class="w">            </span><span class="kt">int</span><span class="w"> </span><span class="n">c</span><span class="o">=</span><span class="n">in</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="sc">'a'</span><span class="o">+</span><span class="mi">10</span><span class="p">;</span>
 <span class="w">            </span><span class="n">ans</span><span class="o">+=</span><span class="n">c</span><span class="p">;</span>
 <span class="w">        </span><span class="p">}</span><span class="k">else</span><span class="p">{</span>
-<span class="w">            </span><span class="kt">int</span><span class="w"> </span><span class="n">c</span><span class="o">=</span><span class="n">in</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="sc">&#39;0&#39;</span><span class="p">;</span>
+<span class="w">            </span><span class="kt">int</span><span class="w"> </span><span class="n">c</span><span class="o">=</span><span class="n">in</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="sc">'0'</span><span class="p">;</span>
 <span class="w">            </span><span class="n">ans</span><span class="o">+=</span><span class="n">c</span><span class="p">;</span>
 <span class="w">        </span><span class="p">}</span>
 <span class="w">    </span><span class="p">}</span>
@@ -3756,12 +3719,12 @@
 <span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">len</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
 <span class="w">    </span><span class="k">for</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">len</span><span class="p">;</span><span class="o">++</span><span class="n">i</span><span class="p">){</span>
 <span class="w">        </span><span class="k">for</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">j</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">j</span><span class="o">&lt;</span><span class="mi">16</span><span class="p">;</span><span class="o">++</span><span class="n">j</span><span class="p">){</span>
-<span class="w">            </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;%x &quot;</span><span class="p">,(</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">char</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">_BYTE</span><span class="w"> </span><span class="o">*</span><span class="p">)(</span><span class="n">a1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">16</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">j</span><span class="p">));</span><span class="w">   </span>
+<span class="w">            </span><span class="n">printf</span><span class="p">(</span><span class="s">"%x "</span><span class="p">,(</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">char</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">_BYTE</span><span class="w"> </span><span class="o">*</span><span class="p">)(</span><span class="n">a1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">16</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">j</span><span class="p">));</span><span class="w">   </span>
 <span class="w">          </span><span class="p">}</span>
-<span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
 <span class="w">    </span><span class="p">}</span>
-<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
-<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
 <span class="p">}</span>
 <span class="kt">void</span><span class="w"> </span><span class="n">sub_400D1D</span><span class="p">(</span><span class="kr">__int64</span><span class="w"> </span><span class="n">a1</span><span class="p">,</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">a2</span><span class="p">,</span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">v3</span><span class="p">)</span>
 <span class="p">{</span>
@@ -3769,21 +3732,21 @@
 <span class="w">  </span><span class="kt">char</span><span class="w"> </span><span class="n">v4</span><span class="p">;</span><span class="w"> </span><span class="c1">// [rsp+18h] [rbp-18h]</span>
 <span class="w">  </span><span class="kt">unsigned</span><span class="w"> </span><span class="kr">__int64</span><span class="w"> </span><span class="n">v5</span><span class="p">;</span><span class="w"> </span><span class="c1">// [rsp+28h] [rbp-8h]</span>
 <span class="w">  </span><span class="n">v4</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
-<span class="c1">//  freopen(&quot;jpg.txt&quot;,&quot;r&quot;,stdin);</span>
+<span class="c1">//  freopen("jpg.txt","r",stdin);</span>
 <span class="c1">//  int cnt=0;</span>
 <span class="c1">//  for(int i=0,tmp;i&lt;a2;++i){</span>
-<span class="c1">//      scanf(&quot;%s&quot;,in);</span>
+<span class="c1">//      scanf("%s",in);</span>
 <span class="c1">//      tmp = get_hex();</span>
 <span class="c1">//      *(_BYTE *)(a1 + cnt++) = (unsigned char)(tmp);</span>
 <span class="c1">//  }</span>
 <span class="c1">//  </span>
-<span class="c1">//  freopen(&quot;key.txt&quot;,&quot;r&quot;,stdin);</span>
-<span class="c1">//  puts(&quot;Please enter your key:&quot;);</span>
-<span class="c1">//  scanf(&quot;%8s&quot;, &amp;v3);</span>
+<span class="c1">//  freopen("key.txt","r",stdin);</span>
+<span class="c1">//  puts("Please enter your key:");</span>
+<span class="c1">//  scanf("%8s", &amp;v3);</span>
 <span class="w">  </span><span class="k">for</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="mi">8</span><span class="p">;</span><span class="o">++</span><span class="n">i</span><span class="p">){</span>
 <span class="w">    </span><span class="o">*</span><span class="p">(</span><span class="n">_BYTE</span><span class="w"> </span><span class="o">*</span><span class="p">)(</span><span class="n">a1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">i</span><span class="p">)</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
 <span class="w">  </span><span class="p">}</span>
-<span class="c1">//  for(int i=0;i&lt;8;++i) cout&lt;&lt;(int)v3[i]&lt;&lt;&quot; &quot;;</span>
+<span class="c1">//  for(int i=0;i&lt;8;++i) cout&lt;&lt;(int)v3[i]&lt;&lt;" ";</span>
 <span class="c1">//  cout&lt;&lt;endl;</span>
 <span class="w">  </span><span class="n">sub_400B5A</span><span class="p">((</span><span class="n">_BYTE</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="n">a1</span><span class="p">,</span><span class="w"> </span><span class="n">a2</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="kr">__int64</span><span class="p">)</span><span class="n">v3</span><span class="p">,</span><span class="w"> </span><span class="mf">4L</span><span class="n">L</span><span class="p">,</span><span class="w"> </span><span class="mf">4L</span><span class="n">L</span><span class="p">);</span>
 <span class="w">  </span><span class="c1">//output(a1,a2);</span>
@@ -3797,12 +3760,12 @@
 <span class="w">    </span><span class="c1">//if(i==4 || i==5) continue;</span>
 <span class="w">    </span><span class="k">if</span><span class="p">((</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">char</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">_BYTE</span><span class="w"> </span><span class="o">*</span><span class="p">)(</span><span class="n">a1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">char</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">_BYTE</span><span class="w"> </span><span class="o">*</span><span class="p">)(</span><span class="n">ans</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">i</span><span class="p">))</span><span class="w"> </span><span class="n">flag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
 <span class="w">  </span><span class="p">}</span>
-<span class="c1">//  for(int i=0;i&lt;8;++i) printf(&quot;%x &quot;,(unsigned char)*(_BYTE *)(a1 + i));</span>
+<span class="c1">//  for(int i=0;i&lt;8;++i) printf("%x ",(unsigned char)*(_BYTE *)(a1 + i));</span>
 <span class="c1">//  cout&lt;&lt;endl;</span>
 <span class="w">  </span><span class="k">if</span><span class="p">(</span><span class="n">flag</span><span class="p">){</span>
 <span class="w">    </span><span class="k">for</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="mi">8</span><span class="p">;</span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="n">cout</span><span class="o">&lt;&lt;</span><span class="n">v3</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
 <span class="w">    </span><span class="n">cout</span><span class="o">&lt;&lt;</span><span class="n">endl</span><span class="p">;</span>
-<span class="w">    </span><span class="k">for</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="mi">8</span><span class="p">;</span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;%x &quot;</span><span class="p">,(</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">char</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">_BYTE</span><span class="w"> </span><span class="o">*</span><span class="p">)(</span><span class="n">a1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">i</span><span class="p">));</span>
+<span class="w">    </span><span class="k">for</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="mi">8</span><span class="p">;</span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="n">printf</span><span class="p">(</span><span class="s">"%x "</span><span class="p">,(</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">char</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">_BYTE</span><span class="w"> </span><span class="o">*</span><span class="p">)(</span><span class="n">a1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">i</span><span class="p">));</span>
 <span class="w">    </span><span class="n">cout</span><span class="o">&lt;&lt;</span><span class="n">endl</span><span class="p">;</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
@@ -3813,10 +3776,10 @@
 <span class="w">  </span><span class="kt">char</span><span class="w"> </span><span class="n">v4</span><span class="p">;</span><span class="w"> </span><span class="c1">// [rsp+18h] [rbp-18h]</span>
 <span class="w">  </span><span class="kt">unsigned</span><span class="w"> </span><span class="kr">__int64</span><span class="w"> </span><span class="n">v5</span><span class="p">;</span><span class="w"> </span><span class="c1">// [rsp+28h] [rbp-8h]</span>
 <span class="w">  </span><span class="n">v4</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
-<span class="w">  </span><span class="n">freopen</span><span class="p">(</span><span class="s">&quot;new.txt&quot;</span><span class="p">,</span><span class="s">&quot;r&quot;</span><span class="p">,</span><span class="n">stdin</span><span class="p">);</span>
+<span class="w">  </span><span class="n">freopen</span><span class="p">(</span><span class="s">"new.txt"</span><span class="p">,</span><span class="s">"r"</span><span class="p">,</span><span class="n">stdin</span><span class="p">);</span>
 <span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">cnt</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
 <span class="w">  </span><span class="k">for</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">tmp</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">a2</span><span class="p">;</span><span class="o">++</span><span class="n">i</span><span class="p">){</span>
-<span class="w">    </span><span class="n">scanf</span><span class="p">(</span><span class="s">&quot;%s&quot;</span><span class="p">,</span><span class="n">in</span><span class="p">);</span>
+<span class="w">    </span><span class="n">scanf</span><span class="p">(</span><span class="s">"%s"</span><span class="p">,</span><span class="n">in</span><span class="p">);</span>
 <span class="w">    </span><span class="n">tmp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_hex</span><span class="p">();</span>
 <span class="w">    </span><span class="o">*</span><span class="p">(</span><span class="n">_BYTE</span><span class="w"> </span><span class="o">*</span><span class="p">)(</span><span class="n">a1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">cnt</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">char</span><span class="p">)(</span><span class="n">tmp</span><span class="p">);</span>
 <span class="w">  </span><span class="p">}</span>
@@ -3829,9 +3792,9 @@
 
 <span class="w">  </span><span class="n">reverse_sub_400B5A</span><span class="p">((</span><span class="n">_BYTE</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="n">a1</span><span class="p">,</span><span class="w"> </span><span class="n">a2</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="kr">__int64</span><span class="p">)</span><span class="n">v3</span><span class="p">,</span><span class="w"> </span><span class="mf">4L</span><span class="n">L</span><span class="p">,</span><span class="w"> </span><span class="mf">4L</span><span class="n">L</span><span class="p">);</span>
 <span class="c1">//  for(int i=0;i&lt;a2;++i){</span>
-<span class="c1">//        printf(&quot;%x &quot;,(unsigned char)*(_BYTE *)(a1 + i));</span>
+<span class="c1">//        printf("%x ",(unsigned char)*(_BYTE *)(a1 + i));</span>
 <span class="c1">//  }   </span>
-<span class="w">    </span><span class="c1">//freopen(&quot;flag.txt&quot;,&quot;w&quot;,stdout);</span>
+<span class="w">    </span><span class="c1">//freopen("flag.txt","w",stdout);</span>
 <span class="p">}</span>
 <span class="kt">void</span><span class="w"> </span><span class="n">reverse</span><span class="p">(</span><span class="kr">__int64</span><span class="w"> </span><span class="n">a1</span><span class="p">,</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">a2</span><span class="p">)</span>
 <span class="p">{</span>
@@ -3839,20 +3802,20 @@
 <span class="w">  </span><span class="kt">char</span><span class="w"> </span><span class="n">v4</span><span class="p">;</span><span class="w"> </span><span class="c1">// [rsp+18h] [rbp-18h]</span>
 <span class="w">  </span><span class="kt">unsigned</span><span class="w"> </span><span class="kr">__int64</span><span class="w"> </span><span class="n">v5</span><span class="p">;</span><span class="w"> </span><span class="c1">// [rsp+28h] [rbp-8h]</span>
 <span class="w">  </span><span class="n">v4</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
-<span class="w">  </span><span class="n">freopen</span><span class="p">(</span><span class="s">&quot;new.txt&quot;</span><span class="p">,</span><span class="s">&quot;r&quot;</span><span class="p">,</span><span class="n">stdin</span><span class="p">);</span>
+<span class="w">  </span><span class="n">freopen</span><span class="p">(</span><span class="s">"new.txt"</span><span class="p">,</span><span class="s">"r"</span><span class="p">,</span><span class="n">stdin</span><span class="p">);</span>
 <span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">cnt</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
 <span class="w">  </span><span class="k">for</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">tmp</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">a2</span><span class="p">;</span><span class="o">++</span><span class="n">i</span><span class="p">){</span>
-<span class="w">    </span><span class="n">scanf</span><span class="p">(</span><span class="s">&quot;%s&quot;</span><span class="p">,</span><span class="n">in</span><span class="p">);</span>
+<span class="w">    </span><span class="n">scanf</span><span class="p">(</span><span class="s">"%s"</span><span class="p">,</span><span class="n">in</span><span class="p">);</span>
 <span class="w">    </span><span class="n">tmp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_hex</span><span class="p">();</span>
 <span class="w">    </span><span class="o">*</span><span class="p">(</span><span class="n">_BYTE</span><span class="w"> </span><span class="o">*</span><span class="p">)(</span><span class="n">a1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">cnt</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">char</span><span class="p">)(</span><span class="n">tmp</span><span class="p">);</span>
 <span class="w">  </span><span class="p">}</span>
-<span class="w">  </span><span class="kt">char</span><span class="w"> </span><span class="n">v3</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span><span class="o">=</span><span class="s">&quot;2019ACTF&quot;</span><span class="p">;</span>
+<span class="w">  </span><span class="kt">char</span><span class="w"> </span><span class="n">v3</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span><span class="o">=</span><span class="s">"2019ACTF"</span><span class="p">;</span>
 <span class="w">  </span><span class="n">reverse_sub_400B5A</span><span class="p">((</span><span class="n">_BYTE</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="n">a1</span><span class="p">,</span><span class="w"> </span><span class="n">a2</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="kr">__int64</span><span class="p">)</span><span class="o">&amp;</span><span class="n">v3</span><span class="p">,</span><span class="w"> </span><span class="mf">2L</span><span class="n">L</span><span class="p">,</span><span class="w"> </span><span class="mf">6L</span><span class="n">L</span><span class="p">);</span>
 
 <span class="w">  </span><span class="n">reverse_sub_4009A1</span><span class="p">((</span><span class="n">_BYTE</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="n">a1</span><span class="p">,</span><span class="w"> </span><span class="n">a2</span><span class="p">);</span><span class="w">  </span>
 <span class="w">  </span><span class="n">reverse_sub_400B5A</span><span class="p">((</span><span class="n">_BYTE</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="n">a1</span><span class="p">,</span><span class="w"> </span><span class="n">a2</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="kr">__int64</span><span class="p">)</span><span class="o">&amp;</span><span class="n">v3</span><span class="p">,</span><span class="w"> </span><span class="mf">4L</span><span class="n">L</span><span class="p">,</span><span class="w"> </span><span class="mf">4L</span><span class="n">L</span><span class="p">);</span>
 <span class="w">  </span><span class="k">for</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">a2</span><span class="p">;</span><span class="o">++</span><span class="n">i</span><span class="p">){</span>
-<span class="w">      </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;%x &quot;</span><span class="p">,(</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">char</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">_BYTE</span><span class="w"> </span><span class="o">*</span><span class="p">)(</span><span class="n">a1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">i</span><span class="p">));</span>
+<span class="w">      </span><span class="n">printf</span><span class="p">(</span><span class="s">"%x "</span><span class="p">,(</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">char</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">_BYTE</span><span class="w"> </span><span class="o">*</span><span class="p">)(</span><span class="n">a1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">i</span><span class="p">));</span>
 <span class="w">  </span><span class="p">}</span>
 
 <span class="p">}</span>
@@ -3866,22 +3829,22 @@
 <span class="w">        </span><span class="n">dfs</span><span class="p">(</span><span class="n">step</span><span class="o">+</span><span class="mi">1</span><span class="p">);</span>
 <span class="w">    </span><span class="p">}</span>
 
-<span class="c1">//  for(int i=&#39;A&#39;;i&lt;=&#39;Z&#39;;++i){</span>
+<span class="c1">//  for(int i='A';i&lt;='Z';++i){</span>
 <span class="c1">//      stk[step]=(unsigned char)i;</span>
 <span class="c1">//      dfs(step+1);</span>
 <span class="c1">//  }</span>
-<span class="c1">//  for(int i=&#39;a&#39;;i&lt;=&#39;z&#39;;++i){</span>
+<span class="c1">//  for(int i='a';i&lt;='z';++i){</span>
 <span class="c1">//      stk[step]=(unsigned char)i;</span>
 <span class="c1">//      dfs(step+1);</span>
 <span class="c1">//  }</span>
 <span class="p">}</span>
 <span class="kt">void</span><span class="w"> </span><span class="n">solve</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">freopen</span><span class="p">(</span><span class="s">&quot;qua_key_2.txt&quot;</span><span class="p">,</span><span class="s">&quot;r&quot;</span><span class="p">,</span><span class="n">stdin</span><span class="p">);</span>
-<span class="w">    </span><span class="c1">//freopen(&quot;qua_key.txt&quot;,&quot;w&quot;,stdout);</span>
+<span class="w">    </span><span class="n">freopen</span><span class="p">(</span><span class="s">"qua_key_2.txt"</span><span class="p">,</span><span class="s">"r"</span><span class="p">,</span><span class="n">stdin</span><span class="p">);</span>
+<span class="w">    </span><span class="c1">//freopen("qua_key.txt","w",stdout);</span>
 <span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">len</span><span class="o">=</span><span class="mh">0x5A11ll</span><span class="p">;</span>
 <span class="w">    </span><span class="k">for</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;=</span><span class="mi">103</span><span class="p">;</span><span class="o">++</span><span class="n">i</span><span class="p">){</span>
 <span class="w">        </span><span class="n">gets</span><span class="p">((</span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="n">stk</span><span class="p">);</span>
-<span class="w">        </span><span class="c1">//printf(&quot;%s\n&quot;,stk);</span>
+<span class="w">        </span><span class="c1">//printf("%s\n",stk);</span>
 <span class="w">        </span><span class="n">dfs</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
@@ -3894,7 +3857,7 @@
 </code></pre></div>
 <p>评价为数学最差的一集</p>
 <p>reverse 里还能有 “非常好玩” 的数学</p>
-<p>你甚至在 reverse 里做 crypto</p>
+<p>你甚至在 reverse 里做 crypto</p></div>
 
 
 

@@ -146,43 +146,6 @@
     
     
     
-      <label class="md-header__button md-icon" for="__search">
-        
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
-      </label>
-      <div class="md-search" data-md-component="search" role="dialog">
-  <label class="md-search__overlay" for="__search"></label>
-  <div class="md-search__inner" role="search">
-    <form class="md-search__form" name="search">
-      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
-      <label class="md-search__icon md-icon" for="__search">
-        
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
-        
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
-      </label>
-      <nav class="md-search__options" aria-label="Search">
-        
-        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
-          
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
-        </button>
-      </nav>
-      
-    </form>
-    <div class="md-search__output">
-      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
-        <div class="md-search-result" data-md-component="search-result">
-          <div class="md-search-result__meta">
-            Initializing search
-          </div>
-          <ol class="md-search-result__list" role="presentation"></ol>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-    
     
       <div class="md-header__source">
         <a href="https://github.com/akonjac0/note" title="Go to repository" class="md-source" data-md-component="source">
@@ -3627,7 +3590,7 @@
   
 
 
-<h1 id="_1">环路与面公式</h1>
+<div><h1 id="_1">环路与面公式</h1>
 <h2 id="_2">定义</h2>
 <h3 id="_3">散度</h3>
 <p>单位体积的通量</p>
@@ -3726,7 +3689,7 @@
 <blockquote>
 <p>例: 圆柱形区域内, <span class="arithmatex">\(P=P_0z/L\)</span>, 那么得到 <span class="arithmatex">\(\rho'=-\nabla \cdot P = -\frac{\partial P}{\partial z}=-P_0/L\)</span>, 因此高斯定理得到<span class="arithmatex">\(E=-P_0z/L\)</span>, 说明 <span class="arithmatex">\(D=0\)</span> 且 <span class="arithmatex">\(E\not =0\)</span>, 那么 <span class="arithmatex">\(\kappa_e=0\)</span></p>
 </blockquote>
-<p><img alt="alt text" src="../../images/general_physics/image_1%283%29.png" /></p>
+<p><img alt="alt text" src="../../images/general_physics/image_1%283%29.png"></p>
 <p>问题出在 <span class="arithmatex">\(D=\kappa_e \epsilon_0 E\)</span> 这个公式只适用于各向同性的线性电介质</p>
 <p>这句话有点抽象, 但这题的电介质大概就不满足这个条件</p>
 <p>所以我们不能只通过 <span class="arithmatex">\(D=0\)</span> 来说 <span class="arithmatex">\(\kappa_e=0\)</span></p>
@@ -3804,7 +3767,7 @@ $</p>
 <p><span class="arithmatex">\(\displaystyle E=\frac{\sigma}{2\epsilon_0}\)</span></p>
 <h2 id="_40">电偶极矩</h2>
 <p>从两个点电荷得出</p>
-<p><img alt="" src="../../images/image-3.png" /></p>
+<p><img alt="" src="../../images/image-3.png"></p>
 <p><span class="arithmatex">\(\displaystyle E_y=\frac1{4\pi\epsilon_0}\frac{2Qa}{(x^2+a^2)^{3/2}}=\frac1{4\pi\epsilon_0}\frac{p}{(x^2+a^2)^{3/2}}=\frac p{4\pi\epsilon_0x^3}[1+(\frac32)(\frac ax)^2+\cdots]=\frac p{4\pi\epsilon_0x^3}\)</span></p>
 <p><span class="arithmatex">\(p=2Qa\)</span></p>
 <h1 id="u">电势能 <span class="arithmatex">\(U\)</span></h1>
@@ -3847,7 +3810,7 @@ $</p>
 <h2 id="_55">螺绕环</h2>
 <p><span class="arithmatex">\(\displaystyle B=\frac{\mu_0Ni}{2\pi r}=\mu_0ni\)</span></p>
 <h2 id="_56">无限板</h2>
-<p><img alt="alt text" src="../../images/image-4.png" /></p>
+<p><img alt="alt text" src="../../images/image-4.png"></p>
 <p><span class="arithmatex">\(\displaystyle B=\frac12 \mu_0ni\)</span></p>
 <h2 id="_57">磁偶极矩</h2>
 <p>从圆环得出</p>
@@ -3861,10 +3824,10 @@ $</p>
 <p>一段 <span class="arithmatex">\(l\)</span> 对应的自感</p>
 <p><span class="arithmatex">\(\displaystyle L=\mu_0n^2lA\)</span></p>
 <h2 id="_59">长方形螺绕环</h2>
-<p><img alt="alt text" src="../../images/image-5.png" /></p>
+<p><img alt="alt text" src="../../images/image-5.png"></p>
 <p><span class="arithmatex">\(\displaystyle L=\frac{\mu_0n^2h}{2\pi}\ln\frac ba\)</span></p>
 <h2 id="_60">同轴电缆</h2>
-<p><img alt="alt text" src="../../images/image-6.png" /></p>
+<p><img alt="alt text" src="../../images/image-6.png"></p>
 <p><span class="arithmatex">\(\displaystyle L=\frac{\mu_0}{2\pi}l\ln\frac {R_2}{R_1}\)</span></p>
 <h2 id="_61">电感与互感</h2>
 <p><span class="arithmatex">\(M=\sqrt{L_1L_2}\)</span></p>
@@ -3970,14 +3933,14 @@ $</p>
 <p>平行导线方向为 <span class="arithmatex">\(i\epsilon\)</span></p>
 <p>导线为导体, 所以表面有电荷</p>
 <p>所以既有向内生热, 又有向前传给电阻做功</p>
-<p><img alt="alt text" src="../../images/general_physics/image_1%284%29.png" /></p>
-<p><img alt="alt text" src="../../images/general_physics/image_1%285%29.png" /></p>
+<p><img alt="alt text" src="../../images/general_physics/image_1%284%29.png"></p>
+<p><img alt="alt text" src="../../images/general_physics/image_1%285%29.png"></p>
 <p>电源电场为反方向, 所以有向外的 <span class="arithmatex">\(S\)</span>, 这是在向外传递能量, 沿着导线传给电阻</p>
-<p><img alt="alt text" src="../../images/general_physics/image_1%286%29.png" /></p>
+<p><img alt="alt text" src="../../images/general_physics/image_1%286%29.png"></p>
 <p>电阻周围正负电荷抵消, 所以没有能量传递, 只有生热:</p>
-<p><img alt="alt text" src="../../images/general_physics/image_1%288%29.png" /></p>
+<p><img alt="alt text" src="../../images/general_physics/image_1%288%29.png"></p>
 <p>最后整个图:</p>
-<p><img alt="alt text" src="../../images/general_physics/image_1%287%29.png" /></p>
+<p><img alt="alt text" src="../../images/general_physics/image_1%287%29.png"></p>
 <h2 id="_72">电阻</h2>
 <p><span class="arithmatex">\(\overset{\to}S\)</span> 向内</p>
 <p><span class="arithmatex">\(\displaystyle -\oiint \overset{\to}S\cdot dA= \oiint S\cdot dA=i^2R\)</span></p>
@@ -4012,14 +3975,14 @@ $</p>
 <p><span class="arithmatex">\(\displaystyle \therefore \frac{f'}{f}=\frac{n'}{n},\frac{f'}{i}+\frac{f}{o}=1\)</span></p>
 <p><span class="arithmatex">\(o=object, i=image\)</span></p>
 <h2 id="_79">球面镜成像</h2>
-<p><img alt="alt text" src="../../images/general_physics/image_1%282%29.png" /></p>
+<p><img alt="alt text" src="../../images/general_physics/image_1%282%29.png"></p>
 <p><span class="arithmatex">\(n\sin\theta = n'\sin\theta'\)</span></p>
 <p><span class="arithmatex">\(n=-n'\)</span></p>
 <p><span class="arithmatex">\(\displaystyle f'=\frac{n'}{n'-n}r=\frac{r}{2}\)</span></p>
 <p><span class="arithmatex">\(\displaystyle f=\frac{n}{n'-n}r=-\frac{r}{2}\)</span></p>
 <p><span class="arithmatex">\(\displaystyle \therefore \frac{1}{o}+\frac{1}{i}=-\frac{2}{r}\)</span></p>
 <h2 id="_80">磨镜者公式</h2>
-<p><img alt="alt text" src="../../images/general_physics/image_1%281%29.png" /></p>
+<p><img alt="alt text" src="../../images/general_physics/image_1%281%29.png"></p>
 <p><span class="arithmatex">\(\displaystyle f'=\frac{n'}{\frac{n_L-n}{r_1}+\frac{n'-n_L}{r_2}}\)</span></p>
 <p><span class="arithmatex">\(\displaystyle f=\frac{n}{\frac{n_L-n}{r_1}+\frac{n'-n_L}{r_2}}\)</span></p>
 <p>当 <span class="arithmatex">\(n'=n=1\)</span></p>
@@ -4074,10 +4037,10 @@ F-y'\frac{\partial F}{\partial y'}=c
 <p><span class="arithmatex">\(\displaystyle F-y'\frac{\partial F}{\partial y'}=n(y)\cdot \sqrt{1+y'^2}-y'\cdot n(y)\cdot \frac{y'}{\sqrt{1+y'^2}}=\frac{n(y)}{\sqrt{1+y'^2}}=c\)</span></p>
 <p>若路径与铅垂线夹角为 <span class="arithmatex">\(\theta\)</span>, 那么 <span class="arithmatex">\(\displaystyle \cot \theta = \frac{dy}{dx}, \sin \theta = \frac{1}{\sqrt{1+y'^2}}\)</span></p>
 <p>首先，对于反射定律:</p>
-<p><img alt="alt text" src="../../images/image-7.png" /></p>
+<p><img alt="alt text" src="../../images/image-7.png"></p>
 <p>由于 <span class="arithmatex">\(n(y)\)</span> 不变，所以 <span class="arithmatex">\(\sin\theta=\frac{n(y)}{c}\)</span> 不变，所以 <span class="arithmatex">\(\sin\theta_1=\sin\theta_1'\)</span></p>
 <p>其次，对于折射定律:</p>
-<p><img alt="alt text" src="../../images/image-8.png" /></p>
+<p><img alt="alt text" src="../../images/image-8.png"></p>
 <p><span class="arithmatex">\(n(y)\sin \theta=c\)</span>, 即如果 <span class="arithmatex">\(n\)</span> 是位置的连续函数，则 <span class="arithmatex">\(n(y)\sin \theta\)</span> 是一个常数</p>
 <p>这可以得到折射定律: <span class="arithmatex">\(n_1\sin\theta_1=n_2\sin\theta_2\)</span></p>
 <p>此外还可以得到大气中光线轨迹的微分方程：<span class="arithmatex">\(\displaystyle \frac{dy}{dx}=\frac1c\cdot \sqrt{n(y)^2-c^2}\)</span></p>
@@ -4092,7 +4055,7 @@ F-y'\frac{\partial F}{\partial y'}=c
 <p>相位领先 <span class="arithmatex">\(\phi\)</span> 说明要 <span class="arithmatex">\(-\phi\)</span></p>
 <p><span class="arithmatex">\(\cos(kx+wt)\to \cos(kx+wt-\phi)\)</span></p>
 <h2 id="_90">等倾薄膜干涉</h2>
-<p><img alt="alt text" src="../../images/general_physics/image_1%289%29.png" /></p>
+<p><img alt="alt text" src="../../images/general_physics/image_1%289%29.png"></p>
 <p><span class="arithmatex">\(2nh\cos i=m\lambda, maxima\)</span></p>
 <p><span class="arithmatex">\(2nh\cos i=(m+\frac12)\lambda, minima\)</span></p>
 <p>对于垂直入射:</p>
@@ -4105,12 +4068,12 @@ F-y'\frac{\partial F}{\partial y'}=c
 </li>
 </ul>
 <h2 id="_91">等厚薄膜干涉</h2>
-<p><img alt="alt text" src="../../images/general_physics/image_1%2810%29.png" /></p>
+<p><img alt="alt text" src="../../images/general_physics/image_1%2810%29.png"></p>
 <p><span class="arithmatex">\(2nh\cos i=m\lambda, maxima\)</span></p>
 <p><span class="arithmatex">\(2nh\cos i=(m+\frac12)\lambda, minima\)</span></p>
 <h2 id="_92">牛顿环</h2>
 <p>通过测量球面一部分的干涉纹来计算原本球的半径</p>
-<p><img alt="alt text" src="../../images/general_physics/image_1%2811%29.png" /></p>
+<p><img alt="alt text" src="../../images/general_physics/image_1%2811%29.png"></p>
 <p><span class="arithmatex">\(\Delta L = 2h+\frac\lambda 2=\left\{\begin{array}{l}m\lambda &amp; maxima\\\\ (2m+1)\frac{\lambda}{2} &amp; minima\end{array}\right.\)</span></p>
 <!-- <span class="arithmatex">\(\Delta L = 2h+\frac\lambda 2=\left\\{\begin{array}{l}m\lambda &amp; maxima\\\\ (2m+1)\frac{\lambda}{2} &amp; minima\end{array}\right.\)</span> -->
 <p>注意由于是球面下的空气产生光程差，所以下反射面有半波损</p>
@@ -4118,14 +4081,14 @@ F-y'\frac{\partial F}{\partial y'}=c
 <h2 id="michelsons-interferometer">Michelson's Interferometer</h2>
 <p><span class="arithmatex">\(\Delta L=2d=m\lambda\)</span></p>
 <h3 id="_93">以太</h3>
-<p><img alt="alt text" src="../../images/image_21.png" /></p>
+<p><img alt="alt text" src="../../images/image_21.png"></p>
 <p>如果改变装置运动的方向, 理论上来说, 两个光线的光程差会因为以太运动方向不同而改变, 因此干涉条纹变化</p>
 <p>但实验结果是, 无论怎么转, 干涉条纹不变</p>
 <p>所以 <strong>以太不应该存在</strong>.</p>
 <p>解决了物理学两朵乌云的第一朵</p>
 <h1 id="_94">衍射</h1>
 <h2 id="_95">惠更斯原理</h2>
-<p><img alt="alt text" src="../../images/general_physics/image_1%2812%29.png" /></p>
+<p><img alt="alt text" src="../../images/general_physics/image_1%2812%29.png"></p>
 <div class="arithmatex">\[dE_p=C\frac{dS}{r} K(\theta)\cos(\frac{2\pi}{\lambda}r-\omega t+\phi_0)\]</div>
 <p>波前的每一点可看作是新的波源</p>
 <p>当光波遇到障碍物或狭缝时, 障碍物的边缘会成为新的波源, 从而使光波在原本的直线传播方向外传播 <span class="arithmatex">\(\to\)</span> 衍射</p>
@@ -4134,7 +4097,7 @@ F-y'\frac{\partial F}{\partial y'}=c
 <p>对应的相位差为 <span class="arithmatex">\(\displaystyle \alpha = \frac n2 \Delta\phi\)</span></p>
 <p>且 <span class="arithmatex">\(\displaystyle \Delta\phi = \frac{2\pi}{\lambda} \Delta x\sin \theta=\frac{2\pi}{\lambda} \frac{a}{n}\sin \theta\)</span></p>
 <p>所以 <span class="arithmatex">\(\displaystyle \alpha = \frac{\pi a \sin \theta}{\lambda}\)</span></p>
-<p><img alt="alt text" src="../../images/image_22.png" /></p>
+<p><img alt="alt text" src="../../images/image_22.png"></p>
 <p>光强是电场平方: <span class="arithmatex">\(\displaystyle I_\theta = E_\theta^2\)</span></p>
 <p>圆弧长对应最大的电场 (因为没有向量抵消)， 弦长等于当前 <span class="arithmatex">\(\theta\)</span> 对应的电场 </p>
 <p><span class="arithmatex">\(E_m=\overgroup{MN}\)</span></p>
@@ -4164,7 +4127,7 @@ F-y'\frac{\partial F}{\partial y'}=c
 <p>缝与缝之间间距 <span class="arithmatex">\(d\)</span></p>
 <p><span class="arithmatex">\(\displaystyle \delta = \frac{2\pi}{\lambda}d\sin\theta=2\beta\)</span></p>
 <p><span class="arithmatex">\(\displaystyle \beta = \frac{\pi d\sin\theta}{\lambda}\)</span></p>
-<p><img alt="alt text" src="../../images/image_23.png" /></p>
+<p><img alt="alt text" src="../../images/image_23.png"></p>
 <p><span class="arithmatex">\(\displaystyle E_\theta = \overline{OB_N}=2\overline{OC}\sin{N\beta}=2\frac{E_1}{2\sin\beta}\sin{N\beta}=E_1\frac{\sin N\beta}{\sin\beta}\)</span></p>
 <p><span class="arithmatex">\(\displaystyle E_1=E_m\frac{\sin\alpha}\alpha\)</span></p>
 <p><span class="arithmatex">\(\displaystyle \therefore I_\theta = I_m(\frac{\sin\alpha}{\alpha})^2(\frac{\sin N\beta}{\sin\beta})^2\)</span></p>
@@ -4176,7 +4139,7 @@ F-y'\frac{\partial F}{\partial y'}=c
 <p>主极大半角宽度 <span class="arithmatex">\(\displaystyle\Delta\theta=\frac{\lambda}{Nd\cos\theta}\approx \frac{\lambda}{Nd}\)</span></p>
 <p>且由于 <span class="arithmatex">\(\frac{\sin\alpha}{\alpha}\)</span>, 每 <span class="arithmatex">\(d/a=n\)</span> 个主极大都会出现一个主极大缺失</p>
 <p>对于 <span class="arithmatex">\(d=3a,N=4\)</span>:</p>
-<p><img alt="alt text" src="../../images/general_physics/image_1%2814%29.png" /></p>
+<p><img alt="alt text" src="../../images/general_physics/image_1%2814%29.png"></p>
 <p>每两个缺失之间包含 <span class="arithmatex">\(2n-1\)</span> 个主极大,成为 diffraction envelope</p>
 <h2 id="_103">色散本领</h2>
 <p>由 <span class="arithmatex">\(d\sin\theta=m\lambda\)</span></p>
@@ -4198,7 +4161,7 @@ F-y'\frac{\partial F}{\partial y'}=c
 <p>在晶格中, 晶面间距 (interplanar spacing) 为 <span class="arithmatex">\(d=\frac{d_0}{\sqrt{h^2+k^2}}\)</span></p>
 <p><span class="arithmatex">\(h,k\)</span> 互质</p>
 <p>例如 <span class="arithmatex">\(h=2,k=1\)</span>:</p>
-<p><img alt="alt text" src="../../images/general_physics/image_1%2816%29.png" /></p>
+<p><img alt="alt text" src="../../images/general_physics/image_1%2816%29.png"></p>
 <h1 id="_106">偏振</h1>
 <p>偏振方向 = 电场方向</p>
 <h2 id="law-of-malus">Law of Malus</h2>
@@ -4207,7 +4170,7 @@ F-y'\frac{\partial F}{\partial y'}=c
 <p>除以 <span class="arithmatex">\(2\pi\)</span> 表示某一方向的光强期望</p>
 <p>所以对于 <span class="arithmatex">\(\cos^2\theta\)</span> 从 <span class="arithmatex">\([0,2\pi]\)</span> 积分, 得到 <span class="arithmatex">\(\pi\)</span>, 所以 <span class="arithmatex">\(I'=I\pi\cdot\frac{1}{2\pi}=\frac{I}2\)</span></p>
 <h2 id="brewsters-angle">Brewster's angle</h2>
-<p><img alt="alt text" src="../../images/general_physics/image_1%2815%29.png" /></p>
+<p><img alt="alt text" src="../../images/general_physics/image_1%2815%29.png"></p>
 <p><span class="arithmatex">\(\tan\theta = \frac{n_2}{n_1}\)</span></p>
 <h2 id="_107">双折射</h2>
 <h3 id="o-e"><span class="arithmatex">\(O, E\)</span> 光</h3>
@@ -4223,7 +4186,7 @@ F-y'\frac{\partial F}{\partial y'}=c
 <p><span class="arithmatex">\(E_y=E_0\sin(kz-\omega t)\)</span></p>
 <p>经过 <span class="arithmatex">\(1/4\lambda\)</span> 波片:</p>
 <p>假设光轴是 <span class="arithmatex">\(x\)</span> 轴</p>
-<p><img alt="alt text" src="../../images/image_1%281%29.png" /></p>
+<p><img alt="alt text" src="../../images/image_1%281%29.png"></p>
 <p>与光轴, 传播方向所成平面垂直的 <span class="arithmatex">\(y\)</span> 方向为寻常光</p>
 <p><span class="arithmatex">\(A_o\)</span> 相位不变, 即相位 <span class="arithmatex">\(\alpha_{slow}\to \alpha_{slow}\)</span></p>
 <p><span class="arithmatex">\(A_e\)</span> 快了 <span class="arithmatex">\(1/4\)</span> 周期, 即相位右移,  <span class="arithmatex">\(\alpha_{fast}\to\alpha_{fast}-\frac{\pi}{2}\)</span></p>
@@ -4253,17 +4216,17 @@ F-y'\frac{\partial F}{\partial y'}=c
 <p>旋转偏振片</p>
 </li>
 </ol>
-<hr />
+<hr>
 <ul>
 <li>自然光 <span class="arithmatex">\(\to\)</span> 自然光 <span class="arithmatex">\(\to\)</span> 线偏振光: 光强不变</li>
 <li>圆偏振光 <span class="arithmatex">\(\to\)</span> 线偏振光 <span class="arithmatex">\(\to\)</span> 线偏振光: 变, 有消光</li>
 </ul>
-<hr />
+<hr>
 <ul>
 <li>部分偏振光 <span class="arithmatex">\(\to\)</span> 部分偏振光 <span class="arithmatex">\(\to\)</span> 线偏振光: 变, 无消光</li>
 <li>椭圆偏振光 <span class="arithmatex">\(\to\)</span> 线偏振光 <span class="arithmatex">\(\to\)</span> 线偏振光: 变, 有消光</li>
 </ul>
-<hr />
+<hr>
 <h1 id="_111">散射</h1>
 <p>原理: 光通过分子, 使价电子振动, 再发出光, 产生散射光 </p>
 <p>散射光是偏振光</p>
@@ -4319,7 +4282,7 @@ F-y'\frac{\partial F}{\partial y'}=c
 <p>所以 <span class="arithmatex">\(E \Psi(r)=(- \frac{\hbar^2}{2m} \nabla^2+V(r))\Psi(r)\)</span> 为定态薛定谔方程</p>
 <ul>
 <li>~~图源：Minghu Fang PPT~~</li>
-</ul>
+</ul></div>
 
 
 

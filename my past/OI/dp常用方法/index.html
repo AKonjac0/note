@@ -146,43 +146,6 @@
     
     
     
-      <label class="md-header__button md-icon" for="__search">
-        
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
-      </label>
-      <div class="md-search" data-md-component="search" role="dialog">
-  <label class="md-search__overlay" for="__search"></label>
-  <div class="md-search__inner" role="search">
-    <form class="md-search__form" name="search">
-      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
-      <label class="md-search__icon md-icon" for="__search">
-        
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
-        
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
-      </label>
-      <nav class="md-search__options" aria-label="Search">
-        
-        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
-          
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
-        </button>
-      </nav>
-      
-    </form>
-    <div class="md-search__output">
-      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
-        <div class="md-search-result" data-md-component="search-result">
-          <div class="md-search-result__meta">
-            Initializing search
-          </div>
-          <ol class="md-search-result__list" role="presentation"></ol>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-    
     
       <div class="md-header__source">
         <a href="https://github.com/akonjac0/note" title="Go to repository" class="md-source" data-md-component="source">
@@ -3305,7 +3268,7 @@
   
 
 
-<h1 id="dp">dp常用方法</h1>
+<div><h1 id="dp">dp常用方法</h1>
 <p>1.常用的填表法和刷表法：</p>
 <p>填表法就是利用状态转移方程和上一个状态来推导出现在的状态（相当于知道已知条件，将答案填入）</p>
 <p>刷表法就是利用当前的状态，把有关联的下一状态都推出来。</p>
@@ -3330,7 +3293,7 @@
 <p>(重点) 4).将下一状态与当前状态通过决策建立联系，并将i+1,j-1,k+v等下一状态的系数迭代为i,j,k,以将下一状态当作当前状态，将当前状态转化为上一状态，用填表法做题。(f[i+1][j][k]-&gt;f[i][j][k],f[i+1][j+1][k]-&gt;f[i][j][k] 可以变为 f[i][j][k]=max(f[i-1][j][k],f[i-1][j-1][k]))</p>
 <p>5) 常见跳转与状态设置</p>
 <p>1.设考虑到第<span class="arithmatex">\(i\)</span>个时的<span class="arithmatex">\(f[i]\)</span>,下一次跳转到<span class="arithmatex">\(f[i+1]\)</span>，如传统背包
-2.设考虑到前<span class="arithmatex">\(i\)</span>个时的<span class="arithmatex">\(f[i]\)</span>,跳转可能是将第<span class="arithmatex">\(i+1\)</span>个插入到前<span class="arithmatex">\(i\)</span>个里，也可能直接跳转到<span class="arithmatex">\(j(j&gt;i)\)</span>，忽略<span class="arithmatex">\([i+1,j-1]\)</span>的物品。</p>
+2.设考虑到前<span class="arithmatex">\(i\)</span>个时的<span class="arithmatex">\(f[i]\)</span>,跳转可能是将第<span class="arithmatex">\(i+1\)</span>个插入到前<span class="arithmatex">\(i\)</span>个里，也可能直接跳转到<span class="arithmatex">\(j(j&gt;i)\)</span>，忽略<span class="arithmatex">\([i+1,j-1]\)</span>的物品。</p></div>
 
 
 

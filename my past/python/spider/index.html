@@ -146,43 +146,6 @@
     
     
     
-      <label class="md-header__button md-icon" for="__search">
-        
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
-      </label>
-      <div class="md-search" data-md-component="search" role="dialog">
-  <label class="md-search__overlay" for="__search"></label>
-  <div class="md-search__inner" role="search">
-    <form class="md-search__form" name="search">
-      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
-      <label class="md-search__icon md-icon" for="__search">
-        
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
-        
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
-      </label>
-      <nav class="md-search__options" aria-label="Search">
-        
-        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
-          
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
-        </button>
-      </nav>
-      
-    </form>
-    <div class="md-search__output">
-      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
-        <div class="md-search-result" data-md-component="search-result">
-          <div class="md-search-result__meta">
-            Initializing search
-          </div>
-          <ol class="md-search-result__list" role="presentation"></ol>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-    
     
       <div class="md-header__source">
         <a href="https://github.com/akonjac0/note" title="Go to repository" class="md-source" data-md-component="source">
@@ -3697,13 +3660,13 @@
   
 
 
-<h1 id="python">python 爬虫总结</h1>
+<div><h1 id="python">python 爬虫总结</h1>
 <p>爬虫主要针对b站的资源获取，因为b站的反爬机制还是可以的</p>
 <h2 id="b">一.b站图片的获取</h2>
 <h3 id="1img">1.通过静态网页img标签获取</h3>
 <p>第一种方法是，使用<span class="arithmatex">\(requests\)</span>模块获取b站网页源代码，通过正则表达式解析出链接(<span class="arithmatex">\(img\)</span>标签的解析)，再访问这些链接进行图片的储存。</p>
 <p>实例:b站主页部分静态图片的获取
-<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+</p><div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">requests</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
@@ -3711,8 +3674,8 @@
 
 
 <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s1">&#39;user-agent&#39;</span><span class="p">:</span> <span class="s1">&#39;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0&#39;</span>
-                  <span class="s1">&#39;.5112.102 Safari/537.36 Edg/104.0.1293.63&#39;</span>
+    <span class="s1">'user-agent'</span><span class="p">:</span> <span class="s1">'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0'</span>
+                  <span class="s1">'.5112.102 Safari/537.36 Edg/104.0.1293.63'</span>
 <span class="p">}</span>
 
 
@@ -3723,10 +3686,10 @@
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">get_url</span><span class="p">(</span><span class="n">html</span><span class="p">):</span>
-    <span class="n">Img</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;img.*src=&quot;(.*?)&quot;&#39;</span><span class="p">)</span>
-    <span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">html</span><span class="p">,</span> <span class="s2">&quot;html.parser&quot;</span><span class="p">)</span>
+    <span class="n">Img</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s1">'img.*src="(.*?)"'</span><span class="p">)</span>
+    <span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">html</span><span class="p">,</span> <span class="s2">"html.parser"</span><span class="p">)</span>
     <span class="n">data</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">soup</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;img&#39;</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">soup</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">'img'</span><span class="p">):</span>
         <span class="n">item</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
         <span class="n">pic_list</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">Img</span><span class="p">,</span> <span class="n">item</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">pic_list</span><span class="p">:</span>
@@ -3737,15 +3700,15 @@
 <span class="k">def</span><span class="w"> </span><span class="nf">save_pic</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">lim</span><span class="p">):</span>
     <span class="n">cnt</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">i</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;https:&#39;</span><span class="p">):</span>
-            <span class="n">i</span> <span class="o">=</span> <span class="s1">&#39;https:&#39;</span> <span class="o">+</span> <span class="n">i</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">i</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">'https:'</span><span class="p">):</span>
+            <span class="n">i</span> <span class="o">=</span> <span class="s1">'https:'</span> <span class="o">+</span> <span class="n">i</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">img</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
             <span class="n">byte</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">content</span>
-            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;image</span><span class="si">{}</span><span class="s2">.jpg&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cnt</span><span class="p">),</span> <span class="s2">&quot;wb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">"image</span><span class="si">{}</span><span class="s2">.jpg"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cnt</span><span class="p">),</span> <span class="s2">"wb"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
                 <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">byte</span><span class="p">)</span>
             <span class="n">cnt</span> <span class="o">+=</span> <span class="mi">1</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;downloaded:</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cnt</span><span class="p">))</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">"downloaded:</span><span class="si">{}</span><span class="s2">"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cnt</span><span class="p">))</span>
         <span class="k">except</span> <span class="n">requests</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">InvalidURL</span><span class="p">:</span>
             <span class="k">pass</span>
         <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.25</span><span class="p">)</span>
@@ -3759,22 +3722,22 @@
     <span class="n">html</span> <span class="o">=</span> <span class="n">get_html</span><span class="p">(</span><span class="n">url_base</span><span class="p">)</span>
     <span class="n">data</span> <span class="o">=</span> <span class="n">get_url</span><span class="p">(</span><span class="n">html</span><span class="p">)</span>
     <span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="n">target_dir</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;target dir: &quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"target dir: "</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()))</span>
     <span class="n">save_pic</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">pic_num</span><span class="p">)</span>
 
 
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
-    <span class="n">url</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;https://www.bilibili.com/&#39;</span>   <span class="c1">#input(&quot;请输入网址:&quot;)</span>
-    <span class="n">dirt</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;C:\Users\Yimen\Desktop\bilibili主页_1&#39;</span>   <span class="c1">#input(&quot;请输入目标文件夹:&quot;)</span>
-    <span class="n">num</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">(</span><span class="s2">&quot;请输入想要获取的图片数量:&quot;</span><span class="p">))</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">'__main__'</span><span class="p">:</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">'https://www.bilibili.com/'</span>   <span class="c1">#input("请输入网址:")</span>
+    <span class="n">dirt</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">'C:\Users\Yimen\Desktop\bilibili主页_1'</span>   <span class="c1">#input("请输入目标文件夹:")</span>
+    <span class="n">num</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">(</span><span class="s2">"请输入想要获取的图片数量:"</span><span class="p">))</span>
     <span class="n">get_image</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">dirt</span><span class="p">,</span> <span class="n">num</span><span class="p">)</span>
-</code></pre></div></p>
+</code></pre></div>
 <p>不过，这种方法只能获取b站部分网页的图片，其他网页，例如B站主页的图片几乎都是用<span class="arithmatex">\(js\)</span>渲染出来的，在静态网页中不显示。</p>
 <h3 id="2img">2.通过动态网页img标签获取</h3>
 <p>因此，第二种方法是使用<span class="arithmatex">\(seleium\)</span>获取当前网页的动态代码，再获取链接。</p>
 <p>这种方法一定能获取图片，因为你看到的图片，都在动态代码中，而<span class="arithmatex">\(selenium\)</span>都能够获取下来。但是，<span class="arithmatex">\(selenium\)</span>页只能获取已经加载的图片，因此要自动设置将网页下移到底部，如果想要获取多个网页的图片，还需要设置翻页。并且速度也不如<span class="arithmatex">\(requests\)</span>快。</p>
 <p>实例:获取b站主页的图片
-<div class="highlight"><pre><span></span><code><span class="c1"># selenium_get_html.py</span>
+</p><div class="highlight"><pre><span></span><code><span class="c1"># selenium_get_html.py</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">selenium</span><span class="w"> </span><span class="kn">import</span> <span class="n">webdriver</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
 
@@ -3784,14 +3747,14 @@
     <span class="n">driver</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url_base</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">):</span>
         <span class="c1"># 控制网页向下滚动1000像素值</span>
-        <span class="n">driver</span><span class="o">.</span><span class="n">execute_script</span><span class="p">(</span><span class="s2">&quot;window.scrollBy(0,1000)&quot;</span><span class="p">)</span>
+        <span class="n">driver</span><span class="o">.</span><span class="n">execute_script</span><span class="p">(</span><span class="s2">"window.scrollBy(0,1000)"</span><span class="p">)</span>
         <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-    <span class="n">driver</span><span class="o">.</span><span class="n">encoding</span> <span class="o">=</span> <span class="s1">&#39;UTF-8&#39;</span>
+    <span class="n">driver</span><span class="o">.</span><span class="n">encoding</span> <span class="o">=</span> <span class="s1">'UTF-8'</span>
     <span class="k">return</span> <span class="n">driver</span><span class="o">.</span><span class="n">page_source</span>
 
 
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
-    <span class="n">url</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;https://www.bilibili.com/&#39;</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">'__main__'</span><span class="p">:</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">'https://www.bilibili.com/'</span>
 </code></pre></div>
 <div class="highlight"><pre><span></span><code><span class="c1"># selenium_get_image.py</span>
 
@@ -3804,8 +3767,8 @@
 
 
 <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s1">&#39;user-agent&#39;</span><span class="p">:</span> <span class="s1">&#39;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0&#39;</span>
-                  <span class="s1">&#39;.5112.102 Safari/537.36 Edg/104.0.1293.63&#39;</span>
+    <span class="s1">'user-agent'</span><span class="p">:</span> <span class="s1">'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0'</span>
+                  <span class="s1">'.5112.102 Safari/537.36 Edg/104.0.1293.63'</span>
 <span class="p">}</span>
 
 
@@ -3816,10 +3779,10 @@
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">get_url</span><span class="p">(</span><span class="n">html</span><span class="p">):</span>
-    <span class="n">Img</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;img.*src=&quot;(.*?)&quot;&#39;</span><span class="p">)</span>
-    <span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">html</span><span class="p">,</span> <span class="s2">&quot;html.parser&quot;</span><span class="p">)</span>
+    <span class="n">Img</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s1">'img.*src="(.*?)"'</span><span class="p">)</span>
+    <span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">html</span><span class="p">,</span> <span class="s2">"html.parser"</span><span class="p">)</span>
     <span class="n">data</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">soup</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;img&#39;</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">soup</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">'img'</span><span class="p">):</span>
         <span class="n">item</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
         <span class="n">pic_list</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">Img</span><span class="p">,</span> <span class="n">item</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">pic_list</span><span class="p">:</span>
@@ -3830,15 +3793,15 @@
 <span class="k">def</span><span class="w"> </span><span class="nf">save_pic</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">lim</span><span class="p">):</span>
     <span class="n">cnt</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">i</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;https:&#39;</span><span class="p">):</span>
-            <span class="n">i</span> <span class="o">=</span> <span class="s1">&#39;https:&#39;</span> <span class="o">+</span> <span class="n">i</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">i</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">'https:'</span><span class="p">):</span>
+            <span class="n">i</span> <span class="o">=</span> <span class="s1">'https:'</span> <span class="o">+</span> <span class="n">i</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">img</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
             <span class="n">byte</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">content</span>
-            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;image</span><span class="si">{}</span><span class="s2">.jpg&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cnt</span><span class="p">),</span> <span class="s2">&quot;wb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">"image</span><span class="si">{}</span><span class="s2">.jpg"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cnt</span><span class="p">),</span> <span class="s2">"wb"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
                 <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">byte</span><span class="p">)</span>
             <span class="n">cnt</span> <span class="o">+=</span> <span class="mi">1</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;downloaded:</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cnt</span><span class="p">))</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">"downloaded:</span><span class="si">{}</span><span class="s2">"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cnt</span><span class="p">))</span>
         <span class="k">except</span> <span class="n">requests</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">InvalidURL</span><span class="p">:</span>
             <span class="k">pass</span>
         <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.25</span><span class="p">)</span>
@@ -3852,43 +3815,43 @@
     <span class="n">html</span> <span class="o">=</span> <span class="n">sgh</span><span class="o">.</span><span class="n">get_html</span><span class="p">(</span><span class="n">url_base</span><span class="p">)</span>
     <span class="n">data</span> <span class="o">=</span> <span class="n">get_url</span><span class="p">(</span><span class="n">html</span><span class="p">)</span>
     <span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="n">target_dir</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;target dir: &quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"target dir: "</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()))</span>
     <span class="n">save_pic</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">pic_num</span><span class="p">)</span>
 
 
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
-    <span class="n">url</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;https://www.bilibili.com/&#39;</span>   <span class="c1">#input(&quot;请输入网址:&quot;)</span>
-    <span class="n">dirt</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;C:\Users\Yimen\Desktop\bilibili主页_1&#39;</span>   <span class="c1">#input(&quot;请输入目标文件夹:&quot;)</span>
-    <span class="n">num</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">(</span><span class="s2">&quot;请输入想要获取的图片数量:&quot;</span><span class="p">))</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">'__main__'</span><span class="p">:</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">'https://www.bilibili.com/'</span>   <span class="c1">#input("请输入网址:")</span>
+    <span class="n">dirt</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">'C:\Users\Yimen\Desktop\bilibili主页_1'</span>   <span class="c1">#input("请输入目标文件夹:")</span>
+    <span class="n">num</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">(</span><span class="s2">"请输入想要获取的图片数量:"</span><span class="p">))</span>
     <span class="n">get_image</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">dirt</span><span class="p">,</span> <span class="n">num</span><span class="p">)</span>
-</code></pre></div></p>
+</code></pre></div>
 <h3 id="3">3.通过分析"网络"数据</h3>
 <p>第三种方法，是通过<span class="arithmatex">\(F12\)</span>控制台"网络"界面批量获取数据文件的链接，在通过解析这些文件的数据来获取图片链接，进而获取图片。</p>
 <p>这种方法需要充分了解网站传输了那些文件，哪个文件中有有用的数据，因此比较烦，但是不需要用<span class="arithmatex">\(selenium\)</span>也可以获取大量图片。</p>
 <p>实例:获取b站新番榜Top200图片</p>
-<p><div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">requests</span>
+<p></p><div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">requests</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
 
 
 <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s1">&#39;user-agent&#39;</span><span class="p">:</span> <span class="s1">&#39;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0&#39;</span>
-                  <span class="s1">&#39;.5112.102 Safari/537.36 Edg/104.0.1293.63&#39;</span>
+    <span class="s1">'user-agent'</span><span class="p">:</span> <span class="s1">'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0'</span>
+                  <span class="s1">'.5112.102 Safari/537.36 Edg/104.0.1293.63'</span>
 <span class="p">}</span>
 
-<span class="n">dirt</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;C:\Users\Yimen\Desktop\新番榜Top200&#39;</span>
-<span class="n">front_url</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;https://api.bilibili.com/pgc/season/index/result?season_version=-1&amp;spoken_language_type=-1&amp;area=-1&#39;</span> \
-            <span class="sa">r</span><span class="s1">&#39;&amp;is_finish=-1&amp;copyright=-1&amp;season_status=-1&amp;season_month=-1&amp;year=-1&amp;style_id=-1&amp;order=3&amp;st=1&amp;sort=0&amp;page=&#39;</span>
-<span class="n">back_url</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;&amp;season_type=1&amp;pagesize=20&amp;type=1&#39;</span>
+<span class="n">dirt</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">'C:\Users\Yimen\Desktop\新番榜Top200'</span>
+<span class="n">front_url</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">'https://api.bilibili.com/pgc/season/index/result?season_version=-1&amp;spoken_language_type=-1&amp;area=-1'</span> \
+            <span class="sa">r</span><span class="s1">'&amp;is_finish=-1&amp;copyright=-1&amp;season_status=-1&amp;season_month=-1&amp;year=-1&amp;style_id=-1&amp;order=3&amp;st=1&amp;sort=0&amp;page='</span>
+<span class="n">back_url</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">'&amp;season_type=1&amp;pagesize=20&amp;type=1'</span>
 
 <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">dirt</span><span class="p">):</span>
     <span class="n">os</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">dirt</span><span class="p">)</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">write_json</span><span class="p">(</span><span class="n">html</span><span class="p">,</span> <span class="n">num</span><span class="p">):</span>
-    <span class="n">_dirt</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dirt</span><span class="p">,</span> <span class="s1">&#39;list</span><span class="si">{}</span><span class="s1">.json&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">num</span><span class="p">))</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;NO.&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">num</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39; printed&#39;</span><span class="p">)</span>
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">_dirt</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">_dirt</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dirt</span><span class="p">,</span> <span class="s1">'list</span><span class="si">{}</span><span class="s1">.json'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">num</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">'NO.'</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">num</span><span class="p">)</span> <span class="o">+</span> <span class="s1">' printed'</span><span class="p">)</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">_dirt</span><span class="p">,</span> <span class="s1">'wb'</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
         <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">html</span><span class="p">)</span>
 
 
@@ -3911,23 +3874,23 @@
     <span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="n">dirt</span><span class="p">)</span>
     <span class="n">num</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="k">for</span> <span class="n">dic</span> <span class="ow">in</span> <span class="n">lst</span><span class="p">:</span>
-        <span class="n">_lst</span> <span class="o">=</span> <span class="n">dic</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">][</span><span class="s2">&quot;list&quot;</span><span class="p">]</span>
+        <span class="n">_lst</span> <span class="o">=</span> <span class="n">dic</span><span class="p">[</span><span class="s2">"data"</span><span class="p">][</span><span class="s2">"list"</span><span class="p">]</span>
         <span class="k">for</span> <span class="n">_dic</span> <span class="ow">in</span> <span class="n">_lst</span><span class="p">:</span>
             <span class="n">num</span> <span class="o">+=</span> <span class="mi">1</span>
-            <span class="n">pic_url</span> <span class="o">=</span> <span class="n">_dic</span><span class="p">[</span><span class="s2">&quot;cover&quot;</span><span class="p">]</span>
-            <span class="n">pic_name</span> <span class="o">=</span> <span class="n">_dic</span><span class="p">[</span><span class="s2">&quot;title&quot;</span><span class="p">]</span>  <span class="c1"># + &quot;_&quot; + _dic[&quot;subTitle&quot;]</span>
+            <span class="n">pic_url</span> <span class="o">=</span> <span class="n">_dic</span><span class="p">[</span><span class="s2">"cover"</span><span class="p">]</span>
+            <span class="n">pic_name</span> <span class="o">=</span> <span class="n">_dic</span><span class="p">[</span><span class="s2">"title"</span><span class="p">]</span>  <span class="c1"># + "_" + _dic["subTitle"]</span>
             <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pic_url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span>
             <span class="n">pic_byte</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">content</span>
-            <span class="n">pic_dirt</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">num</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="n">pic_name</span> <span class="o">+</span> <span class="s1">&#39;.jpg&#39;</span>
-            <span class="nb">print</span><span class="p">(</span><span class="n">pic_dirt</span> <span class="o">+</span> <span class="s1">&#39; printed&#39;</span><span class="p">)</span>
-            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">pic_dirt</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">pic_dirt</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">num</span><span class="p">)</span> <span class="o">+</span> <span class="s1">'_'</span> <span class="o">+</span> <span class="n">pic_name</span> <span class="o">+</span> <span class="s1">'.jpg'</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">pic_dirt</span> <span class="o">+</span> <span class="s1">' printed'</span><span class="p">)</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">pic_dirt</span><span class="p">,</span> <span class="s1">'wb'</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
                 <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">pic_byte</span><span class="p">)</span>
 
 
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">'__main__'</span><span class="p">:</span>
     <span class="n">save_pic</span><span class="p">(</span><span class="n">get_json</span><span class="p">())</span>
 </code></pre></div>
-~~这个实例有点问题，就是如果新番的名称中含有"奇特"的符号，就会报错，不过不显示新番名字，用数字就行了。~~</p>
+~~这个实例有点问题，就是如果新番的名称中含有"奇特"的符号，就会报错，不过不显示新番名字，用数字就行了。~~
 <h3 id="4">4.通过分析源代码数据</h3>
 <p>b站主页的图片还有一种获取方法，就是将源代码中的<span class="arithmatex">\(script\)</span>标签中的<span class="arithmatex">\(json\)</span>串取出来，分析其中的链接来获取。这里代码省略。</p>
 <h3 id="5">5.总结</h3>
@@ -3939,47 +3902,47 @@
 <p>通过分析网络传输的数据，我们发现在<span class="arithmatex">\(seg.so\)</span>中储存着弹幕的数据，并且所有链接只有<span class="arithmatex">\(index\)</span>不同，可以批量获取。但是，<span class="arithmatex">\(.so\)</span>文件为二进制文件，很难解码。~~我试了一天，无果。~~这种方法理论上来说可以获取全部弹幕，但是无法解析数据文件，就寄了。</p>
 <h3 id="3_1">3.奇妙方法</h3>
 <p>~~通过看网友们的方法~~，我们发现b站一个古老，已废弃的储存弹幕的方式:<span class="arithmatex">\(https://comment.bilibili.com/{cid}.xml\)</span>,这个链接里存放着该视频部分的弹幕(有时全，有时不全)。而<span class="arithmatex">\(cid\)</span>就放在网页源代码里。所以，此法可行。</p>
-<p><div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
+<p></p><div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">requests</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">openpyxl</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">openpyxl.styles</span>
 
 <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s1">&#39;user-agent&#39;</span><span class="p">:</span> <span class="s1">&#39;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0&#39;</span>
-                  <span class="s1">&#39;.5112.102 Safari/537.36 Edg/104.0.1293.63&#39;</span>
+    <span class="s1">'user-agent'</span><span class="p">:</span> <span class="s1">'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0'</span>
+                  <span class="s1">'.5112.102 Safari/537.36 Edg/104.0.1293.63'</span>
 <span class="p">}</span>
-<span class="n">or_url</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;https://www.bilibili.com/video/</span><span class="si">{}</span><span class="s1">?spm_id_from=333.337.search-card.all.click&#39;</span>
-<span class="n">dm_url</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;https://comment.bilibili.com/</span><span class="si">{}</span><span class="s1">.xml&#39;</span>
+<span class="n">or_url</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">'https://www.bilibili.com/video/</span><span class="si">{}</span><span class="s1">?spm_id_from=333.337.search-card.all.click'</span>
+<span class="n">dm_url</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">'https://comment.bilibili.com/</span><span class="si">{}</span><span class="s1">.xml'</span>
 
-<span class="n">bv_id</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;BV1yG4y1r77N&#39;</span>  <span class="c1"># input(&#39;输入bv号:&#39;)</span>
-<span class="n">dirt</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;C:\Users\Yimen\Desktop&#39;</span>
+<span class="n">bv_id</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">'BV1yG4y1r77N'</span>  <span class="c1"># input('输入bv号:')</span>
+<span class="n">dirt</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">'C:\Users\Yimen\Desktop'</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">get_html</span><span class="p">():</span>
     <span class="n">resp</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">or_url</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">bv_id</span><span class="p">))</span>
     <span class="n">html</span> <span class="o">=</span> <span class="n">resp</span><span class="o">.</span><span class="n">text</span>
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;danmaku.html&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">'danmaku.html'</span><span class="p">,</span> <span class="s1">'w'</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">'utf-8'</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
         <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">html</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">html</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">get_cid</span><span class="p">(</span><span class="n">html</span><span class="p">):</span>  <span class="c1">#</span>
-    <span class="n">tmp</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;&quot;videoData&quot;:.*?&quot;dynamic&quot;:.*?,&quot;cid&quot;:(.*?),&quot;dimension&quot;:&#39;</span><span class="p">)</span>
+    <span class="n">tmp</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s1">'"videoData":.*?"dynamic":.*?,"cid":(.*?),"dimension":'</span><span class="p">)</span>
     <span class="n">lst</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">tmp</span><span class="p">,</span> <span class="n">html</span><span class="p">)</span>
     <span class="n">cid</span> <span class="o">=</span> <span class="n">lst</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
     <span class="k">return</span> <span class="n">cid</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">get_title</span><span class="p">(</span><span class="n">html</span><span class="p">):</span>
-    <span class="n">tmp</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;&quot;videoData&quot;:.*?&quot;pic&quot;:.*?,&quot;title&quot;:&quot;(.*?)&quot;,&quot;pubdate&quot;:&#39;</span><span class="p">)</span>
+    <span class="n">tmp</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s1">'"videoData":.*?"pic":.*?,"title":"(.*?)","pubdate":'</span><span class="p">)</span>
     <span class="n">lst</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">tmp</span><span class="p">,</span> <span class="n">html</span><span class="p">)</span>
     <span class="n">title</span> <span class="o">=</span> <span class="n">lst</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
     <span class="k">return</span> <span class="n">title</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">write_xml</span><span class="p">(</span><span class="n">xml</span><span class="p">):</span>
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;danmaku.xml&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">'danmaku.xml'</span><span class="p">,</span> <span class="s1">'w'</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">'utf-8'</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
         <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">xml</span><span class="p">)</span>
 
 
@@ -3997,10 +3960,10 @@
     <span class="n">smin</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="nb">min</span><span class="p">)</span>
     <span class="n">ssec</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">sec</span><span class="p">)</span>
     <span class="k">if</span> <span class="nb">min</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">:</span>
-        <span class="n">smin</span> <span class="o">=</span> <span class="s1">&#39;0&#39;</span> <span class="o">+</span> <span class="n">smin</span>
+        <span class="n">smin</span> <span class="o">=</span> <span class="s1">'0'</span> <span class="o">+</span> <span class="n">smin</span>
     <span class="k">if</span> <span class="n">sec</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">:</span>
-        <span class="n">ssec</span> <span class="o">=</span> <span class="s1">&#39;0&#39;</span> <span class="o">+</span> <span class="n">ssec</span>
-    <span class="n">word</span> <span class="o">=</span> <span class="n">smin</span> <span class="o">+</span> <span class="s1">&#39;:&#39;</span> <span class="o">+</span> <span class="n">ssec</span>
+        <span class="n">ssec</span> <span class="o">=</span> <span class="s1">'0'</span> <span class="o">+</span> <span class="n">ssec</span>
+    <span class="n">word</span> <span class="o">=</span> <span class="n">smin</span> <span class="o">+</span> <span class="s1">':'</span> <span class="o">+</span> <span class="n">ssec</span>
     <span class="k">return</span> <span class="n">word</span>
 
 
@@ -4010,14 +3973,14 @@
     <span class="n">color_len</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">color_val</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">color_len</span> <span class="o">&lt;</span> <span class="mi">6</span><span class="p">:</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">6</span> <span class="o">-</span> <span class="n">color_len</span><span class="p">):</span>
-            <span class="n">color_val</span> <span class="o">=</span> <span class="s2">&quot;0&quot;</span> <span class="o">+</span> <span class="n">color_val</span>
-    <span class="k">if</span> <span class="n">color_val</span> <span class="o">==</span> <span class="s2">&quot;FFFFFF&quot;</span><span class="p">:</span>
-        <span class="n">color_val</span> <span class="o">=</span> <span class="s2">&quot;000000&quot;</span>
+            <span class="n">color_val</span> <span class="o">=</span> <span class="s2">"0"</span> <span class="o">+</span> <span class="n">color_val</span>
+    <span class="k">if</span> <span class="n">color_val</span> <span class="o">==</span> <span class="s2">"FFFFFF"</span><span class="p">:</span>
+        <span class="n">color_val</span> <span class="o">=</span> <span class="s2">"000000"</span>
     <span class="k">return</span> <span class="n">color_val</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">get_danmaku</span><span class="p">(</span><span class="n">xml</span><span class="p">,</span> <span class="n">title</span><span class="p">):</span>
-    <span class="n">tmp</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;&lt;d p=&quot;(.*?),.*?,.*?,(.*?),.*?&quot;&gt;(.*?)&lt;/d&gt;&#39;</span><span class="p">)</span>
+    <span class="n">tmp</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s1">'&lt;d p="(.*?),.*?,.*?,(.*?),.*?"&gt;(.*?)&lt;/d&gt;'</span><span class="p">)</span>
     <span class="n">tmp_lst</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">tmp</span><span class="p">,</span> <span class="n">xml</span><span class="p">)</span>
     <span class="n">lst</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">tmp_lst</span><span class="p">:</span>
@@ -4027,33 +3990,33 @@
     <span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="n">dirt</span><span class="p">)</span>
     <span class="n">workbook</span> <span class="o">=</span> <span class="n">openpyxl</span><span class="o">.</span><span class="n">Workbook</span><span class="p">()</span>
     <span class="n">sheet</span> <span class="o">=</span> <span class="n">workbook</span><span class="o">.</span><span class="n">active</span>
-    <span class="n">sheet</span><span class="o">.</span><span class="n">title</span> <span class="o">=</span> <span class="s1">&#39;弹幕&#39;</span>
-    <span class="n">sheet</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="s1">&#39;出现时间&#39;</span><span class="p">,</span> <span class="s1">&#39;弹幕内容&#39;</span><span class="p">])</span>
+    <span class="n">sheet</span><span class="o">.</span><span class="n">title</span> <span class="o">=</span> <span class="s1">'弹幕'</span>
+    <span class="n">sheet</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="s1">'出现时间'</span><span class="p">,</span> <span class="s1">'弹幕内容'</span><span class="p">])</span>
     <span class="n">num</span> <span class="o">=</span> <span class="mi">1</span>
-    <span class="n">sheet</span><span class="o">.</span><span class="n">column_dimensions</span><span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">width</span> <span class="o">=</span> <span class="mi">15</span>
-    <span class="n">sheet</span><span class="o">.</span><span class="n">column_dimensions</span><span class="p">[</span><span class="s1">&#39;B&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">width</span> <span class="o">=</span> <span class="mi">150</span>
+    <span class="n">sheet</span><span class="o">.</span><span class="n">column_dimensions</span><span class="p">[</span><span class="s1">'A'</span><span class="p">]</span><span class="o">.</span><span class="n">width</span> <span class="o">=</span> <span class="mi">15</span>
+    <span class="n">sheet</span><span class="o">.</span><span class="n">column_dimensions</span><span class="p">[</span><span class="s1">'B'</span><span class="p">]</span><span class="o">.</span><span class="n">width</span> <span class="o">=</span> <span class="mi">150</span>
     <span class="n">sheet</span><span class="o">.</span><span class="n">row_dimensions</span><span class="p">[</span><span class="n">num</span><span class="p">]</span><span class="o">.</span><span class="n">height</span> <span class="o">=</span> <span class="mi">25</span>
 
     <span class="k">for</span> <span class="n">tm</span><span class="p">,</span> <span class="n">cl</span><span class="p">,</span> <span class="n">dm</span> <span class="ow">in</span> <span class="n">lst</span><span class="p">:</span>
         <span class="n">sheet</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">get_time</span><span class="p">(</span><span class="n">tm</span><span class="p">),</span> <span class="n">dm</span><span class="p">])</span>
         <span class="n">num</span> <span class="o">+=</span> <span class="mi">1</span>
         <span class="n">sheet</span><span class="o">.</span><span class="n">row_dimensions</span><span class="p">[</span><span class="n">num</span><span class="p">]</span><span class="o">.</span><span class="n">height</span> <span class="o">=</span> <span class="mi">20</span>
-        <span class="n">pos</span> <span class="o">=</span> <span class="s1">&#39;B&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">num</span><span class="p">)</span>
+        <span class="n">pos</span> <span class="o">=</span> <span class="s1">'B'</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">num</span><span class="p">)</span>
         <span class="n">cell</span> <span class="o">=</span> <span class="n">sheet</span><span class="p">[</span><span class="n">pos</span><span class="p">]</span>
         <span class="n">color_val</span> <span class="o">=</span> <span class="n">get_color</span><span class="p">(</span><span class="n">cl</span><span class="p">)</span>
-        <span class="n">cell</span><span class="o">.</span><span class="n">font</span> <span class="o">=</span> <span class="n">openpyxl</span><span class="o">.</span><span class="n">styles</span><span class="o">.</span><span class="n">Font</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;微软雅黑&quot;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">bold</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">italic</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;&quot;</span> <span class="o">+</span> <span class="n">color_val</span> <span class="o">+</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+        <span class="n">cell</span><span class="o">.</span><span class="n">font</span> <span class="o">=</span> <span class="n">openpyxl</span><span class="o">.</span><span class="n">styles</span><span class="o">.</span><span class="n">Font</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"微软雅黑"</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">bold</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">italic</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">""</span> <span class="o">+</span> <span class="n">color_val</span> <span class="o">+</span> <span class="s2">""</span><span class="p">)</span>
 
-    <span class="n">workbook</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">&quot;弹幕_&quot;</span> <span class="o">+</span> <span class="n">title</span> <span class="o">+</span> <span class="s2">&quot;.xlsx&quot;</span><span class="p">)</span>
+    <span class="n">workbook</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">"弹幕_"</span> <span class="o">+</span> <span class="n">title</span> <span class="o">+</span> <span class="s2">".xlsx"</span><span class="p">)</span>
 
 
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">'__main__'</span><span class="p">:</span>
     <span class="n">html</span> <span class="o">=</span> <span class="n">get_html</span><span class="p">()</span>
     <span class="n">cid</span> <span class="o">=</span> <span class="n">get_cid</span><span class="p">(</span><span class="n">html</span><span class="p">)</span>
     <span class="n">title</span> <span class="o">=</span> <span class="n">get_title</span><span class="p">(</span><span class="n">html</span><span class="p">)</span>
     <span class="n">xml</span> <span class="o">=</span> <span class="n">get_xml</span><span class="p">(</span><span class="n">cid</span><span class="p">)</span>
     <span class="n">get_danmaku</span><span class="p">(</span><span class="n">xml</span><span class="p">,</span> <span class="n">title</span><span class="p">)</span>
 </code></pre></div>
-另外，这方法获取的弹幕不只有内容，还有时间和颜色等信息，所以用<span class="arithmatex">\(excel\)</span>表格呈现这些内容再合适不过。</p>
+另外，这方法获取的弹幕不只有内容，还有时间和颜色等信息，所以用<span class="arithmatex">\(excel\)</span>表格呈现这些内容再合适不过。
 <h2 id="b_2">三.b站视频的获取</h2>
 <p>~~到了大boss了,当初学爬虫就是为了这个~~</p>
 <h3 id="1_1">1.省事还是费事</h3>
@@ -4070,22 +4033,22 @@
 
 
 <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s1">&#39;user-agent&#39;</span><span class="p">:</span> <span class="s1">&#39;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0&#39;</span>
-                  <span class="s1">&#39;.5112.102 Safari/537.36 Edg/104.0.1293.63&#39;</span>
+    <span class="s1">'user-agent'</span><span class="p">:</span> <span class="s1">'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0'</span>
+                  <span class="s1">'.5112.102 Safari/537.36 Edg/104.0.1293.63'</span>
 <span class="p">}</span>
 
-<span class="n">or_url</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;https://www.bilibili.com/video/</span><span class="si">{}</span><span class="s1">&#39;</span>
-<span class="n">ep_url</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;https://www.bilibili.com/bangumi/play/</span><span class="si">{}</span><span class="s1">?from_spmid=666.25.episode.0&amp;from_outer_spmid=333.337.0.0&#39;</span>
-<span class="n">bv_id</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;BV1ua4y1H714?p=2&#39;</span>  <span class="c1"># input(&#39;输入bv号:&#39;)</span>
-<span class="n">ep_id</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;ep517946&#39;</span>
-<span class="n">dirt</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;C:\Users\Yimen\Desktop\bilibili_video&#39;</span>
+<span class="n">or_url</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">'https://www.bilibili.com/video/</span><span class="si">{}</span><span class="s1">'</span>
+<span class="n">ep_url</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">'https://www.bilibili.com/bangumi/play/</span><span class="si">{}</span><span class="s1">?from_spmid=666.25.episode.0&amp;from_outer_spmid=333.337.0.0'</span>
+<span class="n">bv_id</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">'BV1ua4y1H714?p=2'</span>  <span class="c1"># input('输入bv号:')</span>
+<span class="n">ep_id</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">'ep517946'</span>
+<span class="n">dirt</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">'C:\Users\Yimen\Desktop\bilibili_video'</span>
 
 <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">dirt</span><span class="p">):</span>
     <span class="n">os</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">dirt</span><span class="p">)</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">write_html</span><span class="p">(</span><span class="n">html</span><span class="p">):</span>
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;video.html&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">'video.html'</span><span class="p">,</span> <span class="s1">'w'</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">'utf-8'</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
         <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">html</span><span class="p">)</span>
 
 
@@ -4097,12 +4060,12 @@
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">write_json</span><span class="p">(</span><span class="n">json_dic</span><span class="p">):</span>
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;video.json&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">'video.json'</span><span class="p">,</span> <span class="s1">'w'</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">'utf-8'</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
         <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">json_dic</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">get_json</span><span class="p">(</span><span class="n">html</span><span class="p">):</span>
-    <span class="n">tmp</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;&lt;script&gt;window.__playinfo__=(.*?)&lt;/script&gt;&#39;</span><span class="p">)</span>
+    <span class="n">tmp</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s1">'&lt;script&gt;window.__playinfo__=(.*?)&lt;/script&gt;'</span><span class="p">)</span>
     <span class="n">json_text</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">tmp</span><span class="p">,</span> <span class="n">html</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
     <span class="n">json_dic</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">json_text</span><span class="p">)</span>
     <span class="c1"># write_json(json_dic)</span>
@@ -4110,11 +4073,11 @@
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">get_times</span><span class="p">():</span>
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;times.json&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">'times.json'</span><span class="p">,</span> <span class="s1">'r'</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
         <span class="n">dic</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
-    <span class="n">cnt</span> <span class="o">=</span> <span class="n">dic</span><span class="p">[</span><span class="s2">&quot;times&quot;</span><span class="p">]</span>
-    <span class="n">dic</span><span class="p">[</span><span class="s2">&quot;times&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;times.json&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">cnt</span> <span class="o">=</span> <span class="n">dic</span><span class="p">[</span><span class="s2">"times"</span><span class="p">]</span>
+    <span class="n">dic</span><span class="p">[</span><span class="s2">"times"</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">'times.json'</span><span class="p">,</span> <span class="s1">'w'</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
         <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">dic</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">cnt</span>
 
@@ -4122,41 +4085,41 @@
 <span class="k">def</span><span class="w"> </span><span class="nf">get_video_clip</span><span class="p">(</span><span class="n">dic</span><span class="p">):</span>
     <span class="n">re_url</span> <span class="o">=</span> <span class="n">or_url</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">bv_id</span><span class="p">)</span>
     <span class="n">_headers_</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s1">&#39;user-agent&#39;</span><span class="p">:</span> <span class="s1">&#39;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0&#39;</span>
-                      <span class="s1">&#39;.5112.102 Safari/537.36 Edg/104.0.1293.63&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;Referer&#39;</span><span class="p">:</span> <span class="n">re_url</span>
+        <span class="s1">'user-agent'</span><span class="p">:</span> <span class="s1">'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0'</span>
+                      <span class="s1">'.5112.102 Safari/537.36 Edg/104.0.1293.63'</span><span class="p">,</span>
+        <span class="s1">'Referer'</span><span class="p">:</span> <span class="n">re_url</span>
     <span class="p">}</span>
 
     <span class="n">cnt</span> <span class="o">=</span> <span class="n">get_times</span><span class="p">()</span>
     <span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="n">dirt</span><span class="p">)</span>
 
-    <span class="n">url</span> <span class="o">=</span> <span class="n">dic</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="s1">&#39;dash&#39;</span><span class="p">][</span><span class="s1">&#39;video&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;base_url&#39;</span><span class="p">]</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;视频链接获取完毕&quot;</span><span class="p">)</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">dic</span><span class="p">[</span><span class="s1">'data'</span><span class="p">][</span><span class="s1">'dash'</span><span class="p">][</span><span class="s1">'video'</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s1">'base_url'</span><span class="p">]</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"视频链接获取完毕"</span><span class="p">)</span>
     <span class="n">resp</span> <span class="o">=</span> <span class="n">req</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">_headers_</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;视频获取完毕&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"视频获取完毕"</span><span class="p">)</span>
     <span class="n">vid</span> <span class="o">=</span> <span class="n">resp</span><span class="o">.</span><span class="n">content</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;正在保存视频...&quot;</span><span class="p">)</span>
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;video_</span><span class="si">{}</span><span class="s1">.mp4&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cnt</span><span class="p">),</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"正在保存视频..."</span><span class="p">)</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">'video_</span><span class="si">{}</span><span class="s1">.mp4'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cnt</span><span class="p">),</span> <span class="s1">'wb'</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
         <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">vid</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;保存完毕！&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"保存完毕！"</span><span class="p">)</span>
 
-    <span class="n">url</span> <span class="o">=</span> <span class="n">dic</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="s1">&#39;dash&#39;</span><span class="p">][</span><span class="s1">&#39;audio&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;base_url&#39;</span><span class="p">]</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;音频链接获取完毕&quot;</span><span class="p">)</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">dic</span><span class="p">[</span><span class="s1">'data'</span><span class="p">][</span><span class="s1">'dash'</span><span class="p">][</span><span class="s1">'audio'</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s1">'base_url'</span><span class="p">]</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"音频链接获取完毕"</span><span class="p">)</span>
     <span class="n">resp</span> <span class="o">=</span> <span class="n">req</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">_headers_</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;音频获取完毕&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"音频获取完毕"</span><span class="p">)</span>
     <span class="n">vid</span> <span class="o">=</span> <span class="n">resp</span><span class="o">.</span><span class="n">content</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;正在保存音频...&quot;</span><span class="p">)</span>
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;audio_</span><span class="si">{}</span><span class="s1">.mp3&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cnt</span><span class="p">),</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"正在保存音频..."</span><span class="p">)</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">'audio_</span><span class="si">{}</span><span class="s1">.mp3'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cnt</span><span class="p">),</span> <span class="s1">'wb'</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
         <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">vid</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;保存完毕！&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"保存完毕！"</span><span class="p">)</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">init</span><span class="p">():</span>
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;times.json&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-        <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">({</span><span class="s2">&quot;times&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">},</span> <span class="n">f</span><span class="p">)</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">'times.json'</span><span class="p">,</span> <span class="s1">'w'</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">({</span><span class="s2">"times"</span><span class="p">:</span> <span class="mi">0</span><span class="p">},</span> <span class="n">f</span><span class="p">)</span>
 
 
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">'__main__'</span><span class="p">:</span>
     <span class="n">get_video_clip</span><span class="p">(</span><span class="n">get_json</span><span class="p">(</span><span class="n">get_html</span><span class="p">(</span><span class="n">or_url</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">bv_id</span><span class="p">))))</span>
 </code></pre></div>
 <p>仅仅获取分开的音频和视频还不够，我们还需要将他们进行合并。所以，我们可以用<span class="arithmatex">\(ffmpeg\)</span>实现将音视频合并的操作。当然，使用<span class="arithmatex">\(moviepy.editor\)</span>也可以合并音视频，但是速度要远慢于<span class="arithmatex">\(ffmpeg\)</span>。</p>
@@ -4177,7 +4140,7 @@
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">run_by_ffmpeg</span><span class="p">(</span><span class="n">audio_name</span><span class="p">,</span> <span class="n">video_name</span><span class="p">,</span> <span class="n">output_name</span><span class="p">):</span>
-    <span class="n">cmd</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;C:</span><span class="se">\\</span><span class="s1">Windows</span><span class="se">\\</span><span class="s1">ffmpeg-5.1-essentials_build</span><span class="se">\\</span><span class="s1">bin</span><span class="se">\\</span><span class="s1">ffmpeg.exe -i </span><span class="si">{</span><span class="n">audio_name</span><span class="si">}</span><span class="s1"> -i </span><span class="si">{</span><span class="n">video_name</span><span class="si">}</span><span class="s1"> -acodec copy -vcodec copy </span><span class="si">{</span><span class="n">output_name</span><span class="si">}</span><span class="s1">&#39;</span>
+    <span class="n">cmd</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">'C:</span><span class="se">\\</span><span class="s1">Windows</span><span class="se">\\</span><span class="s1">ffmpeg-5.1-essentials_build</span><span class="se">\\</span><span class="s1">bin</span><span class="se">\\</span><span class="s1">ffmpeg.exe -i </span><span class="si">{</span><span class="n">audio_name</span><span class="si">}</span><span class="s1"> -i </span><span class="si">{</span><span class="n">video_name</span><span class="si">}</span><span class="s1"> -acodec copy -vcodec copy </span><span class="si">{</span><span class="n">output_name</span><span class="si">}</span><span class="s1">'</span>
     <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span>
 </code></pre></div>
 <div class="highlight"><pre><span></span><code><span class="c1"># normal_get_video.py</span>
@@ -4189,22 +4152,22 @@
 
 
 <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s1">&#39;user-agent&#39;</span><span class="p">:</span> <span class="s1">&#39;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0&#39;</span>
-                  <span class="s1">&#39;.5112.102 Safari/537.36 Edg/104.0.1293.63&#39;</span>
+    <span class="s1">'user-agent'</span><span class="p">:</span> <span class="s1">'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0'</span>
+                  <span class="s1">'.5112.102 Safari/537.36 Edg/104.0.1293.63'</span>
 <span class="p">}</span>
 
-<span class="n">or_url</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;https://www.bilibili.com/video/</span><span class="si">{}</span><span class="s1">&#39;</span>
-<span class="n">ep_url</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;https://www.bilibili.com/bangumi/play/</span><span class="si">{}</span><span class="s1">?from_spmid=666.25.episode.0&amp;from_outer_spmid=333.337.0.0&#39;</span>
-<span class="n">bv_id</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;BV1xa411V7Tq&#39;</span>  <span class="c1"># input(&#39;输入bv号:&#39;)</span>
-<span class="n">ep_id</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;ep517946&#39;</span>
-<span class="n">dirt</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;C:\Users\Yimen\Desktop\bilibili_video&#39;</span>
+<span class="n">or_url</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">'https://www.bilibili.com/video/</span><span class="si">{}</span><span class="s1">'</span>
+<span class="n">ep_url</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">'https://www.bilibili.com/bangumi/play/</span><span class="si">{}</span><span class="s1">?from_spmid=666.25.episode.0&amp;from_outer_spmid=333.337.0.0'</span>
+<span class="n">bv_id</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">'BV1xa411V7Tq'</span>  <span class="c1"># input('输入bv号:')</span>
+<span class="n">ep_id</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">'ep517946'</span>
+<span class="n">dirt</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">'C:\Users\Yimen\Desktop\bilibili_video'</span>
 
 <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">dirt</span><span class="p">):</span>
     <span class="n">os</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">dirt</span><span class="p">)</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">write_html</span><span class="p">(</span><span class="n">html</span><span class="p">):</span>
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;video.html&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">'video.html'</span><span class="p">,</span> <span class="s1">'w'</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">'utf-8'</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
         <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">html</span><span class="p">)</span>
 
 
@@ -4216,12 +4179,12 @@
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">write_json</span><span class="p">(</span><span class="n">json_dic</span><span class="p">):</span>
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;video.json&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">'video.json'</span><span class="p">,</span> <span class="s1">'w'</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">'utf-8'</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
         <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">json_dic</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">get_json</span><span class="p">(</span><span class="n">html</span><span class="p">):</span>
-    <span class="n">tmp</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;&lt;script&gt;window.__playinfo__=(.*?)&lt;/script&gt;&#39;</span><span class="p">)</span>
+    <span class="n">tmp</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s1">'&lt;script&gt;window.__playinfo__=(.*?)&lt;/script&gt;'</span><span class="p">)</span>
     <span class="n">json_text</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">tmp</span><span class="p">,</span> <span class="n">html</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
     <span class="n">json_dic</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">json_text</span><span class="p">)</span>
     <span class="c1"># write_json(json_dic)</span>
@@ -4229,17 +4192,17 @@
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">get_times</span><span class="p">():</span>
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;times.json&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">'times.json'</span><span class="p">,</span> <span class="s1">'r'</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
         <span class="n">dic</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
-    <span class="n">cnt</span> <span class="o">=</span> <span class="n">dic</span><span class="p">[</span><span class="s2">&quot;times&quot;</span><span class="p">]</span>
-    <span class="n">dic</span><span class="p">[</span><span class="s2">&quot;times&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;times.json&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">cnt</span> <span class="o">=</span> <span class="n">dic</span><span class="p">[</span><span class="s2">"times"</span><span class="p">]</span>
+    <span class="n">dic</span><span class="p">[</span><span class="s2">"times"</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">'times.json'</span><span class="p">,</span> <span class="s1">'w'</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
         <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">dic</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">cnt</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">get_title</span><span class="p">(</span><span class="n">html</span><span class="p">):</span>
-    <span class="n">tmp</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;&quot;videoData&quot;:.*?&quot;pic&quot;:.*?,&quot;title&quot;:&quot;(.*?)&quot;,&quot;pubdate&quot;:&#39;</span><span class="p">)</span>
+    <span class="n">tmp</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s1">'"videoData":.*?"pic":.*?,"title":"(.*?)","pubdate":'</span><span class="p">)</span>
     <span class="n">lst</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">tmp</span><span class="p">,</span> <span class="n">html</span><span class="p">)</span>
     <span class="n">title</span> <span class="o">=</span> <span class="n">lst</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
     <span class="k">return</span> <span class="n">title</span>
@@ -4251,66 +4214,66 @@
     <span class="n">title</span> <span class="o">=</span> <span class="n">get_title</span><span class="p">(</span><span class="n">get_html</span><span class="p">(</span><span class="n">re_url</span><span class="p">))</span>
 
     <span class="n">_headers_</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s1">&#39;user-agent&#39;</span><span class="p">:</span> <span class="s1">&#39;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0&#39;</span>
-                      <span class="s1">&#39;.5112.102 Safari/537.36 Edg/104.0.1293.63&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;Referer&#39;</span><span class="p">:</span> <span class="n">re_url</span>
+        <span class="s1">'user-agent'</span><span class="p">:</span> <span class="s1">'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0'</span>
+                      <span class="s1">'.5112.102 Safari/537.36 Edg/104.0.1293.63'</span><span class="p">,</span>
+        <span class="s1">'Referer'</span><span class="p">:</span> <span class="n">re_url</span>
     <span class="p">}</span>
 
     <span class="n">cnt</span> <span class="o">=</span> <span class="n">get_times</span><span class="p">()</span>
     <span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="n">dirt</span><span class="p">)</span>
 
-    <span class="n">url</span> <span class="o">=</span> <span class="n">dic</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="s1">&#39;dash&#39;</span><span class="p">][</span><span class="s1">&#39;video&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;base_url&#39;</span><span class="p">]</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;视频链接获取完毕,正在下载视频...&quot;</span><span class="p">)</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">dic</span><span class="p">[</span><span class="s1">'data'</span><span class="p">][</span><span class="s1">'dash'</span><span class="p">][</span><span class="s1">'video'</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s1">'base_url'</span><span class="p">]</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"视频链接获取完毕,正在下载视频..."</span><span class="p">)</span>
     <span class="n">resp</span> <span class="o">=</span> <span class="n">req</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">_headers_</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;视频获取完毕&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"视频获取完毕"</span><span class="p">)</span>
     <span class="n">vid</span> <span class="o">=</span> <span class="n">resp</span><span class="o">.</span><span class="n">content</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;正在保存视频...&quot;</span><span class="p">)</span>
-    <span class="n">video_name</span> <span class="o">=</span> <span class="s1">&#39;video_</span><span class="si">{}</span><span class="s1">.mp4&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cnt</span><span class="p">)</span>
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">video_name</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"正在保存视频..."</span><span class="p">)</span>
+    <span class="n">video_name</span> <span class="o">=</span> <span class="s1">'video_</span><span class="si">{}</span><span class="s1">.mp4'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cnt</span><span class="p">)</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">video_name</span><span class="p">,</span> <span class="s1">'wb'</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
         <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">vid</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;保存完毕！&quot;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;--------------------&quot;</span><span class="p">)</span>
-    <span class="n">url</span> <span class="o">=</span> <span class="n">dic</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="s1">&#39;dash&#39;</span><span class="p">][</span><span class="s1">&#39;audio&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;base_url&#39;</span><span class="p">]</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;音频链接获取完毕&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"保存完毕！"</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"--------------------"</span><span class="p">)</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">dic</span><span class="p">[</span><span class="s1">'data'</span><span class="p">][</span><span class="s1">'dash'</span><span class="p">][</span><span class="s1">'audio'</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s1">'base_url'</span><span class="p">]</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"音频链接获取完毕"</span><span class="p">)</span>
     <span class="n">resp</span> <span class="o">=</span> <span class="n">req</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">_headers_</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;音频获取完毕&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"音频获取完毕"</span><span class="p">)</span>
     <span class="n">vid</span> <span class="o">=</span> <span class="n">resp</span><span class="o">.</span><span class="n">content</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;正在保存音频...&quot;</span><span class="p">)</span>
-    <span class="n">audio_name</span> <span class="o">=</span> <span class="s1">&#39;audio_</span><span class="si">{}</span><span class="s1">.mp3&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cnt</span><span class="p">)</span>
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">audio_name</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"正在保存音频..."</span><span class="p">)</span>
+    <span class="n">audio_name</span> <span class="o">=</span> <span class="s1">'audio_</span><span class="si">{}</span><span class="s1">.mp3'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cnt</span><span class="p">)</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">audio_name</span><span class="p">,</span> <span class="s1">'wb'</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
         <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">vid</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;保存完毕！&quot;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;--------------------&quot;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;正在合并音视频...&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"保存完毕！"</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"--------------------"</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"正在合并音视频..."</span><span class="p">)</span>
 
-    <span class="n">output_name</span> <span class="o">=</span> <span class="s1">&#39;output_</span><span class="si">{}</span><span class="s1">.mp4&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cnt</span><span class="p">)</span>
-    <span class="n">rename</span> <span class="o">=</span> <span class="n">title</span> <span class="o">+</span> <span class="s1">&#39;.mp4&#39;</span>
+    <span class="n">output_name</span> <span class="o">=</span> <span class="s1">'output_</span><span class="si">{}</span><span class="s1">.mp4'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cnt</span><span class="p">)</span>
+    <span class="n">rename</span> <span class="o">=</span> <span class="n">title</span> <span class="o">+</span> <span class="s1">'.mp4'</span>
     <span class="n">mva</span><span class="o">.</span><span class="n">run_by_ffmpeg</span><span class="p">(</span><span class="n">audio_name</span><span class="p">,</span> <span class="n">video_name</span><span class="p">,</span> <span class="n">output_name</span><span class="p">)</span>
     <span class="n">os</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">output_name</span><span class="p">,</span> <span class="n">rename</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;合成完毕!&quot;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;--------------------&quot;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;正在清理数据文件...&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"合成完毕!"</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"--------------------"</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"正在清理数据文件..."</span><span class="p">)</span>
     <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">audio_name</span><span class="p">)</span>
     <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">video_name</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;清理完毕!&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"清理完毕!"</span><span class="p">)</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">init</span><span class="p">():</span>
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;times.json&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-        <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">({</span><span class="s2">&quot;times&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">},</span> <span class="n">f</span><span class="p">)</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">'times.json'</span><span class="p">,</span> <span class="s1">'w'</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">({</span><span class="s2">"times"</span><span class="p">:</span> <span class="mi">0</span><span class="p">},</span> <span class="n">f</span><span class="p">)</span>
 
 
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">'__main__'</span><span class="p">:</span>
     <span class="n">get_video_clip</span><span class="p">(</span><span class="n">get_json</span><span class="p">(</span><span class="n">get_html</span><span class="p">(</span><span class="n">or_url</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">bv_id</span><span class="p">))))</span>
 </code></pre></div>
 <p>同时，由于通过视频链接获取视频网页源码的过程比较慢，可以做一个进度条来显示当前的下载进度。再存储视频文件时，我们还要注意命名:如果出现重名，要自动生成新名字("_" + 数字)；如果名字中含有非法字符，就自动保存为指定的名字("output.mp4")。</p>
-<p><div class="highlight"><pre><span></span><code><span class="c1"># download_process_bar.py</span>
+<p></p><div class="highlight"><pre><span></span><code><span class="c1"># download_process_bar.py</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">contextlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">closing</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">requests</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">req</span>
 
 <span class="n">hea</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s1">&#39;user-agent&#39;</span><span class="p">:</span> <span class="s1">&#39;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0&#39;</span>
-                  <span class="s1">&#39;.5112.102 Safari/537.36 Edg/104.0.1293.63&#39;</span>
+    <span class="s1">'user-agent'</span><span class="p">:</span> <span class="s1">'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0'</span>
+                  <span class="s1">'.5112.102 Safari/537.36 Edg/104.0.1293.63'</span>
 <span class="p">}</span>
 
 
@@ -4319,15 +4282,15 @@
         <span class="n">headers</span> <span class="o">=</span> <span class="n">hea</span>
     <span class="k">with</span> <span class="n">closing</span><span class="p">(</span><span class="n">req</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="n">stream</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span> <span class="k">as</span> <span class="n">resp</span><span class="p">:</span>
         <span class="n">chunk_size</span> <span class="o">=</span> <span class="mi">1024</span>
-        <span class="n">content_size</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">resp</span><span class="o">.</span><span class="n">headers</span><span class="p">[</span><span class="s1">&#39;content-length&#39;</span><span class="p">])</span>
+        <span class="n">content_size</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">resp</span><span class="o">.</span><span class="n">headers</span><span class="p">[</span><span class="s1">'content-length'</span><span class="p">])</span>
         <span class="n">data_count</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">'wb'</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">resp</span><span class="o">.</span><span class="n">iter_content</span><span class="p">(</span><span class="n">chunk_size</span><span class="o">=</span><span class="n">chunk_size</span><span class="p">):</span>
                 <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
                 <span class="n">done_block</span> <span class="o">=</span> <span class="nb">int</span><span class="p">((</span><span class="n">data_count</span> <span class="o">/</span> <span class="n">content_size</span><span class="p">)</span> <span class="o">*</span> <span class="mi">50</span><span class="p">)</span>
                 <span class="n">data_count</span> <span class="o">=</span> <span class="n">data_count</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
                 <span class="n">now_percent</span> <span class="o">=</span> <span class="p">(</span><span class="n">data_count</span> <span class="o">/</span> <span class="n">content_size</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span>
-                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\r</span><span class="s2"> [</span><span class="si">%s%s</span><span class="s2">] </span><span class="si">%d%%</span><span class="s2"> &quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">done_block</span> <span class="o">*</span> <span class="s1">&#39;█&#39;</span><span class="p">,</span> <span class="s1">&#39; &#39;</span> <span class="o">*</span> <span class="p">(</span><span class="mi">50</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">done_block</span><span class="p">),</span> <span class="n">now_percent</span><span class="p">),</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\r</span><span class="s2"> [</span><span class="si">%s%s</span><span class="s2">] </span><span class="si">%d%%</span><span class="s2"> "</span> <span class="o">%</span> <span class="p">(</span><span class="n">done_block</span> <span class="o">*</span> <span class="s1">'█'</span><span class="p">,</span> <span class="s1">' '</span> <span class="o">*</span> <span class="p">(</span><span class="mi">50</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">done_block</span><span class="p">),</span> <span class="n">now_percent</span><span class="p">),</span> <span class="n">end</span><span class="o">=</span><span class="s2">" "</span><span class="p">)</span>
 </code></pre></div>
 这里的<span class="arithmatex">\(closing\)</span>是为了将<span class="arithmatex">\(req.get\)</span>自动生成上下文管理，这样才能用<span class="arithmatex">\(with\)</span>打开；<span class="arithmatex">\(resp.iter\_content\)</span>则可以将文件分段，以显示出进度条。'\r'是为了让输出显示在同一行，作用是让光标回到行首。
 <div class="highlight"><pre><span></span><code><span class="c1"># normal_get_video.py</span>
@@ -4338,22 +4301,22 @@
 <span class="kn">import</span><span class="w"> </span><span class="nn">merge_video_audio</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">mva</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">download_process_bar</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">dpb</span>
 <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s1">&#39;user-agent&#39;</span><span class="p">:</span> <span class="s1">&#39;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0&#39;</span>
-                  <span class="s1">&#39;.5112.102 Safari/537.36 Edg/104.0.1293.63&#39;</span>
+    <span class="s1">'user-agent'</span><span class="p">:</span> <span class="s1">'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0'</span>
+                  <span class="s1">'.5112.102 Safari/537.36 Edg/104.0.1293.63'</span>
 <span class="p">}</span>
 
-<span class="n">or_url</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;https://www.bilibili.com/video/</span><span class="si">{}</span><span class="s1">&#39;</span>
-<span class="n">ep_url</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;https://www.bilibili.com/bangumi/play/</span><span class="si">{}</span><span class="s1">?from_spmid=666.25.episode.0&amp;from_outer_spmid=333.337.0.0&#39;</span>
-<span class="n">bv_id</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;BV1254y187SE&#39;</span>  <span class="c1"># input(&#39;输入bv号:&#39;)</span>
-<span class="n">ep_id</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;ep517946&#39;</span>
-<span class="n">dirt</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;C:\Users\Yimen\Desktop\bilibili_video&#39;</span>
+<span class="n">or_url</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">'https://www.bilibili.com/video/</span><span class="si">{}</span><span class="s1">'</span>
+<span class="n">ep_url</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">'https://www.bilibili.com/bangumi/play/</span><span class="si">{}</span><span class="s1">?from_spmid=666.25.episode.0&amp;from_outer_spmid=333.337.0.0'</span>
+<span class="n">bv_id</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">'BV1254y187SE'</span>  <span class="c1"># input('输入bv号:')</span>
+<span class="n">ep_id</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">'ep517946'</span>
+<span class="n">dirt</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">'C:\Users\Yimen\Desktop\bilibili_video'</span>
 
 <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">dirt</span><span class="p">):</span>
     <span class="n">os</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">dirt</span><span class="p">)</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">write_html</span><span class="p">(</span><span class="n">html</span><span class="p">):</span>
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;video.html&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">'video.html'</span><span class="p">,</span> <span class="s1">'w'</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">'utf-8'</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
         <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">html</span><span class="p">)</span>
 
 
@@ -4365,12 +4328,12 @@
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">write_json</span><span class="p">(</span><span class="n">json_dic</span><span class="p">):</span>
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;video.json&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">'video.json'</span><span class="p">,</span> <span class="s1">'w'</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">'utf-8'</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
         <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">json_dic</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">get_json</span><span class="p">(</span><span class="n">html</span><span class="p">):</span>
-    <span class="n">tmp</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;&lt;script&gt;window.__playinfo__=(.*?)&lt;/script&gt;&#39;</span><span class="p">)</span>
+    <span class="n">tmp</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s1">'&lt;script&gt;window.__playinfo__=(.*?)&lt;/script&gt;'</span><span class="p">)</span>
     <span class="n">json_text</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">tmp</span><span class="p">,</span> <span class="n">html</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
     <span class="n">json_dic</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">json_text</span><span class="p">)</span>
     <span class="c1"># write_json(json_dic)</span>
@@ -4378,17 +4341,17 @@
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">get_times</span><span class="p">():</span>
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;times.json&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">'times.json'</span><span class="p">,</span> <span class="s1">'r'</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
         <span class="n">dic</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
-    <span class="n">cnt</span> <span class="o">=</span> <span class="n">dic</span><span class="p">[</span><span class="s2">&quot;times&quot;</span><span class="p">]</span>
-    <span class="n">dic</span><span class="p">[</span><span class="s2">&quot;times&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;times.json&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">cnt</span> <span class="o">=</span> <span class="n">dic</span><span class="p">[</span><span class="s2">"times"</span><span class="p">]</span>
+    <span class="n">dic</span><span class="p">[</span><span class="s2">"times"</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">'times.json'</span><span class="p">,</span> <span class="s1">'w'</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
         <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">dic</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">cnt</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">get_title</span><span class="p">(</span><span class="n">html</span><span class="p">):</span>
-    <span class="n">tmp</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;&quot;videoData&quot;:.*?&quot;pic&quot;:.*?,&quot;title&quot;:&quot;(.*?)&quot;,&quot;pubdate&quot;:&#39;</span><span class="p">)</span>
+    <span class="n">tmp</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s1">'"videoData":.*?"pic":.*?,"title":"(.*?)","pubdate":'</span><span class="p">)</span>
     <span class="n">lst</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">tmp</span><span class="p">,</span> <span class="n">html</span><span class="p">)</span>
     <span class="n">title</span> <span class="o">=</span> <span class="n">lst</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
     <span class="k">return</span> <span class="n">title</span>
@@ -4399,104 +4362,104 @@
     <span class="n">title</span> <span class="o">=</span> <span class="n">get_title</span><span class="p">(</span><span class="n">get_html</span><span class="p">(</span><span class="n">re_url</span><span class="p">))</span>
 
     <span class="n">_headers_</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s1">&#39;user-agent&#39;</span><span class="p">:</span> <span class="s1">&#39;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0&#39;</span>
-                      <span class="s1">&#39;.5112.102 Safari/537.36 Edg/104.0.1293.63&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;Referer&#39;</span><span class="p">:</span> <span class="n">re_url</span>
+        <span class="s1">'user-agent'</span><span class="p">:</span> <span class="s1">'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0'</span>
+                      <span class="s1">'.5112.102 Safari/537.36 Edg/104.0.1293.63'</span><span class="p">,</span>
+        <span class="s1">'Referer'</span><span class="p">:</span> <span class="n">re_url</span>
     <span class="p">}</span>
 
     <span class="n">cnt</span> <span class="o">=</span> <span class="n">get_times</span><span class="p">()</span>
     <span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="n">dirt</span><span class="p">)</span>
 
-    <span class="n">url</span> <span class="o">=</span> <span class="n">dic</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="s1">&#39;dash&#39;</span><span class="p">][</span><span class="s1">&#39;video&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;base_url&#39;</span><span class="p">]</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;视频链接获取完毕,正在下载视频...&quot;</span><span class="p">)</span>
-    <span class="n">video_name</span> <span class="o">=</span> <span class="s1">&#39;video_</span><span class="si">{}</span><span class="s1">.mp4&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cnt</span><span class="p">)</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">dic</span><span class="p">[</span><span class="s1">'data'</span><span class="p">][</span><span class="s1">'dash'</span><span class="p">][</span><span class="s1">'video'</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s1">'base_url'</span><span class="p">]</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"视频链接获取完毕,正在下载视频..."</span><span class="p">)</span>
+    <span class="n">video_name</span> <span class="o">=</span> <span class="s1">'video_</span><span class="si">{}</span><span class="s1">.mp4'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cnt</span><span class="p">)</span>
     <span class="n">dpb</span><span class="o">.</span><span class="n">download_with_process_bar</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">video_name</span><span class="p">,</span> <span class="n">_headers_</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;下载完毕！&quot;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;--------------------&quot;</span><span class="p">)</span>
-    <span class="n">url</span> <span class="o">=</span> <span class="n">dic</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="s1">&#39;dash&#39;</span><span class="p">][</span><span class="s1">&#39;audio&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;base_url&#39;</span><span class="p">]</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;音频链接获取完毕&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"下载完毕！"</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"--------------------"</span><span class="p">)</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">dic</span><span class="p">[</span><span class="s1">'data'</span><span class="p">][</span><span class="s1">'dash'</span><span class="p">][</span><span class="s1">'audio'</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s1">'base_url'</span><span class="p">]</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"音频链接获取完毕"</span><span class="p">)</span>
     <span class="n">resp</span> <span class="o">=</span> <span class="n">req</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">_headers_</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;音频获取完毕&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"音频获取完毕"</span><span class="p">)</span>
     <span class="n">vid</span> <span class="o">=</span> <span class="n">resp</span><span class="o">.</span><span class="n">content</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;正在保存音频...&quot;</span><span class="p">)</span>
-    <span class="n">audio_name</span> <span class="o">=</span> <span class="s1">&#39;audio_</span><span class="si">{}</span><span class="s1">.mp3&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cnt</span><span class="p">)</span>
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">audio_name</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"正在保存音频..."</span><span class="p">)</span>
+    <span class="n">audio_name</span> <span class="o">=</span> <span class="s1">'audio_</span><span class="si">{}</span><span class="s1">.mp3'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cnt</span><span class="p">)</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">audio_name</span><span class="p">,</span> <span class="s1">'wb'</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
         <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">vid</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;保存完毕！&quot;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;--------------------&quot;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;正在合并音视频...&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"保存完毕！"</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"--------------------"</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"正在合并音视频..."</span><span class="p">)</span>
 
-    <span class="n">output_name</span> <span class="o">=</span> <span class="s1">&#39;output_</span><span class="si">{}</span><span class="s1">.mp4&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cnt</span><span class="p">)</span>
-    <span class="n">rename</span> <span class="o">=</span> <span class="n">title</span> <span class="o">+</span> <span class="s1">&#39;.mp4&#39;</span>
+    <span class="n">output_name</span> <span class="o">=</span> <span class="s1">'output_</span><span class="si">{}</span><span class="s1">.mp4'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cnt</span><span class="p">)</span>
+    <span class="n">rename</span> <span class="o">=</span> <span class="n">title</span> <span class="o">+</span> <span class="s1">'.mp4'</span>
     <span class="n">mva</span><span class="o">.</span><span class="n">run_by_ffmpeg</span><span class="p">(</span><span class="n">audio_name</span><span class="p">,</span> <span class="n">video_name</span><span class="p">,</span> <span class="n">output_name</span><span class="p">)</span>
     <span class="n">num</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="k">while</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">rename</span><span class="p">):</span>
-        <span class="n">rename</span> <span class="o">=</span> <span class="n">title</span> <span class="o">+</span> <span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">num</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;.mp4&#39;</span>
+        <span class="n">rename</span> <span class="o">=</span> <span class="n">title</span> <span class="o">+</span> <span class="s1">'_'</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">num</span><span class="p">)</span> <span class="o">+</span> <span class="s1">'.mp4'</span>
         <span class="n">num</span> <span class="o">+=</span> <span class="mi">1</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="n">os</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">output_name</span><span class="p">,</span> <span class="n">rename</span><span class="p">)</span>
     <span class="k">except</span> <span class="ne">OSError</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;文件名不正确，文件将自动命名为 &quot;</span> <span class="o">+</span> <span class="n">output_name</span> <span class="o">+</span> <span class="s1">&#39;.&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"文件名不正确，文件将自动命名为 "</span> <span class="o">+</span> <span class="n">output_name</span> <span class="o">+</span> <span class="s1">'.'</span><span class="p">)</span>
         <span class="k">pass</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;合成完毕!&quot;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;--------------------&quot;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;正在清理数据文件...&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"合成完毕!"</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"--------------------"</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"正在清理数据文件..."</span><span class="p">)</span>
     <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">audio_name</span><span class="p">)</span>
     <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">video_name</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;清理完毕!&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"清理完毕!"</span><span class="p">)</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">init</span><span class="p">():</span>
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;times.json&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-        <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">({</span><span class="s2">&quot;times&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">},</span> <span class="n">f</span><span class="p">)</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">'times.json'</span><span class="p">,</span> <span class="s1">'w'</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">({</span><span class="s2">"times"</span><span class="p">:</span> <span class="mi">0</span><span class="p">},</span> <span class="n">f</span><span class="p">)</span>
 
 
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">'__main__'</span><span class="p">:</span>
     <span class="n">get_video_clip</span><span class="p">(</span><span class="n">get_json</span><span class="p">(</span><span class="n">get_html</span><span class="p">(</span><span class="n">or_url</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">bv_id</span><span class="p">))))</span>
-</code></pre></div></p>
+</code></pre></div>
 <h2 id="b_3">四.获取b站评论</h2>
 <p>b站评论与b站视频的获取方法如出一辙，也是从<span class="arithmatex">\(script\)</span>标签中取出<span class="arithmatex">\(json\)</span>串，在进行保存。不过，评论具有树形结构，所以需要将每个评论下面的跟评也下载下来。</p>
 <p>这个过程存在大量访问不同地址的情况，可能会被拦截。因此为了让程序不终止，需要添加一些特判。并且，我们可以通过随即切换代理<span class="arithmatex">\(IP\)</span>,请求头的骚操作尝试不被识别为程序。</p>
 <p>~~事实上并没什么卵用，200个请求后一定会被拦截~~</p>
 <p>实例:获取b站评论
-<div class="highlight"><pre><span></span><code><span class="c1"># my_headers.py</span>
+</p><div class="highlight"><pre><span></span><code><span class="c1"># my_headers.py</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">random</span>
 <span class="n">my_headers</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="s2">&quot;Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.153 Safari/537.36&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;Mozilla/5.0 (Windows NT 6.1; WOW64; rv:30.0) Gecko/20100101 Firefox/30.0&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.75.14 (KHTML, like Gecko) Version/7.0.3 Safari/537.75.14&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; Win64; x64; Trident/6.0)&quot;</span><span class="p">,</span>
-    <span class="s1">&#39;Mozilla/5.0 (Windows; U; Windows NT 5.1; it; rv:1.8.1.11) Gecko/20071127 Firefox/2.0.0.11&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;Opera/9.25 (Windows NT 5.1; U; en)&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 1.1.4322; .NET CLR 2.0.50727)&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;Mozilla/5.0 (compatible; Konqueror/3.5; Linux) KHTML/3.5.5 (like Gecko) (Kubuntu)&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.8.0.12) Gecko/20070731 Ubuntu/dapper-security Firefox/1.5.0.12&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;Lynx/2.8.5rel.1 libwww-FM/2.14 SSL-MM/1.4.1 GNUTLS/1.2.9&#39;</span><span class="p">,</span>
-    <span class="s2">&quot;Mozilla/5.0 (X11; Linux i686) AppleWebKit/535.7 (KHTML, like Gecko) Ubuntu/11.04 Chromium/16.0.912.77 Chrome/16.0.912.77 Safari/535.7&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;Mozilla/5.0 (X11; Ubuntu; Linux i686; rv:10.0) Gecko/20100101 Firefox/10.0 &quot;</span><span class="p">,</span>
-    <span class="s1">&#39;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.5112.102 Safari/537.36 Edg/104.0.1293.63&#39;</span>
+    <span class="s2">"Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36"</span><span class="p">,</span>
+    <span class="s2">"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.153 Safari/537.36"</span><span class="p">,</span>
+    <span class="s2">"Mozilla/5.0 (Windows NT 6.1; WOW64; rv:30.0) Gecko/20100101 Firefox/30.0"</span><span class="p">,</span>
+    <span class="s2">"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.75.14 (KHTML, like Gecko) Version/7.0.3 Safari/537.75.14"</span><span class="p">,</span>
+    <span class="s2">"Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; Win64; x64; Trident/6.0)"</span><span class="p">,</span>
+    <span class="s1">'Mozilla/5.0 (Windows; U; Windows NT 5.1; it; rv:1.8.1.11) Gecko/20071127 Firefox/2.0.0.11'</span><span class="p">,</span>
+    <span class="s1">'Opera/9.25 (Windows NT 5.1; U; en)'</span><span class="p">,</span>
+    <span class="s1">'Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 1.1.4322; .NET CLR 2.0.50727)'</span><span class="p">,</span>
+    <span class="s1">'Mozilla/5.0 (compatible; Konqueror/3.5; Linux) KHTML/3.5.5 (like Gecko) (Kubuntu)'</span><span class="p">,</span>
+    <span class="s1">'Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.8.0.12) Gecko/20070731 Ubuntu/dapper-security Firefox/1.5.0.12'</span><span class="p">,</span>
+    <span class="s1">'Lynx/2.8.5rel.1 libwww-FM/2.14 SSL-MM/1.4.1 GNUTLS/1.2.9'</span><span class="p">,</span>
+    <span class="s2">"Mozilla/5.0 (X11; Linux i686) AppleWebKit/535.7 (KHTML, like Gecko) Ubuntu/11.04 Chromium/16.0.912.77 Chrome/16.0.912.77 Safari/535.7"</span><span class="p">,</span>
+    <span class="s2">"Mozilla/5.0 (X11; Ubuntu; Linux i686; rv:10.0) Gecko/20100101 Firefox/10.0 "</span><span class="p">,</span>
+    <span class="s1">'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.5112.102 Safari/537.36 Edg/104.0.1293.63'</span>
 <span class="p">]</span>
 
 
 <span class="n">proxy_list</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="s1">&#39;183.95.80.102:8080&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;123.160.31.71:8080&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;115.231.128.79:8080&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;166.111.77.32:80&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;43.240.138.31:8080&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;218.201.98.196:3128&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;47.94.230.42:9999&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;192.168.131.1:8080&#39;</span>
+    <span class="s1">'183.95.80.102:8080'</span><span class="p">,</span>
+    <span class="s1">'123.160.31.71:8080'</span><span class="p">,</span>
+    <span class="s1">'115.231.128.79:8080'</span><span class="p">,</span>
+    <span class="s1">'166.111.77.32:80'</span><span class="p">,</span>
+    <span class="s1">'43.240.138.31:8080'</span><span class="p">,</span>
+    <span class="s1">'218.201.98.196:3128'</span><span class="p">,</span>
+    <span class="s1">'47.94.230.42:9999'</span><span class="p">,</span>
+    <span class="s1">'192.168.131.1:8080'</span>
 <span class="p">]</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">headers</span><span class="p">(</span><span class="n">origin_url</span><span class="p">):</span>
     <span class="n">num</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">13</span><span class="p">)</span>
     <span class="n">hea</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s1">&#39;user-agent&#39;</span><span class="p">:</span> <span class="n">my_headers</span><span class="p">[</span><span class="n">num</span><span class="p">],</span>
-        <span class="s1">&#39;referer&#39;</span><span class="p">:</span> <span class="n">origin_url</span>
+        <span class="s1">'user-agent'</span><span class="p">:</span> <span class="n">my_headers</span><span class="p">[</span><span class="n">num</span><span class="p">],</span>
+        <span class="s1">'referer'</span><span class="p">:</span> <span class="n">origin_url</span>
     <span class="p">}</span>
     <span class="k">return</span> <span class="n">hea</span>
 
@@ -4504,25 +4467,25 @@
 <span class="k">def</span><span class="w"> </span><span class="nf">proxy</span><span class="p">():</span>
     <span class="n">num</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">7</span><span class="p">)</span>
     <span class="n">pro</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s1">&#39;http&#39;</span><span class="p">:</span> <span class="n">proxy_list</span><span class="p">[</span><span class="n">num</span><span class="p">]</span>
+        <span class="s1">'http'</span><span class="p">:</span> <span class="n">proxy_list</span><span class="p">[</span><span class="n">num</span><span class="p">]</span>
     <span class="p">}</span>
     <span class="k">return</span> <span class="n">pro</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">Proxy</span><span class="p">():</span>
-    <span class="n">prox</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+    <span class="n">prox</span> <span class="o">=</span> <span class="s1">''</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">):</span>
         <span class="n">num</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">255</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
-            <span class="n">prox</span> <span class="o">=</span> <span class="n">prox</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">num</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;:&#39;</span>
+            <span class="n">prox</span> <span class="o">=</span> <span class="n">prox</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">num</span><span class="p">)</span> <span class="o">+</span> <span class="s1">':'</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">prox</span> <span class="o">=</span> <span class="n">prox</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">num</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;.&#39;</span>
-    <span class="n">prox</span> <span class="o">=</span> <span class="n">prox</span> <span class="o">+</span> <span class="s1">&#39;8080&#39;</span>
+            <span class="n">prox</span> <span class="o">=</span> <span class="n">prox</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">num</span><span class="p">)</span> <span class="o">+</span> <span class="s1">'.'</span>
+    <span class="n">prox</span> <span class="o">=</span> <span class="n">prox</span> <span class="o">+</span> <span class="s1">'8080'</span>
     <span class="n">pro</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s1">&#39;http&#39;</span><span class="p">:</span> <span class="n">prox</span>
+        <span class="s1">'http'</span><span class="p">:</span> <span class="n">prox</span>
     <span class="p">}</span>
     <span class="k">return</span> <span class="n">pro</span>
-</code></pre></div></p>
+</code></pre></div>
 <div class="highlight"><pre><span></span><code><span class="c1"># normal_get_review.py</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">requests</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">req</span>
@@ -4533,23 +4496,23 @@
 <span class="kn">import</span><span class="w"> </span><span class="nn">my_headers</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">mh</span>
 
 
-<span class="n">or_url</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;https://api.bilibili.com/x/v2/reply/main?csrf=289e176593e8271d3d55f66616&#39;</span> \
-         <span class="sa">r</span><span class="s1">&#39;bc8ed0&amp;mode=3&amp;next=</span><span class="si">{}</span><span class="s1">&amp;oid=845534966&amp;plat=1&amp;type=1&#39;</span>
+<span class="n">or_url</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">'https://api.bilibili.com/x/v2/reply/main?csrf=289e176593e8271d3d55f66616'</span> \
+         <span class="sa">r</span><span class="s1">'bc8ed0&amp;mode=3&amp;next=</span><span class="si">{}</span><span class="s1">&amp;oid=845534966&amp;plat=1&amp;type=1'</span>
 
-<span class="n">bv_url</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;https://www.bilibili.com/video/BV1Q54y157AT?spm_id_from=333.999.0.&#39;</span> \
-         <span class="sa">r</span><span class="s1">&#39;0&amp;vd_source=291e2d237373b8b9b036cf97aa555083&#39;</span>
+<span class="n">bv_url</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">'https://www.bilibili.com/video/BV1Q54y157AT?spm_id_from=333.999.0.'</span> \
+         <span class="sa">r</span><span class="s1">'0&amp;vd_source=291e2d237373b8b9b036cf97aa555083'</span>
 
-<span class="n">more_rev_url</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;https://api.bilibili.com/x/v2/reply/reply?csrf=289e176593e8271d3d55f66616bc8ed0&amp;oid=84553496&#39;</span> \
-               <span class="sa">r</span><span class="s1">&#39;6&amp;pn=</span><span class="si">{}</span><span class="s1">&amp;ps=10&amp;root=</span><span class="si">{}</span><span class="s1">&amp;type=1&#39;</span>
+<span class="n">more_rev_url</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">'https://api.bilibili.com/x/v2/reply/reply?csrf=289e176593e8271d3d55f66616bc8ed0&amp;oid=84553496'</span> \
+               <span class="sa">r</span><span class="s1">'6&amp;pn=</span><span class="si">{}</span><span class="s1">&amp;ps=10&amp;root=</span><span class="si">{}</span><span class="s1">&amp;type=1'</span>
 
-<span class="n">dirt</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;C:\Users\Yimen\Desktop\bilibili_review&#39;</span>
+<span class="n">dirt</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">'C:\Users\Yimen\Desktop\bilibili_review'</span>
 
 <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">dirt</span><span class="p">):</span>
     <span class="n">os</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">dirt</span><span class="p">)</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">get_title</span><span class="p">(</span><span class="n">html</span><span class="p">):</span>
-    <span class="n">tmp</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;&quot;videoData&quot;:.*?&quot;pic&quot;:.*?,&quot;title&quot;:&quot;(.*?)&quot;,&quot;pubdate&quot;:&#39;</span><span class="p">)</span>
+    <span class="n">tmp</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s1">'"videoData":.*?"pic":.*?,"title":"(.*?)","pubdate":'</span><span class="p">)</span>
     <span class="n">lst</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">tmp</span><span class="p">,</span> <span class="n">html</span><span class="p">)</span>
     <span class="n">title</span> <span class="o">=</span> <span class="n">lst</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
     <span class="k">return</span> <span class="n">title</span>
@@ -4558,7 +4521,7 @@
 <span class="k">def</span><span class="w"> </span><span class="nf">get_html</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>
     <span class="n">h</span> <span class="o">=</span> <span class="n">mh</span><span class="o">.</span><span class="n">headers</span><span class="p">(</span><span class="n">bv_url</span><span class="p">)</span>
     <span class="n">p</span> <span class="o">=</span> <span class="n">mh</span><span class="o">.</span><span class="n">Proxy</span><span class="p">()</span>
-    <span class="c1"># print(p[&#39;http&#39;] + h[&#39;user-agent&#39;])</span>
+    <span class="c1"># print(p['http'] + h['user-agent'])</span>
     <span class="n">resp</span> <span class="o">=</span> <span class="n">req</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">h</span><span class="p">,</span> <span class="n">proxies</span><span class="o">=</span><span class="n">p</span><span class="p">)</span>
     <span class="n">html</span> <span class="o">=</span> <span class="n">resp</span><span class="o">.</span><span class="n">text</span>
     <span class="k">return</span> <span class="n">html</span>
@@ -4566,7 +4529,7 @@
 
 <span class="k">def</span><span class="w"> </span><span class="nf">write_json</span><span class="p">(</span><span class="n">json_dic</span><span class="p">,</span> <span class="n">cnt</span><span class="p">):</span>
     <span class="n">obj</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">json_dic</span><span class="p">,</span> <span class="n">ensure_ascii</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;review</span><span class="si">{}</span><span class="s1">.json&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cnt</span><span class="p">),</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">'review</span><span class="si">{}</span><span class="s1">.json'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cnt</span><span class="p">),</span> <span class="s1">'w'</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">'utf-8'</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
         <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
 
 
@@ -4577,12 +4540,12 @@
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">write_rev</span><span class="p">(</span><span class="n">dic</span><span class="p">,</span> <span class="n">rev_lst</span><span class="p">,</span> <span class="n">num</span><span class="p">):</span>
-    <span class="n">name</span> <span class="o">=</span> <span class="n">dic</span><span class="p">[</span><span class="s2">&quot;member&quot;</span><span class="p">][</span><span class="s2">&quot;uname&quot;</span><span class="p">]</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">dic</span><span class="p">[</span><span class="s2">"member"</span><span class="p">][</span><span class="s2">"uname"</span><span class="p">]</span>
     <span class="k">if</span> <span class="n">num</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="n">name</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">num</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="n">name</span>
-    <span class="n">content</span> <span class="o">=</span> <span class="n">dic</span><span class="p">[</span><span class="s2">&quot;content&quot;</span><span class="p">][</span><span class="s2">&quot;message&quot;</span><span class="p">]</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">num</span><span class="p">)</span> <span class="o">+</span> <span class="s1">'_'</span> <span class="o">+</span> <span class="n">name</span>
+    <span class="n">content</span> <span class="o">=</span> <span class="n">dic</span><span class="p">[</span><span class="s2">"content"</span><span class="p">][</span><span class="s2">"message"</span><span class="p">]</span>
     <span class="n">rev_lst</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">name</span><span class="p">,</span> <span class="n">content</span><span class="p">])</span>
-    <span class="k">return</span> <span class="n">dic</span><span class="p">[</span><span class="s2">&quot;rpid&quot;</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">dic</span><span class="p">[</span><span class="s2">"rpid"</span><span class="p">]</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">write_review</span><span class="p">():</span>
@@ -4594,7 +4557,7 @@
         <span class="n">now_url</span> <span class="o">=</span> <span class="n">or_url</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
         <span class="n">html</span> <span class="o">=</span> <span class="n">get_html</span><span class="p">(</span><span class="n">now_url</span><span class="p">)</span>
         <span class="n">dic</span> <span class="o">=</span> <span class="n">get_json</span><span class="p">(</span><span class="n">html</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
-        <span class="n">lst</span> <span class="o">=</span> <span class="n">dic</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">][</span><span class="s2">&quot;replies&quot;</span><span class="p">]</span>
+        <span class="n">lst</span> <span class="o">=</span> <span class="n">dic</span><span class="p">[</span><span class="s2">"data"</span><span class="p">][</span><span class="s2">"replies"</span><span class="p">]</span>
         <span class="n">user_num</span> <span class="o">=</span> <span class="mi">1</span>
 
         <span class="k">for</span> <span class="n">new_dic</span> <span class="ow">in</span> <span class="n">lst</span><span class="p">:</span>
@@ -4605,12 +4568,12 @@
                     <span class="n">more_url</span> <span class="o">=</span> <span class="n">more_rev_url</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cnt</span><span class="p">,</span> <span class="n">rpid</span><span class="p">)</span>
                     <span class="n">tmp_html</span> <span class="o">=</span> <span class="n">get_html</span><span class="p">(</span><span class="n">more_url</span><span class="p">)</span>
                     <span class="n">tmp_dic</span> <span class="o">=</span> <span class="n">get_json</span><span class="p">(</span><span class="n">tmp_html</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
-                    <span class="n">state</span> <span class="o">=</span> <span class="n">tmp_dic</span><span class="p">[</span><span class="s2">&quot;message&quot;</span><span class="p">]</span>
-                    <span class="k">if</span> <span class="n">state</span> <span class="o">==</span> <span class="s2">&quot;请求被拦截&quot;</span><span class="p">:</span>
+                    <span class="n">state</span> <span class="o">=</span> <span class="n">tmp_dic</span><span class="p">[</span><span class="s2">"message"</span><span class="p">]</span>
+                    <span class="k">if</span> <span class="n">state</span> <span class="o">==</span> <span class="s2">"请求被拦截"</span><span class="p">:</span>
                         <span class="nb">print</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
                         <span class="k">break</span>
                     <span class="k">else</span><span class="p">:</span>
-                        <span class="n">tmp_lst</span> <span class="o">=</span> <span class="n">tmp_dic</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">][</span><span class="s2">&quot;replies&quot;</span><span class="p">]</span>
+                        <span class="n">tmp_lst</span> <span class="o">=</span> <span class="n">tmp_dic</span><span class="p">[</span><span class="s2">"data"</span><span class="p">][</span><span class="s2">"replies"</span><span class="p">]</span>
                         <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">tmp_lst</span><span class="p">)</span> <span class="o">==</span> <span class="nb">type</span><span class="p">([]):</span>
                             <span class="k">for</span> <span class="n">every_dic</span> <span class="ow">in</span> <span class="n">tmp_lst</span><span class="p">:</span>
                                 <span class="n">write_rev</span><span class="p">(</span><span class="n">every_dic</span><span class="p">,</span> <span class="n">rev_lst</span><span class="p">,</span> <span class="n">user_num</span><span class="p">)</span>
@@ -4624,11 +4587,11 @@
 
     <span class="n">workbook</span> <span class="o">=</span> <span class="n">openpyxl</span><span class="o">.</span><span class="n">Workbook</span><span class="p">()</span>
     <span class="n">sheet</span> <span class="o">=</span> <span class="n">workbook</span><span class="o">.</span><span class="n">active</span>
-    <span class="n">sheet</span><span class="o">.</span><span class="n">title</span> <span class="o">=</span> <span class="s1">&#39;评论&#39;</span>
-    <span class="n">sheet</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="s1">&#39;用户名称&#39;</span><span class="p">,</span> <span class="s1">&#39;评论内容&#39;</span><span class="p">])</span>
+    <span class="n">sheet</span><span class="o">.</span><span class="n">title</span> <span class="o">=</span> <span class="s1">'评论'</span>
+    <span class="n">sheet</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="s1">'用户名称'</span><span class="p">,</span> <span class="s1">'评论内容'</span><span class="p">])</span>
     <span class="n">num</span> <span class="o">=</span> <span class="mi">1</span>
-    <span class="n">sheet</span><span class="o">.</span><span class="n">column_dimensions</span><span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">width</span> <span class="o">=</span> <span class="mi">30</span>
-    <span class="n">sheet</span><span class="o">.</span><span class="n">column_dimensions</span><span class="p">[</span><span class="s1">&#39;B&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">width</span> <span class="o">=</span> <span class="mi">300</span>
+    <span class="n">sheet</span><span class="o">.</span><span class="n">column_dimensions</span><span class="p">[</span><span class="s1">'A'</span><span class="p">]</span><span class="o">.</span><span class="n">width</span> <span class="o">=</span> <span class="mi">30</span>
+    <span class="n">sheet</span><span class="o">.</span><span class="n">column_dimensions</span><span class="p">[</span><span class="s1">'B'</span><span class="p">]</span><span class="o">.</span><span class="n">width</span> <span class="o">=</span> <span class="mi">300</span>
     <span class="n">sheet</span><span class="o">.</span><span class="n">row_dimensions</span><span class="p">[</span><span class="n">num</span><span class="p">]</span><span class="o">.</span><span class="n">height</span> <span class="o">=</span> <span class="mi">25</span>
 
     <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">content</span> <span class="ow">in</span> <span class="n">rev_lst</span><span class="p">:</span>
@@ -4636,10 +4599,10 @@
         <span class="n">num</span> <span class="o">+=</span> <span class="mi">1</span>
         <span class="n">sheet</span><span class="o">.</span><span class="n">row_dimensions</span><span class="p">[</span><span class="n">num</span><span class="p">]</span><span class="o">.</span><span class="n">height</span> <span class="o">=</span> <span class="mi">20</span>
 
-    <span class="n">workbook</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">&quot;评论_1_&quot;</span> <span class="o">+</span> <span class="n">title</span> <span class="o">+</span> <span class="s2">&quot;.xlsx&quot;</span><span class="p">)</span>
+    <span class="n">workbook</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">"评论_1_"</span> <span class="o">+</span> <span class="n">title</span> <span class="o">+</span> <span class="s2">".xlsx"</span><span class="p">)</span>
 
 
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">'__main__'</span><span class="p">:</span>
     <span class="n">write_review</span><span class="p">()</span>
 </code></pre></div>
 <h4 id="94-update">9.4 update</h4>
@@ -4650,7 +4613,7 @@
 <p>寒假填坑</p>
 <p>update 2023.1.25
 寒假填nmb坑，还有50天英语高考了
-暑假再填</p>
+暑假再填</p></div>
 
 
 

@@ -146,43 +146,6 @@
     
     
     
-      <label class="md-header__button md-icon" for="__search">
-        
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
-      </label>
-      <div class="md-search" data-md-component="search" role="dialog">
-  <label class="md-search__overlay" for="__search"></label>
-  <div class="md-search__inner" role="search">
-    <form class="md-search__form" name="search">
-      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
-      <label class="md-search__icon md-icon" for="__search">
-        
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
-        
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
-      </label>
-      <nav class="md-search__options" aria-label="Search">
-        
-        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
-          
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
-        </button>
-      </nav>
-      
-    </form>
-    <div class="md-search__output">
-      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
-        <div class="md-search-result" data-md-component="search-result">
-          <div class="md-search-result__meta">
-            Initializing search
-          </div>
-          <ol class="md-search-result__list" role="presentation"></ol>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-    
     
       <div class="md-header__source">
         <a href="https://github.com/akonjac0/note" title="Go to repository" class="md-source" data-md-component="source">
@@ -3477,7 +3440,7 @@
   
 
 
-<h1 id="_1">有限域</h1>
+<div><h1 id="_1">有限域</h1>
 <h2 id="_2">定义</h2>
 <p><span class="arithmatex">\(GF[2^m]\)</span>将有限个整数映射到多项式上，使其对于精心定义的加减乘除运算，在<span class="arithmatex">\([1,2^m-1]\)</span>范围内运算封闭，从而构成一个有限域</p>
 <p>具体地，定义多项式加、减法为系数异或，乘法为多项式相乘后取模，除法为乘以逆多项式</p>
@@ -3551,9 +3514,9 @@
 <p>这样就将两个数的乘法转换为了<span class="arithmatex">\(\alpha^n\)</span>和<span class="arithmatex">\(\alpha^m\)</span>指数相加，然后查表中对应<span class="arithmatex">\(\alpha^{(n+m)\mod 255}\)</span>的二进制数，则这个数就是结果</p>
 <p>前面这个表是生成元映射到二进制数的正表</p>
 <p>为了反查表，我们还需要一个反表，把二进制数映射到生成元</p>
-<p><div class="highlight"><pre><span></span><code><span class="k">for</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">255</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="n">arc_table</span><span class="p">[</span><span class="n">table</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i</span><span class="p">;</span>
+<p></p><div class="highlight"><pre><span></span><code><span class="k">for</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">255</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="n">arc_table</span><span class="p">[</span><span class="n">table</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i</span><span class="p">;</span>
 </code></pre></div>
-* 注：table定义域为<span class="arithmatex">\([0,254]\)</span>,表示<span class="arithmatex">\(\alpha^n\)</span>的指数<span class="arithmatex">\(n\)</span>,值域为<span class="arithmatex">\([1,255]\)</span>,表示<span class="arithmatex">\(\alpha^n \mod P(\alpha)\)</span>后的多项式对应的二进制表示的数；arc_table与之相反</p>
+* 注：table定义域为<span class="arithmatex">\([0,254]\)</span>,表示<span class="arithmatex">\(\alpha^n\)</span>的指数<span class="arithmatex">\(n\)</span>,值域为<span class="arithmatex">\([1,255]\)</span>,表示<span class="arithmatex">\(\alpha^n \mod P(\alpha)\)</span>后的多项式对应的二进制表示的数；arc_table与之相反
 <p>最后的乘法：</p>
 <div class="highlight"><pre><span></span><code><span class="kt">unsigned</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="nf">mul</span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">y</span><span class="p">){</span>
 <span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="w"> </span><span class="o">!</span><span class="n">x</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="o">!</span><span class="n">y</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
@@ -3570,8 +3533,8 @@
 <span class="p">}</span>
 </code></pre></div>
 <p>这样得到的表满足
-<div class="highlight"><pre><span></span><code><span class="n">mul</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">inverse_table</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="o">=</span><span class="mi">1</span>
-</code></pre></div></p>
+</p><div class="highlight"><pre><span></span><code><span class="n">mul</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">inverse_table</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="o">=</span><span class="mi">1</span>
+</code></pre></div>
 <p>这样就有除法：</p>
 <div class="highlight"><pre><span></span><code><span class="kt">unsigned</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="nf">div</span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">y</span><span class="p">){</span>
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">mul</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">inverse_table</span><span class="p">[</span><span class="n">y</span><span class="p">]);</span>
@@ -3586,7 +3549,7 @@
 <p>在表中<span class="arithmatex">\(3\)</span>对应着<span class="arithmatex">\(\alpha^{25}\)</span>,<span class="arithmatex">\(7\)</span>对应着<span class="arithmatex">\(\alpha^{198}\)</span>,乘出来的<span class="arithmatex">\(\alpha^{223}\)</span>对应的二进制数即为<span class="arithmatex">\(9\)</span></p>
 <p>事实上，二进制数<span class="arithmatex">\(3\)</span>和<span class="arithmatex">\(7\)</span>对应的多项式<span class="arithmatex">\(\alpha^1+1\)</span>和<span class="arithmatex">\(\alpha^2+\alpha^1+1\)</span>直接相乘后取模，结果为<span class="arithmatex">\(\alpha^3+1\)</span>, 即为<span class="arithmatex">\(9\)</span></p>
 <p><span class="arithmatex">\(142\times 71=173\)</span></p>
-<p>在表中<span class="arithmatex">\(142\)</span>对应着<span class="arithmatex">\(\alpha^{254}\)</span>,<span class="arithmatex">\(71\)</span>对应着<span class="arithmatex">\(\alpha^{253}\)</span>,乘出来的<span class="arithmatex">\(\alpha^{252}\)</span>对应的二进制数即为<span class="arithmatex">\(173\)</span></p>
+<p>在表中<span class="arithmatex">\(142\)</span>对应着<span class="arithmatex">\(\alpha^{254}\)</span>,<span class="arithmatex">\(71\)</span>对应着<span class="arithmatex">\(\alpha^{253}\)</span>,乘出来的<span class="arithmatex">\(\alpha^{252}\)</span>对应的二进制数即为<span class="arithmatex">\(173\)</span></p></div>
 
 
 

@@ -3672,6 +3672,10 @@
 <p><span class="arithmatex">\(softmax(\frac{QK^T}{\sqrt{d_k}})V\)</span> 复杂度为 <span class="arithmatex">\(O(n\cdot n\cdot d_v)=O(n^2d)\)</span></p>
 <p>所以复杂度为 <span class="arithmatex">\(O(n^2d)\)</span></p>
 </li>
+<li>
+<p>如果改成 restricted, 每个元素只能和周围 <span class="arithmatex">\(r\)</span> 个元素计算依赖, 即 <span class="arithmatex">\(K\in\mathbb{R^{r\times d_k}},V\in\mathbb{R^{r\times d_v}}\)</span></p>
+<p>所以复杂度为 <span class="arithmatex">\(O(n\cdot d_k\cdot r+n\cdot r\cdot d_v)=O(rnd)\)</span></p>
+</li>
 </ul>
 </li>
 <li>
@@ -3691,10 +3695,16 @@
 <p>最终计算 <span class="arithmatex">\(W^O\)</span> 的复杂度是 <span class="arithmatex">\(O(n\cdot hd_v\cdot d_{model}) = O(nd^2)\)</span> </p>
 <p>所以复杂度为 <span class="arithmatex">\(O(n^2d+nd^2)\)</span></p>
 </li>
+<li>
+<p>如果改成 restricted, 那么 <span class="arithmatex">\(K,V\in\mathbb{R^{r\times d_{model}}}\)</span></p>
+<p><span class="arithmatex">\(head_i\)</span> 计算复杂度为 <span class="arithmatex">\(O(rnd+rd_{model}d_k+rd_{model}d_v+nd_{model}d_k)=O(rnd+rd^2+nd^2)\)</span></p>
+<p><span class="arithmatex">\(W^O\)</span> 计算复杂度为 <span class="arithmatex">\(nd^2\)</span></p>
+<p>所以总的复杂度是 <span class="arithmatex">\(O(rnd+nd^2)\)</span></p>
+<h3 id="position-wise-feed-forward-networks">Position-wise Feed-Forward Networks</h3>
+</li>
 </ul>
 </li>
 </ol>
-<h3 id="position-wise-feed-forward-networks">Position-wise Feed-Forward Networks</h3>
 <p>全连接层, 函数是两个线性变换的叠加: <span class="arithmatex">\(FFN(x)=\max(0,xW_1+b_1)W_2+b_2\)</span></p>
 <p>层与层之间的参数各不相同</p>
 <ul>
@@ -3776,7 +3786,13 @@
 <p>那么计算整个序列, 复杂度是 <span class="arithmatex">\(O(knd^2)\)</span></p>
 </li>
 <li>
-<p>对于 transformer, 如果只考虑 Attention 的计算部分, 那么复杂度是 <span class="arithmatex">\(O(n^2d)\)</span> 的 (即忽略了线性映射的 <span class="arithmatex">\(O(nd^2)\)</span>, 因为 RNN, CNN 也要有这个步骤)</p>
+<p>对于 transformer, 如果只考虑 Self-Attention 的计算部分, 那么复杂度是 <span class="arithmatex">\(O(n^2d)\)</span> 的 (即忽略了线性映射的 <span class="arithmatex">\(O(nd^2)\)</span>)</p>
+<ul>
+<li>
+<p>为什么可以忽略线性映射部分? </p>
+<!-- 一方面可能是对于 <span class="arithmatex">\(n\gg d\)</span>, <span class="arithmatex">\(O(n^2d)\)</span> 占主导; 还可能是 <span class="arithmatex">\(O(nd^2)\)</span> 可以合并到 <span class="arithmatex">\(FFN\)</span> 的计算中, 因为 <span class="arithmatex">\(FFN\)</span> 复杂度也为 <span class="arithmatex">\(O(nd^2)\)</span> -->
+</li>
+</ul>
 </li>
 <li>
 <p>相当于并行计算的 <span class="arithmatex">\(\displaystyle \frac{W}{p}\)</span>, 即每一组的 workload</p>
@@ -3795,24 +3811,29 @@
 <h3 id="_6">综合对比一下</h3>
 <ol>
 <li>
-<p>对于计算的复杂度, RNN 的 <span class="arithmatex">\(O(nd^2)\)</span> 要优于普通 CNN 的 <span class="arithmatex">\(O(knd^2)\)</span>, <span class="arithmatex">\(k\)</span> 是卷积核 (kernel) 的大小</p>
+<p>对于计算的复杂度, RNN 的 <span class="arithmatex">\(O(nd^2)\)</span> 要优于普通 CNN 的 <span class="arithmatex">\(O(knd^2)\)</span>, <span class="arithmatex">\(k\)</span> 是卷积核 (kernel) 的大小, <span class="arithmatex">\(k&lt;n\)</span></p>
 <p>同时, 在 <span class="arithmatex">\(n&lt;d\)</span> 时普通的自注意力优于 RNN</p>
 <p>为了提升长序列的表现, 可以将输入序列分组, 每组长为 <span class="arithmatex">\(r\)</span>, 分成 <span class="arithmatex">\(n/r\)</span> 组. 这样的限制自注意力比 RNN 的序列操作更少; 尽管这会提升最大路径长度, 但仍然好于 RNN <span class="arithmatex">\(O(n)\)</span> 的最大路径长度</p>
 <p>如果 <span class="arithmatex">\(r&lt;d\)</span>, 那么这样的自注意力就会好于 RNN</p>
 </li>
 <li>
-<p>对于 Separable convolutions, 复杂度达到了 <span class="arithmatex">\(O(knd+nd^2)\)</span>, 但仍然不比限制自注意力好</p>
+<p>对于 Separable convolutions, 复杂度达到了 <span class="arithmatex">\(O(knd+nd^2)\)</span>, 但仍然不比 <span class="arithmatex">\(r&lt;d\)</span> 的限制自注意力的 <span class="arithmatex">\(O(rnd)\)</span> 好</p>
 <ul>
 <li>对于最大路径长度, 如何比较 <span class="arithmatex">\(O(n/k)\)</span> 与 <span class="arithmatex">\(O(n/r)\)</span>, 或者比较 <span class="arithmatex">\(O(\log_kn)\)</span> 与 <span class="arithmatex">\(O(n/r)\)</span>?</li>
 </ul>
 </li>
-</ol>
+<li>
+<p>上面说了 restricted Self-Attention 还有一个 <span class="arithmatex">\(O(nd^2)\)</span> 的线性映射部分, 同时 <span class="arithmatex">\(FFN\)</span> 也为 <span class="arithmatex">\(O(nd^2)\)</span>; 不过就算加上这两部分, 复杂度是 <span class="arithmatex">\(O(rnd+nd^2)\)</span>, 在 <span class="arithmatex">\(r&lt;d\)</span> 时, 这个复杂度与 RNN 的 <span class="arithmatex">\(O(nd^2)\)</span> 和 CNN 的 <span class="arithmatex">\(O(knd+nd^2)\)</span> 基本等价</p>
+<p>并且注意力可以更好地学习到长程依赖, 还比 RNN 具有更好的可并行性</p>
+</li>
+<li>
 <p>还有一个 interpretability 的好处, 不太懂</p>
 <p>大概是说可以理解更多语义和句法</p>
-<p><a href="https://arxiv.org/pdf/1706.03762v5">原文</a> 的附录有例子</p>
-<ul>
-<li>参考: <a href="https://arxiv.org/pdf/1706.03762v5">Attention Is All You Need</a></li>
-</ul></div>
+<p><a href="https://arxiv.org/pdf/1706.03762v5">原文</a> 有更详细描述</p>
+</li>
+</ol>
+<hr>
+<p>参考: <a href="https://arxiv.org/pdf/1706.03762v5">Attention Is All You Need</a></p></div>
 
 
 

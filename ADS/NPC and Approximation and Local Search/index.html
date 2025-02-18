@@ -3520,10 +3520,12 @@ Here <span class="arithmatex">\(Cost(T)\)</span> is the number of leaves in <spa
 <h2 id="conp"><span class="arithmatex">\(coNP\)</span></h2>
 <p><span class="arithmatex">\(HCP\)</span>: <code>Hamilton Cycle Problem</code></p>
 <p>判断是否有 <code>Hamilton</code> 环 <span class="arithmatex">\(\to NP\)</span> </p>
-<p>判断是否没有 <code>Hamilton</code> 环 <span class="arithmatex">\(\to coNP\)</span>, 不能多项式时间验证!</p>
+<p>判断是否没有 <code>Hamilton</code> 环 <span class="arithmatex">\(\to coNP\)</span>, 不能多项式时间验证</p>
 <h1 id="tspprec-hcp"><span class="arithmatex">\(TSP\prec HCP\)</span></h1>
 <p>如果存在一个 <code>Hamilton</code> 环, 说明存在一条路线遍历所有城市 <span class="arithmatex">\(\checkmark\)</span></p>
-<p><span class="arithmatex">\(\star\)</span> 如果边权可以任意大, 不存在有近似比的近似算法!</p>
+<ul>
+<li>如果边权可以任意大, 不存在有近似比的近似算法</li>
+</ul>
 <h1 id="_5">最小着色</h1>
 <p><span class="arithmatex">\(2\)</span> 色的最小着色 <span class="arithmatex">\(\prec\)</span> 最大割</p>
 <h1 id="mst">MST 与 最大权森林</h1>
@@ -3545,10 +3547,10 @@ Here <span class="arithmatex">\(Cost(T)\)</span> is the number of leaves in <spa
 <p>所以是 <span class="arithmatex">\(2\)</span> 近似</p>
 <blockquote>
 <p>例</p>
-</blockquote>
 <p><span class="arithmatex">\([5,8], [1,6], [7, 13]\)</span></p>
 <p><span class="arithmatex">\(SF={[5,8]}\)</span></p>
 <p><span class="arithmatex">\(OPT={[1,6], [7,13]}\)</span></p>
+</blockquote>
 <h1 id="_6">归约</h1>
 <h2 id="_7">归约到子问题</h2>
 <p>注意 <span class="arithmatex">\(A\prec B\)</span>, 说明把 <span class="arithmatex">\(A\)</span> 的全集映射到 <span class="arithmatex">\(B\)</span> 的 <strong>子集</strong></p>
@@ -3585,7 +3587,9 @@ Here <span class="arithmatex">\(Cost(T)\)</span> is the number of leaves in <spa
 <h2 id="lpt-43">LPT 是 <span class="arithmatex">\(4/3\)</span> 近似的</h2>
 <h1 id="bin-packing">Bin Packing</h1>
 <h2 id="next-fit">next fit</h2>
+<p>2-近似</p>
 <h2 id="first-fit">first fit</h2>
+<p>1.7 近似比</p>
 <h2 id="first-fit-decreasing_1">first fit decreasing</h2>
 <p><span class="arithmatex">\(FFD\leq 11/9OPT+6/9\)</span></p>
 <h2 id="online">online</h2>

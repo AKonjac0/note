@@ -3743,10 +3743,16 @@ y=LN(z_L^0)\tag{4}
 <p>(image-specific inductive bias = 图像相关的归纳偏置)</p>
 <p>CNN 有 locality, 2D neighborhood structure 和 translation equivariance</p>
 <p>具体见<a href="https://akonjac0.github.io/note/AI/DL/">笔记</a></p>
-<p>而 attention 只有</p>
-<p>所以</p>
+<p>而 ViT 只有 MLP 层有 locality 和 translation equivariance, attention 是 global 的</p>
+<p>毕竟 attention 就是为了做全局理解的</p>
+<p>而二维结构只在初始化时才有, 后面就转化成一维向量了</p>
+<p>缺少归纳偏置会让 ViT 相比 CNN 更难在小数据上展现好的泛化能力</p>
+<p>所以 ViT 的与训练过程数据集很大</p>
 <h2 id="cnn">结合 CNN</h2>
 <p>在原图的分块经过线性映射 <span class="arithmatex">\(E\)</span> 之前, 可以先丢到一个 CNN 中, 再将 CNN 中间层的特征图丢给 <span class="arithmatex">\(E\)</span>, 这样帮助 transformer 在输入前就提取一部分特征</p>
+<ul>
+<li>这一步是否也算加入了一些归纳偏置?</li>
+</ul>
 <h1 id="qwen-vl">Qwen-VL</h1>
 <p>使用 <span class="arithmatex">\(\text{ViT-CrossAttn-LLM}\)</span> 结构</p>
 <h1 id="internvl">InternVL</h1>

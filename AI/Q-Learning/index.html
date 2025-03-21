@@ -9,7 +9,7 @@
       
       
       
-        <link rel="prev" href="../DeepSeek-R1/">
+        <link rel="prev" href="../MLLM/">
       
       
         <link rel="next" href="../../CO/computer%20organization%20and%20design/">
@@ -20,7 +20,7 @@
     
     
       
-        <title>Q-Learning - My Docs</title>
+        <title>Reinforcement Learning - My Docs</title>
       
     
     
@@ -74,7 +74,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#mdp" class="md-skip">
+        <a href="#q-learning" class="md-skip">
           Skip to content
         </a>
       
@@ -108,7 +108,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Q-Learning
+              Reinforcement Learning
             
           </span>
         </div>
@@ -574,7 +574,7 @@
         
   
   <span class="md-ellipsis">
-    Universal Optimality of Dijkstra via Beyond-Worst-Case Heaps
+    Dijkstra
   </span>
   
 
@@ -1145,11 +1145,74 @@
   
   
     <li class="md-nav__item">
+      <a href="../DL/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Deep Learning
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../DeepSeek-R1/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
     deepseek
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ML/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Machine Learning
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../MLLM/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    MLLM
   </span>
   
 
@@ -1175,15 +1238,165 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Reinforcement Learning
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
-    Q-Learning
+    Reinforcement Learning
   </span>
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#mdp" class="md-nav__link">
+    <span class="md-ellipsis">
+      MDP
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bellman-equations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Bellman Equations
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Bellman Equations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      一般的贝尔曼方程
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      贝尔曼最优方程
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      贝尔曼最优算子
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      线性规划
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      一些定理
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      算法
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="算法">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      选择策略
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      更新策略
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      算法流程
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      收敛性
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -3626,6 +3839,134 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#mdp" class="md-nav__link">
+    <span class="md-ellipsis">
+      MDP
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bellman-equations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Bellman Equations
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Bellman Equations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      一般的贝尔曼方程
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      贝尔曼最优方程
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      贝尔曼最优算子
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      线性规划
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      一些定理
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      算法
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="算法">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      选择策略
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      更新策略
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      算法流程
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      收敛性
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -3642,21 +3983,22 @@
   
 
 
-<div><h1 id="mdp">MDP</h1>
+<div><h1 id="q-learning">Q-Learning</h1>
+<h2 id="mdp">MDP</h2>
 <p><span class="arithmatex">\(\displaystyle V_{\pi}(s)=\mathbb{E}_{s_t,a_t}[\sum_{t=0}^{\infty}\gamma^tR(s_t,a_t)|s_0=s]\)</span> 表示从当前状态出发的期望收益</p>
 <p><span class="arithmatex">\(\displaystyle Q_{\pi}(s,a)=R(s,a)+\mathbb{E}_{s_t,a_t}[\sum_{t=1}^{\infty}\gamma^tR(s_t,a_t)|s_1=s,a_1=a]\)</span> 表示从当前状态采取某动作的期望收益</p>
 <p><span class="arithmatex">\(R(s,a)\)</span> 表示状态 <span class="arithmatex">\(s\)</span> 采取动作 <span class="arithmatex">\(a\)</span> 的收益</p>
 <p><span class="arithmatex">\(\gamma\in[0,1)\)</span> 是折扣因子, 为了累计收益不发散到 <span class="arithmatex">\(\infty\)</span></p>
 <p>累积的收益 <span class="arithmatex">\(G_t=r_t+\gamma r_{t+1}+\gamma^2 r_{t+2}+\cdots\)</span></p>
 <p>表示最关心当前的收益, 其次是未来</p>
-<h1 id="bellman-equations">Bellman Equations</h1>
-<h2 id="_1">一般的贝尔曼方程</h2>
+<h2 id="bellman-equations">Bellman Equations</h2>
+<h3 id="_1">一般的贝尔曼方程</h3>
 <div class="arithmatex">\[V_{\pi}(s)=\sum_{a\in A}\pi(a|s)Q_{\pi}(s,a)\]</div>
 <div class="arithmatex">\[Q_{\pi}(s,a)=R(s,a)+\gamma \sum_{s'\in S}\mathbb{P}(s'|s,a)V_{\pi}(s')\]</div>
 <p>迭代形式为</p>
 <div class="arithmatex">\[V_{\pi}(s)=\sum_{a\in A}\pi(a|s)[R(s,a)+\gamma \sum_{s'\in S}\mathbb{P}(s'|s,a)V_{\pi}(s')]\]</div>
 <div class="arithmatex">\[Q_{\pi}(s,a)=R(s,a)+\gamma \sum_{s'\in S}\mathbb{P}(s'|s,a)\sum_{a'\in A}\pi(a'|s')Q_{\pi}(s',a')\]</div>
-<h2 id="_2">贝尔曼最优方程</h2>
+<h3 id="_2">贝尔曼最优方程</h3>
 <p>由</p>
 <div class="arithmatex">\[\pi^{* }(s)=\argmax_{a\in A}Q^{* }(s,a)\]</div>
 <p>得出最优方程:</p>
@@ -3664,7 +4006,7 @@
 <div class="arithmatex">\[Q^{* }(s,a)=\mathbb{E}[R(s,a)]+\gamma \sum_{s'\in S}\mathbb{P}(s'|s,a)V^{* }(s')\]</div>
 <p>迭代形式为</p>
 <div class="arithmatex">\[V^{* }(s)=\max_{a\in A}\set{\mathbb{E}[R(s,a)]+\gamma \sum_{s'\in S}\mathbb{P}(s'|s,a)V^{* }(s')}\tag{1}\]</div>
-<h2 id="_3">贝尔曼最优算子</h2>
+<h3 id="_3">贝尔曼最优算子</h3>
 <div class="arithmatex">\[(\Gamma f)(s,a) =R(s,a)+\gamma \sum_{s'\in S}\mathbb{P}(s'|s,a)\max_{a'\in A}f(s',a' )\]</div>
 <div class="arithmatex">\[=R(s,a)+\gamma \mathbb{E}_{u\sim \mathbb P[\cdot |s,a]}[\max_{a'\in A}f(u,a')]\tag{2}\]</div>
 <p>在确定性环境下:</p>
@@ -3676,7 +4018,7 @@
 <div class="arithmatex">\[=Q^{* }(s,a)\]</div>
 <p>在确定性环境下:</p>
 <div class="arithmatex">\[(\Gamma Q^{* })(s,a) =R(s,a)+\gamma \max_{a'\in A}Q^{* }(s',a' )=Q^{* }(s,a)\tag{3}\]</div>
-<h2 id="_4">线性规划</h2>
+<h3 id="_4">线性规划</h3>
 <p>用线性规划解决贝尔曼方程问题</p>
 <p>对于 <span class="arithmatex">\((1)\)</span> 式的最大化形式, 可以转换成</p>
 <div class="arithmatex">\[\forall a\in A, V^{* }(s)\geq \mathbb{E}[R(s,a)]+\gamma \sum_{s'\in S}\mathbb{P}(s'|s,a)V^{* }(s')\]</div>
@@ -3690,7 +4032,7 @@
 <div class="arithmatex">\[\alpha(s)&gt;0,\sum_{s\in S}\alpha(s)=1\]</div>
 <p>例如取 </p>
 <div class="arithmatex">\[\displaystyle \alpha(s)=\frac{1}{|S|}\]</div>
-<h2 id="_5">一些定理</h2>
+<h3 id="_5">一些定理</h3>
 <blockquote>
 <p><span class="arithmatex">\(\underline{定理1}\)</span> </p>
 <div class="arithmatex">\[(\forall s\in S, \mathbb{E}_{a\sim \pi'(s)}[Q_{\pi'}(s,a)]\geq \mathbb{E}_{a\sim \pi(s)}[Q_{\pi}(s,a)])\Longrightarrow (\forall s \in S, V_{\pi'}(s)\geq V_{\pi}(s))\]</div>
@@ -3718,18 +4060,18 @@
 <p>存在一个 <span class="arithmatex">\(\pi^{* }\)</span> 使得他能最大化 <span class="arithmatex">\(\sum_{s\in S}V_{\pi^{* }}(s)\)</span></p>
 <p>如果这个 <span class="arithmatex">\(\pi^{* }\)</span> 不是最优, 就存在某个状态 <span class="arithmatex">\(a\not\in \argmax_{a'\in A}Q_{\pi^{* }}(s,a')\)</span></p>
 <p>那么构造选择 <span class="arithmatex">\(\argmax_{a'\in A}Q_{\pi^{* }}(s,a')\)</span> 的策略 <span class="arithmatex">\(\pi\)</span>, 根据定理1 就会存在 <span class="arithmatex">\(V_{\pi}(s)\geq V_{\pi^{* }}(s)\)</span>, 那么与 <span class="arithmatex">\(\pi^{* }\)</span> 能最大化 <span class="arithmatex">\(\sum_{s\in S}V_{\pi^{* }}(s)\)</span> 矛盾</p>
-<h1 id="q-learning">Q-Learning</h1>
-<h2 id="_6">选择策略</h2>
+<h2 id="_6">算法</h2>
+<h3 id="_7">选择策略</h3>
 <p>使用 <span class="arithmatex">\(\epsilon-\text{greedy}\)</span>, 以 <span class="arithmatex">\(\epsilon\)</span> 的概率尝试新动作, <span class="arithmatex">\(1-\epsilon\)</span> 概率使用当前策略选择动作</p>
-<h2 id="_7">更新策略</h2>
+<h3 id="_8">更新策略</h3>
 <p>使用 <span class="arithmatex">\(new = old + step \times (target - old)\)</span> 的方式来迭代更新 <span class="arithmatex">\(Q_{\pi}(s,a)\)</span></p>
 <p>所以在确定性环境中有 </p>
 <div class="arithmatex">\[Q(s,a)\leftarrow Q(s,a)+\alpha(R(s,a)+\gamma \max_{a'\in A}Q(s',a')-Q(s,a))\]</div>
 <p>根据 <span class="arithmatex">\((3)\)</span> 式, 即 </p>
 <div class="arithmatex">\[Q(s,a)\leftarrow Q(s,a)+\alpha[(\Gamma Q)(s,a)-Q(s,a)]\]</div>
-<h2 id="_8">算法流程</h2>
+<h3 id="_9">算法流程</h3>
 <p><img alt="alt text" src="../image.png"></p>
-<h2 id="_9">收敛性</h2>
+<h3 id="_10">收敛性</h3>
 <p>假设第 <span class="arithmatex">\(n\)</span> 步得到的动作价值函数为 <span class="arithmatex">\(Q_n\)</span>, 我们要证明</p>
 <div class="arithmatex">\[\lim_{n\to\infty}Q_n = Q^{* }\]</div>
 <p>我们定义 </p>
@@ -3761,7 +4103,8 @@
 <ol>
 <li><a href="https://zhuanlan.zhihu.com/p/365814943">知乎</a></li>
 <li><a href="https://www.dropbox.com/s/38p0j6ds5q9c8oe/10290.pdf?dl=1">Foundations of Machine Learning</a></li>
-</ol></div>
+</ol>
+<hr></div>
 
 
 

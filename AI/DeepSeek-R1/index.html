@@ -9,10 +9,10 @@
       
       
       
-        <link rel="prev" href="../BERT/">
+        <link rel="prev" href="../DL/">
       
       
-        <link rel="next" href="../Q-Learning/">
+        <link rel="next" href="../ML/">
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
@@ -74,7 +74,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#deepseek-r1-zero" class="md-skip">
+        <a href="#rl" class="md-skip">
           Skip to content
         </a>
       
@@ -574,7 +574,7 @@
         
   
   <span class="md-ellipsis">
-    Universal Optimality of Dijkstra via Beyond-Worst-Case Heaps
+    Dijkstra
   </span>
   
 
@@ -1142,6 +1142,27 @@
                 
   
   
+  
+  
+    <li class="md-nav__item">
+      <a href="../DL/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Deep Learning
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
     
   
   
@@ -1191,35 +1212,38 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
+  <a href="#cpi" class="md-nav__link">
     <span class="md-ellipsis">
-      无监督的纯粹强化学习
+      CPI
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
+  <a href="#tpro" class="md-nav__link">
     <span class="md-ellipsis">
-      强化学习算法
+      TPRO
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="强化学习算法">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ppo" class="md-nav__link">
+    <span class="md-ellipsis">
+      PPO
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#gpro" class="md-nav__link">
     <span class="md-ellipsis">
       GPRO
     </span>
   </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -1239,11 +1263,53 @@
   
   
     <li class="md-nav__item">
+      <a href="../ML/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Machine Learning
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../MLLM/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    MLLM
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../Q-Learning/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    Q-Learning
+    Reinforcement Learning
   </span>
   
 
@@ -3696,35 +3762,38 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
+  <a href="#cpi" class="md-nav__link">
     <span class="md-ellipsis">
-      无监督的纯粹强化学习
+      CPI
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
+  <a href="#tpro" class="md-nav__link">
     <span class="md-ellipsis">
-      强化学习算法
+      TPRO
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="强化学习算法">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ppo" class="md-nav__link">
+    <span class="md-ellipsis">
+      PPO
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#gpro" class="md-nav__link">
     <span class="md-ellipsis">
       GPRO
     </span>
   </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -3746,12 +3815,39 @@
   
 
 
-<div><h1 id="deepseek-r1-zero">DeepSeek-R1-Zero</h1>
+<div><h1 id="rl">RL</h1>
+<h2 id="cpi">CPI</h2>
+<p>回顾一下 value 函数与 state-action value 函数以及 advantage 函数:</p>
+<div class="arithmatex">\[V_{\pi}(s_t)=\mathbb{E}_{a_t, s_{t+1},a_{t+1},\cdots}[\sum_{l=0}^{\infty}   \gamma^lr(s_{t+l})]\]</div>
+<div class="arithmatex">\[Q_{\pi}(s_t,a_t)=\mathbb{E}_{s_{t+1},a_{t+1},\cdots}[\sum_{l=0}^{\infty}   \gamma^lr(s_{t+l})]\]</div>
+<div class="arithmatex">\[A_{\pi}(s,a)=Q_{\pi}(s,a)-V_{\pi}(s)\]</div>
+<p>其中</p>
+<div class="arithmatex">\[a_t\sim \pi(a_t|s_t), s_{t+1}\sim P(s_{t+1}|s_t,a_t),t\geq 0\]</div>
+<div class="arithmatex">\[L_{\pi}(\tilde\pi)=\eta(\pi)+\sum_s\rho_\pi(s)\sum_a\tilde\pi(a|s)A_{\pi}(s,a)\]</div>
+<p>那么 CPI 代表了这样的策略:</p>
+<div class="arithmatex">\[\pi_{\text{new}}(a|s)=(1-\alpha)\pi_{\text{old}}(a|s)+\alpha\pi'(a|s)\]</div>
+<p>那么有下界:</p>
+<div class="arithmatex">\[\eta(\pi_{\text{new}})\geq L_{\pi_{\text{old}}}(\pi_{\text{new}})-\frac{2\epsilon\gamma}{(1-\gamma)^2}\alpha^2\]</div>
+<p>其中</p>
+<div class="arithmatex">\[\epsilon = \max_{s}|\mathbb{E}_{a\sim \pi'(a|s)}[A_{\pi}(s,a)]|\]</div>
+<p>具体见 <a href="https://akonjac0.github.io/2025/03/15/AOARL/">博客</a></p>
+<h2 id="tpro">TPRO</h2>
+<h2 id="ppo">PPO</h2>
+<h2 id="gpro">GPRO</h2>
+<h1 id="deepseek-r1-zero">DeepSeek-R1-Zero</h1>
 <h2 id="_1">无监督的纯粹强化学习</h2>
 <p>使用强化学习训练, 有助于学习到思考链 (CoT = Chain of Thought)</p>
 <p>同时监督数据很难获得, 所以使用无监督数据是比较好的</p>
 <h2 id="_2">强化学习算法</h2>
-<h3 id="gpro">GPRO</h3></div>
+<hr>
+<p>参考:</p>
+<ol>
+<li><a href="https://homes.cs.washington.edu/~sham/papers/rl/aoarl.pdf">Approximately Optimal Approximate Reinforcement Learning</a></li>
+<li><a href="https://arxiv.org/pdf/1707.06347">Proximal Policy Optimization Algorithms</a></li>
+<li><a href="https://arxiv.org/pdf/1502.05477">Trust Region Policy Optimization</a></li>
+<li><a href="https://arxiv.org/pdf/2501.12948">DeepSeek-R1: Incentivizing Reasoning Capability in LLMs via Reinforcement Learning</a></li>
+<li><a href="https://arxiv.org/pdf/2402.03300">DeepSeekMath: Pushing the Limits of Mathematical Reasoning in Open Language Models</a></li>
+</ol></div>
 
 
 

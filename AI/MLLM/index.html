@@ -12,7 +12,7 @@
         <link rel="prev" href="../ML/">
       
       
-        <link rel="next" href="../Q-Learning/">
+        <link rel="next" href="../RL/">
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
@@ -1239,7 +1239,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../Q-Learning/" class="md-nav__link">
+      <a href="../RL/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1458,6 +1458,27 @@
   
   
     <li class="md-nav__item">
+      <a href="../../OOP/const/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    const
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../OOP/memory/" class="md-nav__link">
         
   
@@ -1484,6 +1505,27 @@
   
   <span class="md-ellipsis">
     pointer
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../OOP/private/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Private
   </span>
   
 
@@ -1700,6 +1742,27 @@
   
   <span class="md-ellipsis">
     Welcome to the Neovim Tutorial
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../misc/reaction/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    关于引入奖励机制对人反应力的影响
   </span>
   
 
@@ -3734,7 +3797,7 @@ z_l=MLP(LN(z_{l}'))+z_{l}',l\in [1,L]\tag{3}
 <div class="arithmatex">\[
 y=LN(z_L^0)\tag{4}
 \]</div>
-<p>其中 <span class="arithmatex">\(MSA=\text{Multi-Head Self-Attention},LN=\text{LayerNorm}\)</span></p>
+<p>其中 <span class="arithmatex">\(MSA=\text{Multi-Head Self-Attention},LN=\text{LayerNorm},MLP=\text{MultiLayer Perceptron}\)</span></p>
 <p><span class="arithmatex">\(E\)</span> 表示前面说的, 将输入图像 <span class="arithmatex">\(x_p\)</span> 映射到 tranformer 维度 <span class="arithmatex">\(D\)</span> 的线性映射</p>
 <p><span class="arithmatex">\(E_{\text{pos}}\)</span> 表示 position embedding, 用于维护位置信息</p>
 <p>将 <span class="arithmatex">\(y\)</span> 作为图像表示向量, 在训练与微调时在后面添加一个分类用的 MLP, 用于分类</p>
@@ -3753,16 +3816,47 @@ y=LN(z_L^0)\tag{4}
 <ul>
 <li>这一步是否也算加入了一些归纳偏置?</li>
 </ul>
+<h1 id="perceiver">Perceiver</h1>
+<p>其主要的优势:</p>
+<ol>
+<li>
+<p>降低计算复杂度</p>
+<p>byte array 对应于输入图片, 相对较大</p>
+<p>而 latent array 相对较小</p>
+</li>
+<li>
+<p>poistion encoding 的优化</p>
+</li>
+</ol>
+<p>这里只说第一点, 第二点具体可参见 <a href="#j1">[5]</a></p>
+<h2 id="_3">整体结构</h2>
+<p>采用 cross attention 与 多层叠加的 transformer 交替的结构</p>
+<p><img alt="alt text" src="../image-3.png"></p>
+<p>其中 byte array 来自于输入图片</p>
+<p>并且所有的 coess attention 层参数共享, transformer 也是参数共享</p>
+<p>所以整体可以看成是深度循环的 RNN (普通 RNN 是时间循环)</p>
+<h2 id="_4">复杂度</h2>
+<h3 id="_5"></h3>
+<p>在 attention 中</p>
+<div class="arithmatex">\[Q\in\mathbb R^{M\times D},K\in \mathbb R^{M\times C},V\in \mathbb R^{M\times C}\]</div>
+<p>其中 <span class="arithmatex">\(C,D\)</span> 是图片通道数, <span class="arithmatex">\(M=H\times W\)</span> 是图片大小, 通常很大</p>
+<p>一个 attention 层的复杂度是 <span class="arithmatex">\(O(M^2D)\)</span></p>
+<p>我们将 <span class="arithmatex">\(D\)</span> 看作常数, 那么复杂度是 <span class="arithmatex">\(O(M^2)\)</span>, 关于 <span class="arithmatex">\(M\)</span> 是平方的, 所以开销很大</p>
+<p>所以在这里将 cross attention 的输入变成 latent array, 其维数是 <span class="arithmatex">\(N\)</span>, 是一个超参数</p>
+<p>并且 <span class="arithmatex">\(N&lt;&lt;M\)</span>, 复杂度变成 <span class="arithmatex">\(O(MN)\)</span>, 要比 <span class="arithmatex">\(O(M^2)\)</span> 更好</p>
+<p>并且输入 transformer 的向量维度是 <span class="arithmatex">\(N\)</span>, 所以 transformer 单层复杂度是 <span class="arithmatex">\(O(N^2)\)</span> 的, 整体为 <span class="arithmatex">\(O(LN^2)\)</span>, <span class="arithmatex">\(L\)</span> 是层数</p>
+<p>这样总复杂度为 <span class="arithmatex">\(O(MN+LN^2)\)</span>, 注意这使得 <span class="arithmatex">\(L\)</span> 与 <span class="arithmatex">\(M\)</span> 独立, 所以我们可以增大 <span class="arithmatex">\(L\)</span> 来获得更好效果</p>
+<h3 id="cross-latent">cross-latent 迭代</h3>
+<p>由于只输入一次 byte array 可能导致一些特征在训练过程丢失, 所以我们多重复上面的 cross-latent 结构, 多输入几次 byte array, 加强学习</p>
+<h3 id="_6">参数共享</h3>
+<p>由于每个 cross-latent 核做的事情是一样的, 所以每个核之间可以参数共享, 这使得整体结构像 RNN</p>
 <h1 id="qwen-vl">Qwen-VL</h1>
 <p>使用 <span class="arithmatex">\(\text{ViT-CrossAttn-LLM}\)</span> 结构</p>
 <h1 id="internvl">InternVL</h1>
 <p>使用 <span class="arithmatex">\(\text{ViT-MLP-LLM}\)</span> 结构</p>
 <h1 id="mp-gui">MP-GUI</h1>
 <p>使用 <span class="arithmatex">\(\text{ViT-MLP+Perceiver-LLM}\)</span> 结构</p>
-<h2 id="perceiver">Perceiver</h2>
-<p>与 transformer 相同的结构</p>
-<p><img alt="alt text" src="../image-3.png"></p>
-<h2 id="_3">结构</h2>
+<h2 id="_7">结构</h2>
 <p>将 ViT 提取的特征通过一个 MLP 做的 alignment projector 投影成 LLM 适配维度的向量</p>
 <p>同时将 ViT 提取的特征丢进 3 个不同的 Perceiver, 用来提取文字, 空间, 图像方面的特征</p>
 <p>最后将 projector, Perceiver, 还有 LLM 的 word embedding 一起投入一个融合模块 Fusion Gate, 产生 LLM 的输入, 输入 LLM 得出结果</p>
@@ -3773,7 +3867,7 @@ y=LN(z_L^0)\tag{4}
 <li><a href="https://arxiv.org/pdf/2308.12966">Qwen-VL</a></li>
 <li><a href="https://arxiv.org/pdf/2503.14021">MP-GUI</a></li>
 <li><a href="https://arxiv.org/pdf/2010.11929">ViT</a></li>
-<li><a href="https://arxiv.org/pdf/2103.03206">Perceiver</a></li>
+<li><a id="j1"></a><a href="https://arxiv.org/pdf/2103.03206">Perceiver</a></li>
 </ol></div>
 
 

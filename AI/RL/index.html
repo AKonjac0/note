@@ -1365,7 +1365,7 @@
           <li class="md-nav__item">
   <a href="#_8" class="md-nav__link">
     <span class="md-ellipsis">
-      更新策略
+      更新价值函数
     </span>
   </a>
   
@@ -1887,27 +1887,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../../misc/neovim/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Welcome to the Neovim Tutorial
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../../misc/reaction/" class="md-nav__link">
         
   
@@ -1934,27 +1913,6 @@
   
   <span class="md-ellipsis">
     so-vits-svc
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../misc/why%20r%20ur%20head%20sharp/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    why r ur head sharp
   </span>
   
 
@@ -3999,7 +3957,7 @@
           <li class="md-nav__item">
   <a href="#_8" class="md-nav__link">
     <span class="md-ellipsis">
-      更新策略
+      更新价值函数
     </span>
   </a>
   
@@ -4125,9 +4083,9 @@
 <p>那么构造选择 <span class="arithmatex">\(\argmax_{a'\in A}Q_{\pi^{* }}(s,a')\)</span> 的策略 <span class="arithmatex">\(\pi\)</span>, 根据定理1 就会存在 <span class="arithmatex">\(V_{\pi}(s)\geq V_{\pi^{* }}(s)\)</span>, 那么与 <span class="arithmatex">\(\pi^{* }\)</span> 能最大化 <span class="arithmatex">\(\sum_{s\in S}V_{\pi^{* }}(s)\)</span> 矛盾</p>
 <h2 id="_6">算法</h2>
 <h3 id="_7">选择策略</h3>
-<p>使用 <span class="arithmatex">\(\epsilon-\text{greedy}\)</span>, 以 <span class="arithmatex">\(\epsilon\)</span> 的概率尝试新动作, <span class="arithmatex">\(1-\epsilon\)</span> 概率使用当前策略选择动作</p>
-<h3 id="_8">更新策略</h3>
-<p>使用 <span class="arithmatex">\(new = old + step \times (target - old)\)</span> 的方式来迭代更新 <span class="arithmatex">\(Q_{\pi}(s,a)\)</span></p>
+<p>使用 <span class="arithmatex">\(\epsilon-\text{greedy}\)</span>, 以 <span class="arithmatex">\(\epsilon\)</span> 的概率尝试新动作, <span class="arithmatex">\(1-\epsilon\)</span> 概率使用当前动作价值函数选择动作</p>
+<h3 id="_8">更新价值函数</h3>
+<p>使用 <span class="arithmatex">\(new = old + step \times (target - old)\)</span> 的方式来迭代更新 <span class="arithmatex">\(Q(s,a)\)</span></p>
 <p>所以在确定性环境中有 </p>
 <div class="arithmatex">\[Q(s,a)\leftarrow Q(s,a)+\alpha(R(s,a)+\gamma \max_{a'\in A}Q(s',a')-Q(s,a))\]</div>
 <p>根据 <span class="arithmatex">\((3)\)</span> 式, 即 </p>
@@ -4161,6 +4119,55 @@
 <p>所以 <span class="arithmatex">\(\Delta_n\)</span> 收敛到 <span class="arithmatex">\(0\)</span></p>
 <p>即 <span class="arithmatex">\(Q_n\)</span> 收敛到 <span class="arithmatex">\(Q^{* }\)</span></p>
 <p>不确定性环境的证明类似</p>
+<h1 id="deep-q-learning-network">Deep Q-Learning Network</h1>
+<p>强化学习的策略在 Q-Learning 里是以表格的形式存在</p>
+<p>如果数据量变大, 表格也会变大</p>
+<p>所以退而使用神经网络拟合这个策略函数</p>
+<h1 id="policy-gradient-method">Policy Gradient Method</h1>
+<h2 id="value-function-approach">Value Function Approach</h2>
+<p>之前的是值函数方法, 如 Q-learning 这些</p>
+<p>有几个弊端:</p>
+<ol>
+<li>值函数方法找出的策略是确定性策略, 而最优策略可能是概率策略</li>
+<li>不收敛, 即任意小的值函数变化也会引起策略变化</li>
+</ol>
+<p>注意上面说 Q-Learning 的动作价值函数一定收敛, 但是如果最优的最大值与次大值无限接近或者相等, 那么微小变化会导致 <span class="arithmatex">\(\argmax_a Q(s,a)\)</span> 变化, 在选择最大值与次大值之间来回跳变</p>
+<h2 id="pg">PG</h2>
+<p>我们用一个 NN 来表示 policy, 边权即为 policy 的参数, 输入状态, 输出选择各个 action 的概率</p>
+<p>令 <span class="arithmatex">\(\theta\)</span> 表示 policy 参数, <span class="arithmatex">\(\rho\)</span> 表示这个策略平均每步的收益</p>
+<p>那么</p>
+<div class="arithmatex">\[\Delta\theta\approx \alpha\frac{\partial\rho}{\partial\theta}\]</div>
+<p>其中 <span class="arithmatex">\(\alpha\)</span> 是一个正定的步长</p>
+<p>用这个去更新 <span class="arithmatex">\(\theta\)</span>, 可以收敛到某个局部最优策略</p>
+<h2 id="policy-gradient-theorem">Policy Gradient Theorem</h2>
+<p><span class="arithmatex">\(\rho\)</span> 有两种写法</p>
+<p>第一种是取所有收益的平均值:</p>
+<div class="arithmatex">\[\rho(\pi)=\lim_{n\to\infty}\mathbb E[r_1+\cdots+r_n|\pi]\]</div>
+<div class="arithmatex">\[=\sum_{s}d_{\pi}(s)\sum_{a}\pi(s,a)R(s,a)\]</div>
+<p>其中</p>
+<div class="arithmatex">\[d_{\pi}(s)=\lim_{t\to\infty}\mathbb P[s_t=s|s_0,\pi]\]</div>
+<p>表示已知使用策略 <span class="arithmatex">\(\pi\)</span>, 从 <span class="arithmatex">\(s_0\)</span> 出发, 在许多步以后处于某个状态的概率</p>
+<p>因为当策略与初始状态固定, 步数增加代表着不断采样, 最后得到状态的平稳分布, 即在足够远的未来, 可以用 <span class="arithmatex">\(d_{\pi}(s)\)</span> 来预测处于状态 <span class="arithmatex">\(s\)</span> 的概率</p>
+<p>所以 <span class="arithmatex">\(\rho(\pi)\)</span> 表示在足够远的将来, 用 <span class="arithmatex">\(\pi\)</span> 策略得到的收益平均值</p>
+<p>由此可以写出</p>
+<div class="arithmatex">\[Q_{\pi}(s,a)=\sum_{t=1}^\infty\mathbb E[r_t-\rho(\pi)|s_0=s,a_0=a,\pi]\]</div>
+<p>第二种是引入折扣因子:</p>
+<div class="arithmatex">\[\rho(\pi)=\mathbb E[\sum_{t=1}^{\infty}\gamma^{t-1}r_t|s_0,\pi]\]</div>
+<p>那么有</p>
+<div class="arithmatex">\[d_{\pi}(s)=\sum_{t=0}^\infty\gamma^t\mathbb P[s_t=s|s_0,\pi]\]</div>
+<div class="arithmatex">\[Q_{\pi}(s,a)=\mathbb E[\sum_{k=1}^{\infty}\gamma^{k-1}r_{t+k}|s_t=s,a_t=a,\pi]\]</div>
+<blockquote>
+<p><span class="arithmatex">\(\underline{定理1}\)</span></p>
+<p>对于任意 MDP, 以及上面两种 <span class="arithmatex">\(rho\)</span> 的任意一种表达, 有</p>
+<div class="arithmatex">\[\frac{\partial\rho}{\partial\theta}=\sum_{s}d_{\pi}(s)\sum_{a}\frac{\partial\pi(s,a)}{\partial \theta}Q_\pi(s,a)\]</div>
+</blockquote>
+<h1 id="approximately-optimal-approximate-reinforcement-learning">Approximately Optimal Approximate Reinforcement Learning</h1>
+<p>见 <a href="https://akonjac0.github.io/2025/03/15/AOARL/">博客</a></p>
+<h1 id="trpo">TRPO</h1>
+<p>Trust Region Policy Optimization</p>
+<h1 id="ppo">PPO</h1>
+<p>Proximal Policy Optimization</p>
+<h1 id="grpo">GRPO</h1>
 <hr>
 <p>参考:</p>
 <ol>

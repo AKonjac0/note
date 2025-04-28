@@ -12,7 +12,7 @@
         <link rel="prev" href="../MLLM/">
       
       
-        <link rel="next" href="../../CO/computer%20organization%20and%20design/">
+        <link rel="next" href="../GUI%20Agent/Agents/">
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
@@ -270,7 +270,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../DB/sql/" class="md-tabs__link">
+        <a href="../../DB/relation/" class="md-tabs__link">
           
   
   DB
@@ -288,7 +288,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../OOP/STL/" class="md-tabs__link">
+        <a href="../../OOP/oop/" class="md-tabs__link">
           
   
   OOP
@@ -906,6 +906,27 @@
   
   
     <li class="md-nav__item">
+      <a href="../../ADS/hash/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    hash
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../ADS/linear%20programming/" class="md-nav__link">
         
   
@@ -1403,6 +1424,94 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_7" id="__nav_4_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    GUI Agent
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_7">
+            <span class="md-nav__icon md-icon"></span>
+            GUI Agent
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../GUI%20Agent/Agents/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agents
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../GUI%20Agent/Benchmarks/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    AITW
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -1521,6 +1630,27 @@
   
   
     <li class="md-nav__item">
+      <a href="../../DB/relation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Relation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../DB/sql/" class="md-nav__link">
         
   
@@ -1587,95 +1717,11 @@
   
   
     <li class="md-nav__item">
-      <a href="../../OOP/STL/" class="md-nav__link">
+      <a href="../../OOP/oop/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
     STL
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../OOP/const/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    const
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../OOP/memory/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    memory
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../OOP/pointer/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    pointer
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../OOP/private/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Private
   </span>
   
 
@@ -4005,6 +4051,7 @@
 
 
 <div><h1 id="q-learning">Q-Learning</h1>
+<p>这部分主要参考 <a href="#j1">[1]</a>, <a href="#j2">[2]</a></p>
 <h2 id="mdp">MDP</h2>
 <p><span class="arithmatex">\(\displaystyle V_{\pi}(s)=\mathbb{E}_{s_t,a_t}[\sum_{t=0}^{\infty}\gamma^tR(s_t,a_t)|s_0=s]\)</span> 表示从当前状态出发的期望收益</p>
 <p><span class="arithmatex">\(\displaystyle Q_{\pi}(s,a)=R(s,a)+\mathbb{E}_{s_t,a_t}[\sum_{t=1}^{\infty}\gamma^tR(s_t,a_t)|s_1=s,a_1=a]\)</span> 表示从当前状态采取某动作的期望收益</p>
@@ -4123,44 +4170,8 @@
 <p>强化学习的策略在 Q-Learning 里是以表格的形式存在</p>
 <p>如果数据量变大, 表格也会变大</p>
 <p>所以退而使用神经网络拟合这个策略函数</p>
-<h1 id="policy-gradient-method">Policy Gradient Method</h1>
-<h2 id="value-function-approach">Value Function Approach</h2>
-<p>之前的是值函数方法, 如 Q-learning 这些</p>
-<p>有几个弊端:</p>
-<ol>
-<li>值函数方法找出的策略是确定性策略, 而最优策略可能是概率策略</li>
-<li>不收敛, 即任意小的值函数变化也会引起策略变化</li>
-</ol>
-<p>注意上面说 Q-Learning 的动作价值函数一定收敛, 但是如果最优的最大值与次大值无限接近或者相等, 那么微小变化会导致 <span class="arithmatex">\(\argmax_a Q(s,a)\)</span> 变化, 在选择最大值与次大值之间来回跳变</p>
-<h2 id="pg">PG</h2>
-<p>我们用一个 NN 来表示 policy, 边权即为 policy 的参数, 输入状态, 输出选择各个 action 的概率</p>
-<p>令 <span class="arithmatex">\(\theta\)</span> 表示 policy 参数, <span class="arithmatex">\(\rho\)</span> 表示这个策略平均每步的收益</p>
-<p>那么</p>
-<div class="arithmatex">\[\Delta\theta\approx \alpha\frac{\partial\rho}{\partial\theta}\]</div>
-<p>其中 <span class="arithmatex">\(\alpha\)</span> 是一个正定的步长</p>
-<p>用这个去更新 <span class="arithmatex">\(\theta\)</span>, 可以收敛到某个局部最优策略</p>
-<h2 id="policy-gradient-theorem">Policy Gradient Theorem</h2>
-<p><span class="arithmatex">\(\rho\)</span> 有两种写法</p>
-<p>第一种是取所有收益的平均值:</p>
-<div class="arithmatex">\[\rho(\pi)=\lim_{n\to\infty}\mathbb E[r_1+\cdots+r_n|\pi]\]</div>
-<div class="arithmatex">\[=\sum_{s}d_{\pi}(s)\sum_{a}\pi(s,a)R(s,a)\]</div>
-<p>其中</p>
-<div class="arithmatex">\[d_{\pi}(s)=\lim_{t\to\infty}\mathbb P[s_t=s|s_0,\pi]\]</div>
-<p>表示已知使用策略 <span class="arithmatex">\(\pi\)</span>, 从 <span class="arithmatex">\(s_0\)</span> 出发, 在许多步以后处于某个状态的概率</p>
-<p>因为当策略与初始状态固定, 步数增加代表着不断采样, 最后得到状态的平稳分布, 即在足够远的未来, 可以用 <span class="arithmatex">\(d_{\pi}(s)\)</span> 来预测处于状态 <span class="arithmatex">\(s\)</span> 的概率</p>
-<p>所以 <span class="arithmatex">\(\rho(\pi)\)</span> 表示在足够远的将来, 用 <span class="arithmatex">\(\pi\)</span> 策略得到的收益平均值</p>
-<p>由此可以写出</p>
-<div class="arithmatex">\[Q_{\pi}(s,a)=\sum_{t=1}^\infty\mathbb E[r_t-\rho(\pi)|s_0=s,a_0=a,\pi]\]</div>
-<p>第二种是引入折扣因子:</p>
-<div class="arithmatex">\[\rho(\pi)=\mathbb E[\sum_{t=1}^{\infty}\gamma^{t-1}r_t|s_0,\pi]\]</div>
-<p>那么有</p>
-<div class="arithmatex">\[d_{\pi}(s)=\sum_{t=0}^\infty\gamma^t\mathbb P[s_t=s|s_0,\pi]\]</div>
-<div class="arithmatex">\[Q_{\pi}(s,a)=\mathbb E[\sum_{k=1}^{\infty}\gamma^{k-1}r_{t+k}|s_t=s,a_t=a,\pi]\]</div>
-<blockquote>
-<p><span class="arithmatex">\(\underline{定理1}\)</span></p>
-<p>对于任意 MDP, 以及上面两种 <span class="arithmatex">\(rho\)</span> 的任意一种表达, 有</p>
-<div class="arithmatex">\[\frac{\partial\rho}{\partial\theta}=\sum_{s}d_{\pi}(s)\sum_{a}\frac{\partial\pi(s,a)}{\partial \theta}Q_\pi(s,a)\]</div>
-</blockquote>
+<h1 id="policy-gradient-methods-for-reinforcement-learning-with-function-approximation">Policy Gradient Methods for Reinforcement Learning with Function Approximation</h1>
+<p>见 <a href="https://akonjac0.github.io/2025/04/13/Policy%20Gradient%20Method/">博客</a></p>
 <h1 id="approximately-optimal-approximate-reinforcement-learning">Approximately Optimal Approximate Reinforcement Learning</h1>
 <p>见 <a href="https://akonjac0.github.io/2025/03/15/AOARL/">博客</a></p>
 <h1 id="trpo">TRPO</h1>
@@ -4171,8 +4182,9 @@
 <hr>
 <p>参考:</p>
 <ol>
-<li><a href="https://zhuanlan.zhihu.com/p/365814943">知乎</a></li>
-<li><a href="https://www.dropbox.com/s/38p0j6ds5q9c8oe/10290.pdf?dl=1">Foundations of Machine Learning</a></li>
+<li><a id="j1"></a><a href="https://zhuanlan.zhihu.com/p/365814943">知乎</a></li>
+<li><a id="j2"></a><a href="https://www.dropbox.com/s/38p0j6ds5q9c8oe/10290.pdf?dl=1">Foundations of Machine Learning</a></li>
+<li><a href="https://proceedings.neurips.cc/paper_files/paper/1999/file/464d828b85b0bed98e80ade0a5c43b0f-Paper.pdf">Policy Gradient Methods for Reinforcement Learning with Function Approximation</a></li>
 </ol>
 <hr></div>
 

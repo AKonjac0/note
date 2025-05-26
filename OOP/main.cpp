@@ -1,43 +1,15 @@
 #include <iostream>
+#include <string>
 using namespace std;
-
-class base {
-public:
-    base() {
-        int *b = new int[5];
-        cout << "base constructor" << endl;
-        
-    }
-    virtual ~base() {
-        delete[] b;
-        cout << "base destructor" << endl;
-        
-    }
-
-private:
-    int *b;
-};
-
-class derived : public base {
-public:
-    derived() {
-        int *d = new int[8];
-        cout << "derived constructor" << endl;
-    }
-    ~derived() {
-        delete[] d;
-        cout << "derived destructor" << endl;
-    }
-
-private:
-    int *d;
-};
-
 int main()
 {
-    base *pBase = new derived;
-    cout << "---" << endl;
-    delete pBase;
-
+    int a = 10;
+    int b = std::move(a);
+    cout << "a: " << a << endl; 
+    cout << "b: " << b << endl; 
+    string x = "hello";
+    string y = std::move(x);
+    cout << "x: " << x << endl;
+    cout << "y: " << y << endl;
     return 0;
 }

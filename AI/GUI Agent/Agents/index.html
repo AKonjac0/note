@@ -4022,6 +4022,21 @@
 </ol>
 <h1 id="cogagent">CogAgent</h1>
 <p><img alt="alt text" src="../image-4.png"></p>
+<h2 id="high-resolution-cross-module">High-Resolution Cross-Module</h2>
+<p>在原本的 VLM 基础上加入了一个高分辨率的交叉注意力模块, 为了解决低分辨率下文字信息失真的情况</p>
+<p>处理文字信息需要的 hidden size 一般更小</p>
+<p>同时使用一个轻量化的 image encoder (CLIP)</p>
+<p>定义几个常量: </p>
+<p><span class="arithmatex">\(L_{I_{lo}}, L_{I_{hi}}, L_T\)</span> 表示低分辨率, 高分辨率和文字序列的长度</p>
+<p><span class="arithmatex">\(D_{dec}, D_{hi}\)</span> 表示 右边 VLM Decoder 和左边 Image Encoder 的维数</p>
+<p><span class="arithmatex">\(B\)</span> 是 batch size</p>
+<p><span class="arithmatex">\(X_{in_i}\in \mathbb R^{B\times(L_{I_{lo}}+L_T)\times D_{dec}}\)</span> 是右边 VLLM 的 transformer 输入</p>
+<p><span class="arithmatex">\(X_{hi}\in\mathbb R^{B\times(L_{I_{hi}})}\times D_{hi}\)</span> 表示</p>
+<p>那么有每一层的迭代公式:</p>
+<div class="arithmatex">\[X_i'=\text{MSA}(\text{layernorm}(X_{in_i}))+X_{in_i}\]</div>
+<div class="arithmatex">\[X_{out_i}=\text{MCA}(\text{layernorm}(X_i'),X_{hi})+X_i
+'\]</div>
+<p>这里面可以看出, 由于残余网络加的是 <span class="arithmatex">\(X_i'\)</span>, 所以 <span class="arithmatex">\(X_i'\)</span> 是 Query, <span class="arithmatex">\(X_{hi}\)</span> 是 Key, Value</p>
 <hr>
 <p>参考</p>
 <ol>

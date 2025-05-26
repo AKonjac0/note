@@ -4603,7 +4603,7 @@ class 默认 private</p>
 <span class="w">    </span><span class="n">transform</span><span class="p">(</span><span class="n">v</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="n">a</span><span class="p">](</span><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="p">){</span><span class="k">return</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">a</span><span class="p">;});</span>
 <span class="p">}</span>
 </code></pre></div>
-用 <a href="cppinsights.io">cppinsights.io</a> 查看:
+用 <a href="https://cppinsights.io/">cppinsights.io</a> 查看:
 <div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;vector&gt;</span>
 <span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
 <span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;functional&gt;</span>
@@ -4652,6 +4652,12 @@ class 默认 private</p>
 <span class="p">}</span>
 </code></pre></div>
 <p>相当于创建了一个类, 里面有变量 <code>a</code>; 同时定义了 <code>operator()</code></p>
+<h3 id="capture-list">capture list</h3>
+<p>传入的方式有按值传入和按引用传入</p>
+<div class="highlight"><pre><span></span><code><span class="p">[</span><span class="k">this</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">ofs</span><span class="p">](){}</span>
+</code></pre></div>
+<p>这里传入了 <code>this</code> 指针和 <code>std::ofstream&amp;</code> 引用</p>
+<p>注意指针只需要按值传入即可</p>
 <h2 id="conversion-operator">conversion operator</h2>
 <div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="p">;</span>
 <span class="k">operator</span><span class="w"> </span><span class="kt">double</span><span class="p">()</span><span class="w"> </span><span class="n">cosnt</span><span class="p">{</span>
@@ -4813,9 +4819,372 @@ class 默认 private</p>
 <span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">class</span><span class="w"> </span><span class="nc">T</span><span class="p">,</span><span class="w"> </span><span class="n">trivially_copyable</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="w"> </span><span class="n">N</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="o">&gt;</span>
 <span class="kt">void</span><span class="w"> </span><span class="n">Serialize</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="o">&amp;</span><span class="n">val</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">ofstream</span><span class="w"> </span><span class="o">&amp;</span><span class="n">ofs</span><span class="p">);</span>
 </code></pre></div>
+<h2 id="cast">cast</h2>
+<h3 id="static-cast">static cast</h3>
+<p>一般类型的转换</p>
+<p>如果转换的类型之间不相容, 比如 <code>int</code> 转 <code>double</code>, 不相关的自定义类 <code>A</code> 转 <code>B</code> 会报错</p>
+<h3 id="reinterpret-cast">reinterpret cast</h3>
+<p>二进制层面的转换</p>
+<p><code>int</code> 转 <code>double</code>, 不相关的自定义类 <code>A</code> 转 <code>B</code> 都可以, 但是不安全, 因为这些操作本身不合理</p>
+<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">7</span><span class="p">;</span>
+<span class="kt">double</span><span class="w"> </span><span class="o">*</span><span class="n">p</span><span class="p">;</span>
+<span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">double</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;</span><span class="n">a</span><span class="p">;</span><span class="w"> </span><span class="c1">// OK, but a is not double</span>
+<span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">*&gt;</span><span class="p">(</span><span class="o">&amp;</span><span class="n">a</span><span class="p">);</span><span class="w"> </span><span class="c1">// ERROR</span>
+<span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">reinterpret_cast</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">*&gt;</span><span class="p">(</span><span class="o">&amp;</span><span class="n">a</span><span class="p">);</span><span class="w"> </span><span class="c1">// OK</span>
+</code></pre></div>
+<p>这样 <code>int</code> 转 <code>double*</code> 会读取从 <code>int</code> 地址开始的 <span class="arithmatex">\(8\)</span> 字节内容, 后 <span class="arithmatex">\(4\)</span> 字节是未定义的</p>
+<h3 id="const-cast">const cast</h3>
+<p>语义上负责常量与变量转换</p>
+<h3 id="dynamic-cast">dynamic cast</h3>
+<p>当类里有虚函数时, 可以用这个</p>
+<p>即语义上负责多态之间转换</p>
+<h2 id="vanilla-mi">Vanilla MI</h2>
+<div class="highlight"><pre><span></span><code><span class="w">          </span><span class="o">|</span><span class="w"> </span><span class="n">IOS</span><span class="w"> </span><span class="o">|</span>
+<span class="w">        </span><span class="o">/</span><span class="w">         </span>\
+<span class="o">|</span><span class="w"> </span><span class="n">istream</span><span class="w"> </span><span class="o">|</span><span class="w">   </span><span class="o">|</span><span class="w"> </span><span class="n">ostream</span><span class="w"> </span><span class="o">|</span>
+<span class="w">        </span><span class="err">\</span><span class="w">         </span><span class="o">/</span>
+<span class="w">        </span><span class="o">|</span><span class="n">iostream</span><span class="o">|</span><span class="w">  </span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="k">struct</span><span class="w"> </span><span class="nc">B1</span><span class="p">{</span><span class="kt">int</span><span class="w"> </span><span class="n">m_i</span><span class="p">;};</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">D1</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">B1</span><span class="p">{};</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">D2</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">B1</span><span class="p">{};</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">M</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">D1</span><span class="p">,</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">D2</span><span class="p">{};</span>
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(){</span>
+<span class="w">    </span><span class="n">M</span><span class="w"> </span><span class="n">m</span><span class="p">;</span>
+<span class="w">    </span><span class="n">B1</span><span class="w"> </span><span class="o">*</span><span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">m</span><span class="p">;</span><span class="w"> </span><span class="c1">// ERROR, B1 appear twice</span>
+<span class="w">    </span><span class="n">B1</span><span class="w"> </span><span class="o">*</span><span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">D1</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">m</span><span class="p">);</span><span class="w"> </span><span class="c1">// OK</span>
+<span class="w">    </span><span class="n">m</span><span class="p">.</span><span class="n">m_i</span><span class="o">++</span><span class="p">;</span><span class="w"> </span><span class="c1">// ERROR</span>
+<span class="p">}</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="k">struct</span><span class="w"> </span><span class="nc">B1</span><span class="p">{</span><span class="kt">int</span><span class="w"> </span><span class="n">m_i</span><span class="p">;};</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">D1</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">virtual</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">B1</span><span class="p">{};</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">D2</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">virtual</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">B1</span><span class="p">{};</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">M</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">D1</span><span class="p">,</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">D2</span><span class="p">{};</span>
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(){</span>
+<span class="w">    </span><span class="n">M</span><span class="w"> </span><span class="n">m</span><span class="p">;</span>
+<span class="w">    </span><span class="n">B1</span><span class="w"> </span><span class="o">*</span><span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">M</span><span class="p">;</span><span class="w"> </span><span class="c1">// OK</span>
+<span class="w">    </span><span class="n">m</span><span class="p">.</span><span class="n">m_i</span><span class="o">++</span><span class="p">;</span><span class="w"> </span><span class="c1">// OK</span>
+<span class="p">}</span>
+</code></pre></div>
+<h2 id="namespace"><code>namespace</code></h2>
+<p>可以跨文件定义</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// #include "h1.h"</span>
+<span class="k">namespace</span><span class="w"> </span><span class="nn">X</span><span class="p">{</span><span class="kt">void</span><span class="w"> </span><span class="nf">f</span><span class="p">();};</span>
+<span class="c1">// #include "h2.h"</span>
+<span class="k">namespace</span><span class="w"> </span><span class="nn">X</span><span class="p">{</span><span class="kt">void</span><span class="w"> </span><span class="nf">g</span><span class="p">();};</span><span class="w"> </span><span class="c1">// X have f() and g()</span>
+</code></pre></div>
+<p>可以特化已存在的函数</p>
+<div class="highlight"><pre><span></span><code><span class="k">namespace</span><span class="w"> </span><span class="nn">lib</span><span class="p">{</span>
+<span class="w">    </span><span class="k">class</span><span class="w"> </span><span class="nc">A</span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// ...</span>
+<span class="w">    </span><span class="p">};</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">swap</span><span class="p">(</span><span class="n">A</span><span class="w"> </span><span class="o">&amp;</span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="o">&amp;</span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="k">noexcept</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// ...</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">};</span>
+
+<span class="k">namespace</span><span class="w"> </span><span class="nn">std</span><span class="p">{</span>
+<span class="w">    </span><span class="k">template</span><span class="o">&lt;&gt;</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">swap</span><span class="o">&lt;</span><span class="n">lib</span><span class="o">::</span><span class="n">A</span><span class="o">&gt;</span><span class="p">(</span><span class="n">lib</span><span class="o">::</span><span class="n">A</span><span class="w"> </span><span class="o">&amp;</span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">lib</span><span class="o">::</span><span class="n">A</span><span class="w"> </span><span class="o">&amp;</span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="k">noexcept</span><span class="p">{</span>
+<span class="w">        </span><span class="n">swap</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div>
+<h3 id="adl">ADL</h3>
+<p>当调用一个未限定的函数 <span class="arithmatex">\(f(x)\)</span> 时:</p>
+<ol>
+<li>普通作用域查找: 编译器首先在当前作用域 (如局部作用域, 全局作用域) 中查找函数 <span class="arithmatex">\(f\)</span></li>
+<li>ADL 查找: 如果未找到匹配的函数，编译器会进一步检查参数的类型(如 <span class="arithmatex">\(x\)</span> 的类型), 并到参数类型的命名空间或类域中查找函数 <span class="arithmatex">\(f\)</span></li>
+</ol>
+<p>上面没有指定 <code>lib::swap(a, b)</code>, 但是 <code>ADL</code> 也根据参数类型 <span class="arithmatex">\(lib::A\)</span> 找到了 <code>lib::swap(a, b)</code></p>
 <h2 id="jni">JNI</h2>
+<p>在 minisql 里, 可以把图书管理系统整合进来</p>
+<p>具体地, 在 <code>src</code> 中加入 <code>jni</code> 模块:</p>
+<p></p><div class="highlight"><pre><span></span><code><span class="c1">// main_execute.h</span>
+
+
+
+<span class="cm">/* DO NOT EDIT THIS FILE - it is machine generated */</span>
+
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">"jni/jni.h"</span>
+<span class="cm">/* Header for class HelloJNI */</span>
+
+<span class="cp">#ifndef _Included_MainJNI</span>
+<span class="cp">#define _Included_MainJNI</span>
+<span class="cp">#ifdef __cplusplus</span>
+<span class="k">extern</span><span class="w"> </span><span class="s">"C"</span><span class="w"> </span><span class="p">{</span>
+<span class="cp">#endif</span>
+<span class="cm">/*</span>
+<span class="cm"> * Class:     MainJNI</span>
+<span class="cm"> * Method:    HelloWorld</span>
+<span class="cm"> * Signature: ()V</span>
+<span class="cm"> */</span>
+<span class="n">JNIEXPORT</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">JNICALL</span><span class="w"> </span><span class="n">Java_MainJNI_HelloWorld</span><span class="p">(</span><span class="n">JNIEnv</span><span class="w"> </span><span class="o">*</span><span class="p">,</span><span class="w"> </span><span class="n">jobject</span><span class="p">,</span><span class="w"> </span><span class="n">jstring</span><span class="p">);</span>
+<span class="n">dberr_t</span><span class="w"> </span><span class="nf">execute</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">cmd</span><span class="p">,</span><span class="w"> </span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Row</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="n">result_set</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">Schema</span><span class="w"> </span><span class="o">*&amp;</span><span class="n">schema</span><span class="p">);</span>
+<span class="n">JNIEXPORT</span><span class="w"> </span><span class="n">jstring</span><span class="w"> </span><span class="n">JNICALL</span><span class="w"> </span><span class="n">Java_MainJNI_Execute</span><span class="p">(</span><span class="n">JNIEnv</span><span class="w"> </span><span class="o">*</span><span class="p">,</span><span class="w"> </span><span class="n">jobject</span><span class="p">,</span><span class="w"> </span><span class="n">jstring</span><span class="p">);</span>
+
+<span class="cp">#ifdef __cplusplus</span>
+<span class="p">}</span>
+<span class="cp">#endif</span>
+<span class="cp">#endif</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="c1">// main_execute.cpp</span>
+
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;cstdio&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;sstream&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;string&gt;</span>
+
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">"executor/execute_engine.h"</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">"glog/logging.h"</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">"parser/syntax_tree_printer.h"</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">"utils/tree_file_mgr.h"</span>
+
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">"jni/jni.h"</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">"jni/main_execute.h"</span>
+
+
+<span class="k">extern</span><span class="w"> </span><span class="s">"C"</span><span class="w"> </span><span class="p">{</span>
+<span class="kt">int</span><span class="w"> </span><span class="nf">yyparse</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
+<span class="k">extern</span><span class="w"> </span><span class="kt">FILE</span><span class="w"> </span><span class="o">*</span><span class="n">yyin</span><span class="p">;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">"parser/minisql_lex.h"</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">"parser/parser.h"</span>
+<span class="p">}</span>
+
+<span class="n">ExecuteEngine</span><span class="w"> </span><span class="n">engine</span><span class="p">;</span>
+
+<span class="n">JNIEXPORT</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">JNICALL</span><span class="w"> </span><span class="n">Java_MainJNI_HelloWorld</span><span class="p">(</span><span class="n">JNIEnv</span><span class="w"> </span><span class="o">*</span><span class="n">env</span><span class="p">,</span><span class="w"> </span><span class="n">jobject</span><span class="w"> </span><span class="n">thisObj</span><span class="p">,</span><span class="w"> </span><span class="n">jstring</span><span class="w"> </span><span class="n">Sth</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">sth</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">env</span><span class="o">-&gt;</span><span class="n">GetStringUTFChars</span><span class="p">(</span><span class="n">Sth</span><span class="p">,</span><span class="w"> </span><span class="k">nullptr</span><span class="p">);</span>
+<span class="w">    </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"Hello World from "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">sth</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">endl</span><span class="p">;</span>
+<span class="w">  </span><span class="c1">// cout &lt;&lt; &amp;engine &lt;&lt; endl;</span>
+<span class="w">  </span><span class="k">return</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="n">dberr_t</span><span class="w"> </span><span class="n">execute</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">cmd</span><span class="p">,</span><span class="w"> </span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Row</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="n">result_set</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">Schema</span><span class="w"> </span><span class="o">*&amp;</span><span class="n">schema</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// create buffer for sql input</span>
+
+<span class="w">    </span><span class="c1">// ExecuteEngine engine;</span>
+<span class="w">    </span><span class="c1">// for print syntax tree</span>
+<span class="w">    </span><span class="n">TreeFileManagers</span><span class="w"> </span><span class="n">syntax_tree_file_mgr</span><span class="p">(</span><span class="s">"syntax_tree_"</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">syntax_tree_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+
+
+<span class="w">    </span><span class="n">YY_BUFFER_STATE</span><span class="w"> </span><span class="n">bp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">yy_scan_string</span><span class="p">(</span><span class="n">cmd</span><span class="p">);</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">bp</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="k">nullptr</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="n">LOG</span><span class="p">(</span><span class="n">ERROR</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"Failed to create yy buffer state."</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="w">      </span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="n">yy_switch_to_buffer</span><span class="p">(</span><span class="n">bp</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// init parser module</span>
+<span class="w">    </span><span class="n">MinisqlParserInit</span><span class="p">();</span>
+
+<span class="w">    </span><span class="c1">// parse</span>
+<span class="w">    </span><span class="n">yyparse</span><span class="p">();</span>
+
+<span class="w">    </span><span class="c1">// parse result handle</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">MinisqlParserGetError</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="c1">// error</span>
+<span class="w">      </span><span class="n">LOG</span><span class="p">(</span><span class="n">ERROR</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">MinisqlParserGetErrorMessage</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">endl</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="c1">// Comment them out if you don't need to debug the syntax tree</span>
+<span class="w">      </span><span class="n">LOG</span><span class="p">(</span><span class="n">INFO</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"Sql syntax parse ok!"</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">endl</span><span class="p">;</span>
+<span class="w">      </span><span class="n">SyntaxTreePrinter</span><span class="w"> </span><span class="nf">printer</span><span class="p">(</span><span class="n">MinisqlGetParserRootNode</span><span class="p">());</span>
+<span class="w">      </span><span class="n">printer</span><span class="p">.</span><span class="n">PrintTree</span><span class="p">(</span><span class="n">syntax_tree_file_mgr</span><span class="p">[</span><span class="n">syntax_tree_id</span><span class="o">++</span><span class="p">]);</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// vector&lt;Row&gt; result_set{};</span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">engine</span><span class="p">.</span><span class="n">Execute</span><span class="p">(</span><span class="n">MinisqlGetParserRootNode</span><span class="p">(),</span><span class="w"> </span><span class="n">result_set</span><span class="p">,</span><span class="w"> </span><span class="n">schema</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// clean memory after parse</span>
+<span class="w">    </span><span class="n">MinisqlParserFinish</span><span class="p">();</span>
+<span class="w">    </span><span class="n">yy_delete_buffer</span><span class="p">(</span><span class="n">bp</span><span class="p">);</span>
+<span class="w">    </span><span class="n">yylex_destroy</span><span class="p">();</span>
+<span class="w">    </span><span class="n">engine</span><span class="p">.</span><span class="n">ExecuteInformation</span><span class="p">(</span><span class="n">result</span><span class="p">);</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">result</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="n">JNIEXPORT</span><span class="w"> </span><span class="n">jstring</span><span class="w"> </span><span class="n">JNICALL</span><span class="w"> </span><span class="n">Java_MainJNI_Execute</span><span class="p">(</span><span class="n">JNIEnv</span><span class="w"> </span><span class="o">*</span><span class="n">env</span><span class="p">,</span><span class="w"> </span><span class="n">jobject</span><span class="w"> </span><span class="n">thisObj</span><span class="p">,</span><span class="w"> </span><span class="n">jstring</span><span class="w"> </span><span class="n">Cmd</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="c1">// dberr_t execute(const char *cmd) {</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">cmd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">env</span><span class="o">-&gt;</span><span class="n">GetStringUTFChars</span><span class="p">(</span><span class="n">Cmd</span><span class="p">,</span><span class="w"> </span><span class="k">nullptr</span><span class="p">);</span>
+<span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Row</span><span class="o">&gt;</span><span class="w"> </span><span class="n">result_set</span><span class="p">{};</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">Schema</span><span class="w"> </span><span class="o">*</span><span class="n">schema</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">nullptr</span><span class="p">;</span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">execute</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span><span class="w"> </span><span class="n">result_set</span><span class="p">,</span><span class="w"> </span><span class="n">schema</span><span class="p">);</span>
+<span class="w">    </span><span class="n">string</span><span class="w"> </span><span class="n">result_str</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">""</span><span class="p">;</span>
+<span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">result_set</span><span class="p">.</span><span class="n">empty</span><span class="p">()</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">schema</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="k">nullptr</span><span class="p">){</span>
+<span class="w">      </span><span class="n">stringstream</span><span class="w"> </span><span class="n">ss</span><span class="p">;</span>
+<span class="w">      </span><span class="n">ss</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"{</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
+<span class="w">      </span><span class="k">for</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">result_set</span><span class="p">.</span><span class="n">size</span><span class="p">();</span><span class="w"> </span><span class="n">j</span><span class="o">++</span><span class="p">){</span>
+<span class="w">        </span><span class="n">ss</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"</span><span class="se">\t\"</span><span class="s">"</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"row"</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w">  </span><span class="s">"</span><span class="se">\"</span><span class="s">: {</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
+<span class="w">        </span><span class="n">Row</span><span class="w"> </span><span class="o">&amp;</span><span class="n">row</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">result_set</span><span class="p">[</span><span class="n">j</span><span class="p">];</span>
+<span class="w">        </span><span class="k">for</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">schema</span><span class="o">-&gt;</span><span class="n">GetColumnCount</span><span class="p">();</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">){</span>
+<span class="w">          </span><span class="n">Field</span><span class="w"> </span><span class="o">*</span><span class="n">field</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">row</span><span class="p">.</span><span class="n">GetField</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
+<span class="w">          </span><span class="n">ss</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"</span><span class="se">\t\t\"</span><span class="s">"</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">schema</span><span class="o">-&gt;</span><span class="n">GetColumn</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">GetName</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"</span><span class="se">\"</span><span class="s">: </span><span class="se">\"</span><span class="s">"</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">field</span><span class="o">-&gt;</span><span class="n">toString</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"</span><span class="se">\"</span><span class="s">"</span><span class="p">;</span>
+<span class="w">          </span><span class="k">if</span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">schema</span><span class="o">-&gt;</span><span class="n">GetColumnCount</span><span class="p">()</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="n">ss</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">","</span><span class="p">;</span>
+<span class="w">          </span><span class="n">ss</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="n">ss</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"</span><span class="se">\t</span><span class="s">}"</span><span class="p">;</span>
+<span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="n">j</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">result_set</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="n">ss</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">","</span><span class="p">;</span>
+<span class="w">        </span><span class="n">ss</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">      </span><span class="n">ss</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"}"</span><span class="p">;</span>
+<span class="w">      </span><span class="n">result_str</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ss</span><span class="p">.</span><span class="n">str</span><span class="p">();</span>
+<span class="w">    </span><span class="p">}</span><span class="k">else</span><span class="p">{</span>
+<span class="w">      </span><span class="n">result_str</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"{</span><span class="se">\n</span><span class="s">}"</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">env</span><span class="o">-&gt;</span><span class="n">NewStringUTF</span><span class="p">(</span><span class="n">result_str</span><span class="p">.</span><span class="n">c_str</span><span class="p">());</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>这样如果要正常使用 minisql, 只需在 <code>main.cpp</code> 里 <code>#include "main_execute.h"</code>, 调用 <code>execute()</code> 即可</p>
+<p>同时在主函数的 <code>CMakeLists.txt</code> 中:</p>
+<div class="highlight"><pre><span></span><code><span class="c"># recursive files</span>
+<span class="nb">FILE</span><span class="p">(</span><span class="s">GLOB_RECURSE</span><span class="w"> </span><span class="s">MAIN_SOURCES</span><span class="w"> </span><span class="o">${</span><span class="nv">PROJECT_SOURCE_DIR</span><span class="o">}</span><span class="s">/src/*/*.cpp</span>
+<span class="w">        </span><span class="o">${</span><span class="nv">PROJECT_SOURCE_DIR</span><span class="o">}</span><span class="s">/src/*/*/*.cpp</span>
+<span class="w">        </span><span class="o">${</span><span class="nv">PROJECT_SOURCE_DIR</span><span class="o">}</span><span class="s">/src/*/*/*/*.cpp</span>
+<span class="w">        </span><span class="o">${</span><span class="nv">PROJECT_SOURCE_DIR</span><span class="o">}</span><span class="s">/src/*/*.c</span>
+<span class="w">        </span><span class="o">${</span><span class="nv">PROJECT_SOURCE_DIR</span><span class="o">}</span><span class="s">/src/*/*/*.c</span>
+<span class="w">        </span><span class="p">)</span>
+<span class="nb">MESSAGE</span><span class="p">(</span><span class="s">STATUS</span><span class="w"> </span><span class="s2">"Source file lists: ${MAIN_SOURCES}"</span><span class="p">)</span>
+<span class="nb">ADD_LIBRARY</span><span class="p">(</span><span class="s">zSql</span><span class="w"> </span><span class="s">SHARED</span><span class="w"> </span><span class="o">${</span><span class="nv">MAIN_SOURCES</span><span class="o">}</span><span class="p">)</span>
+<span class="nb">TARGET_LINK_LIBRARIES</span><span class="p">(</span><span class="s">zSql</span><span class="w"> </span><span class="s">glog</span><span class="p">)</span>
+
+<span class="nb">ADD_EXECUTABLE</span><span class="p">(</span><span class="s">main</span><span class="w"> </span><span class="s">main.cpp</span><span class="p">)</span>
+<span class="nb">TARGET_LINK_LIBRARIES</span><span class="p">(</span><span class="s">main</span><span class="w"> </span><span class="s">glog</span><span class="w"> </span><span class="s">zSql</span><span class="p">)</span>
+</code></pre></div>
+<p>所以 <code>execute()</code> 和 JNI 接口 <code>Java_MainJNI_Execute()</code> 都会被写入 <code>libzSql.so</code> 中</p>
+<p>所以在图书管理系统中, 只需要新建一个 <code>MainJNI.java</code>:
+</p><div class="highlight"><pre><span></span><code><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">MainJNI</span><span class="w"> </span><span class="p">{</span>
+<span class="w">   </span><span class="kd">static</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="c1">// System.loadLibrary("zSql"); // Load native library zSql.dll (Windows) or libzSql.so (Unixes)</span>
+<span class="w">      </span><span class="n">System</span><span class="p">.</span><span class="na">load</span><span class="p">(</span><span class="s">"/mnt/d/db/new_minisql/library/libzSql.so"</span><span class="p">);</span>
+<span class="w">   </span><span class="p">}</span>
+
+<span class="w">   </span><span class="kd">public</span><span class="w"> </span><span class="kd">native</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">HelloWorld</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">sth</span><span class="p">);</span>
+
+<span class="w">   </span><span class="kd">public</span><span class="w"> </span><span class="kd">native</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">Execute</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">cmd</span><span class="p">);</span>
+
+<span class="w">   </span><span class="kd">private</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">Logger</span><span class="w"> </span><span class="n">log</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Logger</span><span class="p">.</span><span class="na">getLogger</span><span class="p">(</span><span class="n">Main</span><span class="p">.</span><span class="na">class</span><span class="p">.</span><span class="na">getName</span><span class="p">());</span>
+
+<span class="w">   </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span><span class="w"> </span><span class="n">args</span><span class="p">)</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">IOException</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">      </span><span class="c1">// 这里是8000，建议不要80端口，容易和其他的撞</span>
+<span class="w">      </span><span class="n">HttpServer</span><span class="w"> </span><span class="n">server</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">HttpServer</span><span class="p">.</span><span class="na">create</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">InetSocketAddress</span><span class="p">(</span><span class="mi">8000</span><span class="p">),</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+
+<span class="w">      </span><span class="c1">// 添加handler，这里就绑定到/card路由</span>
+<span class="w">      </span><span class="c1">// 所以localhost:8000/card是会有handler来处理</span>
+<span class="w">      </span><span class="n">server</span><span class="p">.</span><span class="na">createContext</span><span class="p">(</span><span class="s">"/book"</span><span class="p">,</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">BookHandler</span><span class="p">());</span>
+<span class="w">      </span><span class="n">server</span><span class="p">.</span><span class="na">createContext</span><span class="p">(</span><span class="s">"/card"</span><span class="p">,</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">CardHandler</span><span class="p">());</span>
+<span class="w">      </span><span class="n">server</span><span class="p">.</span><span class="na">createContext</span><span class="p">(</span><span class="s">"/borrow"</span><span class="p">,</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">BorrowHandler</span><span class="p">());</span>
+
+<span class="w">      </span><span class="c1">// 启动服务器</span>
+<span class="w">      </span><span class="n">server</span><span class="p">.</span><span class="na">start</span><span class="p">();</span>
+
+<span class="w">      </span><span class="c1">// 标识一下，这样才知道我的后端启动了（确信</span>
+<span class="w">      </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">"Server is listening on port 8000"</span><span class="p">);</span>
+<span class="w">   </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>最后编译时使用它为主类即可</p>
+<div class="highlight"><pre><span></span><code><span class="n">mvn</span> <span class="n">exec</span><span class="p">:</span><span class="n">java</span> <span class="n">-Dexec</span><span class="p">.</span><span class="n">mainClass</span><span class="p">=</span><span class="s2">"MainJNI"</span> <span class="n">-Dexec</span><span class="p">.</span><span class="n">cleanupDaemonThreads</span><span class="p">=</span><span class="n">false</span>
+</code></pre></div>
+<p>在 <code>LibraryManagementSystemImpl.java</code> 里把 <code>connector</code> 改成 <code>private final MainJNI connector;</code></p>
+<p>就可以使用 <code>connector.Execute()</code> 来操作数据库</p>
 <h2 id="macro">Macro</h2>
-<h2 id="template-deduct-and-sepcialization">template deduct and sepcialization</h2></div>
+<div class="highlight"><pre><span></span><code><span class="cp">#define DECLARE_BINARY_SERIALIZABLE(...) \</span>
+<span class="cp">    private: \</span>
+<span class="cp">        static constexpr auto members = []() { \</span>
+<span class="cp">            return std::make_tuple(__VA_ARGS__); \</span>
+<span class="cp">        }(); \</span>
+<span class="cp">    public: \</span>
+<span class="cp">        using SERIALIZABLE = void; \</span>
+<span class="cp">        void Serialize(std::ofstream &amp;ofs) const { \</span>
+<span class="cp">            std::apply([this, &amp;ofs](auto&amp;&amp;... args) { \</span>
+<span class="cp">                (binary_serialization::Serialize(this-&gt;*args, ofs), ...); \</span>
+<span class="cp">            }, members); \</span>
+<span class="cp">        } \</span>
+<span class="cp">        void serialize(const char *filename) { \</span>
+<span class="cp">            std::ofstream ofs(filename, std::ios::out); \</span>
+<span class="cp">            if (!ofs.is_open()) \</span>
+<span class="cp">            { \</span>
+<span class="cp">                std::cerr &lt;&lt; "failed to open file " &lt;&lt; filename &lt;&lt; std::endl; \</span>
+<span class="cp">                return; \</span>
+<span class="cp">            } \</span>
+<span class="cp">            this-&gt;Serialize(ofs); \</span>
+<span class="cp">            ofs.close(); \</span>
+<span class="cp">        } \</span>
+<span class="cp">        void Deserialize(std::ifstream &amp;ifs) { \</span>
+<span class="cp">            std::apply([this, &amp;ifs](auto&amp;&amp;... args) { \</span>
+<span class="cp">                (binary_serialization::Deserialize(this-&gt;*args, ifs), ...); \</span>
+<span class="cp">            }, members); \</span>
+<span class="cp">        } \</span>
+<span class="cp">        void deserialize(const char *filename) { \</span>
+<span class="cp">            std::ifstream ifs(filename, std::ios::in); \</span>
+<span class="cp">            if (!ifs.is_open()) \</span>
+<span class="cp">            { \</span>
+<span class="cp">                std::cerr &lt;&lt; "failed to open file " &lt;&lt; filename &lt;&lt; std::endl; \</span>
+<span class="cp">                return; \</span>
+<span class="cp">            } \</span>
+<span class="cp">            this-&gt;Deserialize(ifs); \</span>
+<span class="cp">            ifs.close(); \</span>
+<span class="cp">        } </span>
+</code></pre></div>
+<p>这段宏定义是在写序列化函数时, 为了方便序列化自定义类的</p>
+<p>在自定义类中:</p>
+<div class="highlight"><pre><span></span><code><span class="k">struct</span><span class="w"> </span><span class="nc">UserDefinedType</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">idx</span><span class="p">;</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">name</span><span class="p">;</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="w"> </span><span class="n">data</span><span class="p">;</span>
+<span class="w">    </span><span class="n">DECLARE_BINARY_SERIALIZABLE</span><span class="p">(</span><span class="o">&amp;</span><span class="n">UserDefinedType</span><span class="o">::</span><span class="n">idx</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">UserDefinedType</span><span class="o">::</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">UserDefinedType</span><span class="o">::</span><span class="n">data</span><span class="p">)</span>
+<span class="w">    </span><span class="n">UserDefinedType</span><span class="p">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">default</span><span class="p">;</span>
+<span class="w">    </span><span class="n">UserDefinedType</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">idx</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="w"> </span><span class="n">data</span><span class="p">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">idx</span><span class="p">(</span><span class="n">idx</span><span class="p">),</span><span class="w"> </span><span class="n">name</span><span class="p">(</span><span class="n">name</span><span class="p">),</span><span class="w"> </span><span class="n">data</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="w"> </span><span class="p">{}</span>
+<span class="p">};</span>
+</code></pre></div>
+<p>就会加入上面宏的内容</p>
+<p>第一个 <code>members</code> 函数使用折叠表达式, 接受一系列参数, 将他们, 即 <code>__VA_ARGS__</code>, 传入 <code>std::tuple</code> 中</p>
+<p>在下面的 <code>Serialize()</code> 函数中, 用 <code>std::apply()</code> 将 <code>members()</code> 得到的 <code>std::tuple</code> 传入前面的折叠表达式做参数</p>
+<h2 id="member-pointer">member pointer</h2>
+<p>成员指针</p>
+<p>存储成员变量在类中的偏移量</p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">MyClass</span><span class="w"> </span><span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">value</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">display</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">endl</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="p">};</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="n">MyClass</span><span class="o">::*</span><span class="n">ptr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">MyClass</span><span class="o">::</span><span class="n">value</span><span class="p">;</span><span class="w"> </span>
+<span class="n">MyClass</span><span class="w"> </span><span class="n">obj</span><span class="p">;</span>
+<span class="n">obj</span><span class="p">.</span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">42</span><span class="p">;</span>
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">obj</span><span class="p">.</span><span class="o">*</span><span class="n">ptr</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span><span class="w">  </span><span class="c1">// 42</span>
+<span class="n">MyClass</span><span class="o">*</span><span class="w"> </span><span class="n">pObj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">obj</span><span class="p">;</span>
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">pObj</span><span class="o">-&gt;*</span><span class="n">ptr</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span><span class="w">  </span><span class="c1">// 42</span>
+<span class="kt">void</span><span class="w"> </span><span class="p">(</span><span class="n">MyClass</span><span class="o">::*</span><span class="n">funcPtr</span><span class="p">)(</span><span class="kt">int</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">MyClass</span><span class="o">::</span><span class="n">display</span><span class="p">;</span>
+<span class="p">(</span><span class="n">obj</span><span class="p">.</span><span class="o">*</span><span class="n">funcPtr</span><span class="p">)(</span><span class="mi">42</span><span class="p">);</span><span class="w"> </span><span class="c1">// 42</span>
+</code></pre></div>
+<p>所以要在有对象的前提下使用</p>
+<h2 id="fold-expressions">fold expressions</h2>
+<p>C++17 新特性</p>
+<div class="highlight"><pre><span></span><code><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="n">Args</span><span class="o">&gt;</span>
+<span class="kt">void</span><span class="w"> </span><span class="n">call</span><span class="p">(</span><span class="n">Args</span><span class="o">&amp;&amp;</span><span class="p">...</span><span class="w"> </span><span class="n">args</span><span class="p">){</span>
+<span class="w">    </span><span class="p">(...</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">args</span><span class="p">())</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>可以用逗号表达式, 后面写出具体做的事 (可以用括号括起来几件事), 前面的 <code>...</code> 会把后面表达式展开</p>
+<h2 id="template-deduct-and-sepcialization-sfinae">template deduct and sepcialization / SFINAE</h2>
+<p>可以用下面方式产生一个接受参数 <code>T</code> 并返回对错的模板:</p>
+<div class="highlight"><pre><span></span><code><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="p">,</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">void</span><span class="o">&gt;</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">v</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">false_type</span><span class="w"> </span><span class="p">{};</span>
+<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">v</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span><span class="w"> </span><span class="n">__expression__</span><span class="o">&gt;</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">true_type</span><span class="w"> </span><span class="p">{};</span>
+</code></pre></div>
+<p>其中 <code>__expression__</code> 是一个可以产生 <code>void</code> 类型的表达式</p>
+<p>可以用下面方式:</p>
+<div class="highlight"><pre><span></span><code><span class="n">std</span><span class="o">::</span><span class="n">void_t</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">A</span><span class="o">::</span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="k">typename</span><span class="w"> </span><span class="nc">B</span><span class="o">::</span><span class="n">b</span><span class="p">,</span><span class="w"> </span><span class="p">...</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="n">std</span><span class="o">::</span><span class="n">enable_if_t</span><span class="o">&lt;</span><span class="nb">true</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="nb">false</span><span class="p">,</span><span class="w"> </span><span class="kt">void</span><span class="o">&gt;</span>
+</code></pre></div>
+<p>在 <code>std::void_t&lt;&gt;</code> 中, 如果 <code>A::a</code> 和 <code>B::b</code> 存在, 则表达式成功产生类型 <code>void</code></p>
+<p>在 <code>std::enable_if_t</code> 中, 如果前面表达式为 <code>true</code>, 那么后面的 <code>void</code> 会被启用 </p>
+<p>这利用了 SFINAE (Substitution Failure Is Not An Error)</p>
+<p>所以可以用 <code>v&lt;T&gt;::value</code> 来返回一个 <code>true / false</code></p></div>
 
 
 

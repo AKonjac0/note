@@ -4031,12 +4031,14 @@
 <p><span class="arithmatex">\(D_{dec}, D_{hi}\)</span> 表示 右边 VLM Decoder 和左边 Image Encoder 的维数</p>
 <p><span class="arithmatex">\(B\)</span> 是 batch size</p>
 <p><span class="arithmatex">\(X_{in_i}\in \mathbb R^{B\times(L_{I_{lo}}+L_T)\times D_{dec}}\)</span> 是右边 VLLM 的 transformer 输入</p>
-<p><span class="arithmatex">\(X_{hi}\in\mathbb R^{B\times(L_{I_{hi}})}\times D_{hi}\)</span> 表示</p>
+<p><span class="arithmatex">\(X_{hi}\in\mathbb R^{B\times(L_{I_{hi}})}\times D_{hi}\)</span> 表示
+左边 Image Encoder 的输出</p>
 <p>那么有每一层的迭代公式:</p>
 <div class="arithmatex">\[X_i'=\text{MSA}(\text{layernorm}(X_{in_i}))+X_{in_i}\]</div>
 <div class="arithmatex">\[X_{out_i}=\text{MCA}(\text{layernorm}(X_i'),X_{hi})+X_i
 '\]</div>
-<p>这里面可以看出, 由于残余网络加的是 <span class="arithmatex">\(X_i'\)</span>, 所以 <span class="arithmatex">\(X_i'\)</span> 是 Query, <span class="arithmatex">\(X_{hi}\)</span> 是 Key, Value</p>
+<p>这里面可以看出, 由于残余网络加的是 <span class="arithmatex">\(X_i'\)</span>, 所以 <span class="arithmatex">\(X_i'\)</span> 是 Query, <span class="arithmatex">\(X_{hi}\)</span> 是 Key, Value, 表示计算了文字 + 低分辨率信息与高分辨率信息的相关程度, 并把加权求和后的高分辨率信息与文字 + 低分辨率残余信息相加后输出作为下一层输入</p>
+<p>这样高分辨率信息作为了与文字 + 低分辨率信息相关的补充流入下一层</p>
 <hr>
 <p>参考</p>
 <ol>

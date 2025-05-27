@@ -4115,7 +4115,25 @@
 <p>SGD 的优点是一定会收敛到局部极小值, 缺点是慢</p>
 <p>要想看到他有多慢, 可以看下面的图:</p>
 <p><img alt="alt text" src="../image-8.png"></p>
-<h2 id="momentum">Momentum</h2>
+<p>给两个矩阵小知识:</p>
+<h3 id="poor-conditioning">Poor conditioning</h3>
+<p>考虑函数 <span class="arithmatex">\(f(x)=A^{-1}x\)</span></p>
+<p>对于矩阵 <span class="arithmatex">\(A\)</span> 的 condition number 等于特征值的最大最小之比</p>
+<div class="arithmatex">\[\max_{i,j}|\frac{\lambda_i}{\lambda_j}|\]</div>
+<p>这个 condition nubmer 越大, 函数 <span class="arithmatex">\(f(x)\)</span> 对于输入 <span class="arithmatex">\(x\)</span> 的变化越敏感</p>
+<p>即 <span class="arithmatex">\(x\)</span> 一个小的变化可能引起 <span class="arithmatex">\(f(x)\)</span> 变化很大</p>
+<h3 id="hessian-matrix">Hessian matrix</h3>
+<p>向量函数 <span class="arithmatex">\(f: \mathbb R^n\to \mathbb R^m\)</span> 的一阶偏导组成的矩阵为 Jacobian matrix , 记作 <span class="arithmatex">\(J(f)_{m\times n}\)</span></p>
+<p>典型的应用是多元函数积分换元:</p>
+<div class="arithmatex">\[\int_{X,Y}f(x,y)\text dx\text dy = \int_{U,V}f(u,v)\cdot |\det J|\text du\text dv\]</div>
+<p>标量函数的二阶偏导组成的矩阵为 Hessian matrix, 记作 <span class="arithmatex">\(H(f)_{n\times n}\)</span></p>
+<p>他们两个的关系是:</p>
+<div class="arithmatex">\[H(f)=J(\nabla f)\]</div>
+<p>即多维标量函数的 Hessian matrix 为函数梯度的 Jacobian matrix</p>
+<hr>
+<p>上面图片中函数的 Hessian matrix 的 condition number <span class="arithmatex">\(= 5\)</span></p>
+<p>所以 SGD 对于 <span class="arithmatex">\([-1,1]^T\)</span> 方向的梯度不敏感, 对于 <span class="arithmatex">\([1,1]^T\)</span> 方向的梯度敏感, 所以看起来一直在撞墙, 而没有很快地下降到谷底</p>
+<h2 id="momentum-sgd">Momentum SGD</h2>
 <p>为了加速收敛设计出来的</p>
 <p>定义一个速度矢量 <span class="arithmatex">\(v\)</span></p>
 <p>它指代参数在参数空间中移动的速率与方向</p>
@@ -4124,9 +4142,46 @@
 <p>更新规则:</p>
 <div class="arithmatex">\[v \leftarrow \alpha v - \epsilon \nabla_\theta(\frac 1m \sum_{i=1}^mL[f(x^{(i)};\theta), y^{(i)}])\]</div>
 <div class="arithmatex">\[\theta \leftarrow \theta + v\]</div>
-<p>把负梯度看作一个力, <span class="arithmatex">\(epsilon\)</span> 看作一个调整单位的参数</p>
+<p>把负梯度看作一个力, <span class="arithmatex">\(\epsilon\)</span> 看作一个调整单位的参数</p>
 <p>所以第一个式子就是冲量转成动量</p>
 <p>第二个式子是单位时间的距离变化</p>
+<p>于 SGD 相比:</p>
+<p><img alt="alt text" src="../image-9.png"></p>
+<p>可以看到负梯度中沿着 <span class="arithmatex">\([1,1]^T\)</span> 方向的分量在每次更新 <span class="arithmatex">\(v\)</span> 时都会相互抵消, 而沿着 <span class="arithmatex">\([-1,1]^T\)</span> 方向的分良在每次更新 <span class="arithmatex">\(v\)</span> 时会一直累积</p>
+<p>所以朝着谷底运动的速度越来越快</p>
+<p>形式化地, 要想求出最大的最终速度, 考虑运行过程, 速度会沿着负梯度的方向加速, 最后的收敛到连续几步内的梯度都是相同的大小与方向</p>
+<p>如果从第一步开始采样得到的梯度都为 <span class="arithmatex">\(g\)</span>, 那么最终的最大速度是 </p>
+<div class="arithmatex">\[v_{\max}=\epsilon ||g|| +\epsilon \alpha ||g||+\cdots \]</div>
+<div class="arithmatex">\[=\frac{\epsilon ||g||}{1-\alpha}\]</div>
+<p>相比于无 Momentum 的 SGD 加速的 <span class="arithmatex">\(\frac{1}{1-\alpha}\)</span> 倍</p>
+<h3 id="nature">nature</h3>
+<p>本质是在通过数值模拟求解一阶微分方程组:</p>
+<div class="arithmatex">\[v(t)=\frac{\partial \theta(t)}{\partial t}\]</div>
+<div class="arithmatex">\[f(t)=\frac{\partial v(t)}{\partial t}\]</div>
+<p>其中取单位质量, 所以 <span class="arithmatex">\(f(t)=a(t)\)</span></p>
+<p>同时 <span class="arithmatex">\(\theta(t)\)</span> 是位移</p>
+<p>数值模拟解微分方程组的一个方法是 Euler 方法, 即模拟取每个梯度方向的一小步来计算</p>
+<p>这正是 Momentum SGD 在做的事</p>
+<p>具体地, 取一个主动力为负梯度, 在取一个被动力, 通过系数 <span class="arithmatex">\(\alpha\)</span> 正比于 <span class="arithmatex">\(-v(t)\)</span></p>
+<p>这个被动力可以看作粘滞力, 因为正比于 <span class="arithmatex">\(v\)</span>, 而不像动摩擦力不与 <span class="arithmatex">\(v\)</span> 相关, 或者空气阻力正比于 <span class="arithmatex">\(v^2\)</span></p>
+<h3 id="nesterov-momentum-sgd">Nesterov Momentum SGD</h3>
+<p>迭代公式为</p>
+<div class="arithmatex">\[v \leftarrow \alpha v - \epsilon \nabla_\theta(\frac 1m\sum_{i=1}^m L[f(x^{(i)};\theta+\alpha v),y^{(i)}])\]</div>
+<div class="arithmatex">\[\theta \leftarrow \theta + v\]</div>
+<p>即在采样梯度前先将当前速度应用于位移 <span class="arithmatex">\(\theta\)</span></p>
+<p>对于 convex batch gradient 有显著速度提升, 但是对 stochastic gradient 没有理论保证的提升</p>
+<hr>
+<p>上面的几个算法学习率 <span class="arithmatex">\(\epsilon\)</span> 都是固定的</p>
+<p>下面介绍几个自适应学习率的算法</p>
+<h2 id="adagrad">AdaGrad</h2>
+<p>通过累积的平方梯度来调节学习率</p>
+<p>给定静态学习率 <span class="arithmatex">\(\epsilon\)</span> 和防止除零异常的小常数 <span class="arithmatex">\(\delta \approx 10^{-7}\)</span>, 迭代公式为:</p>
+<div class="arithmatex">\[g\leftarrow \frac 1m \nabla_\theta\sum_{i=1}^mL[f(x^{(i)};\theta), y^{(i)}]\]</div>
+<div class="arithmatex">\[r \leftarrow r + g\cdot g\]</div>
+<div class="arithmatex">\[\Delta \theta \leftarrow -\frac{\epsilon}{\delta + \sqrt{r} } \cdot g\]</div>
+<div class="arithmatex">\[\theta \leftarrow \theta + \Delta\theta\]</div>
+<p>在凸优化中有理论优势, 但实际训练神经网络往往导致学习率过早过大衰减</p>
+<h2 id="rmsprop">RMSProp</h2>
 <h2 id="adam">Adam</h2>
 <h1 id="residual-connection">residual connection</h1>
 <h2 id="resnet">ResNet的理论优势：从恒等映射到优化景观的深层解析</h2>

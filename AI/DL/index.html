@@ -4214,7 +4214,7 @@
 <div class="arithmatex">\[\theta \leftarrow \theta + v\]</div>
 <p>即在采样梯度前先将当前速度应用于位移 <span class="arithmatex">\(\theta\)</span></p>
 <p>对于 convex batch gradient 有显著速度提升, 但是对 stochastic gradient 没有理论保证的提升</p>
-<hr>
+<h1 id="adaptive-learning-rate-optimizer">adaptive learning rate optimizer</h1>
 <p>上面的几个算法学习率 <span class="arithmatex">\(\epsilon\)</span> 都是固定的</p>
 <p>下面介绍几个自适应学习率的算法</p>
 <h2 id="adagrad">AdaGrad</h2>
@@ -4271,6 +4271,26 @@
 <h2 id="summary">summary</h2>
 <p><img alt="alt text" src="../image-11.png"></p>
 <p><img alt="alt text" src="../image-10.png"></p>
+<h1 id="second-order-optimizer">second order optimizer</h1>
+<p>下面补充几个二阶的方法</p>
+<h2 id="newtons-method">Newton's method</h2>
+<p>就是牛顿迭代法</p>
+<p>我们考虑误差函数</p>
+<div class="arithmatex">\[J(\theta)=\frac{1}{m}\sum_{i=1}^mL[f(x^{(i)};\theta), y^{(i)}]\]</div>
+<p>利用泰勒展开:</p>
+<div class="arithmatex">\[J(\theta)=J(\theta_0)+(\theta-\theta_0)^T\nabla_\theta J(\theta_0)+\frac 12(\theta-\theta_0)^TH(\theta-\theta_0)\]</div>
+<div class="arithmatex">\[=J(\theta_0)+(\theta-\theta_0)^Tg+\frac 12(\theta-\theta_0)^TH\]</div>
+<p><span class="arithmatex">\(H\)</span> 是黑塞矩阵, 即二阶导</p>
+<p>那么由优化版的二阶牛顿迭代法, 我们更新的步长为:</p>
+<div class="arithmatex">\[\Delta\theta=-H^{-1}g\]</div>
+<p>算法迭代公式为:</p>
+<div class="arithmatex">\[g\leftarrow \frac{1}{m}\nabla_\theta\sum_{i=1}^mL[f(x^{(i)};\theta), y^{(i)}]\]</div>
+<div class="arithmatex">\[H\leftarrow \frac{1}{m}\nabla_\theta^2\sum_{i=1}^mL[f(x^{(i)};\theta), y^{(i)}]\]</div>
+<div class="arithmatex">\[\Delta\theta\leftarrow H^{-1}g\]</div>
+<div class="arithmatex">\[\theta \leftarrow \theta+\Delta\theta\]</div>
+<h2 id="conjugate-gredient-method">conjugate gredient method</h2>
+<h2 id="bfgs">BFGS</h2>
+<p>这俩不具体介绍了, 具体见 <a href="#j3">Deep Learning 的第 8 章</a></p>
 <h1 id="residual-connection">residual connection</h1>
 <h2 id="resnet">ResNet的理论优势：从恒等映射到优化景观的深层解析</h2>
 <p>ResNet作为深度学习领域的里程碑式架构，自2015年提出以来已获得超过10万次引用，成为现代神经网络设计的基础范式。尽管原始论文《Deep Residual Learning for Image Recognition》主要从实践角度论证了其有效性，但后续研究已从多个理论视角提供了严格的数学证明，揭示了残差连接如何解决深层网络的梯度消失问题、提升优化效率并增强泛化能力。这些理论分析不仅解释了ResNet的成功原因，还为后续深度神经网络设计提供了理论指导，使其成为连接经验性成功与理论理解的桥梁。</p>
@@ -4370,7 +4390,7 @@ H(x) = F(x) + x
 <ol>
 <li><a id="j1"></a><a href="https://arxiv.org/pdf/1806.01261">Relational inductive biases, deep learning, and graph networks</a></li>
 <li><a id="j2"></a><a href="https://distill.pub/2021/gnn-intro/#graph-to-tensor">A Gentle Introduction to Graph Neural Networks</a></li>
-<li><a href="https://www.deeplearningbook.org/">Deep Learning (Ian Goodfellow and Yoshua Bengio and Aaron Courville)</a></li>
+<li><a id="j3"></a><a href="https://www.deeplearningbook.org/">Deep Learning (Ian Goodfellow and Yoshua Bengio and Aaron Courville)</a></li>
 <li><a href="https://arxiv.org/pdf/1902.09843">ADAPTIVE GRADIENT METHODS WITH DYNAMIC
 BOUND OF LEARNING RATE</a></li>
 <li><a href="https://web.stanford.edu/~jduchi/projects/DuchiHaSi10_colt.pdf">Adaptive Subgradient Methods for

@@ -1230,18 +1230,60 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#gpt" class="md-nav__link">
+  <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
-      对比早期 GPT
+      结构
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
+  <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
-      结构
+      预训练
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="预训练">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#masked-lm" class="md-nav__link">
+    <span class="md-ellipsis">
+      Masked LM
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nsp" class="md-nav__link">
+    <span class="md-ellipsis">
+      NSP
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      微调
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gpt" class="md-nav__link">
+    <span class="md-ellipsis">
+      对比早期 GPT
     </span>
   </a>
   
@@ -3916,18 +3958,60 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#gpt" class="md-nav__link">
+  <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
-      对比早期 GPT
+      结构
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
+  <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
-      结构
+      预训练
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="预训练">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#masked-lm" class="md-nav__link">
+    <span class="md-ellipsis">
+      Masked LM
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nsp" class="md-nav__link">
+    <span class="md-ellipsis">
+      NSP
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      微调
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gpt" class="md-nav__link">
+    <span class="md-ellipsis">
+      对比早期 GPT
     </span>
   </a>
   
@@ -3952,10 +4036,33 @@
 
 
 <div><h1 id="bert">BERT</h1>
-<h2 id="gpt">对比早期 GPT</h2>
-<p>GPT 采用单向的自注意力层, 使得基于 fine-tuning 进行的, 需要学习单词前后的双向依赖的任务训练困难, 如回答问题任务</p>
-<p>所以 BERT (Bidirectional Encoder Representations from Transformers) 使用双向的自注意力层</p>
 <h2 id="_1">结构</h2>
+<p><img alt="alt text" src="../image-12.png"></p>
+<p>每组数据的两个句子 <span class="arithmatex">\(A,B\)</span> 被拼接在一起, 中间用 <span class="arithmatex">\([SEP]\)</span> 分隔</p>
+<p>整个 input 由 word embeddings, position embeddings, segment embeddings 组成</p>
+<p>segment embeddings 用于区分单词属于哪个句子</p>
+<p>整体结构如下图:</p>
+<p><img alt="alt text" src="../image-13.png"></p>
+<p>将两个句子的 token 序列拼在一起输入 BERT, 图中 <span class="arithmatex">\(E_i\)</span> 表示输入的 embeddings, <span class="arithmatex">\(T_i\)</span> 表示隐藏层的输出向量, <span class="arithmatex">\(C\)</span> 特指 <span class="arithmatex">\([CLS]\)</span> 的输出</p>
+<h2 id="_2">预训练</h2>
+<h3 id="masked-lm">Masked LM</h3>
+<p>由于多层的结构可以让目标单词在其他层间接的看到自己, 不能完全学习到上下文推理</p>
+<p>所以把一些单词 token 随机成 <span class="arithmatex">\([MASK]\)</span>, 训练时去预测这些词</p>
+<p>但是不能完全把单词替换成 <span class="arithmatex">\([MASK]\)</span>, 因为微调时这些 <span class="arithmatex">\([MASK]\)</span> 标记不会出现</p>
+<p>所以我们已 <span class="arithmatex">\(80%\)</span> 概率替换成 <span class="arithmatex">\([MASK]\)</span>, <span class="arithmatex">\(10%\)</span> 概率替换成一个随机单词, <span class="arithmatex">\(10%\)</span> 概率不变</p>
+<h3 id="nsp">NSP</h3>
+<p>为了让模型理解两个句子间的关系, 每次以 <span class="arithmatex">\(50\)</span> 概率在句子 <span class="arithmatex">\(A\)</span> 后加上真实的下一句 <span class="arithmatex">\(B\)</span>; <span class="arithmatex">\(50%\)</span> 概率加上随机句子</p>
+<h2 id="_3">微调</h2>
+<p>可以使用几种数据进行微调:</p>
+<ol>
+<li>判断两句话是否语义相同</li>
+<li>判断两句话是否可以从一句话推导到另一句话, 即从前提推导到假设</li>
+<li>问答</li>
+<li><span class="arithmatex">\(A\)</span> 为一句话, <span class="arithmatex">\(B\)</span> 为空, 用于分类 / 标注任务</li>
+</ol>
+<h2 id="gpt">对比早期 GPT</h2>
+<p>GPT 是单向的 transformer, 更适用于翻译, 回答问题等连续生成的任务</p>
+<p>BERT 是双向的 encoder 层, 更适合标注, 分类任务</p>
 <p><img alt="alt text" src="../image-2.png"></p></div>
 
 

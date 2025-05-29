@@ -4227,18 +4227,32 @@
 <p>在凸优化中有理论优势, 但实际训练神经网络往往导致学习率过早过大衰减, 因为有时函数是非凸的</p>
 <h3 id="_4">收敛证明</h3>
 <p>与 SGD 收敛证明类似</p>
+<p>同样假设凸函数, 假设梯度收敛到 <span class="arithmatex">\(0\)</span></p>
 <p>可以写出</p>
-<div class="arithmatex">\[R(T)\leq \frac{\delta+\sqrt{r_T} }{2\epsilon}D^2+\frac{G^2}{2}\sum_{t=1}^T\frac{\epsilon}{\delta+\sqrt{r_t} }\]</div>
+<div class="arithmatex">\[R(T)\leq \frac{\delta+\sqrt{r_T} }{2\epsilon}D^2+\frac{\epsilon}{2}\sum_{t=1}^T\frac{|g_t|^2}{\delta+\sqrt{r_t} }\]</div>
 <p>前一部分 <span class="arithmatex">\(/T\)</span> 为 </p>
 <div class="arithmatex">\[\frac{\delta+\sqrt{\sum_{t=1}^T |g_t|^2} }{2\epsilon}D^2 / T\]</div>
 <div class="arithmatex">\[\leq \frac{\delta+G\sqrt T}{2\epsilon} D^2 / T\to 0\]</div>
-<p>后一部分中, 如果能放缩到 <span class="arithmatex">\(t^{-p}\)</span>, 自然有后一部分收敛</p>
-<p>我们要构造:</p>
-<div class="arithmatex">\[\frac{1}{\delta+\sqrt{r_t} }\leq t^{-p} \]</div>
-<div class="arithmatex">\[\delta+\sqrt{r_t} \geq t^{-p}\]</div>
-<div class="arithmatex">\[\delta + Gt^{1/2}\geq t^p\]</div>
-<p>一般而言, 取 <span class="arithmatex">\(p=1/2\)</span> 是可以的, 虽然不严谨</p>
-<p>更严谨的证明就算了</p>
+<p>后一部分 <span class="arithmatex">\(/T\)</span> 为</p>
+<div class="arithmatex">\[\frac 1T\sum_{t=1}^T\frac{|g_t|^2}{\delta+\sqrt{\sum_{i=1}^t |g_i|^2} } \leq \frac 1T\sum_{t=1}^T\frac{|g_t|^2}{\sqrt{\sum_{i=1}^t |g_i|^2} }\]</div>
+<div class="arithmatex">\[\leq \frac2T\sum_{t=1}^T\frac{|g_t|^2}{\sqrt{\sum_{i=1}^{t-1} |g_i|^2}+\sqrt{\sum_{i=1}^t |g_i|^2} }=\frac 2T\sum_{t=1}^T\frac{|g_t|^2}{|g_t|^2}[\sqrt{\sum_{i=1}^{t}|g_i|^2}-\sqrt{\sum_{i=1}^{t-1}|g_i|^2}]\]</div>
+<div class="arithmatex">\[\leq \frac 2T\sum_{t=1}^T\sqrt{G^2T}=\frac{2G}{\sqrt T}\to 0\]</div>
+<!-- 如果梯度收敛到 $0$, 那么
+
+$$\forall \epsilon>0,\exists N>0, \text{ s.t. } \forall t>N, |g_t|^2<\epsilon$$
+
+那么
+
+$$\frac 1T\sum_{t=1}^N|g_t|^2+\frac 1T\sum_{N+1}^T|g_t|^2$$
+
+$$\leq \frac CT+\frac{T\epsilon}{T}\leq \epsilon$$
+
+所以收敛
+
+* 上面的假设梯度收敛到 $0$ 的条件对一般凸函数不满足
+
+    事实上需要证明梯度的和 $\sum_{t=1}^T|g_t|^2=O(\sqrt T\log T)$, 即可证明 $R(T)$ 收敛 -->
+
 <h2 id="rmsprop">RMSProp</h2>
 <p>为了使得 AdaGrad 在非凸场景下效果更好, 将学习率改成指数级衰减</p>
 <p>在非凸场景下, 函数可能在某些邻域内形成一个局部凸壳</p>
@@ -4267,10 +4281,143 @@
 <div class="arithmatex">\[\text{correct bias in second moment: } \hat r\leftarrow \frac{r}{1-\rho_2^t}\]</div>
 <div class="arithmatex">\[\Delta \theta \leftarrow -\epsilon\frac{\hat s}{\delta+\sqrt{ \hat r} }\]</div>
 <div class="arithmatex">\[\theta \leftarrow \theta + \Delta\theta\]</div>
-<p>具体分析见 <a href="https://akonjac0.github.io/2025/05/24/Adam/">blog</a></p>
+<h2 id="algorithm">algorithm</h2>
+<p><img alt="alt text" src="../Adam.png"></p>
+<h2 id="initialization-bias-correction">initialization bias correction</h2>
+<p>对于 <span class="arithmatex">\(v_t\)</span> 有</p>
+<div class="arithmatex">\[v_t=(1-\beta_2)\sum_{i=1}^t\beta_2^{t-i}\cdot g_i^2\]</div>
+<p>求一阶矩 <span class="arithmatex">\(\mathbb E[v_t]\)</span> 与梯度二阶矩 <span class="arithmatex">\(\mathbb E[g_t^2]\)</span> 的关系</p>
+<div class="arithmatex">\[\mathbb E[v_t]=\mathbb E[(1-\beta_2)\sum_{i=1}^t\beta_2^{t-i}\cdot g_i^2]\]</div>
+<div class="arithmatex">\[=\mathbb E[g_t^2]\cdot (1-\beta_2)\sum_{i=1}^t\beta_2^{t-i} + \zeta\]</div>
+<div class="arithmatex">\[=\mathbb E[g_t^2]\cdot (1-\beta_2^t) + \zeta\]</div>
+<p>其中当 <span class="arithmatex">\(\mathbb E[g_i^2]\)</span> 不变时, <span class="arithmatex">\(\zeta=0\)</span></p>
+<p>否则 <span class="arithmatex">\(\zeta\)</span> 会是一个很小的值, 因为可以合理选择 <span class="arithmatex">\(\beta_2\in[0,1)\)</span> 使得 <span class="arithmatex">\(v_t\)</span> 被更远的梯度影响很小, 所以 <span class="arithmatex">\(\mathbb E[g_i^2]\)</span> 更接近 <span class="arithmatex">\(\mathbb E[g_t^2]\)</span></p>
+<h3 id="convergence">convergence</h3>
+<blockquote>
+<p>Lemma 1 凸函数性质</p>
+<div class="arithmatex">\[\lambda f(x)+(1-\lambda) f(y)\geq f(\lambda x + (1-\lambda y))\]</div>
+<p>Lemma 2 凸函数性质, 另一种表达</p>
+<div class="arithmatex">\[f(y)\geq f(x)+\nabla f(x)^T(y-x)\]</div>
+<p>Lemma 3</p>
+<p>令 <span class="arithmatex">\(g_t=\nabla f_t(\theta_t)\)</span>, <span class="arithmatex">\(||g_t||_2\leq G\)</span>, <span class="arithmatex">\(||g_t||_\infty\leq G_\infty\)</span>, <span class="arithmatex">\(g_{1:t,i}=[g_{1,i},\cdots,g_{t,i}]\)</span>, 那么</p>
+<div class="arithmatex">\[\sum_{t=1}^T\sqrt{\frac{g_{t,i}^2}{t} }\leq 2G_\infty||g_{1:T,i}||_2\tag{1}\]</div>
+</blockquote>
+<p><span class="arithmatex">\(\underline{证明}\)</span></p>
+<p>归纳法</p>
+<p>对于 <span class="arithmatex">\(T=1\)</span> 成立</p>
+<p>对于第 <span class="arithmatex">\(T\)</span> 步, 把第 <span class="arithmatex">\(T\)</span> 项拆出来, 对前 <span class="arithmatex">\(T-1\)</span> 项归纳</p>
+<div class="arithmatex">\[\sum_{t=1}^T\sqrt{\frac{g_{t,i}^2}{t} }=\sum_{t=1}^{T-1}\sqrt{\frac{g_{t,i}^2}{t} }+\sqrt{\frac{g_{T,i}^2}{T} }\]</div>
+<div class="arithmatex">\[\leq 2G_\infty||g_{1:{T-1},i}||_2+\sqrt{\frac{g_{T,i}^2}{T} }\]</div>
+<div class="arithmatex">\[=2G_\infty\sqrt{||g_{1:{T},i}||_2^2-g_{T,i}^2}+\sqrt{\frac{g_{T,i}^2}{T} }\]</div>
+<p>里面的平方相减配凑成平方: </p>
+<div class="arithmatex">\[\sqrt{||g_{1:{T},i}||_2^2-g_{T,i}^2}\leq \sqrt{||g_{1:{T},i}||_2^2-g_{T,i}^2+\frac{g_{T,i}^4}{4||g_{1:{T},i}||_2^2} }\]</div>
+<div class="arithmatex">\[=||g_{1:{T},i}||_2-\frac{g_{T,i}^2}{2||g_{1:{T},i}||_2}\]</div>
+<div class="arithmatex">\[\leq ||g_{1:{T},i}||_2-\frac{g_{T,i}^2}{2\sqrt{TG_\infty^2} }\]</div>
+<p>两边同乘 <span class="arithmatex">\(G_\infty\)</span> 有</p>
+<div class="arithmatex">\[2G_\infty \sqrt{||g_{1:{T},i}||_2^2-g_{T,i}^2}\leq 2G_\infty ||g_{1:{T},i}||_2-\frac{g_{T,i}^2}{\sqrt{T} }\leq 2G_\infty ||g_{1:{T},i}||_2-\sqrt{\frac{g_{T,i}^2}{T} }\]</div>
+<p>代回原式有引理成立</p>
+<p><span class="arithmatex">\(\blacksquare\)</span></p>
+<p>不加证明地给出另一个引理:</p>
+<blockquote>
+<p>Lemma 4</p>
+<p>令 <span class="arithmatex">\(\gamma=\frac{\beta_1^2}{\sqrt{\beta_2} }&lt;1\)</span>, 且 <span class="arithmatex">\(||g_t||_2&lt;G\)</span>, <span class="arithmatex">\(||g_t||_\infty&lt;G_\infty\)</span>, 那么</p>
+<div class="arithmatex">\[\sum_{t=1}^T\frac{\hat m_{t,i}^2 }{\sqrt{t\hat v_{t,i} } }\leq \frac{2}{1-\gamma}\frac{1}{\sqrt{1-\beta_2} }||g_{1:T,i}||_2\tag{2}\]</div>
+</blockquote>
+<!-- $\underline{证明}$
+
+由假设可以算出 $\frac{\sqrt{1-\beta_2^t} }{(1-\beta_1^t)^2}\leq \frac{1}{(1-\beta_1)^2}$
+
+将 $(2)$ 式求和最后一项按照更新规则展开
+
+$$\sum_{t=1}^T\frac{\hat m_{t,i}^2 }{\sqrt{t\hat v_{t,i} } }=\sum_{t=1}^{T-1}\frac{\hat m_{t,i}^2 }{\sqrt{t\hat v_{t,i} } }+\frac{\sqrt{1-\beta_2^T} }{(1-\beta_1^T)^2}\frac{(\sum_{k=1}^T(1-\beta_1)\beta_1^{T-k}g_{k,i} )^2}{\sqrt{T\sum_{j=1}^T(1-\beta_2)\beta_2^{T-j}g_{j,i}^2 } }$$
+
+由柯西不等式, $(a_1+\cdots+a_n)^2\leq n[a_1^2+\cdots+a_n^2]$, 所以
+
+$$\leq \sum_{t=1}^{T-1}\frac{\hat m_{t,i}^2 }{\sqrt{t\hat v_{t,i} } }+\frac{\sqrt{1-\beta_2^T} }{(1-\beta_1^T)^2}\sum_{k=1}^T\frac{T((1-\beta_1)\beta_1^{T-k}g_{k,i} )^2}{\sqrt{T\sum_{j=1}^T(1-\beta_2)\beta_2^{T-j}g_{j,i}^2 } }$$
+
+同时下面只取 $j=k$ 一项, 分子变小整体变大:
+
+$$\leq \sum_{t=1}^{T-1}\frac{\hat m_{t,i}^2 }{\sqrt{t\hat v_{t,i} } }+\frac{\sqrt{1-\beta_2^T} }{(1-\beta_1^T)^2}\sum_{k=1}^T\frac{T((1-\beta_1)\beta_1^{T-k}g_{k,i} )^2}{\sqrt{T(1-\beta_2)\beta_2^{T-k}g_{k,i}^2 } }$$
+
+$$\leq \sum_{t=1}^{T-1}\frac{\hat m_{t,i}^2 }{\sqrt{t\hat v_{t,i} } }+\frac{1}{(1-\beta_1)^2}\cdot \frac{\sqrt T(1-\beta_1)^2}{\sqrt{1-\beta_2} }\sum_{k=1}^T[\frac{\beta_1^{2} }{\sqrt{\beta_2} } ]^{T-k} \cdot ||g_{k,i}||_2$$
+
+$$=\sum_{t=1}^{T-1}\frac{\hat m_{t,i}^2 }{\sqrt{t\hat v_{t,i} } }+\frac{\sqrt T}{\sqrt{1-\beta_2} }\sum_{k=1}^T\gamma^{T-k} \cdot ||g_{k,i}||_2$$
+
+依次把所有的 $\frac{\hat m_{t,i}^2 }{\sqrt{t\hat v_{t,i} } }$ 项都展开
+
+$$\sum_{t=1}^T\frac{\hat m_{t,i}^2 }{\sqrt{t\hat v_{t,i} } }\leq \sum_{t=1}^T\frac{\sqrt t}{\sqrt{1-\beta_2} }\sum_{k=1}^t\gamma^{t-k} \cdot ||g_{k,i}||_2$$
+
+换顺序求和:     
+
+$$=\sum_{t=1}^T\frac{||g_{t,i}||_2}{\sqrt{1-\beta_2} }\sum_{j=0}^{T-t} \gamma^j\sqrt{t+j}$$
+
+由于
+
+$$\sum_{j=0}^{T-t}\gamma^j(t+j)=t\cdot \frac{1-\gamma^{T-t+1} }{1-\gamma}+\frac{1-\gamma^{T-t+1} }{(1-\gamma)^2}-\frac{(T-t)\gamma^{T-t+1} }{1-\gamma}\leq \frac{t}{1-\gamma}+\frac{1}{(1-\gamma)^2}+0$$
+
+$$=\frac{t(1-\gamma)+1}{(1-\gamma)^2}$$
+
+所以
+
+$$\sum_{j=0}^{T-t} \gamma^j\sqrt{t+j}\leq \frac 1{\sqrt t}\sum_{j=0}^{T-t} \gamma^j(t+j)\leq \frac 1{\sqrt t}\sum_{j=0}^T t\gamma^j\leq \frac 1{\sqrt t}\frac{1}{(1-\gamma)^2}$$
+
+所以原式
+
+$$\leq \frac{1}{(1-\gamma)^2\sqrt{1-\beta_2} }\sum_{t=1}^T\frac{||g_{t,i}||_2}{\sqrt t}$$
+
+由引理 3
+
+$$\leq \frac{2G_\infty}{(1-\gamma)^2\sqrt{1-\beta_2} }||g_{1:T,i}||_2$$ 
+
+$\blacksquare$ -->
+
+<p>我们假设 <span class="arithmatex">\(\alpha_t\)</span> 随着时间呈 <span class="arithmatex">\(t^{-1/2}\)</span> 速率衰减, <span class="arithmatex">\(\beta_{1,t}\)</span> 随着时间呈 <span class="arithmatex">\(\lambda^t\)</span> 速率衰减, <span class="arithmatex">\(\lambda=1-10^{-8}\)</span></p>
+<p>同时参数间的距离有界, 即 <span class="arithmatex">\(||\theta_n-\theta_m||_2\leq D, ||\theta_n-\theta_m||_\infty\leq D_\infty\)</span> 对于任意 <span class="arithmatex">\(m,n\in \set{1, \cdots, T}\)</span> 成立</p>
+<p>那么</p>
+<blockquote>
+<p>Theorem 5</p>
+<p>假设 <span class="arithmatex">\(\alpha_t=\frac{\alpha}{\sqrt t}\)</span>, <span class="arithmatex">\(\beta_{1,t}=\lambda^{t-1}\)</span>, 且 <span class="arithmatex">\(\gamma&lt;1\)</span>, 那么</p>
+<div class="arithmatex">\[R(T)\leq \frac{D^2}{2\alpha(1-\beta_1)}\sum_{i=1}^d\sqrt{T\hat v_{T,i} }\tag{3.1}\]</div>
+<div class="arithmatex">\[+\frac{\alpha(1+\beta_1)G_\infty}{(1-\beta_1)\sqrt{1-\beta_2} (1-\gamma)^2}\sum_{i=1}^d||g_{1:T,i}||_2\tag{3.2}\]</div>
+<div class="arithmatex">\[+\sum_{i=1}^d\frac{D^2_\infty G_\infty\sqrt{1-\beta_2} }{2\alpha(1-\beta_1)(1-\lambda)^2}\tag{3.3}\]</div>
+</blockquote>
+<p><span class="arithmatex">\(\underline{证明}\)</span></p>
+<p>按照 <a href="https://akonjac0.github.io/2025/05/27/Online%20Convex%20Programming/">Online Convex Programming</a> 的统一分析方法, 把 <span class="arithmatex">\((\theta_{t+1,i}-\theta^{* }_{i})^2\)</span> 展开, 反求出 <span class="arithmatex">\(g_{t,i}(\theta_{t,i}-\theta^{* }_i)\)</span></p>
+<p>具体推到略, 得到的结果是</p>
+<div class="arithmatex">\[R(T)\leq \sum_{i=1}^d\sum_{t=1}^T g_{t,i}(\theta_{t,i}-\theta^{* }_i)\]</div>
+<div class="arithmatex">\[\leq \sum_{i=1}^d\sum_{t=1}^T\frac{1}{2\alpha_t(1-\beta_1)}[(\theta_{t,i}-\theta^{* }_i )^2-(\theta_{t+1,i}-\theta^{* }_i )^2]\sqrt{\hat v_{t,i} }\tag{4.1}\]</div>
+<div class="arithmatex">\[+\sum_{i=1}^d\sum_{t=1}^T\frac{\beta_{1,t} }{2\alpha_{t-1}(1-\beta_{1,t}) }(\theta^{* }_i-\theta_{t,i})^2\sqrt{\hat v_{t-1,i} }\tag{4.2}\]</div>
+<div class="arithmatex">\[+\sum_{i=1}^d\sum_{t=1}^T\frac{\beta_1\alpha_{t-1} }{2(1-\beta_1)}\frac{m_{t-1,i}^2}{\sqrt{\hat v_{t-1,i} } }\tag{4.3}\]</div>
+<div class="arithmatex">\[+\sum_{i=1}^d\sum_{t=1}^T\frac{\alpha_t}{2(1-\beta_{1})}\frac{\hat m_{t,i}^2 }{\sqrt{\hat v_{t,i} } }\tag{4.4}\]</div>
+<p>对于 <span class="arithmatex">\((4.1)\)</span>, 错位相减得到</p>
+<div class="arithmatex">\[=\sum_{i=1}^d\frac{1}{2\alpha_1(1-\beta_1)}(\theta_{1,i}-\theta^{* }_i )^2\sqrt{\hat v_{1,i} }+\sum_{i=1}^d\sum_{t=2}^T\frac{1}{2(1-\beta_1)}(\theta_{t,i}-\theta^{* }_i )^2[\frac{\sqrt{\hat v_{t,i} } }{\alpha_t}-\frac{\sqrt{\hat v_{t-1,i} } }{\alpha_{t-1} }]\]</div>
+<p>参数之差放缩到 <span class="arithmatex">\(D\)</span>, 有</p>
+<div class="arithmatex">\[\leq\sum_{i=1}^d\frac{1}{2\alpha_1(1-\beta_1)}D^2\sqrt{\hat v_{1,i} }+\sum_{i=1}^d\sum_{t=2}^T\frac{1}{2(1-\beta_1)}D^2[\frac{\sqrt{\hat v_{t,i} } }{\alpha_t}-\frac{\sqrt{\hat v_{t-1,i} } }{\alpha_{t-1} }]\]</div>
+<div class="arithmatex">\[=\frac{D^2}{2\alpha(1-\beta_1)}\sum_{i=1}^d\sqrt{T\hat v_{T,i} }\tag{5.1}\]</div>
+<p>与 <span class="arithmatex">\((3.1)\)</span> 对应</p>
+<p>对于 <span class="arithmatex">\((4.3),(4.4)\)</span>, 应用引理 4:</p>
+<div class="arithmatex">\[\leq \frac{\alpha G_\infty}{(1-\beta_1)\sqrt{1-\beta_2} (1-\gamma)^2}\sum_{i=1}^d||g_{1:T,i}||_2+\frac{\alpha \beta_1G_\infty}{(1-\beta_1)\sqrt{1-\beta_2} (1-\gamma)^2}\sum_{i=1}^d||g_{1:T,i}||_2\]</div>
+<div class="arithmatex">\[=\frac{\alpha(1+\beta_1)G_\infty}{(1-\beta_1)\sqrt{1-\beta_2} (1-\gamma)^2}\sum_{i=1}^d||g_{1:T,i}||_2\tag{5.2}\]</div>
+<p>与 <span class="arithmatex">\((3.2)\)</span> 对应</p>
+<p>对于 <span class="arithmatex">\((4.2)\)</span>, 用 <span class="arithmatex">\(D_\infty\)</span> 放缩:</p>
+<div class="arithmatex">\[\leq \frac{D_\infty^2}{2\alpha}\sum_{i=1}^d\sum_{t=1}^T\frac{\beta_{1,t} }{1-\beta_{1,t} }\sqrt{t\hat v_{t,i} }\]</div>
+<div class="arithmatex">\[\leq \frac{D_\infty^2G_\infty\sqrt{1-\beta_2} }{2\alpha}\sum_{i=1}^d\sum_{t=1}^T\frac{\beta_{1,t} }{1-\beta_{1,t} }\sqrt{t}\]</div>
+<p>由于</p>
+<div class="arithmatex">\[\sum_{t=1}^T\frac{\beta_{1,t} }{1-\beta_{1,t} }\sqrt{t}\leq \sum_{t=1}^T\frac{\beta_{1} }{1-\beta_{1} }\sqrt{t}\lambda^{t-1}\]</div>
+<div class="arithmatex">\[\leq \sum_{t=1}^T\frac{1 }{1-\beta_{1} }t\lambda^{t-1}\]</div>
+<div class="arithmatex">\[\leq \frac{1}{(1-\beta_1)(1-\lambda)^2}\]</div>
+<p>所以原式有</p>
+<div class="arithmatex">\[\leq \sum_{i=1}^d\frac{D^2_\infty G_\infty\sqrt{1-\beta_2} }{2\alpha(1-\beta_1)(1-\lambda)^2}\tag{5.3}\]</div>
+<p>与 <span class="arithmatex">\((3.3)\)</span> 对应</p>
+<p>所以成立</p>
+<p><span class="arithmatex">\(\blacksquare\)</span></p>
+<h3 id="non-convergence">non-convergence</h3>
+<p>具体见 <a href="https://akonjac0.github.io/2025/05/24/Adam/">blog</a></p>
 <h2 id="summary">summary</h2>
 <p><img alt="alt text" src="../image-11.png"></p>
 <p><img alt="alt text" src="../image-10.png"></p>
+<p>其中 SGD 的 <span class="arithmatex">\(\psi_t=\mathbb I\)</span> 是恒等变换</p>
+<p>Adam 的 <span class="arithmatex">\(\alpha_t\)</span> 是 <span class="arithmatex">\(\alpha\cdot\sqrt{1-\beta_2^t}/(1-\beta_1^t)\)</span></p>
 <h1 id="second-order-optimizer">second order optimizer</h1>
 <p>下面补充几个二阶的方法</p>
 <h2 id="newtons-method">Newton's method</h2>
@@ -4291,6 +4438,37 @@
 <h2 id="conjugate-gredient-method">conjugate gredient method</h2>
 <h2 id="bfgs">BFGS</h2>
 <p>这俩不具体介绍了, 具体见 <a href="#j3">Deep Learning 的第 8 章</a></p>
+<h1 id="batch-normalization">Batch Normalization</h1>
+<p>对于深层的神经网络, 一次可能会同时更新好几个层</p>
+<p>例如一个每层只有一个单元的神经网络, 输出为 </p>
+<div class="arithmatex">\[y=x w_1w_2\cdots w_l\]</div>
+<p>即每一层的边权相乘</p>
+<p>这样如果使用 <span class="arithmatex">\(w\leftarrow w-\epsilon g\)</span> 更新每一层, 更新后的结果为 </p>
+<div class="arithmatex">\[y=x(w_1-\epsilon g_1)(w_2-\epsilon g_2)\cdots (w_l-\epsilon g_l)\]</div>
+<p>其中 <span class="arithmatex">\(g_i=\nabla_{w_i}y=\prod_{j\not=i}w_j\)</span></p>
+<p>可以看到新的 <span class="arithmatex">\(y\)</span> 中, 如果 <span class="arithmatex">\(x\)</span> 变化为 <span class="arithmatex">\(1\)</span>, 只包含一个 <span class="arithmatex">\(g_i\)</span> 的项为 <span class="arithmatex">\(\epsilon g_i\times \prod_{j\not=i}w_j=\epsilon g_i^2\)</span></p>
+<p>所以总的变化量为 <span class="arithmatex">\(\epsilon g^Tg\)</span>, 其中 <span class="arithmatex">\(g=[g_1,\cdots,g_l]\)</span></p>
+<p>所以要想让 <span class="arithmatex">\(y\)</span> 也变化 <span class="arithmatex">\(1\)</span>, 只需让 <span class="arithmatex">\(\epsilon=\frac 1{g^Tg}\)</span></p>
+<p>但是对于包含 <span class="arithmatex">\(2\)</span> 个及以上个 <span class="arithmatex">\(g_i\)</span> 的项, 其中也含有 <span class="arithmatex">\(\prod w_i\)</span> 项</p>
+<p>但是这些项可能由于 <span class="arithmatex">\(w_i&lt;1\)</span> 变得极小, 或者 <span class="arithmatex">\(w_i&gt;1\)</span> 变得极大, 导致梯度消失 / 爆炸</p>
+<p>所以学习率不好选择</p>
+<p>同时由于梯度 <span class="arithmatex">\(g_i=\prod_{j\not=i}w_j\)</span>, 所以更新后的参数 <span class="arithmatex">\(w_i'\)</span> 与其他参数产生耦合, 会比较麻烦</p>
+<p>定义一个 design matrix <span class="arithmatex">\(H\)</span> 中, 每个神经元的输出组成一行, 一共 <span class="arithmatex">\(m\)</span> 行, <span class="arithmatex">\(m\)</span> 为 mini-batch 的大小</p>
+<p>我们对其进行归一化:</p>
+<div class="arithmatex">\[H'=\frac{H-\mu}{\sigma}\]</div>
+<p>即</p>
+<div class="arithmatex">\[H_{i,j}=\frac{H_{i,j}-\mu_j }{\sigma_j}\]</div>
+<p>其中 <span class="arithmatex">\(\mu\)</span> 是一个包含所有神经元输出平均值的向量, <span class="arithmatex">\(\sigma\)</span> 是包含所有神经元输出标准差的向量</p>
+<p>具体地</p>
+<div class="arithmatex">\[\mu_j=\frac 1m\sum_{i=1}^mH_{i,j}\]</div>
+<div class="arithmatex">\[\sigma_j=\sqrt{\delta + \frac{1}{m}\sum_{i=1}^m(H_{i,j}-\mu_j)^2}\]</div>
+<p>这样能够让每一层输出都服从平均值为 <span class="arithmatex">\(0\)</span>, 方差为 <span class="arithmatex">\(1\)</span></p>
+<p>但这样的归一化可能导致模型表达能力下降</p>
+<p>我们可以用 <span class="arithmatex">\(\gamma H'+\beta\)</span> 代替 <span class="arithmatex">\(H'\)</span> 作为每一层的输出</p>
+<p>参数 <span class="arithmatex">\(\gamma, \beta\)</span> 可以让输出的平均值与方差为任意值</p>
+<p>这种先归一化再改变平均值和方差的操作其实不是冗余的</p>
+<p>归一化消除了平均值与方差对其他层的依赖, 然后再用参数来提高模型表达能力</p>
+<p>新的输出的均值与方差仅由 <span class="arithmatex">\(\gamma, \beta\)</span> 控制, 使得其更容易学习</p>
 <h1 id="residual-connection">residual connection</h1>
 <h2 id="resnet">ResNet的理论优势：从恒等映射到优化景观的深层解析</h2>
 <p>ResNet作为深度学习领域的里程碑式架构，自2015年提出以来已获得超过10万次引用，成为现代神经网络设计的基础范式。尽管原始论文《Deep Residual Learning for Image Recognition》主要从实践角度论证了其有效性，但后续研究已从多个理论视角提供了严格的数学证明，揭示了残差连接如何解决深层网络的梯度消失问题、提升优化效率并增强泛化能力。这些理论分析不仅解释了ResNet的成功原因，还为后续深度神经网络设计提供了理论指导，使其成为连接经验性成功与理论理解的桥梁。</p>

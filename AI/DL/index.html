@@ -4271,6 +4271,8 @@ $$\leq \frac CT+\frac{T\epsilon}{T}\leq \epsilon$$
 <div class="arithmatex">\[v \leftarrow \alpha v-\frac{\epsilon}{\sqrt{r} } \cdot g\]</div>
 <div class="arithmatex">\[\theta \leftarrow \theta + \Delta\theta\]</div>
 <h2 id="adam">Adam</h2>
+<h3 id="algorithm">algorithm</h3>
+<p><img alt="alt text" src="../Adam.png"></p>
 <p>可以看作 RMSProp 与 Momentum 的一个结合, 只不过与上面的 Nesterov Momentum 版本有区别</p>
 <p>给定几个参数 <span class="arithmatex">\(\rho_1=0.9,\rho_2=0.999,\epsilon=0.001,\delta=10^{-8}\)</span></p>
 <p>迭代公式为:</p>
@@ -4281,9 +4283,7 @@ $$\leq \frac CT+\frac{T\epsilon}{T}\leq \epsilon$$
 <div class="arithmatex">\[\text{correct bias in second moment: } \hat r\leftarrow \frac{r}{1-\rho_2^t}\]</div>
 <div class="arithmatex">\[\Delta \theta \leftarrow -\epsilon\frac{\hat s}{\delta+\sqrt{ \hat r} }\]</div>
 <div class="arithmatex">\[\theta \leftarrow \theta + \Delta\theta\]</div>
-<h2 id="algorithm">algorithm</h2>
-<p><img alt="alt text" src="../Adam.png"></p>
-<h2 id="initialization-bias-correction">initialization bias correction</h2>
+<h3 id="initialization-bias-correction">initialization bias correction</h3>
 <p>对于 <span class="arithmatex">\(v_t\)</span> 有</p>
 <div class="arithmatex">\[v_t=(1-\beta_2)\sum_{i=1}^t\beta_2^{t-i}\cdot g_i^2\]</div>
 <p>求一阶矩 <span class="arithmatex">\(\mathbb E[v_t]\)</span> 与梯度二阶矩 <span class="arithmatex">\(\mathbb E[g_t^2]\)</span> 的关系</p>
@@ -4300,121 +4300,231 @@ $$\leq \frac CT+\frac{T\epsilon}{T}\leq \epsilon$$
 <div class="arithmatex">\[f(y)\geq f(x)+\nabla f(x)^T(y-x)\]</div>
 <p>Lemma 3</p>
 <p>令 <span class="arithmatex">\(g_t=\nabla f_t(\theta_t)\)</span>, <span class="arithmatex">\(||g_t||_2\leq G\)</span>, <span class="arithmatex">\(||g_t||_\infty\leq G_\infty\)</span>, <span class="arithmatex">\(g_{1:t,i}=[g_{1,i},\cdots,g_{t,i}]\)</span>, 那么</p>
-<div class="arithmatex">\[\sum_{t=1}^T\sqrt{\frac{g_{t,i}^2}{t} }\leq 2G_\infty||g_{1:T,i}||_2\tag{1}\]</div>
+<div class="arithmatex">\[\sum_{t=1}^T\sqrt{\frac{g_{t,i}^2}{t} }\leq 2G_\infty||g_{1:T,i}||_2\]</div>
 </blockquote>
-<p><span class="arithmatex">\(\underline{证明}\)</span></p>
-<p>归纳法</p>
-<p>对于 <span class="arithmatex">\(T=1\)</span> 成立</p>
-<p>对于第 <span class="arithmatex">\(T\)</span> 步, 把第 <span class="arithmatex">\(T\)</span> 项拆出来, 对前 <span class="arithmatex">\(T-1\)</span> 项归纳</p>
-<div class="arithmatex">\[\sum_{t=1}^T\sqrt{\frac{g_{t,i}^2}{t} }=\sum_{t=1}^{T-1}\sqrt{\frac{g_{t,i}^2}{t} }+\sqrt{\frac{g_{T,i}^2}{T} }\]</div>
-<div class="arithmatex">\[\leq 2G_\infty||g_{1:{T-1},i}||_2+\sqrt{\frac{g_{T,i}^2}{T} }\]</div>
-<div class="arithmatex">\[=2G_\infty\sqrt{||g_{1:{T},i}||_2^2-g_{T,i}^2}+\sqrt{\frac{g_{T,i}^2}{T} }\]</div>
-<p>里面的平方相减配凑成平方: </p>
-<div class="arithmatex">\[\sqrt{||g_{1:{T},i}||_2^2-g_{T,i}^2}\leq \sqrt{||g_{1:{T},i}||_2^2-g_{T,i}^2+\frac{g_{T,i}^4}{4||g_{1:{T},i}||_2^2} }\]</div>
-<div class="arithmatex">\[=||g_{1:{T},i}||_2-\frac{g_{T,i}^2}{2||g_{1:{T},i}||_2}\]</div>
-<div class="arithmatex">\[\leq ||g_{1:{T},i}||_2-\frac{g_{T,i}^2}{2\sqrt{TG_\infty^2} }\]</div>
-<p>两边同乘 <span class="arithmatex">\(G_\infty\)</span> 有</p>
-<div class="arithmatex">\[2G_\infty \sqrt{||g_{1:{T},i}||_2^2-g_{T,i}^2}\leq 2G_\infty ||g_{1:{T},i}||_2-\frac{g_{T,i}^2}{\sqrt{T} }\leq 2G_\infty ||g_{1:{T},i}||_2-\sqrt{\frac{g_{T,i}^2}{T} }\]</div>
-<p>代回原式有引理成立</p>
-<p><span class="arithmatex">\(\blacksquare\)</span></p>
-<p>不加证明地给出另一个引理:</p>
-<blockquote>
-<p>Lemma 4</p>
-<p>令 <span class="arithmatex">\(\gamma=\frac{\beta_1^2}{\sqrt{\beta_2} }&lt;1\)</span>, 且 <span class="arithmatex">\(||g_t||_2&lt;G\)</span>, <span class="arithmatex">\(||g_t||_\infty&lt;G_\infty\)</span>, 那么</p>
-<div class="arithmatex">\[\sum_{t=1}^T\frac{\hat m_{t,i}^2 }{\sqrt{t\hat v_{t,i} } }\leq \frac{2}{1-\gamma}\frac{1}{\sqrt{1-\beta_2} }||g_{1:T,i}||_2\tag{2}\]</div>
-</blockquote>
-<!-- $\underline{证明}$
+<!-- $\underline{证明}$ -->
 
-由假设可以算出 $\frac{\sqrt{1-\beta_2^t} }{(1-\beta_1^t)^2}\leq \frac{1}{(1-\beta_1)^2}$
+<!-- 归纳法
 
-将 $(2)$ 式求和最后一项按照更新规则展开
+对于 $T=1$ 成立
 
-$$\sum_{t=1}^T\frac{\hat m_{t,i}^2 }{\sqrt{t\hat v_{t,i} } }=\sum_{t=1}^{T-1}\frac{\hat m_{t,i}^2 }{\sqrt{t\hat v_{t,i} } }+\frac{\sqrt{1-\beta_2^T} }{(1-\beta_1^T)^2}\frac{(\sum_{k=1}^T(1-\beta_1)\beta_1^{T-k}g_{k,i} )^2}{\sqrt{T\sum_{j=1}^T(1-\beta_2)\beta_2^{T-j}g_{j,i}^2 } }$$
+对于第 $T$ 步, 把第 $T$ 项拆出来, 对前 $T-1$ 项归纳
 
-由柯西不等式, $(a_1+\cdots+a_n)^2\leq n[a_1^2+\cdots+a_n^2]$, 所以
+$$\sum_{t=1}^T\sqrt{\frac{g_{t,i}^2}{t} }=\sum_{t=1}^{T-1}\sqrt{\frac{g_{t,i}^2}{t} }+\sqrt{\frac{g_{T,i}^2}{T} }$$
 
-$$\leq \sum_{t=1}^{T-1}\frac{\hat m_{t,i}^2 }{\sqrt{t\hat v_{t,i} } }+\frac{\sqrt{1-\beta_2^T} }{(1-\beta_1^T)^2}\sum_{k=1}^T\frac{T((1-\beta_1)\beta_1^{T-k}g_{k,i} )^2}{\sqrt{T\sum_{j=1}^T(1-\beta_2)\beta_2^{T-j}g_{j,i}^2 } }$$
+$$\leq 2G_\infty||g_{1:{T-1},i}||_2+\sqrt{\frac{g_{T,i}^2}{T} }$$
 
-同时下面只取 $j=k$ 一项, 分子变小整体变大:
+$$=2G_\infty\sqrt{||g_{1:{T},i}||_2^2-g_{T,i}^2}+\sqrt{\frac{g_{T,i}^2}{T} }$$
 
-$$\leq \sum_{t=1}^{T-1}\frac{\hat m_{t,i}^2 }{\sqrt{t\hat v_{t,i} } }+\frac{\sqrt{1-\beta_2^T} }{(1-\beta_1^T)^2}\sum_{k=1}^T\frac{T((1-\beta_1)\beta_1^{T-k}g_{k,i} )^2}{\sqrt{T(1-\beta_2)\beta_2^{T-k}g_{k,i}^2 } }$$
+里面的平方相减配凑成平方: 
 
-$$\leq \sum_{t=1}^{T-1}\frac{\hat m_{t,i}^2 }{\sqrt{t\hat v_{t,i} } }+\frac{1}{(1-\beta_1)^2}\cdot \frac{\sqrt T(1-\beta_1)^2}{\sqrt{1-\beta_2} }\sum_{k=1}^T[\frac{\beta_1^{2} }{\sqrt{\beta_2} } ]^{T-k} \cdot ||g_{k,i}||_2$$
+$$\sqrt{||g_{1:{T},i}||_2^2-g_{T,i}^2}\leq \sqrt{||g_{1:{T},i}||_2^2-g_{T,i}^2+\frac{g_{T,i}^4}{4||g_{1:{T},i}||_2^2} }$$
 
-$$=\sum_{t=1}^{T-1}\frac{\hat m_{t,i}^2 }{\sqrt{t\hat v_{t,i} } }+\frac{\sqrt T}{\sqrt{1-\beta_2} }\sum_{k=1}^T\gamma^{T-k} \cdot ||g_{k,i}||_2$$
+$$=||g_{1:{T},i}||_2-\frac{g_{T,i}^2}{2||g_{1:{T},i}||_2}$$
 
-依次把所有的 $\frac{\hat m_{t,i}^2 }{\sqrt{t\hat v_{t,i} } }$ 项都展开
+$$\leq ||g_{1:{T},i}||_2-\frac{g_{T,i}^2}{2\sqrt{TG_\infty^2} }$$
 
-$$\sum_{t=1}^T\frac{\hat m_{t,i}^2 }{\sqrt{t\hat v_{t,i} } }\leq \sum_{t=1}^T\frac{\sqrt t}{\sqrt{1-\beta_2} }\sum_{k=1}^t\gamma^{t-k} \cdot ||g_{k,i}||_2$$
+两边同乘 $G_\infty$ 有
 
-换顺序求和:     
+$$2G_\infty \sqrt{||g_{1:{T},i}||_2^2-g_{T,i}^2}\leq 2G_\infty ||g_{1:{T},i}||_2-\frac{g_{T,i}^2}{\sqrt{T} }\leq 2G_\infty ||g_{1:{T},i}||_2-\sqrt{\frac{g_{T,i}^2}{T} }$$
 
-$$=\sum_{t=1}^T\frac{||g_{t,i}||_2}{\sqrt{1-\beta_2} }\sum_{j=0}^{T-t} \gamma^j\sqrt{t+j}$$
-
-由于
-
-$$\sum_{j=0}^{T-t}\gamma^j(t+j)=t\cdot \frac{1-\gamma^{T-t+1} }{1-\gamma}+\frac{1-\gamma^{T-t+1} }{(1-\gamma)^2}-\frac{(T-t)\gamma^{T-t+1} }{1-\gamma}\leq \frac{t}{1-\gamma}+\frac{1}{(1-\gamma)^2}+0$$
-
-$$=\frac{t(1-\gamma)+1}{(1-\gamma)^2}$$
-
-所以
-
-$$\sum_{j=0}^{T-t} \gamma^j\sqrt{t+j}\leq \frac 1{\sqrt t}\sum_{j=0}^{T-t} \gamma^j(t+j)\leq \frac 1{\sqrt t}\sum_{j=0}^T t\gamma^j\leq \frac 1{\sqrt t}\frac{1}{(1-\gamma)^2}$$
-
-所以原式
-
-$$\leq \frac{1}{(1-\gamma)^2\sqrt{1-\beta_2} }\sum_{t=1}^T\frac{||g_{t,i}||_2}{\sqrt t}$$
-
-由引理 3
-
-$$\leq \frac{2G_\infty}{(1-\gamma)^2\sqrt{1-\beta_2} }||g_{1:T,i}||_2$$ 
+代回原式有引理成立
 
 $\blacksquare$ -->
 
+<!-- 不加证明地给出另一个引理: -->
+
+<blockquote>
+<p>Lemma 4</p>
+<p>令 <span class="arithmatex">\(\gamma=\frac{\beta_1^2}{\sqrt{\beta_2} }&lt;1\)</span>, 且 <span class="arithmatex">\(||g_t||_2&lt;G\)</span>, <span class="arithmatex">\(||g_t||_\infty&lt;G_\infty\)</span>, 那么</p>
+<div class="arithmatex">\[\sum_{t=1}^T\frac{\hat m_{t,i}^2 }{\sqrt{t\hat v_{t,i} } }\leq \frac{2}{1-\gamma}\frac{1}{\sqrt{1-\beta_2} }||g_{1:T,i}||_2\]</div>
+</blockquote>
 <p>我们假设 <span class="arithmatex">\(\alpha_t\)</span> 随着时间呈 <span class="arithmatex">\(t^{-1/2}\)</span> 速率衰减, <span class="arithmatex">\(\beta_{1,t}\)</span> 随着时间呈 <span class="arithmatex">\(\lambda^t\)</span> 速率衰减, <span class="arithmatex">\(\lambda=1-10^{-8}\)</span></p>
 <p>同时参数间的距离有界, 即 <span class="arithmatex">\(||\theta_n-\theta_m||_2\leq D, ||\theta_n-\theta_m||_\infty\leq D_\infty\)</span> 对于任意 <span class="arithmatex">\(m,n\in \set{1, \cdots, T}\)</span> 成立</p>
 <p>那么</p>
 <blockquote>
 <p>Theorem 5</p>
 <p>假设 <span class="arithmatex">\(\alpha_t=\frac{\alpha}{\sqrt t}\)</span>, <span class="arithmatex">\(\beta_{1,t}=\lambda^{t-1}\)</span>, 且 <span class="arithmatex">\(\gamma&lt;1\)</span>, 那么</p>
-<div class="arithmatex">\[R(T)\leq \frac{D^2}{2\alpha(1-\beta_1)}\sum_{i=1}^d\sqrt{T\hat v_{T,i} }\tag{3.1}\]</div>
-<div class="arithmatex">\[+\frac{\alpha(1+\beta_1)G_\infty}{(1-\beta_1)\sqrt{1-\beta_2} (1-\gamma)^2}\sum_{i=1}^d||g_{1:T,i}||_2\tag{3.2}\]</div>
-<div class="arithmatex">\[+\sum_{i=1}^d\frac{D^2_\infty G_\infty\sqrt{1-\beta_2} }{2\alpha(1-\beta_1)(1-\lambda)^2}\tag{3.3}\]</div>
+<div class="arithmatex">\[R(T)\leq \frac{D^2}{2\alpha(1-\beta_1)}\sum_{i=1}^d\sqrt{T\hat v_{T,i} }\]</div>
+<div class="arithmatex">\[+\frac{\alpha(1+\beta_1)G_\infty}{(1-\beta_1)\sqrt{1-\beta_2} (1-\gamma)^2}\sum_{i=1}^d||g_{1:T,i}||_2\]</div>
+<div class="arithmatex">\[+\sum_{i=1}^d\frac{D^2_\infty G_\infty\sqrt{1-\beta_2} }{2\alpha(1-\beta_1)(1-\lambda)^2}\]</div>
 </blockquote>
-<p><span class="arithmatex">\(\underline{证明}\)</span></p>
-<p>按照 <a href="https://akonjac0.github.io/2025/05/27/Online%20Convex%20Programming/">Online Convex Programming</a> 的统一分析方法, 把 <span class="arithmatex">\((\theta_{t+1,i}-\theta^{* }_{i})^2\)</span> 展开, 反求出 <span class="arithmatex">\(g_{t,i}(\theta_{t,i}-\theta^{* }_i)\)</span></p>
-<p>具体推到略, 得到的结果是</p>
-<div class="arithmatex">\[R(T)\leq \sum_{i=1}^d\sum_{t=1}^T g_{t,i}(\theta_{t,i}-\theta^{* }_i)\]</div>
-<div class="arithmatex">\[\leq \sum_{i=1}^d\sum_{t=1}^T\frac{1}{2\alpha_t(1-\beta_1)}[(\theta_{t,i}-\theta^{* }_i )^2-(\theta_{t+1,i}-\theta^{* }_i )^2]\sqrt{\hat v_{t,i} }\tag{4.1}\]</div>
-<div class="arithmatex">\[+\sum_{i=1}^d\sum_{t=1}^T\frac{\beta_{1,t} }{2\alpha_{t-1}(1-\beta_{1,t}) }(\theta^{* }_i-\theta_{t,i})^2\sqrt{\hat v_{t-1,i} }\tag{4.2}\]</div>
-<div class="arithmatex">\[+\sum_{i=1}^d\sum_{t=1}^T\frac{\beta_1\alpha_{t-1} }{2(1-\beta_1)}\frac{m_{t-1,i}^2}{\sqrt{\hat v_{t-1,i} } }\tag{4.3}\]</div>
-<div class="arithmatex">\[+\sum_{i=1}^d\sum_{t=1}^T\frac{\alpha_t}{2(1-\beta_{1})}\frac{\hat m_{t,i}^2 }{\sqrt{\hat v_{t,i} } }\tag{4.4}\]</div>
-<p>对于 <span class="arithmatex">\((4.1)\)</span>, 错位相减得到</p>
-<div class="arithmatex">\[=\sum_{i=1}^d\frac{1}{2\alpha_1(1-\beta_1)}(\theta_{1,i}-\theta^{* }_i )^2\sqrt{\hat v_{1,i} }+\sum_{i=1}^d\sum_{t=2}^T\frac{1}{2(1-\beta_1)}(\theta_{t,i}-\theta^{* }_i )^2[\frac{\sqrt{\hat v_{t,i} } }{\alpha_t}-\frac{\sqrt{\hat v_{t-1,i} } }{\alpha_{t-1} }]\]</div>
-<p>参数之差放缩到 <span class="arithmatex">\(D\)</span>, 有</p>
-<div class="arithmatex">\[\leq\sum_{i=1}^d\frac{1}{2\alpha_1(1-\beta_1)}D^2\sqrt{\hat v_{1,i} }+\sum_{i=1}^d\sum_{t=2}^T\frac{1}{2(1-\beta_1)}D^2[\frac{\sqrt{\hat v_{t,i} } }{\alpha_t}-\frac{\sqrt{\hat v_{t-1,i} } }{\alpha_{t-1} }]\]</div>
-<div class="arithmatex">\[=\frac{D^2}{2\alpha(1-\beta_1)}\sum_{i=1}^d\sqrt{T\hat v_{T,i} }\tag{5.1}\]</div>
-<p>与 <span class="arithmatex">\((3.1)\)</span> 对应</p>
-<p>对于 <span class="arithmatex">\((4.3),(4.4)\)</span>, 应用引理 4:</p>
-<div class="arithmatex">\[\leq \frac{\alpha G_\infty}{(1-\beta_1)\sqrt{1-\beta_2} (1-\gamma)^2}\sum_{i=1}^d||g_{1:T,i}||_2+\frac{\alpha \beta_1G_\infty}{(1-\beta_1)\sqrt{1-\beta_2} (1-\gamma)^2}\sum_{i=1}^d||g_{1:T,i}||_2\]</div>
-<div class="arithmatex">\[=\frac{\alpha(1+\beta_1)G_\infty}{(1-\beta_1)\sqrt{1-\beta_2} (1-\gamma)^2}\sum_{i=1}^d||g_{1:T,i}||_2\tag{5.2}\]</div>
-<p>与 <span class="arithmatex">\((3.2)\)</span> 对应</p>
-<p>对于 <span class="arithmatex">\((4.2)\)</span>, 用 <span class="arithmatex">\(D_\infty\)</span> 放缩:</p>
-<div class="arithmatex">\[\leq \frac{D_\infty^2}{2\alpha}\sum_{i=1}^d\sum_{t=1}^T\frac{\beta_{1,t} }{1-\beta_{1,t} }\sqrt{t\hat v_{t,i} }\]</div>
-<div class="arithmatex">\[\leq \frac{D_\infty^2G_\infty\sqrt{1-\beta_2} }{2\alpha}\sum_{i=1}^d\sum_{t=1}^T\frac{\beta_{1,t} }{1-\beta_{1,t} }\sqrt{t}\]</div>
-<p>由于</p>
-<div class="arithmatex">\[\sum_{t=1}^T\frac{\beta_{1,t} }{1-\beta_{1,t} }\sqrt{t}\leq \sum_{t=1}^T\frac{\beta_{1} }{1-\beta_{1} }\sqrt{t}\lambda^{t-1}\]</div>
-<div class="arithmatex">\[\leq \sum_{t=1}^T\frac{1 }{1-\beta_{1} }t\lambda^{t-1}\]</div>
-<div class="arithmatex">\[\leq \frac{1}{(1-\beta_1)(1-\lambda)^2}\]</div>
-<p>所以原式有</p>
-<div class="arithmatex">\[\leq \sum_{i=1}^d\frac{D^2_\infty G_\infty\sqrt{1-\beta_2} }{2\alpha(1-\beta_1)(1-\lambda)^2}\tag{5.3}\]</div>
-<p>与 <span class="arithmatex">\((3.3)\)</span> 对应</p>
-<p>所以成立</p>
-<p><span class="arithmatex">\(\blacksquare\)</span></p>
+<!-- $\underline{证明}$ -->
+
+<!-- 具体推到略, 得到的结果是
+
+$$R(T)\leq \sum_{i=1}^d\sum_{t=1}^T g_{t,i}(\theta_{t,i}-\theta^{* }_i)$$
+
+$$\leq \sum_{i=1}^d\sum_{t=1}^T\frac{1}{2\alpha_t(1-\beta_1)}[(\theta_{t,i}-\theta^{* }_i )^2-(\theta_{t+1,i}-\theta^{* }_i )^2]\sqrt{\hat v_{t,i} }\tag{4.1}$$
+
+$$+\sum_{i=1}^d\sum_{t=1}^T\frac{\beta_{1,t} }{2\alpha_{t-1}(1-\beta_{1,t}) }(\theta^{* }_i-\theta_{t,i})^2\sqrt{\hat v_{t-1,i} }\tag{4.2}$$
+
+$$+\sum_{i=1}^d\sum_{t=1}^T\frac{\beta_1\alpha_{t-1} }{2(1-\beta_1)}\frac{m_{t-1,i}^2}{\sqrt{\hat v_{t-1,i} } }\tag{4.3}$$
+
+$$+\sum_{i=1}^d\sum_{t=1}^T\frac{\alpha_t}{2(1-\beta_{1})}\frac{\hat m_{t,i}^2 }{\sqrt{\hat v_{t,i} } }\tag{4.4}$$
+
+对于 $(4.1)$, 错位相减得到
+
+$$=\sum_{i=1}^d\frac{1}{2\alpha_1(1-\beta_1)}(\theta_{1,i}-\theta^{* }_i )^2\sqrt{\hat v_{1,i} }+\sum_{i=1}^d\sum_{t=2}^T\frac{1}{2(1-\beta_1)}(\theta_{t,i}-\theta^{* }_i )^2[\frac{\sqrt{\hat v_{t,i} } }{\alpha_t}-\frac{\sqrt{\hat v_{t-1,i} } }{\alpha_{t-1} }]$$
+
+参数之差放缩到 $D$, 有
+
+$$\leq\sum_{i=1}^d\frac{1}{2\alpha_1(1-\beta_1)}D^2\sqrt{\hat v_{1,i} }+\sum_{i=1}^d\sum_{t=2}^T\frac{1}{2(1-\beta_1)}D^2[\frac{\sqrt{\hat v_{t,i} } }{\alpha_t}-\frac{\sqrt{\hat v_{t-1,i} } }{\alpha_{t-1} }]$$
+
+
+$$=\frac{D^2}{2\alpha(1-\beta_1)}\sum_{i=1}^d\sqrt{T\hat v_{T,i} }\tag{5.1}$$
+
+与 $(3.1)$ 对应
+
+对于 $(4.3),(4.4)$, 应用引理 4:
+
+$$\leq \frac{\alpha G_\infty}{(1-\beta_1)\sqrt{1-\beta_2} (1-\gamma)^2}\sum_{i=1}^d||g_{1:T,i}||_2+\frac{\alpha \beta_1G_\infty}{(1-\beta_1)\sqrt{1-\beta_2} (1-\gamma)^2}\sum_{i=1}^d||g_{1:T,i}||_2$$
+
+
+$$=\frac{\alpha(1+\beta_1)G_\infty}{(1-\beta_1)\sqrt{1-\beta_2} (1-\gamma)^2}\sum_{i=1}^d||g_{1:T,i}||_2\tag{5.2}$$
+
+与 $(3.2)$ 对应
+
+对于 $(4.2)$, 用 $D_\infty$ 放缩:
+
+$$\leq \frac{D_\infty^2}{2\alpha}\sum_{i=1}^d\sum_{t=1}^T\frac{\beta_{1,t} }{1-\beta_{1,t} }\sqrt{t\hat v_{t,i} }$$
+
+$$\leq \frac{D_\infty^2G_\infty\sqrt{1-\beta_2} }{2\alpha}\sum_{i=1}^d\sum_{t=1}^T\frac{\beta_{1,t} }{1-\beta_{1,t} }\sqrt{t}$$
+
+由于
+
+$$\sum_{t=1}^T\frac{\beta_{1,t} }{1-\beta_{1,t} }\sqrt{t}\leq \sum_{t=1}^T\frac{\beta_{1} }{1-\beta_{1} }\sqrt{t}\lambda^{t-1}$$
+
+
+$$\leq \sum_{t=1}^T\frac{1 }{1-\beta_{1} }t\lambda^{t-1}$$
+
+$$\leq \frac{1}{(1-\beta_1)(1-\lambda)^2}$$
+
+所以原式有
+
+$$\leq \sum_{i=1}^d\frac{D^2_\infty G_\infty\sqrt{1-\beta_2} }{2\alpha(1-\beta_1)(1-\lambda)^2}\tag{5.3}$$
+
+与 $(3.3)$ 对应
+
+所以成立
+
+$\blacksquare$ -->
+
+<p>这是原文给出的定理, 可惜他是错的</p>
 <h3 id="non-convergence">non-convergence</h3>
 <p>具体见 <a href="https://akonjac0.github.io/2025/05/24/Adam/">blog</a></p>
+<h2 id="amsgrad">AMSGrad</h2>
+<p><img alt="alt text" src="../image-14.png"></p>
+<p>可以看到与 Adam 的区别就是 <span class="arithmatex">\(\hat v_t\)</span> 与过去取了一个最大值</p>
+<p>在 Adam 中, 由于 <span class="arithmatex">\(v_{t,i}=\beta_2v_{t-1,i}+(1-\beta_2)g_{t,i}^2\)</span></p>
+<p>所以当 <span class="arithmatex">\(v_{t-1,i}&gt;g_{t,i}^2&gt;0\)</span> 时 <span class="arithmatex">\(v_{t,i}&lt;v_{t-1,i}\)</span></p>
+<p>那么学习率可能会增大</p>
+<p>但是 AMSGrad 取最大值可以保证 <span class="arithmatex">\(\frac{\sqrt{\hat v_t,i} }{\alpha_t}\)</span> 单调不减, 那么学习率就是单调不增的</p>
+<h3 id="convergence_1">convergence</h3>
+<p>&lt;!-- &gt; Theorem 1</p>
+<blockquote>
+<p>对于 <span class="arithmatex">\(\alpha_t=\alpha/\sqrt t\)</span>, <span class="arithmatex">\(\beta_{1,t}\leq \beta_1\)</span> 以及 <span class="arithmatex">\(\gamma = \beta_1/\sqrt \beta_2&lt;1\)</span></p>
+<p>且梯度与参数距离有界</p>
+<p>那么</p>
+<div class="arithmatex">\[R(T)\leq \frac{D_{\infty}^2\sqrt T}{\alpha(1-\beta_1)}\sum_{i=1}^d\hat v_{T,i}^{1/2}\tag{1.1}\]</div>
+<div class="arithmatex">\[+\frac{D_\infty^2}{(1-\beta_1)^2}\sum_{t=1}^T\sum_{i=1}^d\frac{\beta_{1,t}\hat v_{t,i}^{1/2} }{\alpha_t}\tag{1.3}\]</div>
+<div class="arithmatex">\[+\frac{\alpha\sqrt{1+\log T} }{(1-\beta_1)^2(1-\gamma)\sqrt{1-\beta_2} }\sum_{i=1}^d||g_{1:T,i}||_2\tag{1.2}\]</div>
+</blockquote>
+<p><span class="arithmatex">\(\underline{证明}\)</span></p>
+<p>按照 <a href="https://akonjac0.github.io/2025/05/27/Online%20Convex%20Programming/">Online Convex Programming</a> 的统一分析方法来做</p>
+<p>还是先把 <span class="arithmatex">\(x_{t+1}\)</span> 按更新规则展开</p>
+<div class="arithmatex">\[x_{t+1}=\Pi_{\mathcal F, \sqrt {\hat V_t} }(x_t-\alpha_t \hat V_t^{-1/2}m_t)=\text{argmin}_{x\in \mathcal F}||\hat V_t^{1/4}(x-(x_t-\alpha_t\hat V_t^{-1/2}m_t))||\]</div>
+<p>所以把 <span class="arithmatex">\(||\hat V_t^{1/4}(x_{t+1}-x^{* })||^2\)</span> 展开</p>
+<div class="arithmatex">\[||\hat V_t^{1/4}(x_{t+1}-x^{* })||^2\leq ||\hat V_t^{1/4}(x_{t}-x^{* })||^2+\alpha_t^2||\hat V_t^{-1/4}m_t||^2-2\alpha_t\braket{m_t,x_t-x^{* } }\]</div>
+<div class="arithmatex">\[=||\hat V_t^{1/4}x_{t}-x^{* }||^2+\alpha_t^2||\hat V_t^{-1/4}m_t||^2-2\alpha_t\braket{\beta_{1,t}m_{t-1}+(1-\beta_{1,t})g_t,x_t-x^{* } }\]</div>
+<p>所以整理得到</p>
+<div class="arithmatex">\[\sum_{t=1}^T\braket{g_t, x_t-x^{* } }\leq \sum_{t=1}^T\frac{1}{2\alpha_t(1-\beta_{1,t})}[||\hat V_t^{1/4}(x_t-x^{* })||^2-||\hat V_t^{1/4}(x_{t+1}-x^{* })||^2]\tag{2.1}\]</div>
+<div class="arithmatex">\[+\sum_{t=1}^T\frac{\alpha_t}{2(1-\beta_{1,t})}||\hat  V_t^{-1/4}m_t||^2\tag{2.2}\]</div>
+<div class="arithmatex">\[+\sum_{t=1}^T\frac{\beta_{1,t} }{2(1-\beta_{1,t})}\alpha_t||\hat V_t^{-1/4}m_{t-1}||^2\tag{2.2'}\]</div>
+<div class="arithmatex">\[+\sum_{t=1}^T\frac{\beta_{1,t} }{2\alpha_t(1-\beta_{1,t})}||\hat V_t^{1/4}(x_t-x^{* } )||^2\tag{2.3}\]</div>
+<p>后一项用了 <span class="arithmatex">\(\braket{a,b}\leq ||a||\cdot ||b||\)</span> 与 <span class="arithmatex">\(ab\leq (a^2+b^2)/2\)</span> 把 <span class="arithmatex">\(\frac{\beta_{1,t} }{1-\beta_{1,t}}\braket{m_{t-1},x_t-x^{* } }\)</span> 展开成 <span class="arithmatex">\((6.2'),(6.3)\)</span></p>
+<p>(<span class="arithmatex">\(\alpha_t\)</span> 是凑进去的)</p>
+<p>其实是柯西不等式和杨氏不等式</p>
+<p>那么由于 <span class="arithmatex">\(\hat v_{t,i}\geq \hat v_{t-1,i}\)</span></p>
+<p>所以中间两项合并变成</p>
+<div class="arithmatex">\[(2.2')+(2.3)\leq \sum_{t=1}^T\frac{\alpha_t}{1-\beta_1}||\hat V_t ^{-1/4}m_t||^2\tag{2.2''}\]</div>
+<blockquote>
+<p>Lemma 2</p>
+<div class="arithmatex">\[\sum_{t=1}^T\alpha_t||\hat V_t ^{-1/4}m_t||^2\leq \frac{\alpha\sqrt{1+\log T} }{(1-\beta_1)(1-\gamma)\sqrt{1-\beta_2} }\sum_{i=1}^d||g_{1:T,i}||_2\]</div>
+</blockquote>
+<p><span class="arithmatex">\(\underline{证明}\)</span></p>
+<p>将求和最后一项按照更新规则展开</p>
+<div class="arithmatex">\[\sum_{t=1}^T\alpha_t||\hat V_t ^{-1/4}m_t||^2=\sum_{t=1}^{T-1}\alpha_t||\hat V_t ^{-1/4}m_t||^2+\alpha\sum_{i=1}^d\frac{(\sum_{j=1}^T(1-\beta_{1,j})[\prod_{k=1}^{T-j}\beta_{1,T-k+1}]g_{j,i} )^2}{\sqrt{T\sum_{j=1}^T(1-\beta_2)\beta_2^{T-j}g_{j,i}^2 } }\]</div>
+<div class="arithmatex">\[=\sum_{t=1}^{T-1}\alpha_t||\hat V_t ^{-1/4}m_t||^2+\alpha\sum_{i=1}^d\frac{(\sum_{j=1}^T\prod_{k=1}^{T-j}\beta_{1,T-k+1} )\cdot (\sum_{j=1}^T\prod_{k=1}^{T-j}\beta_{1,T-k+1}g_{j,i}^2 )}{\sqrt{T\sum_{j=1}^T(1-\beta_2)\beta_2^{T-j}g_{j,i}^2 } }\]</div>
+<div class="arithmatex">\[\leq \sum_{t=1}^{T-1}\alpha_t||\hat V_t ^{-1/4}m_t||^2+\alpha\sum_{i=1}^d\frac{(\sum_{j=1}^T\beta_1^{T-j})\cdot (\sum_{j=1}^T\beta_1^{T-j}g_{j,i}^2)}{\sqrt{T\sum_{j=1}^T(1-\beta_2)\beta_2^{T-j}g_{j,i}^2 } }\]</div>
+<div class="arithmatex">\[= \sum_{t=1}^{T-1}\alpha_t||\hat V_t ^{-1/4}m_t||^2+\frac{\alpha}{(1-\beta_1)\sqrt{T(1-\beta_2)} }\sum_{i=1}^d\sum_{t=1}^T\frac{\beta_1^{T-j}g_{j,i}^2}{ \sqrt{\beta_2^{T-j}g_{j,i}^2 } }\]</div>
+<div class="arithmatex">\[= \sum_{t=1}^{T-1}\alpha_t||\hat V_t ^{-1/4}m_t||^2+\frac{\alpha}{(1-\beta_1)\sqrt{T(1-\beta_2)} }\sum_{i=1}^d\sum_{j=1}^T\gamma^{T-j} |g_{j,i}|\]</div>
+<p>依次把所有的项都展开</p>
+<div class="arithmatex">\[= \sum_{t=1}^T\frac{\alpha}{(1-\beta_1)\sqrt{t(1-\beta_2)} }\sum_{i=1}^d\sum_{j=1}^t\gamma^{t-j} |g_{j,i}|\]</div>
+<p>常数提出来:</p>
+<div class="arithmatex">\[= \frac{\alpha}{(1-\beta_1)\sqrt{(1-\beta_2)} }\sum_{i=1}^d\sum_{t=1}^T\frac1{\sqrt t}\sum_{j=1}^t\gamma^{t-j} |g_{j,i}|\]</div>
+<p>对于 <span class="arithmatex">\(\sum_{t=1}^T\frac1{\sqrt t}\sum_{j=1}^t\gamma^{t-j} |g_{j,i}|\)</span>, 换顺序求和:     </p>
+<div class="arithmatex">\[=\sum_{t=1}^T|g_{t,i}|\sum_{j=t}^T\frac{\gamma^{j-t} }{\sqrt j}\]</div>
+<div class="arithmatex">\[\leq\sum_{t=1}^T|g_{t,i}|\sum_{j=t}^T\frac{\gamma^{j-t} }{\sqrt t}\]</div>
+<div class="arithmatex">\[\leq\sum_{t=1}^T|g_{t,i}|\frac{1}{(1-\gamma)\sqrt t}\]</div>
+<p>所以原式</p>
+<div class="arithmatex">\[\leq\frac{\alpha}{(1-\beta_1)\sqrt{(1-\beta_2)} }\sum_{i=1}^d\sum_{t=1}^T|g_{t,i}|\frac{1}{(1-\gamma)\sqrt t}\]</div>
+<p>对于每个 <span class="arithmatex">\(|g_{t,i}|\)</span>, 将 <span class="arithmatex">\(\frac 1{\sqrt t}\)</span> 放缩到 <span class="arithmatex">\(\sqrt{\sum_{t=1}^T\frac{1}{t} }\)</span>:</p>
+<div class="arithmatex">\[ \leq\frac{\alpha}{(1-\beta_1)(1-\gamma)\sqrt{(1-\beta_2)} }\sqrt{\sum_{t=1}^T\frac{1}{t} }\sum_{i=1}^d\sum_{t=1}^T|g_{t,i}|\]</div>
+<div class="arithmatex">\[= \frac{\alpha}{(1-\beta_1)(1-\gamma)\sqrt{(1-\beta_2)} }\sqrt{\sum_{t=1}^T\frac{1}{t} }\sum_{i=1}^d||g_{1:T,i}||_2\]</div>
+<p>并且 <span class="arithmatex">\(\sqrt{\sum_{t=1}^T\frac{1}{t} }\leq \sqrt{1+\int_{1}^T[1/t]\text dt}\leq \sqrt{1+\log T}\)</span></p>
+<p>所以成立</p>
+<p><span class="arithmatex">\(\blacksquare\)</span></p>
+<p>这个引理的最后一步实际对应了 Adam 的引理 3, 只不过把 <span class="arithmatex">\(G_\infty\)</span> 换成了 <span class="arithmatex">\(\sqrt{1+\log T}\)</span></p>
+<hr>
+<p>回到定理, 对于 <span class="arithmatex">\((2.1)\)</span>, 错位相减得到</p>
+<div class="arithmatex">\[\sum_{t=1}^T\frac{1}{2\alpha_t(1-\beta_{1,t})}[||\hat V_t^{1/4}(x_t-x^{* })||^2-||\hat V_t^{1/4}(x_{t+1}-x^{* })||^2]\]</div>
+<div class="arithmatex">\[\leq \frac{1}{2\alpha_1(1-\beta_{1})}||\hat V_1^{1/4}(x_1-x^{* })||^2+\sum_{t=2}^T\frac{1}{2(1-\beta_1)}[\frac{||\hat V_t^{1/4}(x_t-x^{* })||^2}{\alpha_t}-\frac{||\hat V_{t-1}^{1/4}(x_t-x^{* })||^2}{\alpha_{t-1} }]\]</div>
+<p>这里 <span class="arithmatex">\(\hat v_{T,i}^{1/2}=||\hat V_{T,i}^{1/4}||^2\)</span> 展开:</p>
+<div class="arithmatex">\[=\sum_{i=1}^d\frac{1}{2\alpha_1(1-\beta_{1})}\hat v_{1,i}^{1/2}(x_{1,i}-x^{* }_i)^2+\sum_{i=1}^d\sum_{t=2}^T\frac{1}{2(1-\beta_1)}(x_{t,i}-x^{* }_i)^2[\frac{\hat v_{t,i}^{1/2} }{\alpha_t}-\frac{\hat v_{t-1,i}^{1/2} }{\alpha_{t-1} }]\]</div>
+<p>参数之差放缩到 <span class="arithmatex">\(D_\infty\)</span>, 有</p>
+<div class="arithmatex">\[\leq\sum_{i=1}^d\frac{1}{2\alpha_1(1-\beta_{1})}\hat v_{1,i}^{1/2}D_\infty^2+\sum_{i=1}^d\sum_{t=2}^T\frac{1}{2(1-\beta_1)}D_\infty^2[\frac{\hat v_{t,i}^{1/2} }{\alpha_t}-\frac{\hat v_{t-1,i}^{1/2} }{\alpha_{t-1} }]\]</div>
+<div class="arithmatex">\[=\frac{D_\infty^2}{2\alpha_T(1-\beta_1)}\sum_{i=1}^d\hat v_{T,i}^{1/2}\]</div>
+<p>即</p>
+<div class="arithmatex">\[(2.1)\leq \frac{D_\infty^2\sqrt T}{2\alpha(1-\beta_1)}\sum_{i=1}^d\hat v_{T,i}^{1/2}\]</div>
+<p>与 <span class="arithmatex">\((1.1)\)</span> 对应</p>
+<p>对于 <span class="arithmatex">\((2.3)\)</span>, 由于 </p>
+<div class="arithmatex">\[\frac{1}{1-\beta_{1,t} }\leq \frac{1}{1-\beta_{1} }\leq \frac{1}{(1-\beta_{1})^2 }\]</div>
+<p>所以</p>
+<div class="arithmatex">\[(2.3)\leq \frac{1}{(1-\beta_1)^2}\sum_{t=1}^T\sum_{i=1}^d\frac{\beta_{1,t} (x_{t,i}-x^{*}_i )^2\hat v_{t,i}^{1/2} }{\alpha_t}\]</div>
+<div class="arithmatex">\[\leq \frac{D_\infty^2}{(1-\beta_1)^2}\sum_{t=1}^T\sum_{i=1}^d\frac{\beta_{1,t} \hat v_{t,i}^{1/2} }{\alpha_t}\]</div>
+<p>与 <span class="arithmatex">\((1.3)\)</span> 对应</p>
+<p><span class="arithmatex">\(\blacksquare\)</span></p>
+<blockquote>
+<p>Corollary 1</p>
+<p>如果 <span class="arithmatex">\(\beta_{1,t}=\beta_1\lambda^{t-1}\)</span>, 那么</p>
+<div class="arithmatex">\[R(T)\leq \frac{D_{\infty}^2\sqrt T}{\alpha(1-\beta_1)}\sum_{i=1}^d\hat v_{T,i}^{1/2}+\frac{\beta_1D_\infty^2G_\infty}{(1-\beta_1)^2(1-\lambda)^2}+\frac{\alpha\sqrt{1+\log T} }{(1-\beta_1)^2(1-\gamma)\sqrt{1-\beta_2} }\sum_{i=1}^d||g_{1:T,i}||_2\]</div>
+</blockquote>
+<p><span class="arithmatex">\(\underline{证明}\)</span></p>
+<p>由于 <span class="arithmatex">\(\hat v_{t,i}^{1/2}\leq G_\infty\)</span></p>
+<div class="arithmatex">\[(3.3)\leq \frac{D_\infty^2G_\infty}{(1-\beta_1)^2}\sum_{t=1}^T\sum_{i=1}^d\frac{\beta_{1,t}\sqrt t }{\alpha}\]</div>
+<p>由于</p>
+<div class="arithmatex">\[\sum_{t=1}^T\beta_{1,t} \sqrt{t}= \sum_{t=1}^T\beta_{1} \sqrt{t}\lambda^{t-1}\]</div>
+<div class="arithmatex">\[\leq \beta_1\sum_{t=1}^Tt\lambda^{t-1}\]</div>
+<div class="arithmatex">\[\leq \frac{\beta_1}{(1-\lambda)^2}\]</div>
+<p>所以原式有</p>
+<div class="arithmatex">\[\leq \frac{\beta_1D^2_\infty G_\infty }{2\alpha(1-\beta_1)^2(1-\lambda)^2}\]</div>
+<p>下面的 <span class="arithmatex">\(\alpha\)</span> 也是常数, 不用在意</p>
+<p><span class="arithmatex">\(\blacksquare\)</span> --&gt;</p>
+<p>具体见 <a href="https://akonjac0.github.io/2025/05/24/Adam%20and%20AMSGrad/">Adam and AMSGrad</a></p>
 <h2 id="summary">summary</h2>
+<p>定义几个符号:</p>
+<p><span class="arithmatex">\(\mathcal F\)</span> 表示参数空间</p>
+<p><span class="arithmatex">\(S^d_{+ }\)</span> 表示正定的 <span class="arithmatex">\(d\times d\)</span> 矩阵空间</p>
+<p><span class="arithmatex">\(\Pi_{\mathcal F, A}(y)=\text{argmin}_{x\in \mathcal F}||A^{1/2}(x-y)||,y\in \mathbb R^d, A\in S^d_{+ }\)</span> 投影操作表示在以 <span class="arithmatex">\(\sqrt V_t\)</span> 为缩放比例缩放后的 <span class="arithmatex">\(\mathcal F\)</span> 空间内找出一个与目标参数 <span class="arithmatex">\(y\)</span> 最相近的</p>
+<p>那么平均函数 <span class="arithmatex">\(\phi_t:\mathcal F^t\to \mathbb R^d\)</span></p>
+<p>方差函数 <span class="arithmatex">\(\psi_t:\mathcal F^t\to S^d_{+ }\)</span></p>
+<p>那么统一的自适应算法为:</p>
+<p><img alt="alt text" src="../image-15.png"></p>
+<p>这里 <span class="arithmatex">\(V_t=\text{diag}(v_t)\)</span>, 指的是把 <span class="arithmatex">\(v_t\in\mathbb R^d\)</span> 向量的每个元素放到 <span class="arithmatex">\(V_t\in S^d_{+ }\)</span> 矩阵的对角线上, 目的是与 <span class="arithmatex">\(m_t\)</span> 做逐元素 (element-wise) 的除法, 即 <span class="arithmatex">\(m_{t,i} \times  V^{-1}_{t,i,i},i=\set{1,\cdots,d}\)</span> </p>
+<p>如果特定了 <span class="arithmatex">\(\alpha_t=\alpha/\sqrt t\)</span>:</p>
 <p><img alt="alt text" src="../image-11.png"></p>
+<p>所有算法的 <span class="arithmatex">\(\phi_t,\psi_t\)</span> 可以整理到表格里:</p>
 <p><img alt="alt text" src="../image-10.png"></p>
 <p>其中 SGD 的 <span class="arithmatex">\(\psi_t=\mathbb I\)</span> 是恒等变换</p>
 <p>Adam 的 <span class="arithmatex">\(\alpha_t\)</span> 是 <span class="arithmatex">\(\alpha\cdot\sqrt{1-\beta_2^t}/(1-\beta_1^t)\)</span></p>

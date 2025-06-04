@@ -1,0 +1,4881 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../Normalization/">
+      
+      
+        <link rel="next" href="../../GUI%20Agent/Agents/">
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.50">
+    
+    
+      
+        <title>optimizer - My Docs</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.a40c8224.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="https://unpkg.com/katex@0/dist/katex.min.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue-grey" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#optimizer" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="My Docs" class="md-header__button md-logo" aria-label="My Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            My Docs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              optimizer
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="blue-grey" data-md-color-accent="blue"  aria-label="切换到暗色模式"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="切换到暗色模式" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="deep-purple" data-md-color-accent="purple"  aria-label="切换到亮色模式"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="切换到亮色模式" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/akonjac0/note" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Ako's Note
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../about/" class="md-tabs__link">
+        
+  
+    
+  
+  About
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../todo/" class="md-tabs__link">
+        
+  
+    
+  
+  Todo
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../ADS/BPlusTree/" class="md-tabs__link">
+          
+  
+  ADS
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../BERT/" class="md-tabs__link">
+          
+  
+  AI
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../CA/CA/" class="md-tabs__link">
+          
+  
+  CA
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../CO/computer%20organization%20and%20design/" class="md-tabs__link">
+          
+  
+  CO
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../DB/database/" class="md-tabs__link">
+          
+  
+  DB
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../OOP/oop/" class="md-tabs__link">
+          
+  
+  OOP
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../general%20physics/General%20Pyhsics%20II/" class="md-tabs__link">
+          
+  
+  General physics
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../math/LA/" class="md-tabs__link">
+          
+  
+  Math
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../misc/CF/" class="md-tabs__link">
+          
+  
+  Misc
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../my%20past/MCU/51/" class="md-tabs__link">
+          
+  
+  My past
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../probability/martingale%20and%20stopping%20times/" class="md-tabs__link">
+          
+  
+  Probability
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../x86asm/ASM/" class="md-tabs__link">
+          
+  
+  X86asm
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="My Docs" class="md-nav__button md-logo" aria-label="My Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    My Docs
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/akonjac0/note" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Ako's Note
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../about/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    About
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../todo/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Todo
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    ADS
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            ADS
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ADS/BPlusTree/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    BPlusTree
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ADS/Binomial%20Queue/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Binomial Queue
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ADS/Dijkstra/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Dijkstra
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ADS/Galois%20Field/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Galois Field
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ADS/IFI/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IFI
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ADS/Master%20Theorem/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Master Theorem
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ADS/Misra-Gries/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Misra-Gries
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ADS/NPC%20and%20Approximation%20and%20Local%20Search/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    NPC and Approximation and Local Search
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ADS/SkipList/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Skip List
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ADS/WBLT/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    WBLT
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ADS/amortized%20analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    amortized analysis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ADS/binet%20cauchy/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Binet-Cauchy
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ADS/cardinality%20of%20sets/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    cardinality of sets
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ADS/computation%20problem/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    computation problem
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ADS/convex/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    convex
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ADS/entropy/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    entropy
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ADS/error%20correction/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    error correction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ADS/external%20sorting/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    external sorting
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ADS/group%20theory/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    group theory
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ADS/hash/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    hash
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ADS/linear%20programming/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    linear programming
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ADS/parallel/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    parallel
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ADS/randomized/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    randomized
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ADS/red%20black%20tree/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    red black tree
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ADS/scapegoat%20tree/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    scapegoat
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ADS/searching/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    searching
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ADS/skew%20heap/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    skew heap
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ADS/splay/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    splay
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    AI
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            AI
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../BERT/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    BERT
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DeepSeek-R1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    deepseek
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ML/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Machine Learning
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../MLLM/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    MLLM
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../RL/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Reinforcement Learning
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../misc/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Misc
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_7" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5_7" id="__nav_5_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Deep Learning
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_7_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5_7">
+            <span class="md-nav__icon md-icon"></span>
+            Deep Learning
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../DL/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Deep Learning
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Normalization/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Batch Normalization
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    optimizer
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    optimizer
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#sgd" class="md-nav__link">
+    <span class="md-ellipsis">
+      SGD
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="SGD">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      收敛证明
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      收敛速度
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#poor-conditioning" class="md-nav__link">
+    <span class="md-ellipsis">
+      Poor conditioning
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hessian-matrix" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hessian matrix
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#momentum-sgd" class="md-nav__link">
+    <span class="md-ellipsis">
+      Momentum SGD
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Momentum SGD">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#nature" class="md-nav__link">
+    <span class="md-ellipsis">
+      nature
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nesterov-momentum-sgd" class="md-nav__link">
+    <span class="md-ellipsis">
+      Nesterov Momentum SGD
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_8" id="__nav_5_8_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    GUI Agent
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_8">
+            <span class="md-nav__icon md-icon"></span>
+            GUI Agent
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../GUI%20Agent/Agents/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agents
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../GUI%20Agent/Benchmarks/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Benchmarks
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    CA
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            CA
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../CA/CA/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Scoreboard
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    CO
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            CO
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../CO/computer%20organization%20and%20design/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    computer organization and design
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    DB
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            DB
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../DB/database/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    database
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    OOP
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            OOP
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../OOP/oop/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    STL
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    General physics
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            General physics
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../general%20physics/General%20Pyhsics%20II/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    General Pyhsics II
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../general%20physics/Schr%C3%B6dinger%20equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Schrödinger equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../general%20physics/quantum%20computation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    quantum computation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Math
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            Math
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/LA/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    LA
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/MA/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    MA
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12" >
+        
+          
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Misc
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12">
+            <span class="md-nav__icon md-icon"></span>
+            Misc
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../misc/CF/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CF
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../misc/CTF/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CTF-WriteUp
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../misc/bangumi/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Bangumi
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../misc/intonation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    intonation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../misc/reaction/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    关于引入奖励机制对人反应力的影响
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../misc/sovits/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    so-vits-svc
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13" >
+        
+          
+          <label class="md-nav__link" for="__nav_13" id="__nav_13_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    My past
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_13">
+            <span class="md-nav__icon md-icon"></span>
+            My past
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_13_1" id="__nav_13_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    MCU
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_13_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_13_1">
+            <span class="md-nav__icon md-icon"></span>
+            MCU
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../my%20past/MCU/51/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    51单片机
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_13_2" id="__nav_13_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    OI
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_13_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_13_2">
+            <span class="md-nav__icon md-icon"></span>
+            OI
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../my%20past/OI/0.9loop%3D1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    0.999...=1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../my%20past/OI/01%E5%BA%8F%E5%88%97/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    将复杂序列问题转换成01序列求解的优化
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../my%20past/OI/2022%E6%95%B0%E8%81%94%E6%B8%B8%E8%AE%B0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2022数联游记
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../my%20past/OI/AC%E8%87%AA%E5%8A%A8%E6%9C%BA/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    AC自动机
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../my%20past/OI/CF1896D/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CF1896D
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../my%20past/OI/CRT/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    中国剩余定理
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../my%20past/OI/CSP-S%202021/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CSP-S 2021
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../my%20past/OI/DLX/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Dancing Links X
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../my%20past/OI/FFT/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    快速傅里叶变换 FFT
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../my%20past/OI/Fast%20IO/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Fast io
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../my%20past/OI/Game%20with%20Marbles%20%28Hard%20Version%29/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CF1914E2
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../my%20past/OI/MST/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    最小生成树MST
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../my%20past/OI/NOI%20Online%202022/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    NOI Online 2022
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../my%20past/OI/P1633/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    P1633
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../my%20past/OI/STL/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    STL
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../my%20past/OI/Trie/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Trie
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../my%20past/OI/algorithm/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    algorithm
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../my%20past/OI/cstring/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    cstring
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../my%20past/OI/dp/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    期望dp
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../my%20past/OI/dp%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    dp常用方法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../my%20past/OI/dp%E8%BD%AC%E7%A7%BB/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    dp转移
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../my%20past/OI/gcd/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    欧几里得&amp;扩展欧几里得
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../my%20past/OI/kruskal%E9%87%8D%E6%9E%84%E6%A0%91/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    kruskal重构树
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../my%20past/OI/manacher/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    manacher算法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../my%20past/OI/wqs%E4%BA%8C%E5%88%86/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    wqs二分
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../my%20past/OI/xor/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    异或
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../my%20past/OI/%E4%B8%BB%E5%B8%AD%E6%A0%91/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    主席树
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../my%20past/OI/%E4%BA%8C%E5%88%86/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    二分
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../my%20past/OI/%E4%BA%8C%E7%BA%A7%E6%8C%87%E9%92%88/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    二维数组与二级指针
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../my%20past/OI/%E4%BC%98%E5%85%88%E9%98%9F%E5%88%97/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    优先队列/二叉堆
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../my%20past/OI/%E4%BC%98%E5%8C%96dp/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    斜率优化dp
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../my%20past/OI/%E4%BD%8D%E8%BF%90%E7%AE%97/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    进制 &amp; 位运算
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../my%20past/OI/%E5%80%8D%E5%A2%9E/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    倍增
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../my%20past/OI/%E5%87%8F%E5%B0%91%E6%97%A0%E7%94%A8%E7%8A%B6%E6%80%81/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    减少无用状态
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../my%20past/OI/%E5%88%86%E6%B2%BB/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    分治
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../my%20past/OI/%E5%8C%BA%E9%97%B4dp/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    区间dp总结
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../my%20past/OI/%E5%8F%8C%E6%8C%87%E9%92%88/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    尺取法 two-pointers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../my%20past/OI/%E5%9B%BE%E8%AE%BA/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    图论
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../my%20past/OI/%E5%A4%8D%E6%9D%82%E5%BA%A6/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    看似错误的复杂度的渐近处理
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../my%20past/OI/%E5%B9%B6%E6%9F%A5%E9%9B%86/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    并查集
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../my%20past/OI/%E6%95%B0%E5%AD%A6/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    泰勒级数
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../my%20past/OI/%E6%9C%80%E7%9F%AD%E8%B7%AF/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    最短路
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../my%20past/OI/%E6%9E%84%E9%80%A0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    构造
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../my%20past/OI/%E6%A0%91%E5%BD%A2dp/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    树形dp总结
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../my%20past/OI/%E6%A0%91%E7%9A%84%E7%9B%B4%E5%BE%84/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    树的直径
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../my%20past/OI/%E6%A0%91%E9%93%BE%E5%89%96%E5%88%86/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    树链剖分
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../my%20past/OI/%E6%A8%A1%E6%8B%9F/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    模拟
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../my%20past/OI/%E6%AC%A7%E6%8B%89%E5%87%BD%E6%95%B0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    欧拉函数
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../my%20past/OI/%E7%82%B9%E5%88%86%E6%B2%BB/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    点分治
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../my%20past/OI/%E7%8A%B6%E5%8E%8Bdp/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    状压dp总结
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../my%20past/OI/%E7%9F%A9%E9%98%B5%E4%B9%98%E6%B3%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    矩阵乘法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../my%20past/OI/%E7%A6%BB%E6%95%A3%E5%8C%96_%E5%93%88%E5%B8%8C/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    离散优化
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../my%20past/OI/%E7%BA%BF%E6%80%A7dp/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    线性dp/普通dp
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../my%20past/OI/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    线性代数
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../my%20past/OI/%E7%BA%BF%E6%80%A7%E7%AD%9B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    欧拉筛
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../my%20past/OI/%E7%BA%BF%E6%AE%B5%E6%A0%91/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    线段树
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../my%20past/OI/%E7%BA%BF%E6%AE%B5%E6%A0%91%E5%90%88%E5%B9%B6/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    线段树合并
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../my%20past/OI/%E7%BB%93%E6%9E%84%E4%BD%93/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    结构体
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../my%20past/OI/%E7%BC%A9%E7%82%B9/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    缩点
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../my%20past/OI/%E7%BD%91%E7%BB%9C%E6%B5%81/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    网络流
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../my%20past/OI/%E8%83%8C%E5%8C%85/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    背包总结
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../my%20past/OI/%E8%8E%AB%E6%AF%94%E4%B9%8C%E6%96%AF%E5%8F%8D%E6%BC%94/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    莫比乌斯反演
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../my%20past/OI/%E8%8E%AB%E9%98%9F/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    莫队
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../my%20past/OI/%E8%99%9A%E6%A0%91/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    虚树
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../my%20past/OI/%E8%AE%B0%E5%BF%86%E5%8C%96%E6%90%9C%E7%B4%A2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    记忆化搜索
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../my%20past/OI/%E8%B4%AA%E5%BF%83/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    贪心
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../my%20past/OI/%E9%80%86%E5%85%83/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    乘法逆元
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../my%20past/OI/%E9%80%92%E5%BD%92/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    递归 &amp; 递推
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../my%20past/OI/%E9%AB%98%E6%96%AF%E6%B6%88%E5%85%83/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    高斯消元
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../my%20past/OI/%E9%AB%98%E7%B2%BE%E5%BA%A6/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    高精度
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_13_3" id="__nav_13_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Python
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_13_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_13_3">
+            <span class="md-nav__icon md-icon"></span>
+            Python
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../my%20past/python/Bongo%20Cat/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    python
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../my%20past/python/pokemon/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    python
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../my%20past/python/spider/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    python 爬虫总结
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../my%20past/python/tool/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    python
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_14" >
+        
+          
+          <label class="md-nav__link" for="__nav_14" id="__nav_14_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Probability
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_14_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_14">
+            <span class="md-nav__icon md-icon"></span>
+            Probability
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../probability/martingale%20and%20stopping%20times/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    martingale and stopping times
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../probability/probability/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    probability
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_15" >
+        
+          
+          <label class="md-nav__link" for="__nav_15" id="__nav_15_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    X86asm
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_15_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_15">
+            <span class="md-nav__icon md-icon"></span>
+            X86asm
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../x86asm/ASM/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    asm
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#sgd" class="md-nav__link">
+    <span class="md-ellipsis">
+      SGD
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="SGD">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      收敛证明
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      收敛速度
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#poor-conditioning" class="md-nav__link">
+    <span class="md-ellipsis">
+      Poor conditioning
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hessian-matrix" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hessian matrix
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#momentum-sgd" class="md-nav__link">
+    <span class="md-ellipsis">
+      Momentum SGD
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Momentum SGD">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#nature" class="md-nav__link">
+    <span class="md-ellipsis">
+      nature
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nesterov-momentum-sgd" class="md-nav__link">
+    <span class="md-ellipsis">
+      Nesterov Momentum SGD
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<div><h1 id="optimizer">optimizer</h1>
+<h2 id="sgd">SGD</h2>
+<p>随机梯度下降</p>
+<p>由于实际计算梯度需要采样 <span class="arithmatex">\(m\)</span> 次, 将每次的损失求平均</p>
+<div class="arithmatex">\[\frac 1m \nabla_\theta\sum_{i=1}^m L[f(x^{(i)}; \theta), y^{(i)}]\]</div>
+<p>所以计算量比较大</p>
+<p>一个想法就是每次只采样一次</p>
+<p>这样得到的损失在期望上与求平均值是一样的</p>
+<p>SGD 的优点是一定会收敛到局部极小值, 缺点是慢</p>
+<h3 id="_1">收敛证明</h3>
+<p>统一的分析方法见 <a href="https://akonjac0.github.io/2025/05/27/Online%20Convex%20Programming/">blog</a></p>
+<p>假设梯度有界, 变量有界</p>
+<div class="arithmatex">\[|g_t|^2\leq G^2, |\theta_t-\theta^{* }|^2\leq D^2\]</div>
+<p>如果函数 <span class="arithmatex">\(f_t(\theta)\)</span> 是凸函数, 那么有</p>
+<div class="arithmatex">\[f_t(\theta_2)-f_t(\theta_1) \geq \braket{\nabla f_t(\theta_1), \theta_2-\theta_1} \]</div>
+<p>考虑一个后悔值</p>
+<div class="arithmatex">\[R(T)=\sum_{t=1}^T[f_t(\theta_t)-f_t(\theta^{* })]\]</div>
+<p>即第 <span class="arithmatex">\(t\)</span> 个参数 <span class="arithmatex">\(\theta_t\)</span> 与最优参数 <span class="arithmatex">\(\theta^{* }\)</span> 之间的差的求和</p>
+<p>当 <span class="arithmatex">\(\lim_{T\to\infty} R(T)/T= 0\)</span> 时认为算法收敛</p>
+<p>把 <span class="arithmatex">\(\theta_t,\theta^{* }\)</span> 代入凸函数性质:</p>
+<div class="arithmatex">\[f_t(\theta_t) - f_t(\theta^{* }) \leq \braket{g_t, \theta_t-\theta^{* } } \]</div>
+<p>所以</p>
+<div class="arithmatex">\[R(T)\leq \sum_{t=1}^T\braket{g_t, \theta_t-\theta^{* } }\]</div>
+<p>同时由于</p>
+<div class="arithmatex">\[|\theta_{t+1}-\theta^{* }|^2=|\theta_t-\alpha_t g_t-\theta^{* }|^2\]</div>
+<div class="arithmatex">\[=|\theta_t-\theta^{* }|^2-2\alpha_t \braket{g_t,\theta_t-\theta^{* } } +\alpha_t^2 |g_t|^2 \]</div>
+<div class="arithmatex">\[\braket{g_t,\theta_t-\theta^{* } }=\frac{1}{2\alpha_t}[|\theta_{t}-\theta^{* }|^2-|\theta_{t+1}-\theta^{* }|^2]+\frac{\alpha_t}{2} |g_t|^2\]</div>
+<p>所以</p>
+<div class="arithmatex">\[R(T)\leq \sum_{t=1}^T\frac{1}{2\alpha_t}[|\theta_{t}-\theta^{* }|^2-|\theta_{t+1}-\theta^{* }|^2]+\sum_{t=1}^T\frac{\alpha_t}{2} |g_t|^2\]</div>
+<p>前一部分错位相减:</p>
+<div class="arithmatex">\[=\frac{1}{2\alpha_1}|\theta_1-\theta^{* }|^2+\sum_{t=1}^{T-1}[\frac{1}{2\alpha_{t+1} }-\frac 1{2\alpha_t}]|\theta_{t}-\theta^{* }|^2-\frac 1{2\alpha_{T} }|\theta_{T+1}-\theta^{* }|^2\]</div>
+<p>由于前面假设梯度有界</p>
+<div class="arithmatex">\[|\theta_t-\theta^{* }|^2\leq D^2\]</div>
+<p>且</p>
+<div class="arithmatex">\[-\frac 1{2\alpha_{T} }|\theta_{T+1}-\theta^{* }|^2\leq 0\]</div>
+<p>所以原式</p>
+<div class="arithmatex">\[R(T)\leq [\frac{1}{2\alpha_1}+\sum_{t=1}^{T-1}[\frac 1{2\alpha_{t+1} }-\frac 1{2\alpha_t}] ]D^2+\sum_{t=1}^T\frac{\alpha_t}{2} |g_t|^2\]</div>
+<div class="arithmatex">\[=\frac{1}{2\alpha_T}D^2+\sum_{t=1}^T\frac{\alpha_t}{2} |g_t|^2\]</div>
+<div class="arithmatex">\[\leq \frac{1}{2\alpha_T}D^2 + \frac{G^2}{2}\sum_{t=1}^T\alpha_t\]</div>
+<p>此时假设 <span class="arithmatex">\(\alpha_t=t^{-p}\)</span></p>
+<p>前一部分 <span class="arithmatex">\(/T\)</span> 得到 <span class="arithmatex">\(t^{(p-1)}\)</span></p>
+<p>所以只要 <span class="arithmatex">\(p&lt;1\)</span> 就收敛到 <span class="arithmatex">\(0\)</span></p>
+<p>后一部分 <span class="arithmatex">\(/T\)</span> 得到 <span class="arithmatex">\(\displaystyle \frac{\sum_{t=1}^Tt^{-p}}{T}\)</span></p>
+<p>那么我们断言</p>
+<div class="arithmatex">\[\forall \epsilon &gt;0, \exists N&gt;0 \text{ s.t. } \forall T&gt;N, \lim_{T\to\infty}\frac{\sum_{t=1}^T t^{-p} }{T}\leq \epsilon\]</div>
+<p>实际上, 我们取 <span class="arithmatex">\(N_0\geq \frac{1}{\epsilon^{1/p} }\)</span>, 即 <span class="arithmatex">\(N_0^{-p}\leq \epsilon\)</span></p>
+<p>对于 <span class="arithmatex">\(t\leq N\)</span>, <span class="arithmatex">\(\sum_{t=1}^N t^{-p} / T\to 0\)</span></p>
+<p>可以找到一个 <span class="arithmatex">\(N_1\)</span> 使得 <span class="arithmatex">\(\sum_{t=1}^{N_1} t^{-p} / T \leq \epsilon\)</span></p>
+<p>那么取 <span class="arithmatex">\(N=\max(N_0,N_1)\)</span></p>
+<p>对于 <span class="arithmatex">\(t&gt;N\)</span>, 我们有 <span class="arithmatex">\(t^{-p}\leq \epsilon\)</span></p>
+<p>所以原式:</p>
+<div class="arithmatex">\[\sum_{t=1}^N t^{-p} / T + \sum_{t=N+1}^T t^{-p} / T \leq C / T + T\epsilon / T \leq \epsilon + \epsilon = 2\epsilon\]</div>
+<h3 id="_2">收敛速度</h3>
+<p>要想看到他有多慢, 可以看下面的图:</p>
+<p><img alt="alt text" src="../image-8.png"></p>
+<p>给两个矩阵小知识:</p>
+<h3 id="poor-conditioning">Poor conditioning</h3>
+<p>考虑函数 <span class="arithmatex">\(f(x)=A^{-1}x\)</span></p>
+<p>对于矩阵 <span class="arithmatex">\(A\)</span> 的 condition number 等于特征值的最大最小之比</p>
+<div class="arithmatex">\[\max_{i,j}|\frac{\lambda_i}{\lambda_j}|\]</div>
+<p>这个 condition nubmer 越大, 函数 <span class="arithmatex">\(f(x)\)</span> 对于输入 <span class="arithmatex">\(x\)</span> 的变化越敏感</p>
+<p>即 <span class="arithmatex">\(x\)</span> 一个小的变化可能引起 <span class="arithmatex">\(f(x)\)</span> 变化很大</p>
+<h3 id="hessian-matrix">Hessian matrix</h3>
+<p>向量函数 <span class="arithmatex">\(f: \mathbb R^n\to \mathbb R^m\)</span> 的一阶偏导组成的矩阵为 Jacobian matrix , 记作 <span class="arithmatex">\(J(f)_{m\times n}\)</span></p>
+<p>典型的应用是多元函数积分换元:</p>
+<div class="arithmatex">\[\int_{X,Y}f(x,y)\text dx\text dy = \int_{U,V}f(u,v)\cdot |\det J|\text du\text dv\]</div>
+<p>标量函数的二阶偏导组成的矩阵为 Hessian matrix, 记作 <span class="arithmatex">\(H(f)_{n\times n}\)</span></p>
+<p>他们两个的关系是:</p>
+<div class="arithmatex">\[H(f)=J(\nabla f)\]</div>
+<p>即多维标量函数的 Hessian matrix 为函数梯度的 Jacobian matrix</p>
+<hr>
+<p>上面图片中函数的 Hessian matrix 的 condition number <span class="arithmatex">\(= 5\)</span></p>
+<p>所以 SGD 对于 <span class="arithmatex">\([-1,1]^T\)</span> 方向的梯度不敏感, 对于 <span class="arithmatex">\([1,1]^T\)</span> 方向的梯度敏感, 所以看起来一直在撞墙, 而没有很快地下降到谷底</p>
+<h2 id="momentum-sgd">Momentum SGD</h2>
+<p>为了加速收敛设计出来的</p>
+<p>定义一个速度矢量 <span class="arithmatex">\(v\)</span></p>
+<p>它指代参数在参数空间中移动的速率与方向</p>
+<p>在参数使用单位质量时, 速度 <span class="arithmatex">\(v\)</span> 就是动量, 所以是这个叫法</p>
+<p>定义一个超参数 <span class="arithmatex">\(\alpha\in [0, 1)\)</span></p>
+<p>更新规则:</p>
+<div class="arithmatex">\[v \leftarrow \alpha v - \epsilon \nabla_\theta(\frac 1m \sum_{i=1}^mL[f(x^{(i)};\theta), y^{(i)}])\]</div>
+<div class="arithmatex">\[\theta \leftarrow \theta + v\]</div>
+<p>把负梯度看作一个力, <span class="arithmatex">\(\epsilon\)</span> 看作一个调整单位的参数</p>
+<p>所以第一个式子就是冲量转成动量</p>
+<p>第二个式子是单位时间的距离变化</p>
+<p>于 SGD 相比:</p>
+<p><img alt="alt text" src="../image-9.png"></p>
+<p>可以看到负梯度中沿着 <span class="arithmatex">\([1,1]^T\)</span> 方向的分量在每次更新 <span class="arithmatex">\(v\)</span> 时都会相互抵消, 而沿着 <span class="arithmatex">\([-1,1]^T\)</span> 方向的分良在每次更新 <span class="arithmatex">\(v\)</span> 时会一直累积</p>
+<p>所以朝着谷底运动的速度越来越快</p>
+<p>形式化地, 要想求出最大的最终速度, 考虑运行过程, 速度会沿着负梯度的方向加速, 最后的收敛到连续几步内的梯度都是相同的大小与方向</p>
+<p>如果从第一步开始采样得到的梯度都为 <span class="arithmatex">\(g\)</span>, 那么最终的最大速度是 </p>
+<div class="arithmatex">\[v_{\max}=\epsilon ||g|| +\epsilon \alpha ||g||+\cdots \]</div>
+<div class="arithmatex">\[=\frac{\epsilon ||g||}{1-\alpha}\]</div>
+<p>相比于无 Momentum 的 SGD 加速的 <span class="arithmatex">\(\frac{1}{1-\alpha}\)</span> 倍</p>
+<h3 id="nature">nature</h3>
+<p>本质是在通过数值模拟求解一阶微分方程组:</p>
+<div class="arithmatex">\[v(t)=\frac{\partial \theta(t)}{\partial t}\]</div>
+<div class="arithmatex">\[f(t)=\frac{\partial v(t)}{\partial t}\]</div>
+<p>其中取单位质量, 所以 <span class="arithmatex">\(f(t)=a(t)\)</span></p>
+<p>同时 <span class="arithmatex">\(\theta(t)\)</span> 是位移</p>
+<p>数值模拟解微分方程组的一个方法是 Euler 方法, 即模拟取每个梯度方向的一小步来计算</p>
+<p>这正是 Momentum SGD 在做的事</p>
+<p>具体地, 取一个主动力为负梯度, 在取一个被动力, 通过系数 <span class="arithmatex">\(\alpha\)</span> 正比于 <span class="arithmatex">\(-v(t)\)</span></p>
+<p>这个被动力可以看作粘滞力, 因为正比于 <span class="arithmatex">\(v\)</span>, 而不像动摩擦力不与 <span class="arithmatex">\(v\)</span> 相关, 或者空气阻力正比于 <span class="arithmatex">\(v^2\)</span></p>
+<h3 id="nesterov-momentum-sgd">Nesterov Momentum SGD</h3>
+<p>迭代公式为</p>
+<div class="arithmatex">\[v \leftarrow \alpha v - \epsilon \nabla_\theta(\frac 1m\sum_{i=1}^m L[f(x^{(i)};\theta+\alpha v),y^{(i)}])\]</div>
+<div class="arithmatex">\[\theta \leftarrow \theta + v\]</div>
+<p>即在采样梯度前先将当前速度应用于位移 <span class="arithmatex">\(\theta\)</span></p>
+<p>对于 convex batch gradient 有显著速度提升, 但是对 stochastic gradient 没有理论保证的提升</p>
+<h1 id="adaptive-learning-rate-optimizer">adaptive learning rate optimizer</h1>
+<p>上面的几个算法学习率 <span class="arithmatex">\(\epsilon\)</span> 都是固定的</p>
+<p>下面介绍几个自适应学习率的算法</p>
+<h2 id="adagrad">AdaGrad</h2>
+<p>通过累积的平方梯度来调节学习率, 使收敛更稳定</p>
+<p>给定静态学习率 <span class="arithmatex">\(\epsilon\)</span> 和防止除零异常的小常数 <span class="arithmatex">\(\delta \approx 10^{-7}\)</span>, 迭代公式为:</p>
+<div class="arithmatex">\[g\leftarrow \frac 1m \nabla_\theta\sum_{i=1}^mL[f(x^{(i)};\theta), y^{(i)}]\]</div>
+<div class="arithmatex">\[r \leftarrow r + g\cdot g\]</div>
+<div class="arithmatex">\[\Delta \theta \leftarrow -\frac{\epsilon}{\delta + \sqrt{r} } \cdot g\]</div>
+<div class="arithmatex">\[\theta \leftarrow \theta + \Delta\theta\]</div>
+<p>在凸优化中有理论优势, 但实际训练神经网络往往导致学习率过早过大衰减, 因为有时函数是非凸的</p>
+<h3 id="_3">收敛证明</h3>
+<p>与 SGD 收敛证明类似</p>
+<p>同样假设凸函数, 假设梯度收敛到 <span class="arithmatex">\(0\)</span></p>
+<p>可以写出</p>
+<div class="arithmatex">\[R(T)\leq \frac{\delta+\sqrt{r_T} }{2\epsilon}D^2+\frac{\epsilon}{2}\sum_{t=1}^T\frac{|g_t|^2}{\delta+\sqrt{r_t} }\]</div>
+<p>前一部分 <span class="arithmatex">\(/T\)</span> 为 </p>
+<div class="arithmatex">\[\frac{\delta+\sqrt{\sum_{t=1}^T |g_t|^2} }{2\epsilon}D^2 / T\]</div>
+<div class="arithmatex">\[\leq \frac{\delta+G\sqrt T}{2\epsilon} D^2 / T\to 0\]</div>
+<p>后一部分 <span class="arithmatex">\(/T\)</span> 为</p>
+<div class="arithmatex">\[\frac 1T\sum_{t=1}^T\frac{|g_t|^2}{\delta+\sqrt{\sum_{i=1}^t |g_i|^2} } \leq \frac 1T\sum_{t=1}^T\frac{|g_t|^2}{\sqrt{\sum_{i=1}^t |g_i|^2} }\]</div>
+<div class="arithmatex">\[\leq \frac2T\sum_{t=1}^T\frac{|g_t|^2}{\sqrt{\sum_{i=1}^{t-1} |g_i|^2}+\sqrt{\sum_{i=1}^t |g_i|^2} }=\frac 2T\sum_{t=1}^T\frac{|g_t|^2}{|g_t|^2}[\sqrt{\sum_{i=1}^{t}|g_i|^2}-\sqrt{\sum_{i=1}^{t-1}|g_i|^2}]\]</div>
+<div class="arithmatex">\[\leq \frac 2T\sum_{t=1}^T\sqrt{G^2T}=\frac{2G}{\sqrt T}\to 0\]</div>
+<!-- 如果梯度收敛到 $0$, 那么
+
+$$\forall \epsilon>0,\exists N>0, \text{ s.t. } \forall t>N, |g_t|^2<\epsilon$$
+
+那么
+
+$$\frac 1T\sum_{t=1}^N|g_t|^2+\frac 1T\sum_{N+1}^T|g_t|^2$$
+
+$$\leq \frac CT+\frac{T\epsilon}{T}\leq \epsilon$$
+
+所以收敛
+
+* 上面的假设梯度收敛到 $0$ 的条件对一般凸函数不满足
+
+    事实上需要证明梯度的和 $\sum_{t=1}^T|g_t|^2=O(\sqrt T\log T)$, 即可证明 $R(T)$ 收敛 -->
+
+<h2 id="rmsprop">RMSProp</h2>
+<p>为了使得 AdaGrad 在非凸场景下效果更好, 将学习率改成指数级衰减</p>
+<p>在非凸场景下, 函数可能在某些邻域内形成一个局部凸壳</p>
+<p>AdaGrad 由于考虑了整体的 history, 可能在没到达局部凸壳之前经过了一段梯度很大的坡, 导致学习率衰减变得很小</p>
+<p>RMSProp 的指数级衰减让学习率能够遗忘过远的 history</p>
+<p>给定学习率衰减速率 <span class="arithmatex">\(\rho\)</span>, 更新规则为:</p>
+<div class="arithmatex">\[g\leftarrow \frac 1m \nabla_\theta\sum_{i=1}^mL[f(x^{(i)};\theta), y^{(i)}]\]</div>
+<div class="arithmatex">\[r \leftarrow \rho r + (1-\rho) g\cdot g\]</div>
+<div class="arithmatex">\[\Delta \theta \leftarrow -\frac{\epsilon}{\sqrt{\delta + r} } \cdot g\]</div>
+<div class="arithmatex">\[\theta \leftarrow \theta + \Delta\theta\]</div>
+<p>可以看到与 AdaGrad 区别在 <span class="arithmatex">\(r\)</span> 和 <span class="arithmatex">\(\frac 1 {\sqrt{\delta + r} }\)</span> 上</p>
+<p>还有一个带 Nesterov Momentum 的 RMSProp:</p>
+<div class="arithmatex">\[\tilde \theta \leftarrow \theta+\alpha v\]</div>
+<div class="arithmatex">\[g\leftarrow \frac 1m \nabla_{\tilde \theta}\sum_{i=1}^mL[f(x^{(i)};\tilde \theta), y^{(i)}]\]</div>
+<div class="arithmatex">\[r \leftarrow \rho r + (1-\rho) g\cdot g\]</div>
+<div class="arithmatex">\[v \leftarrow \alpha v-\frac{\epsilon}{\sqrt{r} } \cdot g\]</div>
+<div class="arithmatex">\[\theta \leftarrow \theta + \Delta\theta\]</div>
+<h2 id="adam">Adam</h2>
+<h3 id="algorithm">algorithm</h3>
+<p><img alt="alt text" src="../Adam.png"></p>
+<p>可以看作 RMSProp 与 Momentum 的一个结合, 只不过与上面的 Nesterov Momentum 版本有区别</p>
+<p>给定几个参数 <span class="arithmatex">\(\rho_1=0.9,\rho_2=0.999,\epsilon=0.001,\delta=10^{-8}\)</span></p>
+<p>迭代公式为:</p>
+<div class="arithmatex">\[g\leftarrow \frac 1m \nabla_\theta\sum_{i=1}^mL[f(x^{(i)};\theta), y^{(i)}]\]</div>
+<div class="arithmatex">\[\text{biased first moment estimate: }s \leftarrow \rho_1 s + (1-\rho_1) g\]</div>
+<div class="arithmatex">\[\text{biased second moment estimate: }r \leftarrow \rho_2 r + (1-\rho_2) g \cdot g\]</div>
+<div class="arithmatex">\[\text{correct bias in first moment: } \hat s\leftarrow \frac{s}{1-\rho_1^t}\]</div>
+<div class="arithmatex">\[\text{correct bias in second moment: } \hat r\leftarrow \frac{r}{1-\rho_2^t}\]</div>
+<div class="arithmatex">\[\Delta \theta \leftarrow -\epsilon\frac{\hat s}{\delta+\sqrt{ \hat r} }\]</div>
+<div class="arithmatex">\[\theta \leftarrow \theta + \Delta\theta\]</div>
+<h3 id="initialization-bias-correction">initialization bias correction</h3>
+<p>对于 <span class="arithmatex">\(v_t\)</span> 有</p>
+<div class="arithmatex">\[v_t=(1-\beta_2)\sum_{i=1}^t\beta_2^{t-i}\cdot g_i^2\]</div>
+<p>求一阶矩 <span class="arithmatex">\(\mathbb E[v_t]\)</span> 与梯度二阶矩 <span class="arithmatex">\(\mathbb E[g_t^2]\)</span> 的关系</p>
+<div class="arithmatex">\[\mathbb E[v_t]=\mathbb E[(1-\beta_2)\sum_{i=1}^t\beta_2^{t-i}\cdot g_i^2]\]</div>
+<div class="arithmatex">\[=\mathbb E[g_t^2]\cdot (1-\beta_2)\sum_{i=1}^t\beta_2^{t-i} + \zeta\]</div>
+<div class="arithmatex">\[=\mathbb E[g_t^2]\cdot (1-\beta_2^t) + \zeta\]</div>
+<p>其中当 <span class="arithmatex">\(\mathbb E[g_i^2]\)</span> 不变时, <span class="arithmatex">\(\zeta=0\)</span></p>
+<p>否则 <span class="arithmatex">\(\zeta\)</span> 会是一个很小的值, 因为可以合理选择 <span class="arithmatex">\(\beta_2\in[0,1)\)</span> 使得 <span class="arithmatex">\(v_t\)</span> 被更远的梯度影响很小, 所以 <span class="arithmatex">\(\mathbb E[g_i^2]\)</span> 更接近 <span class="arithmatex">\(\mathbb E[g_t^2]\)</span></p>
+<h3 id="convergence">convergence</h3>
+<blockquote>
+<p>Lemma 1 凸函数性质</p>
+<div class="arithmatex">\[\lambda f(x)+(1-\lambda) f(y)\geq f(\lambda x + (1-\lambda y))\]</div>
+<p>Lemma 2 凸函数性质, 另一种表达</p>
+<div class="arithmatex">\[f(y)\geq f(x)+\nabla f(x)^T(y-x)\]</div>
+<p>Lemma 3</p>
+<p>令 <span class="arithmatex">\(g_t=\nabla f_t(\theta_t)\)</span>, <span class="arithmatex">\(||g_t||_2\leq G\)</span>, <span class="arithmatex">\(||g_t||_\infty\leq G_\infty\)</span>, <span class="arithmatex">\(g_{1:t,i}=[g_{1,i},\cdots,g_{t,i}]\)</span>, 那么</p>
+<div class="arithmatex">\[\sum_{t=1}^T\sqrt{\frac{g_{t,i}^2}{t} }\leq 2G_\infty||g_{1:T,i}||_2\]</div>
+</blockquote>
+<!-- $\underline{证明}$ -->
+
+<!-- 归纳法
+
+对于 $T=1$ 成立
+
+对于第 $T$ 步, 把第 $T$ 项拆出来, 对前 $T-1$ 项归纳
+
+$$\sum_{t=1}^T\sqrt{\frac{g_{t,i}^2}{t} }=\sum_{t=1}^{T-1}\sqrt{\frac{g_{t,i}^2}{t} }+\sqrt{\frac{g_{T,i}^2}{T} }$$
+
+$$\leq 2G_\infty||g_{1:{T-1},i}||_2+\sqrt{\frac{g_{T,i}^2}{T} }$$
+
+$$=2G_\infty\sqrt{||g_{1:{T},i}||_2^2-g_{T,i}^2}+\sqrt{\frac{g_{T,i}^2}{T} }$$
+
+里面的平方相减配凑成平方: 
+
+$$\sqrt{||g_{1:{T},i}||_2^2-g_{T,i}^2}\leq \sqrt{||g_{1:{T},i}||_2^2-g_{T,i}^2+\frac{g_{T,i}^4}{4||g_{1:{T},i}||_2^2} }$$
+
+$$=||g_{1:{T},i}||_2-\frac{g_{T,i}^2}{2||g_{1:{T},i}||_2}$$
+
+$$\leq ||g_{1:{T},i}||_2-\frac{g_{T,i}^2}{2\sqrt{TG_\infty^2} }$$
+
+两边同乘 $G_\infty$ 有
+
+$$2G_\infty \sqrt{||g_{1:{T},i}||_2^2-g_{T,i}^2}\leq 2G_\infty ||g_{1:{T},i}||_2-\frac{g_{T,i}^2}{\sqrt{T} }\leq 2G_\infty ||g_{1:{T},i}||_2-\sqrt{\frac{g_{T,i}^2}{T} }$$
+
+代回原式有引理成立
+
+$\blacksquare$ -->
+
+<!-- 不加证明地给出另一个引理: -->
+
+<blockquote>
+<p>Lemma 4</p>
+<p>令 <span class="arithmatex">\(\gamma=\frac{\beta_1^2}{\sqrt{\beta_2} }&lt;1\)</span>, 且 <span class="arithmatex">\(||g_t||_2&lt;G\)</span>, <span class="arithmatex">\(||g_t||_\infty&lt;G_\infty\)</span>, 那么</p>
+<div class="arithmatex">\[\sum_{t=1}^T\frac{\hat m_{t,i}^2 }{\sqrt{t\hat v_{t,i} } }\leq \frac{2}{1-\gamma}\frac{1}{\sqrt{1-\beta_2} }||g_{1:T,i}||_2\]</div>
+</blockquote>
+<p>我们假设 <span class="arithmatex">\(\alpha_t\)</span> 随着时间呈 <span class="arithmatex">\(t^{-1/2}\)</span> 速率衰减, <span class="arithmatex">\(\beta_{1,t}\)</span> 随着时间呈 <span class="arithmatex">\(\lambda^t\)</span> 速率衰减, <span class="arithmatex">\(\lambda=1-10^{-8}\)</span></p>
+<p>同时参数间的距离有界, 即 <span class="arithmatex">\(||\theta_n-\theta_m||_2\leq D, ||\theta_n-\theta_m||_\infty\leq D_\infty\)</span> 对于任意 <span class="arithmatex">\(m,n\in \set{1, \cdots, T}\)</span> 成立</p>
+<p>那么</p>
+<blockquote>
+<p>Theorem 5</p>
+<p>假设 <span class="arithmatex">\(\alpha_t=\frac{\alpha}{\sqrt t}\)</span>, <span class="arithmatex">\(\beta_{1,t}=\lambda^{t-1}\)</span>, 且 <span class="arithmatex">\(\gamma&lt;1\)</span>, 那么</p>
+<div class="arithmatex">\[R(T)\leq \frac{D^2}{2\alpha(1-\beta_1)}\sum_{i=1}^d\sqrt{T\hat v_{T,i} }\]</div>
+<div class="arithmatex">\[+\frac{\alpha(1+\beta_1)G_\infty}{(1-\beta_1)\sqrt{1-\beta_2} (1-\gamma)^2}\sum_{i=1}^d||g_{1:T,i}||_2\]</div>
+<div class="arithmatex">\[+\sum_{i=1}^d\frac{D^2_\infty G_\infty\sqrt{1-\beta_2} }{2\alpha(1-\beta_1)(1-\lambda)^2}\]</div>
+</blockquote>
+<!-- $\underline{证明}$ -->
+
+<!-- 具体推到略, 得到的结果是
+
+$$R(T)\leq \sum_{i=1}^d\sum_{t=1}^T g_{t,i}(\theta_{t,i}-\theta^{* }_i)$$
+
+$$\leq \sum_{i=1}^d\sum_{t=1}^T\frac{1}{2\alpha_t(1-\beta_1)}[(\theta_{t,i}-\theta^{* }_i )^2-(\theta_{t+1,i}-\theta^{* }_i )^2]\sqrt{\hat v_{t,i} }\tag{4.1}$$
+
+$$+\sum_{i=1}^d\sum_{t=1}^T\frac{\beta_{1,t} }{2\alpha_{t-1}(1-\beta_{1,t}) }(\theta^{* }_i-\theta_{t,i})^2\sqrt{\hat v_{t-1,i} }\tag{4.2}$$
+
+$$+\sum_{i=1}^d\sum_{t=1}^T\frac{\beta_1\alpha_{t-1} }{2(1-\beta_1)}\frac{m_{t-1,i}^2}{\sqrt{\hat v_{t-1,i} } }\tag{4.3}$$
+
+$$+\sum_{i=1}^d\sum_{t=1}^T\frac{\alpha_t}{2(1-\beta_{1})}\frac{\hat m_{t,i}^2 }{\sqrt{\hat v_{t,i} } }\tag{4.4}$$
+
+对于 $(4.1)$, 错位相减得到
+
+$$=\sum_{i=1}^d\frac{1}{2\alpha_1(1-\beta_1)}(\theta_{1,i}-\theta^{* }_i )^2\sqrt{\hat v_{1,i} }+\sum_{i=1}^d\sum_{t=2}^T\frac{1}{2(1-\beta_1)}(\theta_{t,i}-\theta^{* }_i )^2[\frac{\sqrt{\hat v_{t,i} } }{\alpha_t}-\frac{\sqrt{\hat v_{t-1,i} } }{\alpha_{t-1} }]$$
+
+参数之差放缩到 $D$, 有
+
+$$\leq\sum_{i=1}^d\frac{1}{2\alpha_1(1-\beta_1)}D^2\sqrt{\hat v_{1,i} }+\sum_{i=1}^d\sum_{t=2}^T\frac{1}{2(1-\beta_1)}D^2[\frac{\sqrt{\hat v_{t,i} } }{\alpha_t}-\frac{\sqrt{\hat v_{t-1,i} } }{\alpha_{t-1} }]$$
+
+
+$$=\frac{D^2}{2\alpha(1-\beta_1)}\sum_{i=1}^d\sqrt{T\hat v_{T,i} }\tag{5.1}$$
+
+与 $(3.1)$ 对应
+
+对于 $(4.3),(4.4)$, 应用引理 4:
+
+$$\leq \frac{\alpha G_\infty}{(1-\beta_1)\sqrt{1-\beta_2} (1-\gamma)^2}\sum_{i=1}^d||g_{1:T,i}||_2+\frac{\alpha \beta_1G_\infty}{(1-\beta_1)\sqrt{1-\beta_2} (1-\gamma)^2}\sum_{i=1}^d||g_{1:T,i}||_2$$
+
+
+$$=\frac{\alpha(1+\beta_1)G_\infty}{(1-\beta_1)\sqrt{1-\beta_2} (1-\gamma)^2}\sum_{i=1}^d||g_{1:T,i}||_2\tag{5.2}$$
+
+与 $(3.2)$ 对应
+
+对于 $(4.2)$, 用 $D_\infty$ 放缩:
+
+$$\leq \frac{D_\infty^2}{2\alpha}\sum_{i=1}^d\sum_{t=1}^T\frac{\beta_{1,t} }{1-\beta_{1,t} }\sqrt{t\hat v_{t,i} }$$
+
+$$\leq \frac{D_\infty^2G_\infty\sqrt{1-\beta_2} }{2\alpha}\sum_{i=1}^d\sum_{t=1}^T\frac{\beta_{1,t} }{1-\beta_{1,t} }\sqrt{t}$$
+
+由于
+
+$$\sum_{t=1}^T\frac{\beta_{1,t} }{1-\beta_{1,t} }\sqrt{t}\leq \sum_{t=1}^T\frac{\beta_{1} }{1-\beta_{1} }\sqrt{t}\lambda^{t-1}$$
+
+
+$$\leq \sum_{t=1}^T\frac{1 }{1-\beta_{1} }t\lambda^{t-1}$$
+
+$$\leq \frac{1}{(1-\beta_1)(1-\lambda)^2}$$
+
+所以原式有
+
+$$\leq \sum_{i=1}^d\frac{D^2_\infty G_\infty\sqrt{1-\beta_2} }{2\alpha(1-\beta_1)(1-\lambda)^2}\tag{5.3}$$
+
+与 $(3.3)$ 对应
+
+所以成立
+
+$\blacksquare$ -->
+
+<p>这是原文给出的定理, 可惜他是错的</p>
+<h3 id="non-convergence">non-convergence</h3>
+<p>具体见 <a href="https://akonjac0.github.io/2025/05/24/Adam/">blog</a></p>
+<h2 id="amsgrad">AMSGrad</h2>
+<p><img alt="alt text" src="../image-14.png"></p>
+<p>可以看到与 Adam 的区别就是 <span class="arithmatex">\(\hat v_t\)</span> 与过去取了一个最大值</p>
+<p>在 Adam 中, 由于 <span class="arithmatex">\(v_{t,i}=\beta_2v_{t-1,i}+(1-\beta_2)g_{t,i}^2\)</span></p>
+<p>所以当 <span class="arithmatex">\(v_{t-1,i}&gt;g_{t,i}^2&gt;0\)</span> 时 <span class="arithmatex">\(v_{t,i}&lt;v_{t-1,i}\)</span></p>
+<p>那么学习率可能会增大</p>
+<p>但是 AMSGrad 取最大值可以保证 <span class="arithmatex">\(\frac{\sqrt{\hat v_t,i} }{\alpha_t}\)</span> 单调不减, 那么学习率就是单调不增的</p>
+<h3 id="convergence_1">convergence</h3>
+<p>&lt;!-- &gt; Theorem 1</p>
+<blockquote>
+<p>对于 <span class="arithmatex">\(\alpha_t=\alpha/\sqrt t\)</span>, <span class="arithmatex">\(\beta_{1,t}\leq \beta_1\)</span> 以及 <span class="arithmatex">\(\gamma = \beta_1/\sqrt \beta_2&lt;1\)</span></p>
+<p>且梯度与参数距离有界</p>
+<p>那么</p>
+<div class="arithmatex">\[R(T)\leq \frac{D_{\infty}^2\sqrt T}{\alpha(1-\beta_1)}\sum_{i=1}^d\hat v_{T,i}^{1/2}\tag{1.1}\]</div>
+<div class="arithmatex">\[+\frac{D_\infty^2}{(1-\beta_1)^2}\sum_{t=1}^T\sum_{i=1}^d\frac{\beta_{1,t}\hat v_{t,i}^{1/2} }{\alpha_t}\tag{1.3}\]</div>
+<div class="arithmatex">\[+\frac{\alpha\sqrt{1+\log T} }{(1-\beta_1)^2(1-\gamma)\sqrt{1-\beta_2} }\sum_{i=1}^d||g_{1:T,i}||_2\tag{1.2}\]</div>
+</blockquote>
+<p><span class="arithmatex">\(\underline{证明}\)</span></p>
+<p>按照 <a href="https://akonjac0.github.io/2025/05/27/Online%20Convex%20Programming/">Online Convex Programming</a> 的统一分析方法来做</p>
+<p>还是先把 <span class="arithmatex">\(x_{t+1}\)</span> 按更新规则展开</p>
+<div class="arithmatex">\[x_{t+1}=\Pi_{\mathcal F, \sqrt {\hat V_t} }(x_t-\alpha_t \hat V_t^{-1/2}m_t)=\text{argmin}_{x\in \mathcal F}||\hat V_t^{1/4}(x-(x_t-\alpha_t\hat V_t^{-1/2}m_t))||\]</div>
+<p>所以把 <span class="arithmatex">\(||\hat V_t^{1/4}(x_{t+1}-x^{* })||^2\)</span> 展开</p>
+<div class="arithmatex">\[||\hat V_t^{1/4}(x_{t+1}-x^{* })||^2\leq ||\hat V_t^{1/4}(x_{t}-x^{* })||^2+\alpha_t^2||\hat V_t^{-1/4}m_t||^2-2\alpha_t\braket{m_t,x_t-x^{* } }\]</div>
+<div class="arithmatex">\[=||\hat V_t^{1/4}x_{t}-x^{* }||^2+\alpha_t^2||\hat V_t^{-1/4}m_t||^2-2\alpha_t\braket{\beta_{1,t}m_{t-1}+(1-\beta_{1,t})g_t,x_t-x^{* } }\]</div>
+<p>所以整理得到</p>
+<div class="arithmatex">\[\sum_{t=1}^T\braket{g_t, x_t-x^{* } }\leq \sum_{t=1}^T\frac{1}{2\alpha_t(1-\beta_{1,t})}[||\hat V_t^{1/4}(x_t-x^{* })||^2-||\hat V_t^{1/4}(x_{t+1}-x^{* })||^2]\tag{2.1}\]</div>
+<div class="arithmatex">\[+\sum_{t=1}^T\frac{\alpha_t}{2(1-\beta_{1,t})}||\hat  V_t^{-1/4}m_t||^2\tag{2.2}\]</div>
+<div class="arithmatex">\[+\sum_{t=1}^T\frac{\beta_{1,t} }{2(1-\beta_{1,t})}\alpha_t||\hat V_t^{-1/4}m_{t-1}||^2\tag{2.2'}\]</div>
+<div class="arithmatex">\[+\sum_{t=1}^T\frac{\beta_{1,t} }{2\alpha_t(1-\beta_{1,t})}||\hat V_t^{1/4}(x_t-x^{* } )||^2\tag{2.3}\]</div>
+<p>后一项用了 <span class="arithmatex">\(\braket{a,b}\leq ||a||\cdot ||b||\)</span> 与 <span class="arithmatex">\(ab\leq (a^2+b^2)/2\)</span> 把 <span class="arithmatex">\(\frac{\beta_{1,t} }{1-\beta_{1,t}}\braket{m_{t-1},x_t-x^{* } }\)</span> 展开成 <span class="arithmatex">\((6.2'),(6.3)\)</span></p>
+<p>(<span class="arithmatex">\(\alpha_t\)</span> 是凑进去的)</p>
+<p>其实是柯西不等式和杨氏不等式</p>
+<p>那么由于 <span class="arithmatex">\(\hat v_{t,i}\geq \hat v_{t-1,i}\)</span></p>
+<p>所以中间两项合并变成</p>
+<div class="arithmatex">\[(2.2')+(2.3)\leq \sum_{t=1}^T\frac{\alpha_t}{1-\beta_1}||\hat V_t ^{-1/4}m_t||^2\tag{2.2''}\]</div>
+<blockquote>
+<p>Lemma 2</p>
+<div class="arithmatex">\[\sum_{t=1}^T\alpha_t||\hat V_t ^{-1/4}m_t||^2\leq \frac{\alpha\sqrt{1+\log T} }{(1-\beta_1)(1-\gamma)\sqrt{1-\beta_2} }\sum_{i=1}^d||g_{1:T,i}||_2\]</div>
+</blockquote>
+<p><span class="arithmatex">\(\underline{证明}\)</span></p>
+<p>将求和最后一项按照更新规则展开</p>
+<div class="arithmatex">\[\sum_{t=1}^T\alpha_t||\hat V_t ^{-1/4}m_t||^2=\sum_{t=1}^{T-1}\alpha_t||\hat V_t ^{-1/4}m_t||^2+\alpha\sum_{i=1}^d\frac{(\sum_{j=1}^T(1-\beta_{1,j})[\prod_{k=1}^{T-j}\beta_{1,T-k+1}]g_{j,i} )^2}{\sqrt{T\sum_{j=1}^T(1-\beta_2)\beta_2^{T-j}g_{j,i}^2 } }\]</div>
+<div class="arithmatex">\[=\sum_{t=1}^{T-1}\alpha_t||\hat V_t ^{-1/4}m_t||^2+\alpha\sum_{i=1}^d\frac{(\sum_{j=1}^T\prod_{k=1}^{T-j}\beta_{1,T-k+1} )\cdot (\sum_{j=1}^T\prod_{k=1}^{T-j}\beta_{1,T-k+1}g_{j,i}^2 )}{\sqrt{T\sum_{j=1}^T(1-\beta_2)\beta_2^{T-j}g_{j,i}^2 } }\]</div>
+<div class="arithmatex">\[\leq \sum_{t=1}^{T-1}\alpha_t||\hat V_t ^{-1/4}m_t||^2+\alpha\sum_{i=1}^d\frac{(\sum_{j=1}^T\beta_1^{T-j})\cdot (\sum_{j=1}^T\beta_1^{T-j}g_{j,i}^2)}{\sqrt{T\sum_{j=1}^T(1-\beta_2)\beta_2^{T-j}g_{j,i}^2 } }\]</div>
+<div class="arithmatex">\[= \sum_{t=1}^{T-1}\alpha_t||\hat V_t ^{-1/4}m_t||^2+\frac{\alpha}{(1-\beta_1)\sqrt{T(1-\beta_2)} }\sum_{i=1}^d\sum_{t=1}^T\frac{\beta_1^{T-j}g_{j,i}^2}{ \sqrt{\beta_2^{T-j}g_{j,i}^2 } }\]</div>
+<div class="arithmatex">\[= \sum_{t=1}^{T-1}\alpha_t||\hat V_t ^{-1/4}m_t||^2+\frac{\alpha}{(1-\beta_1)\sqrt{T(1-\beta_2)} }\sum_{i=1}^d\sum_{j=1}^T\gamma^{T-j} |g_{j,i}|\]</div>
+<p>依次把所有的项都展开</p>
+<div class="arithmatex">\[= \sum_{t=1}^T\frac{\alpha}{(1-\beta_1)\sqrt{t(1-\beta_2)} }\sum_{i=1}^d\sum_{j=1}^t\gamma^{t-j} |g_{j,i}|\]</div>
+<p>常数提出来:</p>
+<div class="arithmatex">\[= \frac{\alpha}{(1-\beta_1)\sqrt{(1-\beta_2)} }\sum_{i=1}^d\sum_{t=1}^T\frac1{\sqrt t}\sum_{j=1}^t\gamma^{t-j} |g_{j,i}|\]</div>
+<p>对于 <span class="arithmatex">\(\sum_{t=1}^T\frac1{\sqrt t}\sum_{j=1}^t\gamma^{t-j} |g_{j,i}|\)</span>, 换顺序求和:     </p>
+<div class="arithmatex">\[=\sum_{t=1}^T|g_{t,i}|\sum_{j=t}^T\frac{\gamma^{j-t} }{\sqrt j}\]</div>
+<div class="arithmatex">\[\leq\sum_{t=1}^T|g_{t,i}|\sum_{j=t}^T\frac{\gamma^{j-t} }{\sqrt t}\]</div>
+<div class="arithmatex">\[\leq\sum_{t=1}^T|g_{t,i}|\frac{1}{(1-\gamma)\sqrt t}\]</div>
+<p>所以原式</p>
+<div class="arithmatex">\[\leq\frac{\alpha}{(1-\beta_1)\sqrt{(1-\beta_2)} }\sum_{i=1}^d\sum_{t=1}^T|g_{t,i}|\frac{1}{(1-\gamma)\sqrt t}\]</div>
+<p>对于每个 <span class="arithmatex">\(|g_{t,i}|\)</span>, 将 <span class="arithmatex">\(\frac 1{\sqrt t}\)</span> 放缩到 <span class="arithmatex">\(\sqrt{\sum_{t=1}^T\frac{1}{t} }\)</span>:</p>
+<div class="arithmatex">\[ \leq\frac{\alpha}{(1-\beta_1)(1-\gamma)\sqrt{(1-\beta_2)} }\sqrt{\sum_{t=1}^T\frac{1}{t} }\sum_{i=1}^d\sum_{t=1}^T|g_{t,i}|\]</div>
+<div class="arithmatex">\[= \frac{\alpha}{(1-\beta_1)(1-\gamma)\sqrt{(1-\beta_2)} }\sqrt{\sum_{t=1}^T\frac{1}{t} }\sum_{i=1}^d||g_{1:T,i}||_2\]</div>
+<p>并且 <span class="arithmatex">\(\sqrt{\sum_{t=1}^T\frac{1}{t} }\leq \sqrt{1+\int_{1}^T[1/t]\text dt}\leq \sqrt{1+\log T}\)</span></p>
+<p>所以成立</p>
+<p><span class="arithmatex">\(\blacksquare\)</span></p>
+<p>这个引理的最后一步实际对应了 Adam 的引理 3, 只不过把 <span class="arithmatex">\(G_\infty\)</span> 换成了 <span class="arithmatex">\(\sqrt{1+\log T}\)</span></p>
+<hr>
+<p>回到定理, 对于 <span class="arithmatex">\((2.1)\)</span>, 错位相减得到</p>
+<div class="arithmatex">\[\sum_{t=1}^T\frac{1}{2\alpha_t(1-\beta_{1,t})}[||\hat V_t^{1/4}(x_t-x^{* })||^2-||\hat V_t^{1/4}(x_{t+1}-x^{* })||^2]\]</div>
+<div class="arithmatex">\[\leq \frac{1}{2\alpha_1(1-\beta_{1})}||\hat V_1^{1/4}(x_1-x^{* })||^2+\sum_{t=2}^T\frac{1}{2(1-\beta_1)}[\frac{||\hat V_t^{1/4}(x_t-x^{* })||^2}{\alpha_t}-\frac{||\hat V_{t-1}^{1/4}(x_t-x^{* })||^2}{\alpha_{t-1} }]\]</div>
+<p>这里 <span class="arithmatex">\(\hat v_{T,i}^{1/2}=||\hat V_{T,i}^{1/4}||^2\)</span> 展开:</p>
+<div class="arithmatex">\[=\sum_{i=1}^d\frac{1}{2\alpha_1(1-\beta_{1})}\hat v_{1,i}^{1/2}(x_{1,i}-x^{* }_i)^2+\sum_{i=1}^d\sum_{t=2}^T\frac{1}{2(1-\beta_1)}(x_{t,i}-x^{* }_i)^2[\frac{\hat v_{t,i}^{1/2} }{\alpha_t}-\frac{\hat v_{t-1,i}^{1/2} }{\alpha_{t-1} }]\]</div>
+<p>参数之差放缩到 <span class="arithmatex">\(D_\infty\)</span>, 有</p>
+<div class="arithmatex">\[\leq\sum_{i=1}^d\frac{1}{2\alpha_1(1-\beta_{1})}\hat v_{1,i}^{1/2}D_\infty^2+\sum_{i=1}^d\sum_{t=2}^T\frac{1}{2(1-\beta_1)}D_\infty^2[\frac{\hat v_{t,i}^{1/2} }{\alpha_t}-\frac{\hat v_{t-1,i}^{1/2} }{\alpha_{t-1} }]\]</div>
+<div class="arithmatex">\[=\frac{D_\infty^2}{2\alpha_T(1-\beta_1)}\sum_{i=1}^d\hat v_{T,i}^{1/2}\]</div>
+<p>即</p>
+<div class="arithmatex">\[(2.1)\leq \frac{D_\infty^2\sqrt T}{2\alpha(1-\beta_1)}\sum_{i=1}^d\hat v_{T,i}^{1/2}\]</div>
+<p>与 <span class="arithmatex">\((1.1)\)</span> 对应</p>
+<p>对于 <span class="arithmatex">\((2.3)\)</span>, 由于 </p>
+<div class="arithmatex">\[\frac{1}{1-\beta_{1,t} }\leq \frac{1}{1-\beta_{1} }\leq \frac{1}{(1-\beta_{1})^2 }\]</div>
+<p>所以</p>
+<div class="arithmatex">\[(2.3)\leq \frac{1}{(1-\beta_1)^2}\sum_{t=1}^T\sum_{i=1}^d\frac{\beta_{1,t} (x_{t,i}-x^{*}_i )^2\hat v_{t,i}^{1/2} }{\alpha_t}\]</div>
+<div class="arithmatex">\[\leq \frac{D_\infty^2}{(1-\beta_1)^2}\sum_{t=1}^T\sum_{i=1}^d\frac{\beta_{1,t} \hat v_{t,i}^{1/2} }{\alpha_t}\]</div>
+<p>与 <span class="arithmatex">\((1.3)\)</span> 对应</p>
+<p><span class="arithmatex">\(\blacksquare\)</span></p>
+<blockquote>
+<p>Corollary 1</p>
+<p>如果 <span class="arithmatex">\(\beta_{1,t}=\beta_1\lambda^{t-1}\)</span>, 那么</p>
+<div class="arithmatex">\[R(T)\leq \frac{D_{\infty}^2\sqrt T}{\alpha(1-\beta_1)}\sum_{i=1}^d\hat v_{T,i}^{1/2}+\frac{\beta_1D_\infty^2G_\infty}{(1-\beta_1)^2(1-\lambda)^2}+\frac{\alpha\sqrt{1+\log T} }{(1-\beta_1)^2(1-\gamma)\sqrt{1-\beta_2} }\sum_{i=1}^d||g_{1:T,i}||_2\]</div>
+</blockquote>
+<p><span class="arithmatex">\(\underline{证明}\)</span></p>
+<p>由于 <span class="arithmatex">\(\hat v_{t,i}^{1/2}\leq G_\infty\)</span></p>
+<div class="arithmatex">\[(3.3)\leq \frac{D_\infty^2G_\infty}{(1-\beta_1)^2}\sum_{t=1}^T\sum_{i=1}^d\frac{\beta_{1,t}\sqrt t }{\alpha}\]</div>
+<p>由于</p>
+<div class="arithmatex">\[\sum_{t=1}^T\beta_{1,t} \sqrt{t}= \sum_{t=1}^T\beta_{1} \sqrt{t}\lambda^{t-1}\]</div>
+<div class="arithmatex">\[\leq \beta_1\sum_{t=1}^Tt\lambda^{t-1}\]</div>
+<div class="arithmatex">\[\leq \frac{\beta_1}{(1-\lambda)^2}\]</div>
+<p>所以原式有</p>
+<div class="arithmatex">\[\leq \frac{\beta_1D^2_\infty G_\infty }{2\alpha(1-\beta_1)^2(1-\lambda)^2}\]</div>
+<p>下面的 <span class="arithmatex">\(\alpha\)</span> 也是常数, 不用在意</p>
+<p><span class="arithmatex">\(\blacksquare\)</span> --&gt;</p>
+<p>具体见 <a href="https://akonjac0.github.io/2025/05/24/Adam%20and%20AMSGrad/">Adam and AMSGrad</a></p>
+<h2 id="summary">summary</h2>
+<p>定义几个符号:</p>
+<p><span class="arithmatex">\(\mathcal F\)</span> 表示参数空间</p>
+<p><span class="arithmatex">\(S^d_{+ }\)</span> 表示正定的 <span class="arithmatex">\(d\times d\)</span> 矩阵空间</p>
+<p><span class="arithmatex">\(\Pi_{\mathcal F, A}(y)=\text{argmin}_{x\in \mathcal F}||A^{1/2}(x-y)||,y\in \mathbb R^d, A\in S^d_{+ }\)</span> 投影操作表示在以 <span class="arithmatex">\(\sqrt V_t\)</span> 为缩放比例缩放后的 <span class="arithmatex">\(\mathcal F\)</span> 空间内找出一个与目标参数 <span class="arithmatex">\(y\)</span> 最相近的</p>
+<p>那么平均函数 <span class="arithmatex">\(\phi_t:\mathcal F^t\to \mathbb R^d\)</span></p>
+<p>方差函数 <span class="arithmatex">\(\psi_t:\mathcal F^t\to S^d_{+ }\)</span></p>
+<p>那么统一的自适应算法为:</p>
+<p><img alt="alt text" src="../image-15.png"></p>
+<p>这里 <span class="arithmatex">\(V_t=\text{diag}(v_t)\)</span>, 指的是把 <span class="arithmatex">\(v_t\in\mathbb R^d\)</span> 向量的每个元素放到 <span class="arithmatex">\(V_t\in S^d_{+ }\)</span> 矩阵的对角线上, 目的是与 <span class="arithmatex">\(m_t\)</span> 做逐元素 (element-wise) 的除法, 即 <span class="arithmatex">\(m_{t,i} \times  V^{-1}_{t,i,i},i=\set{1,\cdots,d}\)</span> </p>
+<p>如果特定了 <span class="arithmatex">\(\alpha_t=\alpha/\sqrt t\)</span>:</p>
+<p><img alt="alt text" src="../image-11.png"></p>
+<p>所有算法的 <span class="arithmatex">\(\phi_t,\psi_t\)</span> 可以整理到表格里:</p>
+<p><img alt="alt text" src="../image-10.png"></p>
+<p>其中 SGD 的 <span class="arithmatex">\(\psi_t=\mathbb I\)</span> 是恒等变换</p>
+<p>Adam 的 <span class="arithmatex">\(\alpha_t\)</span> 是 <span class="arithmatex">\(\alpha\cdot\sqrt{1-\beta_2^t}/(1-\beta_1^t)\)</span></p>
+<h1 id="second-order-optimizer">second order optimizer</h1>
+<p>下面补充几个二阶的方法</p>
+<h2 id="newtons-method">Newton's method</h2>
+<p>就是牛顿迭代法</p>
+<p>我们考虑误差函数</p>
+<div class="arithmatex">\[J(\theta)=\frac{1}{m}\sum_{i=1}^mL[f(x^{(i)};\theta), y^{(i)}]\]</div>
+<p>利用泰勒展开:</p>
+<div class="arithmatex">\[J(\theta)=J(\theta_0)+(\theta-\theta_0)^T\nabla_\theta J(\theta_0)+\frac 12(\theta-\theta_0)^TH(\theta-\theta_0)\]</div>
+<div class="arithmatex">\[=J(\theta_0)+(\theta-\theta_0)^Tg+\frac 12(\theta-\theta_0)^TH\]</div>
+<p><span class="arithmatex">\(H\)</span> 是黑塞矩阵, 即二阶导</p>
+<p>那么由优化版的二阶牛顿迭代法, 我们更新的步长为:</p>
+<div class="arithmatex">\[\Delta\theta=-H^{-1}g\]</div>
+<p>算法迭代公式为:</p>
+<div class="arithmatex">\[g\leftarrow \frac{1}{m}\nabla_\theta\sum_{i=1}^mL[f(x^{(i)};\theta), y^{(i)}]\]</div>
+<div class="arithmatex">\[H\leftarrow \frac{1}{m}\nabla_\theta^2\sum_{i=1}^mL[f(x^{(i)};\theta), y^{(i)}]\]</div>
+<div class="arithmatex">\[\Delta\theta\leftarrow H^{-1}g\]</div>
+<div class="arithmatex">\[\theta \leftarrow \theta+\Delta\theta\]</div>
+<h2 id="conjugate-gredient-method">conjugate gredient method</h2>
+<h2 id="bfgs">BFGS</h2>
+<p>这俩不具体介绍了, 具体见 <a href="#j3">Deep Learning 的第 8 章</a></p>
+<hr>
+<p>参考:</p>
+<ol>
+<li><a id="j3"></a><a href="https://www.deeplearningbook.org/">Deep Learning (Ian Goodfellow and Yoshua Bengio and Aaron Courville)</a></li>
+<li><a href="https://arxiv.org/pdf/1902.09843">ADAPTIVE GRADIENT METHODS WITH DYNAMIC
+BOUND OF LEARNING RATE</a></li>
+<li><a href="https://web.stanford.edu/~jduchi/projects/DuchiHaSi10_colt.pdf">Adaptive Subgradient Methods for
+Online Learning and Stochastic Optimization</a></li>
+<li><a href="https://arxiv.org/pdf/1412.6980">ADAM: A METHOD FOR STOCHASTIC OPTIMIZATION
+</a></li>
+<li><a href="https://arxiv.org/pdf/1412.6980">ON THE CONVERGENCE OF ADAM AND BEYOND</a></li>
+<li><a href="https://people.eecs.berkeley.edu/~brecht/cs294docs/week1/03.Zinkevich.pdf">Online Convex Programming
+and Generalized Infinitesimal Gradient Ascent</a></li>
+</ol></div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2025 - 2077 AKonjac_
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs"], "search": "../../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.60a45f97.min.js"></script>
+      
+        <script src="../../../javascripts/katex.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
+      
+    
+  </body>
+</html>

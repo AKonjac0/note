@@ -4396,6 +4396,7 @@
 <div class="arithmatex">\[L(\theta|A)=P(A|\theta)\]</div>
 <p>尽管 <span class="arithmatex">\(\theta\)</span> 是参数, 可能写成条件概率的形式不太严谨</p>
 <h2 id="_36">最大似然估计</h2>
+<p>Maximum Likelihood Estimation = MLE</p>
 <p>上面指定的两次朝上</p>
 <p>如果我们指定抛 <span class="arithmatex">\(2n\)</span> 次, 有 <span class="arithmatex">\(n\)</span> 次朝上</p>
 <p>那么似然函数</p>
@@ -4403,7 +4404,21 @@
 <p>那么最大似然估计就是求 <span class="arithmatex">\(\theta^{* }=\argmax_\theta [\theta(1-\theta)]\)</span></p>
 <p>这里 <span class="arithmatex">\(\theta^{* }=0.5\)</span></p>
 <p>所以一般朝上对应的最可能的概率为 <span class="arithmatex">\(1/2\)</span></p>
-<h1 id="_37">先验 / 后验</h1>
+<h2 id="_37">贝叶斯最大后验估计</h2>
+<p>Maximum A Posteriori = MAP</p>
+<div class="arithmatex">\[P(\theta|X)=\frac{P(X|\theta)P(\theta)}{P(X)}\]</div>
+<p>其中:</p>
+<ol>
+<li><span class="arithmatex">\(P(X|\theta)\)</span> 为似然函数</li>
+<li><span class="arithmatex">\(P(\theta)\)</span> 为先验概率</li>
+<li><span class="arithmatex">\(P(X)\)</span> 为与 <span class="arithmatex">\(\theta\)</span> 无关的证据, 看作归一化常数</li>
+</ol>
+<p>MAP 要找到使得后验分布最大化的参数值:</p>
+<div class="arithmatex">\[\hat \theta_{MAP}=\arg \max_{\theta}P(\theta|X)=\arg \max_{\theta}P(X|\theta)\cdot P(\theta)\]</div>
+<h3 id="mle">与 MLE 的关系</h3>
+<div class="arithmatex">\[\hat \theta_{MLE}=\arg \max_{\theta}P(X|\theta)\]</div>
+<p>即 MLE 不关心先验概率   </p>
+<h1 id="_38">先验 / 后验</h1>
 <p>在观测数据后得到的事件发生概率为后验概率 <span class="arithmatex">\(P(A|B)\)</span></p>
 <p>与数据无关, 基于假设 / 历史的概率为先验概率 <span class="arithmatex">\(P(A)\)</span>  </p>
 <p>贝叶斯公式:</p>

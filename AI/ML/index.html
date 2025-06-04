@@ -1345,9 +1345,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#bayes" class="md-nav__link">
+  <a href="#mle-map" class="md-nav__link">
     <span class="md-ellipsis">
-      bayes
+      MLE / MAP
     </span>
   </a>
   
@@ -4215,9 +4215,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#bayes" class="md-nav__link">
+  <a href="#mle-map" class="md-nav__link">
     <span class="md-ellipsis">
-      bayes
+      MLE / MAP
     </span>
   </a>
   
@@ -4257,10 +4257,11 @@
 <p>不会使权重变为 <span class="arithmatex">\(0\)</span>, 而是将所有权重缩小至接近但不等于 <span class="arithmatex">\(0\)</span> 的值</p>
 <p>它倾向于让权重分布得更加均匀, 平滑</p>
 <p>同时由于避免了极端大的权重, 可提高数值稳定性, 并且对噪声有一定抗干扰能力</p>
-<h2 id="bayes">bayes</h2>
-<p>从贝叶斯视角理解正则化</p>
+<h2 id="mle-map">MLE / MAP</h2>
 <p>从贝叶斯统计的角度看, 正则化可以被视作对模型参数施加某种形式的先验分布</p>
-<p>例如，L2 正则化等价于假设模型参数服从高斯分布的先验; L1 正则化则对应拉普拉斯分布</p>
+<p>L2 正则化等价于假设模型参数服从高斯分布的先验; L1 正则化则
+对应拉普拉斯分布</p>
+<p>例如, 在回归任务中, 最小化均方误差 (MSE) 等价于 MLE; 若加入 L2 正则化 (权重衰减), 则等价于假设权重服从高斯先验的 MAP</p>
 <p>引入这些先验假设后, 模型的学习过程不仅基于训练数据本身, 还考虑到了关于参数合理取值范围的先验信息, 这有助于引导模型朝着更为合理的方向优化, 减少过拟合风险</p></div>
 
 

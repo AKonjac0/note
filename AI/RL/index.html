@@ -1913,6 +1913,27 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DB/minisql/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    minisql 个人报告
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -4676,9 +4697,9 @@
 <div class="arithmatex">\[\theta^{* }=\argmax_\theta \mathbb E_f[\log_2(P(x|\theta))]\]</div>
 <p>这正是使 <span class="arithmatex">\(f(x)\)</span> 与 <span class="arithmatex">\(P(x|\theta)\)</span> 的 KL 散度最小化的 <span class="arithmatex">\(\theta\)</span>, 因为:</p>
 <div class="arithmatex">\[\argmin_\theta D_{KL}(f,P(.|\theta))\]</div>
-<div class="arithmatex">\[=\argmin_\theta -\int_Xf(x)\cdot \log_2(P(x|\theta)/f(x))\text dx\]</div>
-<div class="arithmatex">\[=\argmin_\theta H(f,f)-H(f,P(.|\theta))\]</div>
-<div class="arithmatex">\[=\argmax_\theta H(f,P(.|\theta))\]</div>
+<div class="arithmatex">\[=\argmin_\theta \int_Xf(x)\cdot \log_2(P(x|\theta)/f(x))\text dx\]</div>
+<div class="arithmatex">\[=\argmin_\theta -H(f,f)+H(f,P(.|\theta))\]</div>
+<div class="arithmatex">\[=\argmin_\theta H(f,P(.|\theta))\]</div>
 <div class="arithmatex">\[=\argmax_\theta \int_X f(x)\log_2(P(x|\theta))\text dx\]</div>
 <div class="arithmatex">\[=\argmax_\theta \mathbb E_f[\log_2(P(x|\theta))]\]</div>
 <ul>

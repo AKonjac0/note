@@ -1853,6 +1853,27 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DB/minisql/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    minisql 个人报告
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -4316,6 +4337,7 @@
 <p>整体结构如下图:</p>
 <p><img alt="alt text" src="../image-13.png"></p>
 <p>将两个句子的 token 序列拼在一起输入 BERT, 图中 <span class="arithmatex">\(E_i\)</span> 表示输入的 embeddings, <span class="arithmatex">\(T_i\)</span> 表示隐藏层的输出向量, <span class="arithmatex">\(C\)</span> 特指 <span class="arithmatex">\([CLS]\)</span> 的输出</p>
+<p>注意传入的输入是 tokenizer 处理后的结果, 传入 BERT 后还要经过 transformer 的 embedding 转换成矩阵</p>
 <h2 id="_2">预训练</h2>
 <h3 id="masked-lm">Masked LM</h3>
 <p>由于多层的结构可以让目标单词在其他层间接的看到自己, 不能完全学习到上下文推理</p>
@@ -4324,6 +4346,7 @@
 <p>所以我们已 <span class="arithmatex">\(80%\)</span> 概率替换成 <span class="arithmatex">\([MASK]\)</span>, <span class="arithmatex">\(10%\)</span> 概率替换成一个随机单词, <span class="arithmatex">\(10%\)</span> 概率不变</p>
 <h3 id="nsp">NSP</h3>
 <p>为了让模型理解两个句子间的关系, 每次以 <span class="arithmatex">\(50\)</span> 概率在句子 <span class="arithmatex">\(A\)</span> 后加上真实的下一句 <span class="arithmatex">\(B\)</span>; <span class="arithmatex">\(50%\)</span> 概率加上随机句子</p>
+<p>最后输出 <span class="arithmatex">\(C\)</span> 为 <span class="arithmatex">\(0/1\)</span>, 判断 <span class="arithmatex">\(B\)</span> 是否适合作为 <span class="arithmatex">\(A\)</span> 的下一句</p>
 <h2 id="_3">微调</h2>
 <p>可以使用几种数据进行微调:</p>
 <ol>

@@ -4358,6 +4358,249 @@
 </ul>
 <h2 id="3nf">3NF</h2>
 <p>如果左边 <span class="arithmatex">\(\alpha\)</span> 不是 superkey, 右边 <span class="arithmatex">\(\beta\)</span> 一定是某个 candidate key 的一部分 </p>
+<h1 id="query-processing">Query Processing</h1>
+<h2 id="select">select</h2>
+<h3 id="linear-search">linear search</h3>
+<div class="arithmatex">\[b*t_T+t_S\]</div>
+<h3 id="index-serach">index serach</h3>
+<h4 id="on-equality">on equality</h4>
+<p>等值查找</p>
+<ol>
+<li>
+<p>如果使用 primary key 读取一个数据:</p>
+<div class="arithmatex">\[(h_i+1)(t_T+t_S)\]</div>
+<p>如果使用 primary key 读取若干个数据:</p>
+<div class="arithmatex">\[h_i(t_T+t_S)+b*t_T+t_S\]</div>
+<p>因为数据是连续的, 只需要顺序遍历链表的 <span class="arithmatex">\(b\)</span> 个 block 读取所有数据</p>
+</li>
+<li>
+<p>如果使用 secondary 读取一个数据:</p>
+<div class="arithmatex">\[(h_i+1)(t_T+t_S)\]</div>
+<p>如果使用 secondary key 读取若干个数据:</p>
+<div class="arithmatex">\[(h_i+m+n)(t_T+t_S)\]</div>
+<p>因为数据可能是不连续的</p>
+<p>假设每个数据都在不同的块里, 一共 <span class="arithmatex">\(n\)</span> 条数据</p>
+<p>并且 <span class="arithmatex">\(n\)</span> 个指针存在 <span class="arithmatex">\(m\)</span> 个块里</p>
+</li>
+</ol>
+<h4 id="index-serach-involving-range-comparisons">index serach involving range comparisons</h4>
+<p>范围查找</p>
+<ol>
+<li>
+<p>如果使用 primary key 读取范围内数据:</p>
+<div class="arithmatex">\[h_i(t_T+t_S)+b*t_T+t_S\]</div>
+<p>因为数据是连续的, 与上面的情况一致</p>
+</li>
+<li>
+<p>如果使用 secondary 读取一个数据</p>
+<p>情况较复杂</p>
+</li>
+</ol>
+<h2 id="sort">sort</h2>
+<h3 id="external-merge">external merge</h3>
+<p>一共 <span class="arithmatex">\(b_r\)</span> 块, 内存最多装 <span class="arithmatex">\(M\)</span> 块</p>
+<p>所以初始生成 <span class="arithmatex">\(\lceil b_r/M\rceil\)</span> 个 runs</p>
+<p>假设一共有 <span class="arithmatex">\(N\)</span> 个runs 并且 <span class="arithmatex">\(N\geq M\)</span></p>
+<p>所以用 <span class="arithmatex">\(M-1\)</span> 个内存块来存 <span class="arithmatex">\(M-1\)</span> 个 runs 的一部分数据, <span class="arithmatex">\(1\)</span> 个内存块来存归并好的数据</p>
+<p>所以每一轮排序完所有 runs, runs 数量变成 <span class="arithmatex">\(1/M-1\)</span></p>
+<p>所以一共需要 <span class="arithmatex">\(\lceil\log_{M-1}( b_r/M)\rceil\)</span> 个 merge passes</p>
+<ol>
+<li>
+<p>block transfer</p>
+<p>对于生成 runs 阶段需要把所有块读 + 写 <span class="arithmatex">\(2\)</span> 次, 所以 <span class="arithmatex">\(2b_r\)</span> 次</p>
+<p>对于每一个 pass 需要读 + 写 <span class="arithmatex">\(2b_r\)</span> 的块</p>
+<p>最后一次 pass 不计算写回的开销</p>
+<p>所以总共 <span class="arithmatex">\(b_r(2\lceil\log_{M-1}( b_r/M)\rceil+ 1)\)</span>
+2. seek</p>
+<p>在生成 runs 阶段, 对于所有 <span class="arithmatex">\(\lceil b_r/M\rceil\)</span> 个 run 都需要读 + 写 <span class="arithmatex">\(2\)</span> 次</p>
+<p>所以 <span class="arithmatex">\(2\lceil b_r / M\rceil\)</span></p>
+<p>并且每个 pass 都需要 <span class="arithmatex">\(2b_r\)</span> 次 seek, 因为每个 run 都需要 <span class="arithmatex">\(2M\)</span> 次读写, 一共 <span class="arithmatex">\(b_r/M\)</span> 个 runs</p>
+<p>所以如果不计最后一次写, 那总共的 seek 次数 <span class="arithmatex">\(2\lceil b_r / M\rceil+b_r(2\lceil\log_{M-1}( b_r/M)\rceil- 1)\)</span></p>
+</li>
+</ol>
+<h4 id="advanced-version">advanced version</h4>
+<p><img alt="alt text" src="../image-3.png"></p>
+<p>假设一次从一个 run 读出 <span class="arithmatex">\(b_b\)</span> 块</p>
+<p>所以一次归并 <span class="arithmatex">\(\lfloor M/b_b\rfloor - 1\)</span> 个 runs</p>
+<p>一共 <span class="arithmatex">\(\lceil\log_{\lfloor M/b_b\rfloor - 1}(b_r/M)\rceil\)</span> 个 passes</p>
+<ol>
+<li>
+<p>block transfer</p>
+<p>总共 <span class="arithmatex">\(b_r(2\lceil\log_{\lfloor M/b_b\rfloor - 1}(b_r/M)\rceil+ 1)\)</span></p>
+<p>相比普通版本增多了</p>
+</li>
+<li>
+<p>seek</p>
+<p>在生成 runs 阶段, 对于所有 <span class="arithmatex">\(\lceil b_r/M\rceil\)</span> 个 run 都需要读 + 写 <span class="arithmatex">\(2\)</span> 次</p>
+<p>所以仍然为 <span class="arithmatex">\(2\lceil b_r / M\rceil\)</span></p>
+<p>同时每个 pass 都需要 <span class="arithmatex">\(2\lceil b_r / b_b\rceil\)</span> 次 seek, 因为每个 runs 需要的 seek 次数变成原来的 <span class="arithmatex">\(1/b_b\)</span>次</p>
+<p>总共的 seek 次数 <span class="arithmatex">\(2\lceil b_r / M\rceil+\lceil b_r / b_b\rceil(2\lceil\log_{\lfloor M/b_b\rfloor - 1}( b_r/M)\rceil- 1)\)</span></p>
+<p>相比普通版本有所减少</p>
+</li>
+</ol>
+<h2 id="join">join</h2>
+<h3 id="nested-loop-join">nested-loop join</h3>
+<p>关系 <span class="arithmatex">\(r,s\)</span> </p>
+<p>分别一共有 <span class="arithmatex">\(n_r, n_s\)</span> 条记录, <span class="arithmatex">\(b_r,b_s\)</span> 个块</p>
+<p>所以最简单的循环 join 需要对于每个 <span class="arithmatex">\(r\)</span> 中的元组匹配 <span class="arithmatex">\(s\)</span> 中的所有块</p>
+<ol>
+<li>
+<p>block transfer</p>
+<p>需要 <span class="arithmatex">\(n_r\times b_s + b_r\)</span> 次, 即 <span class="arithmatex">\(b_r\)</span> 次搬运所有 <span class="arithmatex">\(r\)</span> 中元组, 每个元组需要搬运 <span class="arithmatex">\(b_s\)</span> 次</p>
+</li>
+<li>
+<p>seek</p>
+<p>需要 <span class="arithmatex">\(n_r + b_r\)</span> 次, 即 <span class="arithmatex">\(b_r\)</span> 次搬运 <span class="arithmatex">\(r\)</span> 中元组需要 <span class="arithmatex">\(b_r\)</span> 次 seek, 每个元组需要 seek 一次 <span class="arithmatex">\(s\)</span> 的位置进行搬运</p>
+</li>
+</ol>
+<h3 id="block-nested-loop-join">block nested-loop join</h3>
+<p>对于 <span class="arithmatex">\(r,s\)</span> 的每一块分别连接, 避免每次对 <span class="arithmatex">\(r\)</span> 的元组重复搬运 <span class="arithmatex">\(s\)</span> 的块</p>
+<ol>
+<li>
+<p>block transfer</p>
+<p><span class="arithmatex">\(b_r\times b_s + b_r\)</span> 次, 即 <span class="arithmatex">\(b_r\)</span> 次搬运所有 <span class="arithmatex">\(r\)</span> 中元组, 每个 <span class="arithmatex">\(r\)</span> 的块需要搬运 <span class="arithmatex">\(b_s\)</span> 次</p>
+</li>
+<li>
+<p>seek</p>
+<p><span class="arithmatex">\(b_r + b_r\)</span> 次, 即 <span class="arithmatex">\(b_r\)</span> 次搬运 <span class="arithmatex">\(r\)</span> 中元组需要 <span class="arithmatex">\(b_r\)</span> 次 seek, 每个 <span class="arithmatex">\(r\)</span> 的块需要 seek 一次 <span class="arithmatex">\(s\)</span> 的位置进行搬运</p>
+</li>
+</ol>
+<p>两者的最好情况都是 <span class="arithmatex">\(b_r + b_s\)</span> 次 block transfer, <span class="arithmatex">\(2\)</span> 次 seek, 即两个块大小小于内存, 只需要搬运一次</p>
+<h4 id="advanced-version_1">advanced version</h4>
+<p>用 <span class="arithmatex">\(M-2\)</span> 块内存存外关系 <span class="arithmatex">\(r\)</span>, <span class="arithmatex">\(1\)</span> 块存内关系 <span class="arithmatex">\(s\)</span>, 一块存输出</p>
+<ol>
+<li>
+<p>block transfer</p>
+<p><span class="arithmatex">\(\lceil b_r/(M-2)\rceil\times b_s + b_r\)</span> 次, 即 <span class="arithmatex">\(b_r\)</span> 次搬运所有 <span class="arithmatex">\(r\)</span> 中元组, 每个 <span class="arithmatex">\(r\)</span> 的 <span class="arithmatex">\(M-2\)</span> 块需要搬运 <span class="arithmatex">\(b_s\)</span> 次</p>
+</li>
+<li>
+<p>seek</p>
+<p><span class="arithmatex">\(2\lceil b_r/(M-2)\rceil\)</span> 次, 即搬运 <span class="arithmatex">\(r\)</span> 中元组需要 <span class="arithmatex">\(\lceil b_r/(M-2)\rceil\)</span> 次 seek, 每个 <span class="arithmatex">\(r\)</span> 的 <span class="arithmatex">\(M-2\)</span> 块需要 seek 一次 <span class="arithmatex">\(s\)</span> 的位置进行搬运</p>
+</li>
+</ol>
+<p>内关系只需要一块, 因为内关系读取后不需要再搬运外关系</p>
+<h3 id="indexed-nested-loop-join">indexed nested-loop join</h3>
+<p>要求为 equi-join 或 natural join 才可以用</p>
+<p>对于内关系使用索引查找</p>
+<p>总的开销为 <span class="arithmatex">\(b_r(t_T+t_S) + n_r \times c\)</span></p>
+<p>其中 <span class="arithmatex">\(c\)</span> 是 B+ Tree 一次查询的开销, 与前面的 select 中的开销分析方法相同</p>
+<p><span class="arithmatex">\(s\)</span> 直接用 index 查找</p>
+<p>只剩 <span class="arithmatex">\(b_r\)</span> 的 block transfer 和 seek, 因为读完 B+ Tree 还要 seek 回来读 <span class="arithmatex">\(r\)</span></p>
+<p>如果外关系有 <span class="arithmatex">\(M-2\)</span> 块内存, 那么变成 <span class="arithmatex">\(\lceil b_r / (M-2)\rceil (t_T+t_S) + n_r \times c\)</span></p>
+<h3 id="merge-join">merge join</h3>
+<ol>
+<li>
+<p>block transfer</p>
+<p><span class="arithmatex">\(b_r+b_s\)</span> 次, 每个表只需要读一次</p>
+</li>
+<li>
+<p>seek</p>
+<p><span class="arithmatex">\(b_r+b_s\)</span> 次, 因为每次读取 <span class="arithmatex">\(r\)</span> 还是 <span class="arithmatex">\(s\)</span> 的块是随机的, 最坏情况每块都要 seek 一遍</p>
+</li>
+</ol>
+<h4 id="advanced-version_2">advanced version</h4>
+<p>如果每次可以分配 <span class="arithmatex">\(b_b\)</span> 块内存</p>
+<p>那么 <span class="arithmatex">\(b_r+b_s\)</span> 次 block transfer 和 <span class="arithmatex">\(\lceil b_r/b_b\rceil+\lceil b_s/b_b\rceil\)</span> 次 seek</p>
+<p>如果 <span class="arithmatex">\(r\)</span> 分配 <span class="arithmatex">\(x_r\)</span> 块, <span class="arithmatex">\(s\)</span> 分配 <span class="arithmatex">\(x_s\)</span> 块, <span class="arithmatex">\(x_r+x_s=M\)</span>, 那么让 seek 最少的分配为:</p>
+<div class="arithmatex">\[x_r=M\frac{\sqrt {b_r} }{\sqrt {b_r} + \sqrt {b_s} }\]</div>
+<div class="arithmatex">\[x_s=M\frac{\sqrt {b_s} }{\sqrt {b_r} + \sqrt {b_s} }\]</div>
+<h3 id="hash-join">hash join</h3>
+<p><img alt="alt text" src="../image-4.png"></p>
+<p>使用 hash 函数将 <span class="arithmatex">\(r,s\)</span> 分成 <span class="arithmatex">\(H_{r_i},H_{s_i}\)</span>, <span class="arithmatex">\(i\in\set{0,1,\cdots,n-1}\)</span>, 写入文件中</p>
+<p>对每个 <span class="arithmatex">\(i\)</span>, 每次读取 <span class="arithmatex">\(H_{s_i}\)</span>, 建立一个内存的 hash 索引 (与前面的 hash 不同)</p>
+<p>然后读取 <span class="arithmatex">\(H_{r_i}\)</span> 中的记录, 与 <span class="arithmatex">\(H_{s_i}\)</span> 中的记录 join</p>
+<p>对于 hash 函数将 join attribute 映射成的值的数量: <span class="arithmatex">\(n\geq \lceil b_s/M\rceil\)</span>, 保证大部分 <span class="arithmatex">\(H_{s_i}\)</span> 可以装到内存中</p>
+<p>一般还要考虑 hash index 占用内存, 所以 <span class="arithmatex">\(n=f*\lceil b_s/M\rceil\)</span>, <span class="arithmatex">\(f\approx 1.2\)</span></p>
+<h4 id="recursive-partitioning">recursive partitioning</h4>
+<p>如果 <span class="arithmatex">\(n&gt;M-1\)</span> 一次不能够分割所有的 partition, 因为没办法把每个 partition 维护在内存中, 再写回文件</p>
+<p>所以要分成 <span class="arithmatex">\(M-1\)</span> 个 partition, 再进一步递归分割 (剩下一个块用来读 <span class="arithmatex">\(r,s\)</span>)</p>
+<p>如果 <span class="arithmatex">\(M&gt;n+1\)</span> 则不需要递归分割</p>
+<p>即计算 <span class="arithmatex">\(M&gt;\lceil b_s/M\rceil+1\)</span>, 约等于 <span class="arithmatex">\(M&gt;\sqrt {b_s}\)</span></p>
+<ol>
+<li>
+<p>block transfer</p>
+<p><span class="arithmatex">\(3(b_r+b_s)+4n\)</span></p>
+<p>partition 阶段有 <span class="arithmatex">\(2(b_r+b_s)\)</span> 次读写的搬运</p>
+<p>同时 build hash index 和 probe 都需要读所有 partition 中的所有块, 一共 <span class="arithmatex">\((b_r+b_s)\)</span> 次</p>
+<p>并且对于每个 partition, 可能需要读写它第二次, 因为可能分割后不能完整装进内存, 需要第二次写回 partition 文件, 并在 build and probe 阶段再读回一次</p>
+<p>所以对于两个表的 <span class="arithmatex">\(n+n\)</span> 个 partition, 额外读写 <span class="arithmatex">\(2\)</span> transfer 次, transfer 次数为 <span class="arithmatex">\(4n\)</span> 次</p>
+<p>所以是 <span class="arithmatex">\((2(b_r+b_s)+2n)+(b_r+b_s+2n)=3(b_r+b_s)+4n\)</span> 次</p>
+<p>注意 <span class="arithmatex">\(n\approx b_{s,r} / M&lt;&lt;b_{s,r}\)</span>, 一般可以忽略</p>
+</li>
+<li>
+<p>seek</p>
+<p><span class="arithmatex">\(2(\lceil b_r/b_b\rceil+\lceil b_s/b_b\rceil)+2n\)</span></p>
+<p>用 <span class="arithmatex">\(b_b\)</span> 块用来读 <span class="arithmatex">\(r,s\)</span>, 剩下 <span class="arithmatex">\(M-b_b\)</span> 用来存 partition</p>
+<p>partition 需要 <span class="arithmatex">\(2(\lceil b_r/b_b\rceil+\lceil b_s/b_b\rceil)\)</span> 次, build and probe 需要对 <span class="arithmatex">\(2n\)</span> 个 partition 各读一次, 所以 <span class="arithmatex">\(2n\)</span> 次</p>
+<p>只需要一次是因为 build <span class="arithmatex">\(H_{s_i}\)</span> 是顺序读进内存并建立索引, probe <span class="arithmatex">\(H_{r_i}\)</span> 也是顺序读并查找索引</p>
+</li>
+</ol>
+<h1 id="query-optimization">Query Optimization</h1>
+<h2 id="cost-estimation">cost estimation</h2>
+<h3 id="selectivity">selectivity</h3>
+<p>估算为 <span class="arithmatex">\(\frac{1}{V(A,r)}\)</span></p>
+<p>如果一共有 <span class="arithmatex">\(s_r\)</span> 个满足条件 <span class="arithmatex">\(\theta\)</span>, 那么选择率 <span class="arithmatex">\(\frac{s_r}{n_r}\)</span></p>
+<p>conjunction: 选择率假设独立, 那么选择的个数: <span class="arithmatex">\(n_r\frac{s_1\cdots s_n}{n_r^n}\)</span></p>
+<p>disjunction: <span class="arithmatex">\(n_r[1-(1-\frac{s_1}{n_r})\cdots(1-\frac{s_n}{n_r})]\)</span></p>
+<h3 id="join_1">join</h3>
+<h4 id="inner-join">inner join</h4>
+<p>两个表 <span class="arithmatex">\(r,s\)</span> 交集为表 <span class="arithmatex">\(r\)</span> 的 primary key</p>
+<p>那么 <span class="arithmatex">\(\text{size}(r\bowtie s)\leq n_s\)</span></p>
+<p>两个表 <span class="arithmatex">\(r,s\)</span> 交集为表 <span class="arithmatex">\(s\)</span> 的 foreign key</p>
+<p>那么 <span class="arithmatex">\(\text{size}(r\bowtie s)= n_s\)</span></p>
+<p>两个表 <span class="arithmatex">\(r,s\)</span> 交集为 <span class="arithmatex">\(A\)</span>, 不是两个表的 key</p>
+<p>那么结果表的大小估计为 <span class="arithmatex">\(r\)</span> 的元组个数乘以 <span class="arithmatex">\(s\)</span> 表中 <span class="arithmatex">\(A\)</span> 的选择率</p>
+<div class="arithmatex">\[\frac{n_r\times n_s}{V(A,s)}\]</div>
+<p>反过来有</p>
+<div class="arithmatex">\[\frac{n_r\times n_s}{V(A,r)}\]</div>
+<p>两个取最小</p>
+<h4 id="outer-join">outer join</h4>
+<p>left outer join = inner join + size of r</p>
+<p>full outer join = inner join + size of r + size of s</p>
+<h3 id="distinct-value">distinct value</h3>
+<ol>
+<li>
+<p>估计 <span class="arithmatex">\(V(A,\sigma_\theta(r))\)</span></p>
+<p>如果 <span class="arithmatex">\(\theta\)</span> 使得 <span class="arithmatex">\(A\)</span> 去某几个特定的值, 那么 <span class="arithmatex">\(V(A,\sigma_\theta(r))=\text{number of values}\)</span></p>
+<p>如果有选择率 <span class="arithmatex">\(s\)</span>, 那么 <span class="arithmatex">\(V(A,\sigma_\theta(r))=V(A,r)\times s\)</span></p>
+<p>或者可以用实际值估算 <span class="arithmatex">\(V(A,\sigma_\theta(r))=\min(V(A,r), n_{\sigma_\theta(r)})\)</span></p>
+</li>
+<li>
+<p><span class="arithmatex">\(V(A, r\bowtie s)=\min(V(A,r), n_{r\bowtie s})\)</span></p>
+<p>如果 <span class="arithmatex">\(A\)</span> 分成 <span class="arithmatex">\(r,s\)</span> 中的 <span class="arithmatex">\(A_1,A_2\)</span></p>
+<p><span class="arithmatex">\(V(A, r\bowtie s)=\min(V(A_1,r)\times V(A_2-A_1, s),V(A_1-A_2,r)\times V(A_2, s), n_{r\bowtie s})\)</span></p>
+</li>
+</ol>
+<h2 id="join-order">join order</h2>
+<p><span class="arithmatex">\(r_1\bowtie\cdots\bowtie r_n\)</span> 一共有 <span class="arithmatex">\(\frac{(2(n-1))!}{(n-1)!}\)</span> 种方式</p>
+<p>如果是无标号的 <span class="arithmatex">\(r_1,\cdots, r_n\)</span>, 那么可以分成两段, 对于两段的方案数相乘</p>
+<div class="arithmatex">\[f_n=\sum_{i=1}^{n-1}f_if_{n-i}\]</div>
+<p>就是 Catalan 数 <span class="arithmatex">\(c_{n-1}\)</span>, 通项是 <span class="arithmatex">\(f_n=c_{n-1}=\frac{\binom{2(n-1)}{n-1}}{n}\)</span></p>
+<p>如果有标号, 就乘上排列数 <span class="arithmatex">\(n!\)</span></p>
+<p>所以最后公式是 <span class="arithmatex">\(n!\times \frac{\binom{2(n-1)}{n-1}}{n}=\frac{(2(n-1))!}{(n-1)!}\)</span></p>
+<h2 id="nested-subqueries">nested subqueries</h2>
+<div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="n">A</span>
+<span class="k">from</span><span class="w"> </span><span class="n">r1</span><span class="p">,</span><span class="w"> </span><span class="n">r2</span><span class="p">,</span><span class="w"> </span><span class="p">...,</span><span class="w"> </span><span class="n">rn</span>
+<span class="k">where</span><span class="w"> </span><span class="n">P1</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="k">exists</span><span class="w"> </span><span class="p">(</span><span class="k">select</span><span class="w"> </span><span class="o">*</span>
+<span class="w">    </span><span class="k">from</span><span class="w"> </span><span class="n">s1</span><span class="p">,</span><span class="w"> </span><span class="n">s2</span><span class="p">,</span><span class="w"> </span><span class="p">...,</span><span class="w"> </span><span class="n">sm</span>
+<span class="w">    </span><span class="k">where</span><span class="w"> </span><span class="n">P21</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">P22</span>
+<span class="p">)</span>
+</code></pre></div>
+<div class="arithmatex">\[=\Pi_{A}(\sigma_{P_1}(r_1\times r_2\times \cdots \times r_n)\text{semi join}_{P_{22} }\sigma_{P_{21} }(s_1\times \cdots\times s_m))\]</div>
+<p>其中 <span class="arithmatex">\(P_{21}\)</span> 不同时包含 <span class="arithmatex">\(r,s\)</span> 相关的条件</p>
+<p><span class="arithmatex">\(P_{22}\)</span> 包含 <span class="arithmatex">\(r,s\)</span> 相关的条件</p>
+<p><span class="arithmatex">\(\underline 例\)</span></p>
+<div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="n">name</span><span class="w"> </span>
+<span class="k">from</span><span class="w"> </span><span class="n">instructor</span>
+<span class="k">where</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="p">(</span><span class="k">select</span><span class="w"> </span><span class="k">count</span><span class="p">(</span><span class="o">*</span><span class="p">)</span>
+<span class="w">    </span><span class="k">from</span><span class="w"> </span><span class="n">teaches</span>
+<span class="w">    </span><span class="k">where</span><span class="w"> </span><span class="n">instructor</span><span class="p">.</span><span class="n">ID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">teaches</span><span class="p">.</span><span class="n">ID</span>
+<span class="w">    </span><span class="k">and</span><span class="w"> </span><span class="n">teaches</span><span class="p">.</span><span class="k">year</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2022</span>
+<span class="p">)</span>
+</code></pre></div>
+<div class="arithmatex">\[=\Pi_{name}(instructor\text{ semi join}_{instructor.ID = TID \wedge 1 &lt; cnt}(_{ID \text{ as } TID \gamma count(*)\text{ as } cnt}(\sigma_{teaches.year = 2022 }(teaches))))\]</div>
+<h2 id="materialized-view">materialized view</h2>
+<p>view 使用增量式维护, 每次向 <span class="arithmatex">\(r\)</span> 中插入 <span class="arithmatex">\(i_r\)</span>, 实际 <span class="arithmatex">\(v=r\bowtie s\)</span> 的改变量为 <span class="arithmatex">\(i_r\bowtie s\)</span></p>
 <h1 id="transactions">transactions</h1>
 <h2 id="conflict-serializable">conflict serializable</h2>
 <h3 id="conflict">conflict</h3>
@@ -4379,6 +4622,25 @@
 <li>recoverable and preferably cascadeless </li>
 </ol>
 <h1 id="concurrency">concurrency</h1>
+<h2 id="isolation-level">Isolation Level</h2>
+<ol>
+<li>
+<p>Read Uncommitted 允许脏读, 不可重复读, 幻读, 所以在修改数据时加排他锁直至事务结束, 读操作无需加锁, 直接读取最新数据</p>
+</li>
+<li>
+<p>Read Committed 避免脏读, 但允许不可重复读和幻读, 所以在修改数据时加排他锁直至事务结束; 读操作需要加共享锁, 读取后立即释放锁</p>
+</li>
+<li>
+<p>Repeatable Read 避免脏读和不可重复读, 但允许幻读</p>
+<p>所以写操作加排他锁, 直到事务提交时释放</p>
+<p>对于读操作加共享锁, 直到事务提交时释放</p>
+</li>
+<li>
+<p>Serializable 完全避免脏读, 不可重复读和幻读, 所以对于所有读写操作加表级锁, 强制事务串行执行</p>
+<p>对于 B+ Tree 操作, 对整个 B+ Tree 加锁, 禁止其他事务并发访问</p>
+<p>或者加入范围锁, 锁定 B+ Tree 查询索引之间的索引, 防止插入新数据</p>
+</li>
+</ol>
 <h2 id="deadlock">Deadlock</h2>
 <p>防止死锁:</p>
 <ol>

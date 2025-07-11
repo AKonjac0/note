@@ -1377,7 +1377,7 @@
             
   
   <span class="md-ellipsis">
-    Deep Learning
+    CMUResearch
   </span>
   
 
@@ -1386,6 +1386,94 @@
         
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_7_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_5_7">
+            <span class="md-nav__icon md-icon"></span>
+            CMUResearch
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AI/CMUResearch/data_selection/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    refs
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AI/CMUResearch/research/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    week 1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_8" id="__nav_5_8_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Deep Learning
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_8">
             <span class="md-nav__icon md-icon"></span>
             Deep Learning
           </label>
@@ -1479,10 +1567,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_8" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_9" >
         
           
-          <label class="md-nav__link" for="__nav_5_8" id="__nav_5_8_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_5_9" id="__nav_5_9_label" tabindex="0">
             
   
   <span class="md-ellipsis">
@@ -1493,8 +1581,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_8_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_5_8">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_9">
             <span class="md-nav__icon md-icon"></span>
             GUI Agent
           </label>
@@ -1606,7 +1694,7 @@
         
   
   <span class="md-ellipsis">
-    Scoreboard
+    ILP
   </span>
   
 
@@ -4335,29 +4423,180 @@
 <p>所以我们应该做完整个查询再整个插入</p>
 <p>同时 <code>priamry key</code> 是必不可少的</p>
 <h1 id="relation">relation</h1>
+<h2 id="1nf">1NF</h2>
+<p>所有属性都是不可再分的, 满足原子性</p>
+<h2 id="2nf">2NF</h2>
+<p>在 1NF 基础上消除部分函数依赖</p>
+<p>即如果有 primary key <span class="arithmatex">\(AE\)</span>, 关系 <span class="arithmatex">\(R(A,B,C,D,E,F)\)</span>, 函数依赖 <span class="arithmatex">\(F=\set{A\to BCD}\)</span></p>
+<p>所以 <span class="arithmatex">\(BCD\)</span> 只依赖于 <span class="arithmatex">\(A\)</span> 而不是 <span class="arithmatex">\(E\)</span>, 是部分依赖</p>
+<p>所以可以拆成 <span class="arithmatex">\(R_1(A,B,C,D),R_2(A,E,F)\)</span></p>
+<p>这样就没有部分依赖了</p>
+<h2 id="lossless-join">lossless join</h2>
+<ol>
+<li>
+<p>一个关系分解成两个关系后无损的充分必要条件是:</p>
+<div class="arithmatex">\[\set{R_1\cap R_2}\to R_1\]</div>
+<div class="arithmatex">\[\set{R_1\cap R_2}\to R_2\]</div>
+<p>至少一个满足</p>
+</li>
+<li>
+<p>分解成多个关系后无损的充分必要条件是:</p>
+<p><span class="arithmatex">\(R\)</span> 的属性集等于子关系属性集的并集, 且连接图中任意相邻子关系共享的属性集是其中某个子关系的 superkey</p>
+<p>就是上面条件的图上拓展, 每一条边满足二元分解的条件</p>
+<p>这里需要依赖关系无环, 所以形成一个 DAG</p>
+</li>
+<li>
+<p>分解成多个关系后无损的充分 (非必要) 条件是:</p>
+<p>至少一个子关系中包含原关系的 candidate key</p>
+<p>这也是 3NF 分解的来源</p>
+</li>
+</ol>
 <h2 id="bcnf">BCNF</h2>
-<p>BCNF 什么时候依赖保持?</p>
+<p>good 的关系满足内部尽量不出现重复</p>
+<p>一个关系 <span class="arithmatex">\(R\)</span> 是 BCNF, 要求对所有依赖 <span class="arithmatex">\(\alpha\to\beta, \alpha\subseteq R,\beta\subseteq R\)</span>, 要么是平凡的, 要么 <span class="arithmatex">\(\alpha\)</span> 是 superkey</p>
+<p>因为如果 <span class="arithmatex">\(\alpha\)</span> 不是 superkey, 那么 <span class="arithmatex">\(\alpha\)</span> 中有重复元素, 而 <span class="arithmatex">\(\beta\)</span> 中的这元素也是重复的, 重复的关系是不好的, 浪费空间</p>
+<p>并且更改时可能导致多对元组需要更改</p>
+<p>如果每个非平凡依赖 <span class="arithmatex">\(\alpha\)</span> 都是 key 就能避免这个问题</p>
+<p>BCNF 的定义是比较自然的, 就是根据不重复的原则设计, 要求 <span class="arithmatex">\(\alpha\)</span> 是 superkey</p>
+<p>并且这样的定义使得分解出的表是比较简洁的 (相比 3NF)</p>
+<p><img alt="alt text" src="../image-5.png"></p>
+<p>这里的关系记为 <span class="arithmatex">\(R(A,B,C,D,E,F)\)</span></p>
+<p>key 是 <span class="arithmatex">\(ADE\)</span></p>
+<p>那么 <span class="arithmatex">\(A\to BC\)</span> 这个依赖中 <span class="arithmatex">\(A\)</span> 单独不是 key, 就会导致重复的 <span class="arithmatex">\(BC\)</span></p>
+<p>而 BCNF 就是保证了这个关系是 good 的</p>
+<h3 id="bcnf-discriminator">BCNF discriminator</h3>
+<p>可在 <span class="arithmatex">\(F\)</span> 下判别 <span class="arithmatex">\(R\)</span> 是否违反 BCNF, 但必须在 <span class="arithmatex">\(F^+\)</span>下判别 <span class="arithmatex">\(R\)</span> 的分解式是否违反 BCNF</p>
+<p>例如 <span class="arithmatex">\(R(A,B,C,D),F=\set{A\to B, B\to C}\)</span></p>
+<p>分成 <span class="arithmatex">\(R_1(A,B),R_2(A,C,D)\)</span></p>
+<p>那么在 <span class="arithmatex">\(F\)</span> 下看 <span class="arithmatex">\(R_2\)</span> 是满足 BCNF</p>
+<p>但是在 <span class="arithmatex">\(F^+\)</span> 下看, 有依赖 <span class="arithmatex">\(A\to C\)</span>, 但是 <span class="arithmatex">\(A\)</span> 不是 <span class="arithmatex">\(R_2\)</span> 的 key, 所以 <span class="arithmatex">\(R_2\)</span> 不是 BCNF</p>
+<h3 id="bcnf-decomposition">BCNF decomposition</h3>
+<div class="highlight"><pre><span></span><code><span class="nl">result</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">R</span><span class="p">};</span><span class="w"> </span>
+<span class="nl">done</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span><span class="w"> </span>
+<span class="n">compute</span><span class="w"> </span><span class="n">F</span><span class="o">+</span><span class="p">;</span><span class="w"> </span>
+<span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="k">not</span><span class="w"> </span><span class="n">done</span><span class="p">)</span><span class="w"> </span><span class="k">do</span><span class="w"> </span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">there</span><span class="w"> </span><span class="n">is</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">schema</span><span class="w"> </span><span class="n">Ri</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="n">that</span><span class="w"> </span><span class="n">is</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="n">BCNF</span><span class="p">)</span><span class="w"> </span>
+<span class="w">        </span><span class="n">begin</span><span class="w"> </span>
+<span class="w">            </span><span class="n">let</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="n">be</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">nontrivial</span><span class="w"> </span><span class="n">functional</span><span class="w"> </span>
+<span class="w">            </span><span class="n">dependency</span><span class="w"> </span><span class="n">that</span><span class="w"> </span><span class="n">holds</span><span class="w"> </span><span class="n">on</span><span class="w"> </span><span class="n">Ri</span><span class="w"> </span><span class="n">such</span><span class="w"> </span>
+<span class="w">            </span><span class="n">that</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">Ri</span><span class="w"> </span><span class="n">is</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="n">F</span><span class="o">+</span><span class="p">,</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">intersect</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">empty</span><span class="w"> </span><span class="n">set</span><span class="p">;</span><span class="w"> </span>
+<span class="w">            </span><span class="nl">result</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">result</span><span class="w"> </span><span class="err">–</span><span class="w"> </span><span class="n">Ri</span><span class="p">)</span><span class="w"> </span><span class="k">union</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="k">union</span><span class="w"> </span><span class="p">(</span><span class="n">Ri</span><span class="w"> </span><span class="err">–</span><span class="w"> </span><span class="n">b</span><span class="p">);</span><span class="w"> </span>
+<span class="w">        </span><span class="n">end</span>
+<span class="w">    </span><span class="k">else</span><span class="w"> </span><span class="n">done</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span><span class="w"> </span>
+</code></pre></div>
+<p>就是挑出一个非平凡的 <span class="arithmatex">\(\alpha\to\beta(\alpha,\beta\subseteq R_i)\)</span>, <span class="arithmatex">\(\alpha\)</span> 不是 <span class="arithmatex">\(R_i\)</span> 的 key</p>
+<p>然后就把 <span class="arithmatex">\(\alpha\to\beta\)</span> 拆出来, 这样在 <span class="arithmatex">\(R_j(\alpha,\beta)\)</span> 中 <span class="arithmatex">\(\alpha\)</span> 是 key (如果 <span class="arithmatex">\(R_j\)</span> 中还包含其他 <span class="arithmatex">\(\alpha'\to\beta'\)</span>, <span class="arithmatex">\(\alpha'\)</span> 不是 key, 就继续递归分解)</p>
+<p>并且原本的 <span class="arithmatex">\(R_i\)</span> 减去了 <span class="arithmatex">\(\beta\)</span>, 避免重复的 <span class="arithmatex">\(\beta\)</span>, 只有重复的 <span class="arithmatex">\(\beta\)</span></p>
+<p>这样 <span class="arithmatex">\(R_i-\beta\)</span> 里也没有 <span class="arithmatex">\(\alpha\)</span> 不是 key 的依赖了</p>
+<p>所以最后是 BCNF</p>
+<p>由于 <span class="arithmatex">\(\alpha\)</span> 是新的 key, 所以无损</p>
+<p>对上面的例子 <span class="arithmatex">\(R(A,B,C,D,E,F),F=\set{A\to BC, E\to AF}\)</span></p>
+<p>先根据 <span class="arithmatex">\(A\to BC\)</span> 分解成 <span class="arithmatex">\(R_1(A,B,C),R_2(A,D,E,F)\)</span></p>
+<p>所以 <span class="arithmatex">\(R_1\)</span> 满足 BCNF</p>
+<p>但是 <span class="arithmatex">\(R_2\)</span> 中 <span class="arithmatex">\(E\)</span> 不是 key</p>
+<p>所以再分成 <span class="arithmatex">\(R_3(E,A,F),R_4(D,E)\)</span></p>
+<p>这样 <span class="arithmatex">\(E\)</span> 是 <span class="arithmatex">\(R_3\)</span> 的 key</p>
+<p><span class="arithmatex">\(R_4\)</span> 中没有函数依赖, 自身 <span class="arithmatex">\(DE\)</span> 为 key</p>
+<hr>
+<ul>
+<li>
+<p>BCNF 不一定依赖保持</p>
+<p>如:</p>
 <p><span class="arithmatex">\(JK\to L\)</span></p>
 <p><span class="arithmatex">\(L\to K\)</span></p>
 <p><span class="arithmatex">\(JK, JL\)</span> 是 candidate key</p>
 <p>无论如何分解成 BCNF 都会失去 <span class="arithmatex">\(JK\to L\)</span></p>
-<ul>
-<li>
-<p>非平凡依赖组成的有向图是森林是分解成 BCNF 后依赖保持的什么条件?</p>
-<p>充分非必要</p>
-<p>考虑一个 <span class="arithmatex">\(3\)</span> 元环</p>
-<p><span class="arithmatex">\(A\to B,B\to C,C\to A\)</span></p>
-<p>本身就是 BCNF, 自然地有依赖保持</p>
-</li>
-<li>
-<p>非平凡依赖组成的有向图不存在一个点入度为 <span class="arithmatex">\(2\)</span> 或以上是分解成 BCNF 后依赖保持的什么条件?</p>
-<p>充分非必要</p>
-<p>考虑 <span class="arithmatex">\(A\to B, B\to A\)</span></p>
-<p>每个点度为 <span class="arithmatex">\(2\)</span>, 但是本身是 BCNF</p>
 </li>
 </ul>
+<!-- * 非平凡依赖组成的有向图是森林是分解成 BCNF 后依赖保持的什么条件?
+
+    充分非必要
+
+    考虑一个 $3$ 元环
+
+    $A\to B,B\to C,C\to A$
+
+    本身就是 BCNF, 自然地有依赖保持
+
+* 非平凡依赖组成的有向图不存在一个点入度为 $2$ 或以上是分解成 BCNF 后依赖保持的什么条件?
+
+    充分非必要
+
+    考虑 $A\to B, B\to A$
+
+    每个点度为 $2$, 但是本身是 BCNF -->
+
 <h2 id="3nf">3NF</h2>
-<p>如果左边 <span class="arithmatex">\(\alpha\)</span> 不是 superkey, 右边 <span class="arithmatex">\(\beta\)</span> 一定是某个 candidate key 的一部分 </p>
+<p>允许一些的重复, 获得依赖保持</p>
+<p>先给出分解算法:</p>
+<div class="highlight"><pre><span></span><code><span class="n">Let</span><span class="w"> </span><span class="n">Fc</span><span class="w"> </span><span class="n">be</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">canonical</span><span class="w"> </span><span class="n">cover</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">F</span><span class="p">;</span><span class="w"> </span>
+<span class="nl">i</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span>
+<span class="k">for</span><span class="w"> </span><span class="n">each</span><span class="w"> </span><span class="n">functional</span><span class="w"> </span><span class="n">dependency</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="n">Fc</span><span class="w"> </span><span class="k">do</span><span class="w"> </span>
+<span class="w">    </span><span class="p">{</span><span class="k">if</span><span class="w"> </span><span class="n">none</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">schemas</span><span class="w"> </span><span class="n">Rj</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="n">contains</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span>
+<span class="w">          </span><span class="n">then</span><span class="w"> </span><span class="n">begin</span><span class="w"> </span>
+<span class="w">            </span><span class="nl">i</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span>
+<span class="w">            </span><span class="nl">Ri</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span>
+<span class="w">          </span><span class="n">end</span><span class="p">}</span><span class="w"> </span>
+<span class="k">if</span><span class="w"> </span><span class="n">none</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">schemas</span><span class="w"> </span><span class="n">Rj</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="n">contains</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">candidate</span><span class="w"> </span><span class="n">key</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">R</span><span class="w"> </span><span class="n">then</span><span class="w"> </span>
+<span class="n">begin</span><span class="w"> </span>
+<span class="w">    </span><span class="nl">i</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span>
+<span class="w">    </span><span class="nl">Ri</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="n">any</span><span class="w"> </span><span class="n">candidate</span><span class="w"> </span><span class="n">key</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">R</span><span class="p">;</span><span class="w"> </span>
+<span class="n">end</span><span class="w"> </span>
+<span class="k">return</span><span class="w"> </span><span class="p">(</span><span class="n">R1</span><span class="p">,</span><span class="w"> </span><span class="n">R2</span><span class="p">,</span><span class="w"> </span><span class="p">...,</span><span class="w"> </span><span class="n">Ri</span><span class="p">)</span>
+</code></pre></div>
+<p>很自然的想法是把每个函数依赖都拆出来, 这样自然依赖保持在了某个子关系中</p>
+<p>并且前面说, 多个表无损的充分条件是至少一个表中包含原表的 candidate key</p>
+<p>所以直接构造一个子关系加进去即可</p>
+<p>这样构造出的所有关系满足:</p>
+<ol>
+<li><span class="arithmatex">\(\alpha\to\beta\)</span> 平凡</li>
+<li><span class="arithmatex">\(\alpha\)</span> 是 superkey</li>
+<li>如果左边 <span class="arithmatex">\(\alpha\)</span> 不是 superkey, 右边 <span class="arithmatex">\(\beta\)</span> 一定是某个 candidate key 的一部分 </li>
+</ol>
+<p>这样的关系定义为 3NF</p>
+<p>最后一条是因为这个算法拆出来不一定是 BCNF, 所以松弛一些, 加了这个条件, 定义新的关系为 3NF</p>
+<p>例如关系 <span class="arithmatex">\(R(A,B,C,D),F=\set{C\to AD,AB\to C}\)</span></p>
+<p>key 是 <span class="arithmatex">\(AB\)</span></p>
+<p>用分解算法拆出 <span class="arithmatex">\(R_1(C,A,D), R_2(A,B,C)\)</span></p>
+<p>由于 <span class="arithmatex">\(R_2\)</span> 包含 key <span class="arithmatex">\(AB\)</span>, 所以算法结束</p>
+<p>如果只有 <span class="arithmatex">\(A\to C\)</span>, 分解完只有 <span class="arithmatex">\(R_1(C,A,D)\)</span>, 就需要加入 <span class="arithmatex">\(R_2(A,B)\)</span></p>
+<hr>
+<ul>
+<li>
+<p>为什么这样分解出的关系满足 3NF 条件?</p>
+<p>因为第一循环分出来的一定是只包含函数依赖的关系, 自然有 <span class="arithmatex">\(\alpha\)</span> 是 key</p>
+<p>第二特判出来的关系可能 <span class="arithmatex">\(\alpha\)</span> 不是 key, 但是 <span class="arithmatex">\(\alpha\beta\)</span> 是 candidate key, 所以 <span class="arithmatex">\(\beta\)</span> 一定是 candidate key 的一部分</p>
+<p>(话说讲的时候是不是应该先讲分解算法再给 3NF 定义, 这样构造 3NF 定义的逻辑更顺畅?)</p>
+</li>
+</ul>
+<h2 id="multivalued-dependencies">multivalued dependencies</h2>
+<p><span class="arithmatex">\(\alpha\to\to\beta, \alpha,\beta\subseteq R\)</span></p>
+<p><img alt="alt text" src="../image-6.png"></p>
+<p>这里 <span class="arithmatex">\(\beta\)</span> 与 <span class="arithmatex">\(R-\alpha-\beta\)</span> 对应的等式不同, 一个 <span class="arithmatex">\(t_1=t_3\)</span>, 一个 <span class="arithmatex">\(t_2=t_3\)</span></p>
+<p><img alt="alt text" src="../image-7.png"></p>
+<p><img alt="alt text" src="../image-8.png"></p>
+<h1 id="index">Index</h1>
+<h2 id="extandable-hash-structure">Extandable Hash Structure</h2>
+<p>有一个 table, 大小为 <span class="arithmatex">\(2^i\)</span>, 指向不同的 bucket, 每个 bucket 有一个 <span class="arithmatex">\(i_j\)</span></p>
+<p>这个 <span class="arithmatex">\(i\)</span> 相当于粒度, 每次取 hash 值的前 <span class="arithmatex">\(i\)</span> 位进行 table 取址</p>
+<p>一个 bucket 可能有多个指针指向, 说明 table 的粒度大于 bucket 的粒度</p>
+<hr>
+<p>初始有 <span class="arithmatex">\(i=0\)</span></p>
+<p>计算搜索键 <span class="arithmatex">\(K_j\)</span> 的 hash 值 <span class="arithmatex">\(h(K_j)=X\)</span></p>
+<p>使用 <span class="arithmatex">\(X\)</span> 的前 <span class="arithmatex">\(i\)</span> 位去往 table 对应的 bucket</p>
+<p>其中 bucket 有一个 <span class="arithmatex">\(i_j\)</span></p>
+<p>如果 bucket 有空就插入, 没空需要分裂</p>
+<ol>
+<li>
+<p><span class="arithmatex">\(i=i_j\)</span>: 说明当前的粒度 <span class="arithmatex">\(i\)</span> 不足以区分不同的 hash 值, 就 <span class="arithmatex">\(i++\)</span>, 倍增 table 大小, 对于 <span class="arithmatex">\(1\)</span> 个 entry 变成 <span class="arithmatex">\(2\)</span> 个, 指向同一个 bucket; 重新计算 <span class="arithmatex">\(h(K_j)\)</span>, 转向 <span class="arithmatex">\(i&gt;i_j\)</span> 的情况</p>
+</li>
+<li>
+<p><span class="arithmatex">\(i&gt;i_j\)</span>: 创建一个新 bucket <span class="arithmatex">\(z\)</span>, 将 <span class="arithmatex">\(j\)</span> 对应的后一半指针指向 <span class="arithmatex">\(z\)</span></p>
+<p>将 <span class="arithmatex">\(j\)</span> 中的记录全删除再全插入, 进行重新分配</p>
+<p>重新计算 <span class="arithmatex">\(h(K_j)\)</span>, 有空插入, 没空继续分裂</p>
+</li>
+</ol>
+<p>注意如果一个 bucket 中全是同一种记录, 那再怎么分裂也不可能区分, 就使用 bucket overflow, 新建一个 bucket 存放记录, 前一个 bucket 指向这个 bucket</p>
 <h1 id="query-processing">Query Processing</h1>
 <h2 id="select">select</h2>
 <h3 id="linear-search">linear search</h3>
@@ -4380,7 +4619,7 @@
 <div class="arithmatex">\[(h_i+m+n)(t_T+t_S)\]</div>
 <p>因为数据可能是不连续的</p>
 <p>假设每个数据都在不同的块里, 一共 <span class="arithmatex">\(n\)</span> 条数据</p>
-<p>并且 <span class="arithmatex">\(n\)</span> 个指针存在 <span class="arithmatex">\(m\)</span> 个块里</p>
+<p>并且 <span class="arithmatex">\(n\)</span> 个指针存在 <span class="arithmatex">\(m\)</span> 个块里 (<span class="arithmatex">\(m\)</span> 可省略)</p>
 </li>
 </ol>
 <h4 id="index-serach-involving-range-comparisons">index serach involving range comparisons</h4>
@@ -4393,7 +4632,7 @@
 </li>
 <li>
 <p>如果使用 secondary 读取一个数据</p>
-<p>情况较复杂</p>
+<div class="arithmatex">\[(h_i+m+n)(t_T+t_S)\]</div>
 </li>
 </ol>
 <h2 id="sort">sort</h2>
@@ -4608,6 +4847,7 @@
 <p>一个 view serializable 但 non conflict serializable 的 schedule:</p>
 <p><img alt="alt text" src="../image.png"></p>
 <p>等价于 <span class="arithmatex">\(T_{27}-T_{28}-T_{29}\)</span></p>
+<p>每个视图可序列化但冲突不可序列化的调度一定有 blind writes</p>
 <h2 id="recoverable-schedule">recoverable schedule</h2>
 <h3 id="recoverable">recoverable</h3>
 <p>如果 <span class="arithmatex">\(T_j\)</span> 读写被 <span class="arithmatex">\(T_i\)</span> 更改的脏数据, 那么 <span class="arithmatex">\(T_j\)</span> 必须在 <span class="arithmatex">\(T_i\)</span> 后提交</p>
@@ -4655,7 +4895,7 @@
 <p>坏处: 不保证 recoverability </p>
 <p>因为事务途中可以释放锁</p>
 <p>如果 T1 释放了一个脏数据, T2 更改, 并且 T2 在 T1 前 commit, 那么 T1 回滚不保证可恢复性</p>
-<h2 id="_6">多粒度</h2>
+<h2 id="multiple-granularity">Multiple Granularity 多粒度</h2>
 <p><img alt="alt text" src="../image-1.png"></p>
 <p>一个事务可以加 <span class="arithmatex">\(S,IS\)</span> 锁当且仅当父亲加了 <span class="arithmatex">\(IX,IS\)</span> 锁</p>
 <p>一个事务可以加 <span class="arithmatex">\(X,SIX,IX\)</span> 锁当且仅当父亲加了 <span class="arithmatex">\(IX,SIX\)</span> 锁</p>
@@ -4672,7 +4912,7 @@
 <p>可以设计更加高效的并发策略, 不受限于 2PL</p>
 <h1 id="recovery">recovery</h1>
 <h2 id="2pl">2PL</h2>
-<p>需要严格 2PL 才保证可恢复, 因为一般 2PL 释放锁后可能 rollback, 而其他食物可能访问到已释放的脏数据</p>
+<p>需要严格 2PL 才保证可恢复, 因为一般 2PL 释放锁后可能 rollback, 而其他事务可能访问到已释放的脏数据</p>
 <h3 id="redo-undo">redo / undo</h3>
 <p>根据 log 开始 redo</p>
 <p>统计那个事务没有 commit / abort</p>
@@ -4694,7 +4934,7 @@
 <p>这是逻辑上的恢复</p>
 <p>这样可以不遵循严格 2PL, 可以提前放锁</p>
 <h2 id="aries">ARIES</h2>
-<p><img alt="alt text" src="../image-2.png"></p>
+<p><img alt="alt text" src="../image-9.png"></p>
 <p>Dirty Page Table 用来存 Page 以及对其没有保存到数据库里的操作</p>
 <h3 id="checkpoint_1">checkpoint</h3>
 <p>保存 DIry Page Table, 活跃的事务 (事务写的最后一个 LSN)</p>

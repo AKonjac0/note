@@ -1,0 +1,20 @@
+eval.batch_size: 8
+eval.cutoff_len: 1024
+eval.dataset:
+- alpaca_en
+eval.dataset_dir: /root/LLaMA-Factory/data
+eval.max_new_tokens: 512
+eval.max_samples: '500'
+eval.output_dir: eval_2025-07-22-14-23-54
+eval.predict: true
+eval.temperature: 0.95
+eval.top_p: 0.7
+top.booster: auto
+top.checkpoint_path:
+- train_2025-07-22-14-23-54
+top.finetuning_type: lora
+top.model_name: Qwen2.5-0.5B-Instruct
+top.quantization_bit: none
+top.quantization_method: bitsandbytes
+top.rope_scaling: none
+top.template: qwen

@@ -12,7 +12,7 @@
         <link rel="prev" href="../../misc/">
       
       
-        <link rel="next" href="../research/">
+        <link rel="next" href="../present_8_1/">
       
       
       <link rel="icon" href="../../../assets/images/favicon.png">
@@ -20,7 +20,7 @@
     
     
       
-        <title>refs - My Docs</title>
+        <title>data selection methods - My Docs</title>
       
     
     
@@ -74,7 +74,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#refs" class="md-skip">
+        <a href="#data-selection-methods" class="md-skip">
           Skip to content
         </a>
       
@@ -108,7 +108,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              refs
+              data selection methods
             
           </span>
         </div>
@@ -1414,16 +1414,271 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    data selection methods
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
-    refs
+    data selection methods
   </span>
   
 
       </a>
       
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-coreset" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. coreset
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. coreset">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#clustering" class="md-nav__link">
+    <span class="md-ellipsis">
+      clustering
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="clustering">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#basic-theories-and-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      basic theories and methods
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#new-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      new methods
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#facility-location" class="md-nav__link">
+    <span class="md-ellipsis">
+      facility location
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-random" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. random
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-rds" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. RDS+
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-influence-distillation" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Influence Distillation
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-sketch" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Sketch
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-scar" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. SCAR
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-perplexity" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Perplexity
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-preselect" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. PreSelect
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-less" class="md-nav__link">
+    <span class="md-ellipsis">
+      ~~9. LESS~~
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-ifd" class="md-nav__link">
+    <span class="md-ellipsis">
+      ~~10. IFD~~
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-leverage-score-sampling" class="md-nav__link">
+    <span class="md-ellipsis">
+      11. Leverage Score Sampling
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-rpvopt" class="md-nav__link">
+    <span class="md-ellipsis">
+      12. RPVopt
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-density-sampling" class="md-nav__link">
+    <span class="md-ellipsis">
+      13. Density sampling
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14-tokenod" class="md-nav__link">
+    <span class="md-ellipsis">
+      14. TokenOD
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#xxx-unknown" class="md-nav__link">
+    <span class="md-ellipsis">
+      xxx. unknown
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../present_8_1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Present 8 1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reproduce/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Reproduce
+  </span>
+  
+
+      </a>
     </li>
   
 
@@ -1445,6 +1700,94 @@
   
 
       </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_7_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_7_5" id="__nav_5_7_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Cursor chat
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_7_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_7_5">
+            <span class="md-nav__icon md-icon"></span>
+            Cursor chat
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cursor_chat/cursor_implement_clustering_and_samplin/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Implement clustering and sampling algorithm
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cursor_chat/cursor_inf_nan/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    解决代码中的 inf 或 NaN 错误
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
     </li>
   
 
@@ -1604,6 +1947,27 @@
             GUI Agent
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../GUI%20Agent/7_27_conference/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    现在的问题
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
             
               
                 
@@ -4265,6 +4629,197 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-coreset" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. coreset
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. coreset">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#clustering" class="md-nav__link">
+    <span class="md-ellipsis">
+      clustering
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="clustering">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#basic-theories-and-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      basic theories and methods
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#new-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      new methods
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#facility-location" class="md-nav__link">
+    <span class="md-ellipsis">
+      facility location
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-random" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. random
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-rds" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. RDS+
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-influence-distillation" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Influence Distillation
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-sketch" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Sketch
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-scar" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. SCAR
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-perplexity" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Perplexity
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-preselect" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. PreSelect
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-less" class="md-nav__link">
+    <span class="md-ellipsis">
+      ~~9. LESS~~
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-ifd" class="md-nav__link">
+    <span class="md-ellipsis">
+      ~~10. IFD~~
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-leverage-score-sampling" class="md-nav__link">
+    <span class="md-ellipsis">
+      11. Leverage Score Sampling
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-rpvopt" class="md-nav__link">
+    <span class="md-ellipsis">
+      12. RPVopt
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-density-sampling" class="md-nav__link">
+    <span class="md-ellipsis">
+      13. Density sampling
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14-tokenod" class="md-nav__link">
+    <span class="md-ellipsis">
+      14. TokenOD
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#xxx-unknown" class="md-nav__link">
+    <span class="md-ellipsis">
+      xxx. unknown
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -4281,17 +4836,254 @@
   
 
 
-<div><h1 id="refs">refs</h1>
+<div><h1 id="data-selection-methods">data selection methods</h1>
+<h2 id="1-coreset">1. coreset</h2>
+<p><a href="../Coreset%20Construction%20Methods.html">coreset</a></p>
+<h3 id="clustering">clustering</h3>
+<h4 id="basic-theories-and-methods">basic theories and methods</h4>
+<p><a href="https://arxiv.org/pdf/1708.00489">Active learning for convolutional neural networks: A core-set approach</a></p>
+<p><a href="https://arxiv.org/abs/1805.08571">On Coresets for Logistic Regression</a> David Woodruff</p>
+<p><a href="https://arxiv.org/pdf/2402.17327">Data-Efficient Learning via Clustering-Based Sensitivity Sampling: Foundation Models and Beyond</a> David Woodruff</p>
+<p>这三篇按顺序来看</p>
+<p>~~<a href="https://arxiv.org/pdf/1106.1379">A Unified Framework for Approximating and Clustering Data</a>~~</p>
+<h4 id="new-methods">new methods</h4>
+<p>关于聚类的新方法:</p>
+<ul>
+<li>
+<p><a href="https://abjournals.org/bjcnit/wp-content/uploads/sites/11/journal/published_paper/volume-4/issue-1/BJCNIT_XEPSJBWX.pdf">New K-means Clustering Method Using Minkowski’s Distance as its Metric</a></p>
+</li>
+<li>
+<p><a href="https://dl.acm.org/doi/pdf/10.1145/235968.233324">BIRCH: An Efficient Data Clustering Method for Very Large Databases</a></p>
+<p>BIRCH</p>
+</li>
+<li>
+<p><a href="https://arxiv.org/pdf/2402.18191">Clustering and Ranking: Diversity-preserved Instruction Selection through Expert-aligned Quality Estimation</a></p>
+<p>CaR (Clustering and Ranking)</p>
+<p>使用 Sentence-BERT 排序和 K-Means 聚类</p>
+<p>首先使用 Sentence-BERT 模型对数据进行质量评分和排序, 然后通过 K-means 聚类确保数据的多样性</p>
+<p><a href="https://github.com/IronBeliever/CaR">code</a></p>
+</li>
+<li>
+<p><a href="https://arxiv.org/pdf/1011.4632">Random Projections for k-means Clustering</a></p>
+</li>
+<li>
+<p><a href="https://arxiv.org/abs/2012.11891">Fast and accurate <span class="arithmatex">\(k\)</span>-means++ via rejection sampling</a></p>
+</li>
+</ul>
+<h3 id="facility-location">facility location</h3>
+<p><a href="https://arxiv.org/pdf/2211.05474">An <span class="arithmatex">\(O(\log \log n)\)</span>-Approximation for Submodular Facility Location</a></p>
+<h2 id="2-random">2. random</h2>
+<p><a href="https://arxiv.org/pdf/2410.09335">RETHINKING DATA SELECTION AT SCALE: RANDOM SELECTION IS ALMOST ALL YOU NEED</a></p>
+<p>指出 LESS, IFD, SelectIT, DiverseEvol, ZIP 都随着数据集增大效果变差</p>
+<h2 id="3-rds">3. RDS+</h2>
+<p><a href="https://arxiv.org/pdf/2503.01807">Large-Scale Data Selection for Instruction Tuning</a> </p>
+<p>假设能够获取 eval 集的一些采样 <span class="arithmatex">\(V\)</span>, 数量不多, 大概 10-100 个, 保证这个集合 <span class="arithmatex">\(V\)</span> 与 eval 集同分布</p>
+<p>对于数据集 <span class="arithmatex">\(D\)</span>, <span class="arithmatex">\(v\in V,d\in D\)</span>, 计算 <span class="arithmatex">\(v,d\)</span> 之间的某种相似度来得到分数 <span class="arithmatex">\(S[v,d]\)</span></p>
+<p>对于每个 <span class="arithmatex">\(v\)</span>, 选择得分最高的 <span class="arithmatex">\(d\)</span>, 重复知道选完</p>
+<p>RDS+ 计算模型最后一层得到一个 cosine 相似度</p>
+<h2 id="4-influence-distillation">4. Influence Distillation</h2>
+<p><a href="https://arxiv.org/pdf/2505.19051">Efficient Data Selection at Scale via Influence Distillation</a> </p>
+<p>比较新, 基于梯度二阶近似计算, 相比 RDS+ 速度快 3.5 倍</p>
+<h2 id="5-sketch">5. Sketch</h2>
+<p><a href="https://proceedings.neurips.cc/paper_files/paper/2024/file/4c79c359b3c5f077c0b955f93cb0f53e-Paper-Conference.pdf">Sketchy Moment Matching: Toward Fast and Provable Data Selection for Finetuning</a></p>
+<h2 id="6-scar">6. SCAR</h2>
+<p>对文本风格按照文中定义的分数排序, 选择分数高的语料</p>
+<p><a href="https://zhuanlan.zhihu.com/p/1912258086502105780">知乎</a></p>
+<p><a href="https://arxiv.org/abs/2406.10882">SCAR: Data Selection via Style Consistency-Aware Response Ranking for Efficient Instruction-Tuning of Large Language Models</a></p>
+<p><a href="https://github.com/zhuang-li/SCAR">代码</a></p>
+<h2 id="7-perplexity">7. Perplexity</h2>
+<p>计算 <span class="arithmatex">\(O(n)\)</span></p>
+<h2 id="8-preselect">8. PreSelect</h2>
+<p><a href="https://arxiv.org/pdf/2503.00808">Predictive Data Selection: The Data That Predicts Is the Data That Teaches</a></p>
+<p>比较新的方法</p>
+<p>基于分数</p>
+<p><a href="https://zhuanlan.zhihu.com/p/1906709639648747725">知乎</a></p>
+<h2 id="9-less">~~9. LESS~~</h2>
+<p><a href="https://arxiv.org/pdf/2402.04333">LESS: Selecting influential data for targeted instruction tuning</a></p>
+<p>很慢的一种方法</p>
+<h2 id="10-ifd">~~10. IFD~~</h2>
+<h2 id="11-leverage-score-sampling">11. Leverage Score Sampling</h2>
+<p>~~<a href="https://www.jstor.org/stable/2245477?seq=1">Influential observations, high leverage points, and outliers in linear regression</a>~~</p>
+<p>regression 的标准采样算法, 计算开销大</p>
+<h2 id="12-rpvopt">12. RPVopt</h2>
+<p><a href="https://openreview.net/pdf?id=WPvQVQrbch">Randomly Pivoted V-optimal Design: Fast Data Selection under Low Intrinsic Dimension</a></p>
+<p>比 ridge leverage score sampling 效果好</p>
+<h2 id="13-density-sampling">13. Density sampling</h2>
+<p><a href="https://arxiv.org/pdf/2402.09668">How to Train Data-Efficient LLMs</a></p>
+<h2 id="14-tokenod">14. TokenOD</h2>
+<p><a href="https://openreview.net/pdf?id=oXRVW8QGx7">DATA-EFFICIENT SUPERVISED FINE-TUNING OF LANGUAGE MODELS USING OPTIMAL DESIGN</a>
+据说这个贪心效果很好</p>
+<h2 id="xxx-unknown">xxx. unknown</h2>
+<p><a href="">Selection via proxy: Efficient data selection for deep learning.</a></p>
+<p><a href="https://arxiv.org/pdf/2107.04984">SVP-CF: Selection via Proxy for Collaborative Filtering Data</a></p>
+<hr>
+<p>总的来看预训练阶段 preselect 好用, 指令微调阶段 CaR, SCAR 好用</p>
+<h1 id="code-repositories">code repositories</h1>
 <ol>
-<li><a href="https://arxiv.org/pdf/2402.17327">Data-Efficient Learning via Clustering-Based Sensitivity Sampling: Foundation Models and Beyond</a></li>
-<li><a href="https://arxiv.org/pdf/2505.19051">Efficient Data Selection at Scale via Influence Distillation</a> </li>
-<li><a href="https://arxiv.org/pdf/2503.01807">Large-Scale Data Selection for Instruction Tuning</a></li>
-<li><a href="https://arxiv.org/pdf/2402.04333">LESS: Selecting influential data for targeted instruction tuning</a></li>
+<li>
+<p><a href="https://github.com/hiyouga/LLaMA-Factory">LLaMA-Factory</a> </p>
+<p>现在在用这个训练模型</p>
+</li>
+<li>
+<p><a href="https://github.com/hamishivi/automated-instruction-selection">Large-Scale Data Selection for Instruction Tuning</a> </p>
+<p>之前尝试复现的代码, 主要尝试了复现 RDS+, 但是很慢</p>
+</li>
+<li>
+<p><a href="https://github.com/xiatingyu/SFT-DataSelection-at-scale">SFT-DataSelection-at-scale</a></p>
+<p>random 那篇文章的代码, 里面有 LESS, IFD 等方法的代码和 random 的代码</p>
+</li>
+<li>
+<p><a href="https://github.com/IronBeliever/CaR">CaR</a></p>
+</li>
+<li>
+<p><a href="https://github.com/zhuang-li/SCAR">SCAR</a></p>
+</li>
 </ol>
-<h1 id="data-selection-methods">data selection methods</h1>
+<h1 id="comprehensive-surveys">comprehensive surveys</h1>
+<p><a href="https://arxiv.org/pdf/2009.00236">A Survey of Deep Active Learning</a></p>
+<p><a href="https://arxiv.org/pdf/2402.16827">A Survey on Data Selection for Language Models</a></p>
+<p><a href="https://arxiv.org/pdf/2410.16208">COMPUTE-CONSTRAINED DATA SELECTION</a></p>
+<p><a href=""></a></p>
+<h1 id="dataset">dataset</h1>
+<h2 id="train">train</h2>
+<p>alpaca_en_52k</p>
+<p>tuluv2</p>
+<h2 id="eval">eval</h2>
+<p>MMLU</p>
+<p>alpaca_eval</p>
+<p>GSM8k</p>
+<p>SQuAD</p>
+<p>Big Bench Hard</p>
+<p>HumanEval Codex</p>
+<p>TydiQA</p>
+<hr>
+<h1 id="note">note</h1>
+<p>分类:</p>
 <ol>
-<li><a href="../Coreset%20Construction%20Methods.html">coreset</a></li>
-</ol></div>
+<li>基于 sampling, 如 random, density, sensitivity (cluster)</li>
+<li>基于普通评分</li>
+<li>基于小模型评分</li>
+<li>基于 OED</li>
+<li>基于大模型 (embedding, 梯度, 评分等)</li>
+</ol>
+<p>我们目前还在对比各种方法的阶段, 目前研究三大类:</p>
+<ol>
+<li>基于评分 (小模型): CaR, SCAR</li>
+<li>基于数学方法 (这部分与教授都有关):
+    OED + Sketch: TokenOD [RPVopt, Sketch]
+    聚类: clustering-based sensitivity sampling</li>
+<li>基于模型层或梯度计算 (最开始尝试的方法): RDS+ [InfDist]</li>
+</ol>
+<p>目前除了方括号内的所有方法都有在小模型 + 小数据集上复现, 从结果上来看不相上下 (可能是模型与数据集小的原因)</p>
+<p>然后在中等模型 + 中等数据集上, 目前复现了 CaR+SCAR 的结果, 正在进行 RDS+ 和 TokenOD 两种方法的复现</p>
+<p>目前还没有选定更深入研究的方向, 不过我更倾向于数学的方法, 因为与教授关系比较密切, 同时不需要训练小模型或者推理需要训练的大模型, 计算效率更高一些, 只是可能难出成果</p>
+<p>目前来看可以尝试训练小模型的方式, 所以如果你们想要尝试训练小模型, 可以发一下, 我来看看怎么做这个实验, 然后大家一起训练一下</p>
+<p>至于计算大模型的方式我还是打算放弃, 仅仅用复现结果当一个对比, 因为计算开销实在太大; 并且这些方法有一个缺点, 就是他们需要同时知道训练数据集和评测数据集, 通过模型参数 / 梯度来计算对评测数据集的每个数据点贡献大的训练数据点, 把这些数据选出来. 但是我们不能假设评测集的分布一定与选择时用到的这些评测集相似, 如果碰到一个没见过并且差异较大的评测集 (或者实际应用中的复杂情况), 可能效果就会不好. </p>
+<p>(这个问题其实对于训练小模型也是存在的, 我们不能保证训练时的数据集与预训练小模型的数据集分布相似, 这样小模型对于一个差异较大的训练集的评分就可能出现问题)</p>
+<p>所以我觉得这也是一个可以深入探讨的地方, 就是如何保证我们的数据选择方法在任何训练集和评测集上都有效, 那一个可能的方式就是通过数学的方法找到数据的本征并进行选择, 比如对数据聚类 / 对数据降维后提取特征等等</p>
+<h1 id="todo-list">Todo List</h1>
+<h2 id="car">CaR</h2>
+<ol>
+<li>对于 cluster 是否有必要, 多少个 cluster 最好</li>
+<li><span class="arithmatex">\(n_1\)</span>, <span class="arithmatex">\(n_2\)</span> 多少比较好</li>
+<li>与 SCAR: 同样使用模型来评分, 可以试试把 CaR 的 IQS 换成 SCAR 的评分模型</li>
+<li>
+</ol>
+<h2 id="infdist">InfDist</h2>
+<ol>
+<li>
+</ol>
+<h2 id="sketch">Sketch</h2>
+<h2 id="rpvopts">RPVopts</h2>
+<h1 id="algorithm-31-randomly-pivoted-v-optimal-design-rpvopt">Algorithm 3.1: Randomly Pivoted V-optimal Design (RPVopt)</h1>
+<h2 id="input">Input:</h2>
+<ul>
+<li><span class="arithmatex">\(\mathbf{X} \in \mathbb{R}^{N \times d}\)</span>, </li>
+<li>Coreset size <span class="arithmatex">\(n\)</span>, </li>
+<li>Temperature <span class="arithmatex">\(\tau &gt; 0\)</span>, </li>
+<li>Embedding dimension <span class="arithmatex">\(m &lt; n\)</span>.</li>
+</ul>
+<h3 id="steps">Steps:</h3>
+<ol>
+<li>
+<p><strong>Draw a Gaussian embedding</strong> <span class="arithmatex">\(\Gamma \in \mathbb{R}^{d \times m}\)</span> with i.i.d. entries <span class="arithmatex">\(\Gamma_{ij} \sim (0, 1/m)\)</span>.</p>
+</li>
+<li>
+<p><strong>Compute the sketching</strong> <span class="arithmatex">\(\widetilde{\mathbf{X}} = \mathbf{X}\Gamma = [\widetilde{\mathbf{x}}_1, \cdots, \widetilde{\mathbf{x}}_N]^\top \in \mathbb{R}^{N \times m}\)</span>.  </p>
+</li>
+<li>
+<p>Complexity: <span class="arithmatex">\(O(Ndm)\)</span></p>
+</li>
+<li>
+<p><strong>Select</strong> <span class="arithmatex">\(S_m \in \mathcal{C}([N], m)\)</span> from <span class="arithmatex">\(\widetilde{\mathbf{X}}\)</span> via randomly pivoted QR.  </p>
+</li>
+<li>
+<p>Complexity: <span class="arithmatex">\(O(Nm^2)\)</span></p>
+</li>
+<li>
+<p><strong>Update matrix</strong> <span class="arithmatex">\(\mathbf{Y}_{(m)} \leftarrow \widetilde{\mathbf{X}}(\widetilde{\mathbf{X}}_{S_m}^\top\widetilde{\mathbf{X}}_{S_m})^{-1} \in \mathbb{R}^{N \times m}\)</span>.  </p>
+</li>
+<li>
+<p>Complexity: <span class="arithmatex">\(O(Nm^2 + m^3)\)</span></p>
+</li>
+<li>
+<p><strong>For</strong> <span class="arithmatex">\(t = m+1, \cdots, n\)</span> <strong>do</strong></p>
+<ol>
+<li><span class="arithmatex">\(\Delta_{S_{t-1}}(\widetilde{\mathbf{x}}_i) \leftarrow \|\mathbf{Y}_{(t-1)}\widetilde{\mathbf{x}}_i\|_2^2 / (1 + \mathbf{e}_i^\top\mathbf{Y}_{(t-1)}\widetilde{\mathbf{x}}_i) \; \forall \; i \in \overline{S_{t-1}}\)</span>.  </li>
+<li>
+<p>Complexity: <span class="arithmatex">\(O(Nm)\)</span></p>
+</li>
+<li>
+<p><span class="arithmatex">\(\mathbf{p} = (p_1, \cdots, p_N) \leftarrow \mathbf{0}_{[N]}\)</span>, <span class="arithmatex">\(p_i \leftarrow \exp(\Delta_{S_{t-1}}(\widetilde{\mathbf{x}}_i)/\tau) \; \forall \; i \in \overline{S_{t-1}}\)</span>.</p>
+</li>
+<li>
+<p>Sample <span class="arithmatex">\(i_t \sim \mathbf{p}/\|\mathbf{p}\|_1\)</span></p>
+</li>
+<li>
+<p><span class="arithmatex">\(S_t \leftarrow S_{t-1} \cup \{i_t\}\)</span>.</p>
+</li>
+<li>
+<p><span class="arithmatex">\(\mathbf{Y}_{(t)} \leftarrow \mathbf{Y}_{(t-1)} - (\mathbf{Y}_{(t-1)}\widetilde{\mathbf{x}}_{i_t})(\mathbf{e}_{i_t}^\top\mathbf{Y}_{(t-1)})/(1 + \mathbf{e}_{i_t}^\top\mathbf{Y}_{(t-1)}\widetilde{\mathbf{x}}_{i_t})\)</span>.  </p>
+<ul>
+<li>Complexity: <span class="arithmatex">\(O(Nm)\)</span></li>
+</ul>
+</li>
+</ol>
+</li>
+</ol>
+<h3 id="return">Return:</h3>
+<ul>
+<li><span class="arithmatex">\(S_n \in \mathcal{C}([N], n)\)</span>.</li>
+</ul>
+<hr>
+<p>Randomly pivoted QR. With <span class="arithmatex">\(\widetilde{\mathbf{X}}\)</span>, Algorithm 3.1 selects the first <span class="arithmatex">\(m\)</span> samples via randomly pivoted QR [30]: Initializing <span class="arithmatex">\(\widetilde{\mathbf{X}}^{(0)} = [\widetilde{\mathbf{x}}_1^{(0)}, \cdots, \widetilde{\mathbf{x}}_N^{(0)}]^\top = \widetilde{\mathbf{X}} \in \mathbb{R}^{N \times m}\)</span> and <span class="arithmatex">\(S_0 = \emptyset\)</span>, for <span class="arithmatex">\(t \in [m]\)</span>:</p>
+<p>(i) Sample <span class="arithmatex">\(i_t\)</span> from <span class="arithmatex">\([N] \setminus S_{t-1}\)</span> with probability <span class="arithmatex">\(p_i = \|\widetilde{\mathbf{x}}_i^{(t-1)}\|_2^2 / \|\widetilde{\mathbf{X}}^{(t-1)}\|_F^2\)</span> for all <span class="arithmatex">\(i \in [N] \setminus S_{t-1}\)</span>;</p>
+<p>(ii) Update <span class="arithmatex">\(S_t = S_{t-1} \cup \{i_t\}\)</span> and <span class="arithmatex">\(\widetilde{\mathbf{X}}^{(t)} = \widetilde{\mathbf{X}}^{(t-1)} - \widetilde{\mathbf{X}}^{(t-1)} \widetilde{\mathbf{x}}_{i_t}^{(t-1)} (\widetilde{\mathbf{x}}_{i_t}^{(t-1)})^\top / \|\widetilde{\mathbf{x}}_{i_t}^{(t-1)}\|_2^2\)</span>.</p>
+<p>When <span class="arithmatex">\(\text{rank}(\mathbf{X}) = d\)</span>, sketching via a Gaussian embedding with <span class="arithmatex">\(m \leq d\)</span> provides <span class="arithmatex">\(\text{rank}(\widetilde{\mathbf{X}}) = m\)</span> with probability one. Then, the Gram-Schmidt process ensures that randomly pivoted QR selects <span class="arithmatex">\(m\)</span> linearly independent samples, i.e., <span class="arithmatex">\(\text{rank}(\widetilde{\mathbf{X}}_{S_m}) = m\)</span>. It is worth noticing that random pivoted QR is effectively replacing the greedy pivoting in the classical row pivoted QR [32] with adaptive square norm sampling, which achieves better accuracy and robustness in both theory and practice [30].</p>
+<hr>
+<h1 id="adaptive-v-optimal-design-via-random-pivoting">Adaptive V-optimal design via random pivoting</h1>
+<p>With the first $ m $ linearly independent samples, Algorithm 3.1 continues by adaptively sampling the remaining $ n - m $ data according to the V-optimality over $ \widetilde{\mathbf{X}} $. In particular, since $ \text{rank}(\widetilde{\mathbf{X}}_{S_m}) = m $, for any subsequent $ S \supset S_m $, $ \text{rank}(\widetilde{\mathbf{X}}_S) = m $. Then, the Woodbury matrix identity [33] implies that for any $ S \supset S_m $ and $ i \in [N] \setminus S $,</p>
+<div class="arithmatex">\[
+(\widetilde{\mathbf{X}}_S^\top \widetilde{\mathbf{X}}_S + \widetilde{\mathbf{x}}_i \widetilde{\mathbf{x}}_i^\top)^{-1} = (\widetilde{\mathbf{X}}_S^\top \widetilde{\mathbf{X}}_S)^{-1} - \frac{(\widetilde{\mathbf{X}}_S^\top \widetilde{\mathbf{X}}_S)^{-1} \widetilde{\mathbf{x}}_i \widetilde{\mathbf{x}}_i^\top (\widetilde{\mathbf{X}}_S^\top \widetilde{\mathbf{X}}_S)^{-1}}{1 + \widetilde{\mathbf{x}}_i^\top (\widetilde{\mathbf{X}}_S^\top \widetilde{\mathbf{X}}_S)^{-1} \widetilde{\mathbf{x}}_i},
+\]</div>
+<p>and therefore, $ \text{tr}(\widetilde{\mathbf{X}}^\top \widetilde{\mathbf{X}} (\widetilde{\mathbf{X}}<em s="S" _123_i_125_="{i}" _cup="\cup">{S \cup {i}}^\top \widetilde{\mathbf{X}}</em>})^{-1}) = \text{tr}(\widetilde{\mathbf{X}}^\top \widetilde{\mathbf{X}} (\widetilde{\mathbf{X}<em s_n="S_n">S^\top \widetilde{\mathbf{X}}_S)^{-1}) - \Delta_S(\widetilde{\mathbf{x}}_i) $ where $ \Delta_S(\widetilde{\mathbf{x}}_i) = |\widetilde{\mathbf{X}} (\widetilde{\mathbf{X}}_S^\top \widetilde{\mathbf{X}}_S)^{-1} \widetilde{\mathbf{x}}_i|_2^2 / (1 + \widetilde{\mathbf{x}}_i^\top (\widetilde{\mathbf{X}}_S^\top \widetilde{\mathbf{X}}_S)^{-1} \widetilde{\mathbf{x}}_i) $. Since $ \text{tr}(\widetilde{\boldsymbol{\Sigma}} \widetilde{\boldsymbol{\Sigma}}</em>}^{-1}) = \frac{n}{N} \text{tr}(\widetilde{\mathbf{X}}^\top \widetilde{\mathbf{X}} (\widetilde{\mathbf{X}<em s_n="S_n">{S_n}^\top \widetilde{\mathbf{X}}</em>})^{-1}) $, for given $ S \supset S_m $, picking $ i \in [N] \setminus S $ with the maximum $ \Delta_S(\widetilde{\mathbf{x}<em s_n="S_n">i) $ brings the optimal reduction in $ \text{tr}(\widetilde{\boldsymbol{\Sigma}} \widetilde{\boldsymbol{\Sigma}}</em>) $ locally, leading to a natural greedy algorithm.}^{-1</p>
+<p>To alleviate the potential suboptimality caused by the local optimality, instead of greedy selection, we inject randomness by sampling proportional to $ \exp(\Delta_{S_{t-1}}(\widetilde{\mathbf{x}}_i) / \tau) $, with the randomness controlled by a temperature hyperparameter $ \tau $.</p>
+<h1 id="cluster">关于 cluster 的改进</h1>
+<!-- 1. 对于 $\Lambda$ 取值 -->
+<ol>
+<li>对于距离函数</li>
+<li>对于采样方式, 使用整体 topk 或者对每个 cluster 都进行 topk 选择</li>
+</ol>
+<!-- 4. 对于 $k$ 的个数 (基本上, 200 最佳) -->
+<!-- 5. 对于中心点是否选 (选比较好) -->
+<!-- 6. 对于预训练方式, 是否可以通过先使用 $k'=0, k''=0.2k$ 选择出一个小的子集 (所有中心点) 预训练, 之后 $k'=k''$ 重新采样 $k-k''$ 个数据点 -->
+
+<p>~~kernel k means~~
+~~k median~~
+DBSCAN, GMM (gaussian mixture model)
+hierachical clustering
+cosine distance = 1 - cosine similarity
+DBSCAN, GMM, hierarchical clustering each with cosine distance as the distance function</p></div>
 
 
 

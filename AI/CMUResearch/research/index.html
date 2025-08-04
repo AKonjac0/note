@@ -9,10 +9,10 @@
       
       
       
-        <link rel="prev" href="../data_selection/">
+        <link rel="prev" href="../reproduce/">
       
       
-        <link rel="next" href="../../Deep%20Learning/DL/">
+        <link rel="next" href="../cursor_chat/cursor_implement_clustering_and_samplin/">
       
       
       <link rel="icon" href="../../../assets/images/favicon.png">
@@ -1409,7 +1409,49 @@
         
   
   <span class="md-ellipsis">
-    refs
+    data selection methods
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../present_8_1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Present 8 1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reproduce/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Reproduce
   </span>
   
 
@@ -1444,6 +1486,94 @@
   
 
       </a>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_7_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_7_5" id="__nav_5_7_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Cursor chat
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_7_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_7_5">
+            <span class="md-nav__icon md-icon"></span>
+            Cursor chat
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cursor_chat/cursor_implement_clustering_and_samplin/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Implement clustering and sampling algorithm
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cursor_chat/cursor_inf_nan/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    解决代码中的 inf 或 NaN 错误
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
       
     </li>
   
@@ -1604,6 +1734,27 @@
             GUI Agent
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../GUI%20Agent/7_27_conference/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    现在的问题
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
             
               
                 
@@ -4354,7 +4505,288 @@ dataset:
 
 下节课汇报
 
-大规模数据集 (社交媒体) --></div>
+大规模数据集 (社交媒体) -->
+
+<p><img alt="alt text" src="../image-3.png"></p>
+<h1 id="720">7.20</h1>
+<h2 id="qwen25-05b-instruct-alpaca_en_52k">QWen2.5-0.5B-Instruct + alpaca_en_52k</h2>
+<h3 id="1-10k-data-20-full">1. 10k data (20% full)</h3>
+<h4 id="eval-alpaca_en_demo">eval = alpaca_en_demo</h4>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">    </span><span class="nt">"predict_bleu-4"</span><span class="p">:</span><span class="w"> </span><span class="mf">23.891149900000002</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"predict_model_preparation_time"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0037</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"predict_rouge-1"</span><span class="p">:</span><span class="w"> </span><span class="mf">37.337299200000004</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"predict_rouge-2"</span><span class="p">:</span><span class="w"> </span><span class="mf">18.148044000000002</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"predict_rouge-l"</span><span class="p">:</span><span class="w"> </span><span class="mf">28.952862199999995</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"predict_runtime"</span><span class="p">:</span><span class="w"> </span><span class="mf">519.567</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"predict_samples_per_second"</span><span class="p">:</span><span class="w"> </span><span class="mf">1.925</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"predict_steps_per_second"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.241</span>
+<span class="p">}</span>
+</code></pre></div>
+<!-- #### eval = alpaca_en, max_sample = 500
+
+{
+    "predict_bleu-4": 47.735254399999995,
+    "predict_model_preparation_time": 0.0037,
+    "predict_rouge-1": 52.601105,
+    "predict_rouge-2": 31.9302176,
+    "predict_rouge-l": 45.142794800000004,
+    "predict_runtime": 266.1278,
+    "predict_samples_per_second": 1.879,
+    "predict_steps_per_second": 0.237
+} -->
+
+<h3 id="2-1k-data-random_selection">2. 1k data (random_selection)</h3>
+<h4 id="eval-alpaca_en_demo_1">eval = alpaca_en_demo</h4>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">    </span><span class="nt">"predict_bleu-4"</span><span class="p">:</span><span class="w"> </span><span class="mf">21.819385699999998</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"predict_model_preparation_time"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0042</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"predict_rouge-1"</span><span class="p">:</span><span class="w"> </span><span class="mf">36.5485163</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"predict_rouge-2"</span><span class="p">:</span><span class="w"> </span><span class="mf">17.3541898</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"predict_rouge-l"</span><span class="p">:</span><span class="w"> </span><span class="mf">28.3530851</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"predict_runtime"</span><span class="p">:</span><span class="w"> </span><span class="mf">476.8131</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"predict_samples_per_second"</span><span class="p">:</span><span class="w"> </span><span class="mf">2.097</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"predict_steps_per_second"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.262</span>
+<span class="p">}</span>
+</code></pre></div>
+<!-- #### eval = alpaca_en, max_sample = 500
+
+{
+    "predict_bleu-4": 39.7898814,
+    "predict_model_preparation_time": 0.0042,
+    "predict_rouge-1": 44.7266636,
+    "predict_rouge-2": 23.1732804,
+    "predict_rouge-l": 38.0373686,
+    "predict_runtime": 227.8129,
+    "predict_samples_per_second": 2.195,
+    "predict_steps_per_second": 0.277
+} -->
+
+<h3 id="3-1k-data-tokenod">3. 1k data (TokenOD)</h3>
+<h4 id="eval-alpaca_en_demo_2">eval = alpaca_en_demo</h4>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">    </span><span class="nt">"predict_bleu-4"</span><span class="p">:</span><span class="w"> </span><span class="mf">24.389109300000005</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"predict_model_preparation_time"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0034</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"predict_rouge-1"</span><span class="p">:</span><span class="w"> </span><span class="mf">38.2405828</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"predict_rouge-2"</span><span class="p">:</span><span class="w"> </span><span class="mf">18.5389167</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"predict_rouge-l"</span><span class="p">:</span><span class="w"> </span><span class="mf">29.640779199999997</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"predict_runtime"</span><span class="p">:</span><span class="w"> </span><span class="mf">536.2525</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"predict_samples_per_second"</span><span class="p">:</span><span class="w"> </span><span class="mf">1.865</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"predict_steps_per_second"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.233</span>
+<span class="p">}</span>
+</code></pre></div>
+<h4 id="eval-mmlu">eval = mmlu</h4>
+<div class="highlight"><pre><span></span><code><span class="w">        </span><span class="nl">Average</span><span class="p">:</span><span class="w"> </span><span class="mf">45.58</span><span class="w">                                                          </span>
+<span class="w">           </span><span class="nl">STEM</span><span class="p">:</span><span class="w"> </span><span class="mf">39.46</span>
+<span class="n">Social</span><span class="w"> </span><span class="n">Sciences</span><span class="o">:</span><span class="w"> </span><span class="mf">52.10</span>
+<span class="w">     </span><span class="nl">Humanities</span><span class="p">:</span><span class="w"> </span><span class="mf">41.62</span>
+<span class="w">          </span><span class="nl">Other</span><span class="p">:</span><span class="w"> </span><span class="mf">50.83</span>
+</code></pre></div>
+<!-- #### eval = alpaca_en, max_sample = 500
+
+{
+    "predict_bleu-4": 39.5883044,
+    "predict_model_preparation_time": 0.0033,
+    "predict_rouge-1": 45.03005340000001,
+    "predict_rouge-2": 23.616477600000003,
+    "predict_rouge-l": 37.4590376,
+    "predict_runtime": 261.6752,
+    "predict_samples_per_second": 1.911,
+    "predict_steps_per_second": 0.241
+} -->
+
+<h3 id="4-1k-data-cluster">4. 1k data (cluster)</h3>
+<h4 id="eval-alpaca_en_demo_3">eval = alpaca_en_demo</h4>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">    </span><span class="nt">"predict_bleu-4"</span><span class="p">:</span><span class="w"> </span><span class="mf">20.827346300000002</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"predict_model_preparation_time"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0035</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"predict_rouge-1"</span><span class="p">:</span><span class="w"> </span><span class="mf">36.4046164</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"predict_rouge-2"</span><span class="p">:</span><span class="w"> </span><span class="mf">17.511612500000002</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"predict_rouge-l"</span><span class="p">:</span><span class="w"> </span><span class="mf">28.099636299999997</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"predict_runtime"</span><span class="p">:</span><span class="w"> </span><span class="mf">446.0694</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"predict_samples_per_second"</span><span class="p">:</span><span class="w"> </span><span class="mf">2.242</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"predict_steps_per_second"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.28</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="5-1k-data-cluster_kmeans">5. 1k data (cluster_kmeans++)</h3>
+<h4 id="eval-alpaca_en_demo_4">eval = alpaca_en_demo</h4>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">    </span><span class="nt">"predict_bleu-4"</span><span class="p">:</span><span class="w"> </span><span class="mf">20.9177064</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"predict_model_preparation_time"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0036</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"predict_rouge-1"</span><span class="p">:</span><span class="w"> </span><span class="mf">35.692976</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"predict_rouge-2"</span><span class="p">:</span><span class="w"> </span><span class="mf">17.133288999999998</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"predict_rouge-l"</span><span class="p">:</span><span class="w"> </span><span class="mf">27.468379000000002</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"predict_runtime"</span><span class="p">:</span><span class="w"> </span><span class="mf">523.0056</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"predict_samples_per_second"</span><span class="p">:</span><span class="w"> </span><span class="mf">1.912</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"predict_steps_per_second"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.239</span>
+<span class="p">}</span>
+</code></pre></div>
+<h4 id="eval-mmlu_1">eval = mmlu</h4>
+<ol>
+<li>160 center
+<div class="highlight"><pre><span></span><code><span class="w">        </span><span class="nl">Average</span><span class="p">:</span><span class="w"> </span><span class="mf">45.90</span><span class="w"> </span>
+<span class="w">           </span><span class="nl">STEM</span><span class="p">:</span><span class="w"> </span><span class="mf">40.76</span>
+<span class="n">Social</span><span class="w"> </span><span class="n">Sciences</span><span class="o">:</span><span class="w"> </span><span class="mf">52.10</span>
+<span class="w">     </span><span class="nl">Humanities</span><span class="p">:</span><span class="w"> </span><span class="mf">41.68</span>
+<span class="w">          </span><span class="nl">Other</span><span class="p">:</span><span class="w"> </span><span class="mf">50.93</span>
+</code></pre></div></li>
+<li>no center</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="w">        </span><span class="nl">Average</span><span class="p">:</span><span class="w"> </span><span class="mf">43.00</span>
+<span class="w">           </span><span class="nl">STEM</span><span class="p">:</span><span class="w"> </span><span class="mf">36.68</span>
+<span class="n">Social</span><span class="w"> </span><span class="n">Sciences</span><span class="o">:</span><span class="w"> </span><span class="mf">49.69</span>
+<span class="w">     </span><span class="nl">Humanities</span><span class="p">:</span><span class="w"> </span><span class="mf">38.96</span>
+<span class="w">          </span><span class="nl">Other</span><span class="p">:</span><span class="w"> </span><span class="mf">48.40</span>
+</code></pre></div>
+<ol>
+<li>
+<p>100 center
+</p><div class="highlight"><pre><span></span><code><span class="w">        </span><span class="nl">Average</span><span class="p">:</span><span class="w"> </span><span class="mf">44.42</span>
+<span class="w">           </span><span class="nl">STEM</span><span class="p">:</span><span class="w"> </span><span class="mf">37.54</span>
+<span class="n">Social</span><span class="w"> </span><span class="n">Sciences</span><span class="o">:</span><span class="w"> </span><span class="mf">51.09</span>
+<span class="w">     </span><span class="nl">Humanities</span><span class="p">:</span><span class="w"> </span><span class="mf">40.60</span>
+<span class="w">          </span><span class="nl">Other</span><span class="p">:</span><span class="w"> </span><span class="mf">50.06</span>
+</code></pre></div>
+</li>
+<li>
+<p>160 center (bad)</p>
+</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="w">        </span><span class="nl">Average</span><span class="p">:</span><span class="w"> </span><span class="mf">44.26</span><span class="w">                                             </span>
+<span class="w">           </span><span class="nl">STEM</span><span class="p">:</span><span class="w"> </span><span class="mf">38.60</span>
+<span class="n">Social</span><span class="w"> </span><span class="n">Sciences</span><span class="o">:</span><span class="w"> </span><span class="mf">50.93</span>
+<span class="w">     </span><span class="nl">Humanities</span><span class="p">:</span><span class="w"> </span><span class="mf">40.38</span>
+<span class="w">          </span><span class="nl">Other</span><span class="p">:</span><span class="w"> </span><span class="mf">48.83</span>
+</code></pre></div>
+<ol>
+<li>200 center</li>
+</ol>
+<p></p><div class="highlight"><pre><span></span><code><span class="w">        </span><span class="nl">Average</span><span class="p">:</span><span class="w"> </span><span class="mf">45.00</span><span class="w">              </span>
+<span class="w">           </span><span class="nl">STEM</span><span class="p">:</span><span class="w"> </span><span class="mf">38.60</span>
+<span class="n">Social</span><span class="w"> </span><span class="n">Sciences</span><span class="o">:</span><span class="w"> </span><span class="mf">51.93</span>
+<span class="w">     </span><span class="nl">Humanities</span><span class="p">:</span><span class="w"> </span><span class="mf">41.25</span>
+<span class="w">          </span><span class="nl">Other</span><span class="p">:</span><span class="w"> </span><span class="mf">49.81</span>
+</code></pre></div>
+* old
+<div class="highlight"><pre><span></span><code><span class="w">        </span><span class="nl">Average</span><span class="p">:</span><span class="w"> </span><span class="mf">44.77</span><span class="w">                                             </span>
+<span class="w">           </span><span class="nl">STEM</span><span class="p">:</span><span class="w"> </span><span class="mf">38.60</span>
+<span class="n">Social</span><span class="w"> </span><span class="n">Sciences</span><span class="o">:</span><span class="w"> </span><span class="mf">52.10</span>
+<span class="w">     </span><span class="nl">Humanities</span><span class="p">:</span><span class="w"> </span><span class="mf">40.09</span>
+<span class="w">          </span><span class="nl">Other</span><span class="p">:</span><span class="w"> </span><span class="mf">50.34</span>
+</code></pre></div>
+1. 300 center
+<div class="highlight"><pre><span></span><code><span class="w">        </span><span class="nl">Average</span><span class="p">:</span><span class="w"> </span><span class="mf">44.68</span><span class="w">              </span>
+<span class="w">           </span><span class="nl">STEM</span><span class="p">:</span><span class="w"> </span><span class="mf">38.63</span>
+<span class="n">Social</span><span class="w"> </span><span class="n">Sciences</span><span class="o">:</span><span class="w"> </span><span class="mf">51.45</span>
+<span class="w">     </span><span class="nl">Humanities</span><span class="p">:</span><span class="w"> </span><span class="mf">41.15</span>
+<span class="w">          </span><span class="nl">Other</span><span class="p">:</span><span class="w"> </span><span class="mf">49.01</span>
+</code></pre></div>
+<h3 id="6-1k-data-car">6. 1k data (CaR)</h3>
+<h4 id="eval-alpaca_en_demo_5">eval = alpaca_en_demo</h4>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">    </span><span class="nt">"predict_bleu-4"</span><span class="p">:</span><span class="w"> </span><span class="mf">28.8181227</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"predict_model_preparation_time"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0038</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"predict_rouge-1"</span><span class="p">:</span><span class="w"> </span><span class="mf">39.3859378</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"predict_rouge-2"</span><span class="p">:</span><span class="w"> </span><span class="mf">19.0912641</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"predict_rouge-l"</span><span class="p">:</span><span class="w"> </span><span class="mf">29.986811799999998</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"predict_runtime"</span><span class="p">:</span><span class="w"> </span><span class="mf">838.0505</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"predict_samples_per_second"</span><span class="p">:</span><span class="w"> </span><span class="mf">1.193</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"predict_steps_per_second"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.149</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="7-1k-data-scar">7. 1k data (SCAR)</h3>
+<h4 id="eval-alpaca_en_demo_6">eval = alpaca_en_demo</h4>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">    </span><span class="nt">"predict_bleu-4"</span><span class="p">:</span><span class="w"> </span><span class="mf">28.907599599999998</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"predict_model_preparation_time"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0039</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"predict_rouge-1"</span><span class="p">:</span><span class="w"> </span><span class="mf">40.858637300000005</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"predict_rouge-2"</span><span class="p">:</span><span class="w"> </span><span class="mf">20.002359799999997</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"predict_rouge-l"</span><span class="p">:</span><span class="w"> </span><span class="mf">31.2367843</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"predict_runtime"</span><span class="p">:</span><span class="w"> </span><span class="mf">415.1387</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"predict_samples_per_second"</span><span class="p">:</span><span class="w"> </span><span class="mf">2.409</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"predict_steps_per_second"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.152</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="8-1k-data-car-scar">8. 1k data (CaR + SCAR)</h3>
+<h4 id="eval-alpaca_en_demo_7">eval = alpaca_en_demo</h4>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">    </span><span class="nt">"predict_bleu-4"</span><span class="p">:</span><span class="w"> </span><span class="mf">29.111272999999997</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"predict_model_preparation_time"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0036</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"predict_rouge-1"</span><span class="p">:</span><span class="w"> </span><span class="mf">41.27674</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"predict_rouge-2"</span><span class="p">:</span><span class="w"> </span><span class="mf">20.529445399999997</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"predict_rouge-l"</span><span class="p">:</span><span class="w"> </span><span class="mf">31.8013081</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"predict_runtime"</span><span class="p">:</span><span class="w"> </span><span class="mf">509.6623</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"predict_samples_per_second"</span><span class="p">:</span><span class="w"> </span><span class="mf">1.962</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"predict_steps_per_second"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.165</span>
+<span class="p">}</span>
+</code></pre></div>
+<h4 id="eval-mmlu_2">eval = mmlu</h4>
+<div class="highlight"><pre><span></span><code><span class="w">        </span><span class="nl">Average</span><span class="p">:</span><span class="w"> </span><span class="mf">44.64</span>
+<span class="w">           </span><span class="nl">STEM</span><span class="p">:</span><span class="w"> </span><span class="mf">38.90</span>
+<span class="n">Social</span><span class="w"> </span><span class="n">Sciences</span><span class="o">:</span><span class="w"> </span><span class="mf">51.71</span>
+<span class="w">     </span><span class="nl">Humanities</span><span class="p">:</span><span class="w"> </span><span class="mf">40.00</span>
+<span class="w">          </span><span class="nl">Other</span><span class="p">:</span><span class="w"> </span><span class="mf">50.00</span>
+</code></pre></div>
+<h3 id="9-1k-data-rds">9. 1k data (RDS+)</h3>
+<h4 id="eval-alpaca_en_demo_8">eval = alpaca_en_demo</h4>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">    </span><span class="nt">"predict_bleu-4"</span><span class="p">:</span><span class="w"> </span><span class="mf">23.039771999999996</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"predict_model_preparation_time"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0065</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"predict_rouge-1"</span><span class="p">:</span><span class="w"> </span><span class="mf">37.601626100000004</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"predict_rouge-2"</span><span class="p">:</span><span class="w"> </span><span class="mf">17.7743515</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"predict_rouge-l"</span><span class="p">:</span><span class="w"> </span><span class="mf">29.2630153</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"predict_runtime"</span><span class="p">:</span><span class="w"> </span><span class="mf">500.4103</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"predict_samples_per_second"</span><span class="p">:</span><span class="w"> </span><span class="mf">1.998</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"predict_steps_per_second"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.25</span>
+<span class="p">}</span>
+</code></pre></div>
+<h4 id="eval-mmlu_3">eval = mmlu</h4>
+<div class="highlight"><pre><span></span><code><span class="w">        </span><span class="nl">Average</span><span class="p">:</span><span class="w"> </span><span class="mf">45.44</span><span class="w">                                                          </span>
+<span class="w">           </span><span class="nl">STEM</span><span class="p">:</span><span class="w"> </span><span class="mf">38.54</span>
+<span class="n">Social</span><span class="w"> </span><span class="n">Sciences</span><span class="o">:</span><span class="w"> </span><span class="mf">52.13</span>
+<span class="w">     </span><span class="nl">Humanities</span><span class="p">:</span><span class="w"> </span><span class="mf">41.87</span>
+<span class="w">          </span><span class="nl">Other</span><span class="p">:</span><span class="w"> </span><span class="mf">50.71</span>
+</code></pre></div>
+<h3 id="10-1k-data-rpvopt">10. 1k data (RPVopt)</h3>
+<h4 id="eval-mmlu_4">eval = mmlu</h4>
+<div class="highlight"><pre><span></span><code><span class="w">        </span><span class="nl">Average</span><span class="p">:</span><span class="w"> </span><span class="mf">45.56</span><span class="w">                                             </span>
+<span class="w">           </span><span class="nl">STEM</span><span class="p">:</span><span class="w"> </span><span class="mf">40.13</span>
+<span class="n">Social</span><span class="w"> </span><span class="n">Sciences</span><span class="o">:</span><span class="w"> </span><span class="mf">52.71</span>
+<span class="w">     </span><span class="nl">Humanities</span><span class="p">:</span><span class="w"> </span><span class="mf">40.72</span>
+<span class="w">          </span><span class="nl">Other</span><span class="p">:</span><span class="w"> </span><span class="mf">50.86</span>
+</code></pre></div>
+<h2 id="qwen25-3b-instruct-tuluv2_en_326k">Qwen2.5-3B-Instruct + tuluv2_en_326k</h2>
+<h3 id="1-10k-data-car">1. 10k data (CaR)</h3>
+<p>&lt;!-- #### eval = alpaca_en_demo
+</p><div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">    </span><span class="nt">"predict_bleu-4"</span><span class="p">:</span><span class="w"> </span><span class="mf">42.7025156</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"predict_model_preparation_time"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0053</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"predict_rouge-1"</span><span class="p">:</span><span class="w"> </span><span class="mf">45.2383163</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"predict_rouge-2"</span><span class="p">:</span><span class="w"> </span><span class="mf">23.8898368</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"predict_rouge-l"</span><span class="p">:</span><span class="w"> </span><span class="mf">33.427946299999995</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"predict_runtime"</span><span class="p">:</span><span class="w"> </span><span class="mf">857.9275</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"predict_samples_per_second"</span><span class="p">:</span><span class="w"> </span><span class="mf">1.166</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"predict_steps_per_second"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.058</span>
+<span class="p">}</span>
+<span class="err">```</span><span class="w"> </span><span class="mi">--</span><span class="err">&gt;</span>
+
+<span class="err">####</span><span class="w"> </span><span class="err">eval</span><span class="w"> </span><span class="err">=</span><span class="w"> </span><span class="err">mmlu</span>
+
+<span class="err">```cpp</span>
+<span class="w">        </span><span class="err">Average</span><span class="p">:</span><span class="w"> </span><span class="mf">65.22</span>
+<span class="w">           </span><span class="err">STEM</span><span class="p">:</span><span class="w"> </span><span class="mf">61.50</span>
+<span class="err">Social</span><span class="w"> </span><span class="err">Scie</span><span class="kc">n</span><span class="err">ces</span><span class="p">:</span><span class="w"> </span><span class="mf">76.93</span>
+<span class="w">     </span><span class="err">Huma</span><span class="kc">n</span><span class="err">i</span><span class="kc">t</span><span class="err">ies</span><span class="p">:</span><span class="w"> </span><span class="mf">56.58</span>
+<span class="w">          </span><span class="err">O</span><span class="kc">t</span><span class="err">her</span><span class="p">:</span><span class="w"> </span><span class="mf">70.11</span>
+</code></pre></div>
+<h3 id="1-10k-data-rds">1. 10k data (RDS+)</h3>
+<h4 id="eval-mmlu_5">eval = mmlu</h4>
+<div class="highlight"><pre><span></span><code><span class="w">        </span><span class="nl">Average</span><span class="p">:</span><span class="w"> </span><span class="mf">65.65</span><span class="w">                                               </span>
+<span class="w">           </span><span class="nl">STEM</span><span class="p">:</span><span class="w"> </span><span class="mf">60.17</span>
+<span class="n">Social</span><span class="w"> </span><span class="n">Sciences</span><span class="o">:</span><span class="w"> </span><span class="mf">77.58</span>
+<span class="w">     </span><span class="nl">Humanities</span><span class="p">:</span><span class="w"> </span><span class="mf">58.07</span>
+<span class="w">          </span><span class="nl">Other</span><span class="p">:</span><span class="w"> </span><span class="mf">70.42</span>
+</code></pre></div></div>
 
 
 

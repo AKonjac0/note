@@ -1633,6 +1633,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#15-fim" class="md-nav__link">
+    <span class="md-ellipsis">
+      15. FIM
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1700,94 +1709,6 @@
   
 
       </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    
-    
-    
-      
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_7_5" >
-        
-          
-          <label class="md-nav__link" for="__nav_5_7_5" id="__nav_5_7_5_label" tabindex="0">
-            
-  
-  <span class="md-ellipsis">
-    Cursor chat
-  </span>
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_7_5_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_5_7_5">
-            <span class="md-nav__icon md-icon"></span>
-            Cursor chat
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../cursor_chat/cursor_implement_clustering_and_samplin/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Implement clustering and sampling algorithm
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../cursor_chat/cursor_inf_nan/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    解决代码中的 inf 或 NaN 错误
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
     </li>
   
 
@@ -4818,6 +4739,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#15-fim" class="md-nav__link">
+    <span class="md-ellipsis">
+      15. FIM
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -4916,6 +4846,9 @@
 <h2 id="xxx-unknown">xxx. unknown</h2>
 <p><a href="">Selection via proxy: Efficient data selection for deep learning.</a></p>
 <p><a href="https://arxiv.org/pdf/2107.04984">SVP-CF: Selection via Proxy for Collaborative Filtering Data</a></p>
+<h2 id="15-fim">15. FIM</h2>
+<p><a href="https://openreview.net/notes/edits/attachment?id=tTghjs3AND&amp;name=pdf&amp;utm_source=chatgpt.com">Unifying Approaches in Data Subset Selection via Fisher
+Information and Information-Theoretic Quantities</a></p>
 <hr>
 <p>总的来看预训练阶段 preselect 好用, 指令微调阶段 CaR, SCAR 好用</p>
 <h1 id="code-repositories">code repositories</h1>
@@ -4966,21 +4899,28 @@
 <li>基于 OED</li>
 <li>基于大模型 (embedding, 梯度, 评分等)</li>
 </ol>
-<p>我们目前还在对比各种方法的阶段, 目前研究三大类:</p>
-<ol>
-<li>基于评分 (小模型): CaR, SCAR</li>
-<li>基于数学方法 (这部分与教授都有关):
+<!-- 我们目前还在对比各种方法的阶段, 目前研究三大类:
+
+1. 基于评分 (小模型): CaR, SCAR
+2. 基于数学方法 (这部分与教授都有关):
     OED + Sketch: TokenOD [RPVopt, Sketch]
-    聚类: clustering-based sensitivity sampling</li>
-<li>基于模型层或梯度计算 (最开始尝试的方法): RDS+ [InfDist]</li>
-</ol>
-<p>目前除了方括号内的所有方法都有在小模型 + 小数据集上复现, 从结果上来看不相上下 (可能是模型与数据集小的原因)</p>
-<p>然后在中等模型 + 中等数据集上, 目前复现了 CaR+SCAR 的结果, 正在进行 RDS+ 和 TokenOD 两种方法的复现</p>
-<p>目前还没有选定更深入研究的方向, 不过我更倾向于数学的方法, 因为与教授关系比较密切, 同时不需要训练小模型或者推理需要训练的大模型, 计算效率更高一些, 只是可能难出成果</p>
-<p>目前来看可以尝试训练小模型的方式, 所以如果你们想要尝试训练小模型, 可以发一下, 我来看看怎么做这个实验, 然后大家一起训练一下</p>
-<p>至于计算大模型的方式我还是打算放弃, 仅仅用复现结果当一个对比, 因为计算开销实在太大; 并且这些方法有一个缺点, 就是他们需要同时知道训练数据集和评测数据集, 通过模型参数 / 梯度来计算对评测数据集的每个数据点贡献大的训练数据点, 把这些数据选出来. 但是我们不能假设评测集的分布一定与选择时用到的这些评测集相似, 如果碰到一个没见过并且差异较大的评测集 (或者实际应用中的复杂情况), 可能效果就会不好. </p>
-<p>(这个问题其实对于训练小模型也是存在的, 我们不能保证训练时的数据集与预训练小模型的数据集分布相似, 这样小模型对于一个差异较大的训练集的评分就可能出现问题)</p>
-<p>所以我觉得这也是一个可以深入探讨的地方, 就是如何保证我们的数据选择方法在任何训练集和评测集上都有效, 那一个可能的方式就是通过数学的方法找到数据的本征并进行选择, 比如对数据聚类 / 对数据降维后提取特征等等</p>
+    聚类: clustering-based sensitivity sampling
+3. 基于模型层或梯度计算 (最开始尝试的方法): RDS+ [InfDist]
+
+目前除了方括号内的所有方法都有在小模型 + 小数据集上复现, 从结果上来看不相上下 (可能是模型与数据集小的原因)
+
+然后在中等模型 + 中等数据集上, 目前复现了 CaR+SCAR 的结果, 正在进行 RDS+ 和 TokenOD 两种方法的复现
+
+目前还没有选定更深入研究的方向, 不过我更倾向于数学的方法, 因为与教授关系比较密切, 同时不需要训练小模型或者推理需要训练的大模型, 计算效率更高一些, 只是可能难出成果
+
+目前来看可以尝试训练小模型的方式, 所以如果你们想要尝试训练小模型, 可以发一下, 我来看看怎么做这个实验, 然后大家一起训练一下
+
+至于计算大模型的方式我还是打算放弃, 仅仅用复现结果当一个对比, 因为计算开销实在太大; 并且这些方法有一个缺点, 就是他们需要同时知道训练数据集和评测数据集, 通过模型参数 / 梯度来计算对评测数据集的每个数据点贡献大的训练数据点, 把这些数据选出来. 但是我们不能假设评测集的分布一定与选择时用到的这些评测集相似, 如果碰到一个没见过并且差异较大的评测集 (或者实际应用中的复杂情况), 可能效果就会不好. 
+
+(这个问题其实对于训练小模型也是存在的, 我们不能保证训练时的数据集与预训练小模型的数据集分布相似, 这样小模型对于一个差异较大的训练集的评分就可能出现问题)
+
+所以我觉得这也是一个可以深入探讨的地方, 就是如何保证我们的数据选择方法在任何训练集和评测集上都有效, 那一个可能的方式就是通过数学的方法找到数据的本征并进行选择, 比如对数据聚类 / 对数据降维后提取特征等等 -->
+
 <h1 id="todo-list">Todo List</h1>
 <h2 id="car">CaR</h2>
 <ol>
@@ -5083,7 +5023,266 @@
 DBSCAN, GMM (gaussian mixture model)
 hierachical clustering
 cosine distance = 1 - cosine similarity
-DBSCAN, GMM, hierarchical clustering each with cosine distance as the distance function</p></div>
+DBSCAN, GMM, hierarchical clustering each with cosine distance as the distance function</p>
+<h1 id="_1">关于黑塞矩阵的分析</h1>
+<p><span class="arithmatex">\(\min_{\Theta} \mathcal{L}_S(\Theta),\)</span></p>
+<p>where <span class="arithmatex">\(\mathcal{L}_S(\Theta) := -\frac{1}{n} \sum_{i \in S} \sum_{j=1}^{M_i} \log p(y_{i,j} \mid \mathbf{x}_{i,j}; \Theta).\)</span></p>
+<p>训练模型希望最小化负对数似然 (类似 KL 散度) <span class="arithmatex">\(\mathcal{L_S}(\Theta)\)</span></p>
+<p>TokenOD 中认为最大化 <span class="arithmatex">\(\nabla^2\mathcal{L_S}(\Theta)\)</span> 的特征值可以得到最优的 <span class="arithmatex">\(\Theta\)</span>, 最大化矩阵特征值即最大化 <span class="arithmatex">\(\log\det(\nabla^2\mathcal{L_S}(\Theta))\)</span></p>
+<p>并且这个函数可以放缩到 </p>
+<div class="arithmatex">\[\log\det(\sum_{i\in\mathcal{S}}\sum_{j=1}^{M_i}\mathrm{x}_{i,j}\mathrm{x}_{i,j}^T)\]</div>
+<p>这个函数是单调次模函数, 可以用贪心解决</p>
+<p>RPVopt 思路类似</p>
+<hr>
+<h1 id="gemini">Gemini</h1>
+<h3 id="gradient-based-selection">方法：基于梯度信息（Gradient-based Selection）</h3>
+<p>Hessian是二阶导数，代表损失函数的曲率。一个更轻量的替代方案是使用一阶导数，即梯度。梯度<span class="arithmatex">\(\nabla_{\Theta}\mathcal{L}(\mathrm{x}_i; \Theta)\)</span>表示单个数据点<span class="arithmatex">\(\mathrm{x}_i\)</span>对模型参数<span class="arithmatex">\(\Theta\)</span>的“拉力”方向和大小。选择一个好的数据子集，可以看作是选择一组“最有效”或“最多样”的梯度更新。</p>
+<ul>
+<li>
+<p><strong>核心思想</strong>: 一个好的数据子集应该包含对模型参数更新贡献最大或最多样的样本。</p>
+</li>
+<li>
+<p><strong>可转化的目标函数</strong>:</p>
+<ol>
+<li>
+<p><strong>最大化梯度范数和 (Gradient Norm Maximization)</strong>:</p>
+<ul>
+<li><strong>目标函数</strong>: 选择那些能引起参数最大变化的样本。最简单的代理是最大化梯度范数的总和：
+    <span class="arithmatex">\(<span class="arithmatex">\(\max_{\mathcal{S} \subseteq \mathcal{D}} \sum_{i \in \mathcal{S}} ||\nabla_{\Theta}\mathcal{L}(\mathrm{x}_i; \Theta_0)||_2\)</span>\)</span>
+    其中<span class="arithmatex">\(\Theta_0\)</span>是一个预训练（或随机初始化）的模型参数。</li>
+<li><strong>求解方法</strong>: 这是一个简单的“打分-排序”问题。计算每个数据点的梯度范数，然后选择Top-K个最高的即可。这是最轻量级的方法之一。</li>
+</ul>
+</li>
+<li>
+<p><strong>最大化梯度覆盖/多样性 (Gradient Diversity Maximization)</strong>:</p>
+<ul>
+<li><strong>目标函数</strong>: 仅仅选择梯度范数大的样本可能会导致选出的样本类型单一（例如，都属于某个难点类别）。我们更希望选出的梯度能够覆盖整个“梯度空间”。这可以被建模为一个设施选址问题或k-Center问题。将每个数据点的梯度<span class="arithmatex">\(\mathrm{g}_i = \nabla_{\Theta}\mathcal{L}(\mathrm{x}_i; \Theta_0)\)</span>看作一个向量。目标是选择一个梯度子集<span class="arithmatex">\(\mathcal{G}_\mathcal{S} = \{\mathrm{g}_i | i \in \mathcal{S}\}\)</span>，使得它们能最好地代表所有梯度。<ul>
+<li><strong>目标一 (k-Means/k-Medoids)</strong>: 对所有数据点的梯度向量进行聚类（例如k-Means），然后从每个簇中选择中心点（或离中心点最近的样本）。</li>
+<li><strong>目标二 (子模函数)</strong>: 类似于TokenOD，我们可以构建一个基于梯度的核矩阵，并最大化其对数行列式。令<span class="arithmatex">\(\mathbf{G}\)</span>为<span class="arithmatex">\(N \times d\)</span>的矩阵，每行是一个样本的梯度向量<span class="arithmatex">\(\mathrm{g}_i^T\)</span>。我们希望最大化：
+    <span class="arithmatex">\(<span class="arithmatex">\(\log\det(\sum_{i \in \mathcal{S}}\mathrm{g}_i\mathrm{g}_i^T) = \log\det(\mathbf{G}_{\mathcal{S}}^T \mathbf{G}_{\mathcal{S}})\)</span>\)</span>
+    这个函数同样是单调子模的，因此可以用贪心算法高效求解。这与TokenOD的公式惊人地相似，但用梯度外积<span class="arithmatex">\(\mathrm{g}_i\mathrm{g}_i^T\)</span>替代了Hessian的近似<span class="arithmatex">\(\mathrm{x}_{i,j}\mathrm{x}_{i,j}^T\)</span>。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+</li>
+<li>
+<p><strong>求解方法</strong>:</p>
+<ul>
+<li>对于范数和：贪心（即Top-K）。</li>
+<li>对于多样性：聚类算法（k-Means）或贪心算法（对于子模目标）。</li>
+</ul>
+</li>
+</ul>
+<h2 id="-">---</h2>
+<h2 id="-_1">---</h2>
+<h2 id="-_2">---</h2>
+<h2 id="-_3">---</h2>
+<p>好的，这是一个非常有价值且前沿的研究方向。作为一名大模型领域的专家，我非常乐于和您共同探讨这个问题。</p>
+<p>您提供的 TokenOD 思路非常具有启发性，它将复杂的模型训练目标（最小化负对数似然）巧妙地与一个可计算、可优化的代理目标（最大化 Fisher 矩阵的 <code>log det</code>）联系起来，并最终转化为一个次模函数优化问题。这是一个非常优雅的理论框架。</p>
+<p>核心思想是：<strong>一个好的数据子集 S，应该能让模型在参数空间中得到最“确定”的解 Θ</strong>。在贝叶斯视角下，参数的后验概率 <code>p(Θ|S)</code> 的分布越尖锐越好。这等价于最大化后验概率的对数 <code>log p(Θ|S)</code> 在其峰值处的曲率，而这个曲率正好由负对数似然的 Hessian 矩阵 <code>∇²L_S(Θ)</code>（即观测 Fisher 信息矩阵）来描述。</p>
+<p><code>log det(H)</code> (D-Optimality) 衡量的是参数估计值协方差矩阵的逆的体积，最大化它意味着让参数估计的“置信椭球”体积最小，即参数最“确定”。</p>
+<p>基于这个核心思想，我们可以探索对 Fisher 矩阵的其他放缩或近似方法，从而导出新的、同样易于优化的目标函数。</p>
+<h3 id="fisher">Fisher 矩阵的其他放缩与近似方法</h3>
+<p>以下我将提出几种不同的思路，它们都旨在从不同角度衡量 Fisher 矩阵的“大小”或“有效性”，并同样追求计算上的可行性。</p>
+<hr>
+<h4 id="trace-norm-a-optimality">方法一：基于迹范数 (Trace Norm) 的放缩 - A-Optimality</h4>
+<p>这个思路是 D-Optimality (基于行列式) 最直接的替代方案。</p>
+<ul>
+<li>
+<p><strong>理论动机</strong>:
+    不最大化 Fisher 矩阵特征值的乘积（通过 <code>det</code>），我们转而最大化它们的和（通过 <code>tr</code>，即迹）。这对应于最小化参数估计误差的平均方差。在最优实验设计中，这被称为 <strong>A-Optimality</strong>。目标是最大化 <code>tr(∇²L_S(Θ))</code>。</p>
+</li>
+<li>
+<p><strong>目标函数放缩</strong>:
+    与 TokenOD 类似，我们可以使用经验 Fisher 矩阵进行放缩：
+    <code>tr(∇²L_S(Θ)) ≈ tr(Σ_{i∈S} F_i) = Σ_{i∈S} tr(F_i)</code>
+    其中 <code>F_i</code> 是单个样本 <code>i</code> 的 Fisher 矩阵，可以近似为 <code>F_i ≈ ∇log p(y_i|x_i, Θ) ∇log p(y_i|x_i, Θ)^T</code>。对于某些模型（如广义线性模型），这可以进一步简化为 <code>x_i x_i^T</code>。
+    因此，目标函数变为：
+    <code>maximize Σ_{i∈S} tr(x_i x_i^T)</code></p>
+</li>
+<li>
+<p><strong>函数性质与求解</strong>:
+    <code>tr(x_i x_i^T) = ||x_i||_2^2</code>，即样本特征向量的 L2 范数的平方。
+    因此，目标函数 <code>Σ_{i∈S} ||x_i||_2^2</code> 是一个<strong>模函数 (Modular Function)</strong>。模函数是次模函数的一个特例。
+    这意味着最大化这个函数根本不需要复杂的贪心算法，<strong>我们只需要贪心地选择 <code>||x_i||_2^2</code> 最大的 K 个样本即可</strong>。这里的 <code>x_i</code> 可以是词元（Token）的 embedding 向量。</p>
+</li>
+<li>
+<p><strong>轻量级解法</strong>:</p>
+<ol>
+<li>对数据集中的所有样本（或词元），计算其特征向量的 L2 范数的平方。</li>
+<li>对该值进行排序，选择 Top-K 个样本。</li>
+</ol>
+</li>
+<li>
+<p><strong>优劣分析</strong>:</p>
+<ul>
+<li><strong>优点</strong>: 计算极其高效，是所有方法中最快的一种。实现简单，可扩展性极强。</li>
+<li><strong>缺点</strong>: 可能会倾向于选择那些特征值异常大的离群点 (outliers)，而可能忽略了样本之间的“互补性”或“多样性”。<code>log det</code> 能很好地奖励多样性（选择方向不同的向量），而 <code>trace</code> 则不能。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h4 id="minimum-eigenvalue-e-optimality">方法二：基于最小特征值 (Minimum Eigenvalue) 的放缩 - E-Optimality</h4>
+<p>这个思路关注最坏情况下的参数不确定性。</p>
+<ul>
+<li>
+<p><strong>理论动机</strong>:
+    最大化 <code>log det(H)</code> 和 <code>tr(H)</code> 都关注整体或平均情况。但有时我们更关心参数估计中最不确定的方向。这个方向由 Fisher 矩阵的最小特征值 <code>λ_min(H)</code> 决定。最大化 <code>λ_min(H)</code> 可以增强模型在最薄弱方向上的确定性。在最优实验设计中，这被称为 <strong>E-Optimality</strong>。</p>
+</li>
+<li>
+<p><strong>目标函数</strong>:
+    <code>maximize λ_min(∇²L_S(Θ))</code>
+    同样，可以放缩为：
+    <code>maximize λ_min(Σ_{i∈S} x_i x_i^T)</code></p>
+</li>
+<li>
+<p><strong>函数性质与求解</strong>:
+    <code>f(S) = λ_min(Σ_{i∈S} x_i x_i^T)</code> 这个函数<strong>是单调次模函数</strong>。
+    证明这一点需要利用矩阵理论，但直观上，向一个集合中添加一个新样本，对于提升最小特征值的“边际效益”是递减的。</p>
+</li>
+<li>
+<p><strong>轻量级解法</strong>:
+    由于它是单调次模函数，我们可以<strong>使用标准的贪心算法</strong>来求解，就像 TokenOD 一样：</p>
+<ol>
+<li>初始化空集 <code>S</code>。</li>
+<li>迭代 K 次，每次从未选择的样本中，找出能最大化 <code>λ_min(H_S + x_i x_i^T)</code> 的样本 <code>i</code>，并将其加入 <code>S</code>。</li>
+</ol>
+</li>
+<li>
+<p><strong>优劣分析</strong>:</p>
+<ul>
+<li><strong>优点</strong>: 提供了对模型参数估计鲁棒性的保障，关注于解决“木桶短板”。理论上比 A-Optimality 更优越，因为它考虑了样本间的相互作用。</li>
+<li><strong>缺点</strong>: 贪心算法的每一步都需要计算一个更新后矩阵的最小特征值，虽然比计算行列式便宜，但仍然比 A-Optimality 的方法昂贵得多。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h4 id="gradient-norm">方法三：基于梯度范数的近似 (Gradient Norm)</h4>
+<p>这个方法不直接对 Hessian 建模，而是使用一阶信息（梯度）作为样本“信息量”的代理。</p>
+<ul>
+<li>
+<p><strong>理论动机</strong>:
+    在训练过程中，损失函数对某个样本的梯度 <code>∇L_i(Θ)</code> 的范数，直观地衡量了这个样本对当前模型的“惊讶程度”或“难度”。梯度范数大的样本是模型尚未学好的“硬样本”。优先学习这些样本，可能会让模型更快地收敛到最优解。这与主动学习 (Active Learning) 中的不确定性采样思想相关。</p>
+</li>
+<li>
+<p><strong>目标函数</strong>:
+    <code>maximize Σ_{i∈S} ||∇L_i(Θ)||_2</code>
+    这里 <code>Θ</code> 可以是一个在小规模数据上预训练的模型，或者是一个预训练模型的初始参数。</p>
+</li>
+<li>
+<p><strong>函数性质与求解</strong>:
+    这个函数<strong>通常不是次模函数</strong>。但是，简单的贪心选择（即选择梯度范数最大的 K 个样本）在实践中非常有效，这种方法被称为 <strong>Gradient-based Data Selection</strong>。</p>
+</li>
+<li>
+<p><strong>轻量级解法</strong>:</p>
+<ol>
+<li>使用一个预训练好的（或者训练到一半的）模型 <code>Θ</code>。</li>
+<li>对所有候选样本，计算其损失函数的梯度范M数 <code>||∇L_i(Θ)||_2</code>。</li>
+<li>选择范数最大的 K 个样本。</li>
+</ol>
+</li>
+<li>
+<p><strong>优劣分析</strong>:</p>
+<ul>
+<li><strong>优点</strong>: 计算成本可控（只需要一次前向和一次反向传播），比处理 Hessian 矩阵便宜。直观且易于实现。在很多场景下效果显著。</li>
+<li><strong>缺点</strong>: 理论基础不如基于 Fisher 矩阵的方法扎实。选择结果高度依赖于用于计算梯度的模型 <code>Θ</code> 的状态。可能会选出很多相似的“硬样本”，缺乏多样性。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="_2">总结与比较</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">方法</th>
+<th style="text-align: left;">代理目标</th>
+<th style="text-align: left;">数学性质</th>
+<th style="text-align: left;">选择启发式</th>
+<th style="text-align: left;">计算成本</th>
+<th style="text-align: left;">优点</th>
+<th style="text-align: left;">缺点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>TokenOD (D-Optimality)</strong></td>
+<td style="text-align: left;"><code>log det(Σ x x^T)</code></td>
+<td style="text-align: left;">单调次模</td>
+<td style="text-align: left;">贪心算法，最大化边际 <code>log det</code> 增益</td>
+<td style="text-align: left;">较高</td>
+<td style="text-align: left;">理论完备，平衡多样性与信息量</td>
+<td style="text-align: left;">贪心算法每步计算行列式，较慢</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>A-Optimality</strong></td>
+<td style="text-align: left;"><code>Σ ||x||_2^2</code></td>
+<td style="text-align: left;">模函数</td>
+<td style="text-align: left;">选择特征 L2 范数最大的 Top-K</td>
+<td style="text-align: left;"><strong>极低</strong></td>
+<td style="text-align: left;"><strong>计算速度极快</strong>，实现最简单</td>
+<td style="text-align: left;">忽略样本多样性，可能选到离群点</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>E-Optimality</strong></td>
+<td style="text-align: left;"><code>λ_min(Σ x x^T)</code></td>
+<td style="text-align: left;">单调次模</td>
+<td style="text-align: left;">贪心算法，最大化边际 <code>λ_min</code> 增益</td>
+<td style="text-align: left;">较高</td>
+<td style="text-align: left;">增强模型鲁棒性，关注“短板”</td>
+<td style="text-align: left;">贪心算法每步计算最小特征值，较慢</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Gradient Norm</strong></td>
+<td style="text-align: left;"><code>Σ ||∇L_i(Θ)||_2</code></td>
+<td style="text-align: left;">非次模</td>
+<td style="text-align: left;">选择梯度范数最大的 Top-K</td>
+<td style="text-align: left;">中等</td>
+<td style="text-align: left;">直观，关注“硬样本”，实践效果好</td>
+<td style="text-align: left;">依赖用于计算梯度的模型，可能缺多样性</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_3">轻量级求解策略建议</h3>
+<p>除了直接应用上述方法，我们还可以结合机器学习方法使其更“轻量级”：</p>
+<ol>
+<li>
+<p><strong>聚类辅助的贪心选择 (Clustering-based Greedy Selection)</strong>:</p>
+<ul>
+<li><strong>动机</strong>: <code>log det</code> 和 <code>λ_min</code> 的贪心算法慢，主要是因为选择池太大。</li>
+<li><strong>方法</strong>: 先对全量数据（基于其特征向量 <code>x</code>）进行快速聚类（如 Mini-Batch K-Means）。然后，不在所有样本上执行贪心，而是在聚类中心 (centroids) 上执行贪心选择。或者，在每个簇内按比例采样，或者只在每个簇内选择代表性样本（如最接近中心点的样本）构成一个较小的候选池，再在这个池上运行昂贵的贪心算法。</li>
+<li><strong>优势</strong>: 大幅降低了贪心算法的复杂度，同时通过聚类保证了基础的多样性。</li>
+</ul>
+</li>
+<li>
+<p><strong>代理模型预测信息量 (Proxy Model for Informativeness)</strong>:</p>
+<ul>
+<li><strong>动机</strong>: 避免为每个样本计算 <code>log det</code> 增益、<code>λ_min</code> 增益或梯度。</li>
+<li><strong>方法</strong>:<ol>
+<li>先随机抽取一小部分数据（比如 1%）。</li>
+<li>为这部分数据精确计算其“信息量”得分（例如，它被贪心算法选入时的边际增益，或者它的梯度范数）。</li>
+<li>训练一个轻量级的机器学习模型（如梯度提升树 GBDT 或小型神经网络），用样本的特征 <code>x</code> 来预测它的信息量得分。</li>
+<li>将这个训练好的代理模型应用到全部数据上，快速预测所有样本的分数，然后选择分数最高的 K 个。</li>
+</ol>
+</li>
+<li><strong>优势</strong>: 将昂贵的计算成本“摊销”到一个小的预测模型中，实现了速度和质量的平衡。</li>
+</ul>
+</li>
+</ol>
+<p><strong>研究建议</strong>:
+我建议您可以从 <strong>A-Optimality (迹范数)</strong> 方法开始，因为它提供了一个非常快速的基线。然后，将它与 <strong>Gradient Norm</strong> 方法进行比较。最后，可以尝试实现 <strong>E-Optimality</strong> 或将聚类与 <strong>TokenOD</strong> 相结合的策略，作为更高阶的探索。通过这些实验，您可以全面地评估不同理论动机下的数据选择算法在实际效果和计算效率上的权衡。</p>
+<h1 id="_4">方向</h1>
+<h2 id="cluster_1">cluster</h2>
+<ol>
+<li>cluster 基于梯度 (有一定提升), 并且训练阶段加入权重 (TODO 需要改代码)</li>
+<li>cluster 看看有没有改进, 比如 hierarchical clustering, cosine metric 等</li>
+<li>euclidean 距离, 但是先做一个 L2 归一化, 因为对于 <span class="arithmatex">\([2,2], [4,4]\)</span>, 从语义上来说一致, 但是直接欧氏距离会有差距, 归一化可避免这个问题 (似乎没用)</li>
+</ol>
+<h2 id="oed">OED</h2>
+<ol>
+<li>尝试对 Fisher 矩阵使用不同的准则优化 (A-optimality, )</li>
+</ol></div>
 
 
 

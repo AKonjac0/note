@@ -12,7 +12,7 @@
         <link rel="prev" href="../reproduce/">
       
       
-        <link rel="next" href="../cursor_chat/cursor_implement_clustering_and_samplin/">
+        <link rel="next" href="../../Deep%20Learning/DL/">
       
       
       <link rel="icon" href="../../../assets/images/favicon.png">
@@ -1486,94 +1486,6 @@
   
 
       </a>
-      
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    
-    
-    
-      
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_7_5" >
-        
-          
-          <label class="md-nav__link" for="__nav_5_7_5" id="__nav_5_7_5_label" tabindex="0">
-            
-  
-  <span class="md-ellipsis">
-    Cursor chat
-  </span>
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_7_5_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_5_7_5">
-            <span class="md-nav__icon md-icon"></span>
-            Cursor chat
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../cursor_chat/cursor_implement_clustering_and_samplin/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Implement clustering and sampling algorithm
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../cursor_chat/cursor_inf_nan/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    解决代码中的 inf 或 NaN 错误
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
       
     </li>
   
@@ -4561,7 +4473,13 @@ dataset:
     "predict_samples_per_second": 2.195,
     "predict_steps_per_second": 0.277
 } -->
-
+<h4 id="eval-mmlu">eval = mmlu</h4>
+<div class="highlight"><pre><span></span><code><span class="w">        </span><span class="nl">Average</span><span class="p">:</span><span class="w"> </span><span class="mf">44.45</span>
+<span class="w">           </span><span class="nl">STEM</span><span class="p">:</span><span class="w"> </span><span class="mf">37.94</span>
+<span class="n">Social</span><span class="w"> </span><span class="n">Sciences</span><span class="o">:</span><span class="w"> </span><span class="mf">51.45</span>
+<span class="w">     </span><span class="nl">Humanities</span><span class="p">:</span><span class="w"> </span><span class="mf">40.21</span>
+<span class="w">          </span><span class="nl">Other</span><span class="p">:</span><span class="w"> </span><span class="mf">50.03</span>
+</code></pre></div>
 <h3 id="3-1k-data-tokenod">3. 1k data (TokenOD)</h3>
 <h4 id="eval-alpaca_en_demo_2">eval = alpaca_en_demo</h4>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
@@ -4575,7 +4493,7 @@ dataset:
 <span class="w">    </span><span class="nt">"predict_steps_per_second"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.233</span>
 <span class="p">}</span>
 </code></pre></div>
-<h4 id="eval-mmlu">eval = mmlu</h4>
+<h4 id="eval-mmlu_1">eval = mmlu</h4>
 <div class="highlight"><pre><span></span><code><span class="w">        </span><span class="nl">Average</span><span class="p">:</span><span class="w"> </span><span class="mf">45.58</span><span class="w">                                                          </span>
 <span class="w">           </span><span class="nl">STEM</span><span class="p">:</span><span class="w"> </span><span class="mf">39.46</span>
 <span class="n">Social</span><span class="w"> </span><span class="n">Sciences</span><span class="o">:</span><span class="w"> </span><span class="mf">52.10</span>
@@ -4621,7 +4539,7 @@ dataset:
 <span class="w">    </span><span class="nt">"predict_steps_per_second"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.239</span>
 <span class="p">}</span>
 </code></pre></div>
-<h4 id="eval-mmlu_1">eval = mmlu</h4>
+<h4 id="eval-mmlu_2">eval = mmlu</h4>
 <ol>
 <li>160 center
 <div class="highlight"><pre><span></span><code><span class="w">        </span><span class="nl">Average</span><span class="p">:</span><span class="w"> </span><span class="mf">45.90</span><span class="w"> </span>
@@ -4658,6 +4576,7 @@ dataset:
 <span class="w">     </span><span class="nl">Humanities</span><span class="p">:</span><span class="w"> </span><span class="mf">40.38</span>
 <span class="w">          </span><span class="nl">Other</span><span class="p">:</span><span class="w"> </span><span class="mf">48.83</span>
 </code></pre></div>
+<p><span class="arithmatex">\(\nabla^2 \mathcal{L}_{\mathcal{S}}(\Theta) = \frac{1}{n} \sum_{i \in \mathcal{S}} \sum_{j=1}^{M_i} \left( \text{diag}(p(y_{i,j} | \mathbf{x}_{i,j}; \Theta)) - p(y_{i,j} | \mathbf{x}_{i,j}; \Theta) p(y_{i,j} | \mathbf{x}_{i,j}; \Theta)^\top \right) \otimes \mathbf{x}_{i,j} \mathbf{x}_{i,j}^\top\)</span></p>
 <ol>
 <li>200 center</li>
 </ol>
@@ -4720,7 +4639,7 @@ dataset:
 <span class="w">    </span><span class="nt">"predict_steps_per_second"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.165</span>
 <span class="p">}</span>
 </code></pre></div>
-<h4 id="eval-mmlu_2">eval = mmlu</h4>
+<h4 id="eval-mmlu_3">eval = mmlu</h4>
 <div class="highlight"><pre><span></span><code><span class="w">        </span><span class="nl">Average</span><span class="p">:</span><span class="w"> </span><span class="mf">44.64</span>
 <span class="w">           </span><span class="nl">STEM</span><span class="p">:</span><span class="w"> </span><span class="mf">38.90</span>
 <span class="n">Social</span><span class="w"> </span><span class="n">Sciences</span><span class="o">:</span><span class="w"> </span><span class="mf">51.71</span>
@@ -4740,7 +4659,7 @@ dataset:
 <span class="w">    </span><span class="nt">"predict_steps_per_second"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.25</span>
 <span class="p">}</span>
 </code></pre></div>
-<h4 id="eval-mmlu_3">eval = mmlu</h4>
+<h4 id="eval-mmlu_4">eval = mmlu</h4>
 <div class="highlight"><pre><span></span><code><span class="w">        </span><span class="nl">Average</span><span class="p">:</span><span class="w"> </span><span class="mf">45.44</span><span class="w">                                                          </span>
 <span class="w">           </span><span class="nl">STEM</span><span class="p">:</span><span class="w"> </span><span class="mf">38.54</span>
 <span class="n">Social</span><span class="w"> </span><span class="n">Sciences</span><span class="o">:</span><span class="w"> </span><span class="mf">52.13</span>
@@ -4748,12 +4667,36 @@ dataset:
 <span class="w">          </span><span class="nl">Other</span><span class="p">:</span><span class="w"> </span><span class="mf">50.71</span>
 </code></pre></div>
 <h3 id="10-1k-data-rpvopt">10. 1k data (RPVopt)</h3>
-<h4 id="eval-mmlu_4">eval = mmlu</h4>
+<h4 id="eval-mmlu_5">eval = mmlu</h4>
 <div class="highlight"><pre><span></span><code><span class="w">        </span><span class="nl">Average</span><span class="p">:</span><span class="w"> </span><span class="mf">45.56</span><span class="w">                                             </span>
 <span class="w">           </span><span class="nl">STEM</span><span class="p">:</span><span class="w"> </span><span class="mf">40.13</span>
 <span class="n">Social</span><span class="w"> </span><span class="n">Sciences</span><span class="o">:</span><span class="w"> </span><span class="mf">52.71</span>
 <span class="w">     </span><span class="nl">Humanities</span><span class="p">:</span><span class="w"> </span><span class="mf">40.72</span>
 <span class="w">          </span><span class="nl">Other</span><span class="p">:</span><span class="w"> </span><span class="mf">50.86</span>
+</code></pre></div>
+<h3 id="10-1k-data-aopt-actual-672">10. 1k data (Aopt, actual 672)</h3>
+<h4 id="eval-mmlu_6">eval = mmlu</h4>
+<h5 id="actual-data-672">actual data 672</h5>
+<div class="highlight"><pre><span></span><code><span class="w">        </span><span class="nl">Average</span><span class="p">:</span><span class="w"> </span><span class="mf">45.66</span><span class="w">                                                   </span>
+<span class="w">           </span><span class="nl">STEM</span><span class="p">:</span><span class="w"> </span><span class="mf">39.53</span>
+<span class="n">Social</span><span class="w"> </span><span class="n">Sciences</span><span class="o">:</span><span class="w"> </span><span class="mf">52.91</span>
+<span class="w">     </span><span class="nl">Humanities</span><span class="p">:</span><span class="w"> </span><span class="mf">40.77</span>
+<span class="w">          </span><span class="nl">Other</span><span class="p">:</span><span class="w"> </span><span class="mf">51.60</span>
+</code></pre></div>
+<h5 id="actual-data-1k">actual data 1k</h5>
+<div class="highlight"><pre><span></span><code><span class="w">        </span><span class="nl">Average</span><span class="p">:</span><span class="w"> </span><span class="mf">45.58</span><span class="w">                                             </span>
+<span class="w">           </span><span class="nl">STEM</span><span class="p">:</span><span class="w"> </span><span class="mf">39.70</span>
+<span class="n">Social</span><span class="w"> </span><span class="n">Sciences</span><span class="o">:</span><span class="w"> </span><span class="mf">52.13</span>
+<span class="w">     </span><span class="nl">Humanities</span><span class="p">:</span><span class="w"> </span><span class="mf">41.57</span>
+<span class="w">          </span><span class="nl">Other</span><span class="p">:</span><span class="w"> </span><span class="mf">50.65</span>
+</code></pre></div>
+<h3 id="10-1k-data-aopt-with-bert-embeddings">10. 1k data (Aopt with bert embeddings)</h3>
+<h4 id="eval-mmlu_7">eval = mmlu</h4>
+<div class="highlight"><pre><span></span><code><span class="w">        </span><span class="nl">Average</span><span class="p">:</span><span class="w"> </span><span class="mf">45.63</span>
+<span class="w">           </span><span class="nl">STEM</span><span class="p">:</span><span class="w"> </span><span class="mf">40.36</span>
+<span class="n">Social</span><span class="w"> </span><span class="n">Sciences</span><span class="o">:</span><span class="w"> </span><span class="mf">52.88</span>
+<span class="w">     </span><span class="nl">Humanities</span><span class="p">:</span><span class="w"> </span><span class="mf">41.53</span>
+<span class="w">          </span><span class="nl">Other</span><span class="p">:</span><span class="w"> </span><span class="mf">49.60</span>
 </code></pre></div>
 <h2 id="qwen25-3b-instruct-tuluv2_en_326k">Qwen2.5-3B-Instruct + tuluv2_en_326k</h2>
 <h3 id="1-10k-data-car">1. 10k data (CaR)</h3>
@@ -4780,12 +4723,47 @@ dataset:
 <span class="w">          </span><span class="err">O</span><span class="kc">t</span><span class="err">her</span><span class="p">:</span><span class="w"> </span><span class="mf">70.11</span>
 </code></pre></div>
 <h3 id="1-10k-data-rds">1. 10k data (RDS+)</h3>
-<h4 id="eval-mmlu_5">eval = mmlu</h4>
+<h4 id="eval-mmlu_8">eval = mmlu</h4>
 <div class="highlight"><pre><span></span><code><span class="w">        </span><span class="nl">Average</span><span class="p">:</span><span class="w"> </span><span class="mf">65.65</span><span class="w">                                               </span>
 <span class="w">           </span><span class="nl">STEM</span><span class="p">:</span><span class="w"> </span><span class="mf">60.17</span>
 <span class="n">Social</span><span class="w"> </span><span class="n">Sciences</span><span class="o">:</span><span class="w"> </span><span class="mf">77.58</span>
 <span class="w">     </span><span class="nl">Humanities</span><span class="p">:</span><span class="w"> </span><span class="mf">58.07</span>
 <span class="w">          </span><span class="nl">Other</span><span class="p">:</span><span class="w"> </span><span class="mf">70.42</span>
+</code></pre></div>
+<hr>
+<h2 id="qwen25-05-isntruct-agnews">Qwen2.5-0.5-Isntruct + AGNews</h2>
+<h3 id="1-2k-data-sentenceod">1. 2k data (SentenceOD)</h3>
+<h4 id="eval-agnews_test">eval = AGNews_test</h4>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">    </span><span class="nt">"predict_bleu-4"</span><span class="p">:</span><span class="w"> </span><span class="mf">31.6104</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"predict_rouge-1"</span><span class="p">:</span><span class="w"> </span><span class="mf">89.4079</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"predict_rouge-2"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"predict_rouge-l"</span><span class="p">:</span><span class="w"> </span><span class="mf">89.4079</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="2-15k-data-aopt">2. 1.5k data (Aopt)</h3>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">    </span><span class="nt">"predict_bleu-4"</span><span class="p">:</span><span class="w"> </span><span class="mf">31.131272052631576</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"predict_model_preparation_time"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0053</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"predict_rouge-1"</span><span class="p">:</span><span class="w"> </span><span class="mf">88.05263157894737</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"predict_rouge-2"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"predict_rouge-l"</span><span class="p">:</span><span class="w"> </span><span class="mf">88.05263157894737</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"predict_runtime"</span><span class="p">:</span><span class="w"> </span><span class="mf">84.5742</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"predict_samples_per_second"</span><span class="p">:</span><span class="w"> </span><span class="mf">89.862</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"predict_steps_per_second"</span><span class="p">:</span><span class="w"> </span><span class="mf">11.233</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="3-2k-data-aopt">3. 2k data (Aopt)</h3>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">    </span><span class="nt">"predict_bleu-4"</span><span class="p">:</span><span class="w"> </span><span class="mf">31.559257263157892</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"predict_model_preparation_time"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0052</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"predict_rouge-1"</span><span class="p">:</span><span class="w"> </span><span class="mf">89.26315789473684</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"predict_rouge-2"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"predict_rouge-l"</span><span class="p">:</span><span class="w"> </span><span class="mf">89.26315789473684</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"predict_runtime"</span><span class="p">:</span><span class="w"> </span><span class="mf">85.6733</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"predict_samples_per_second"</span><span class="p">:</span><span class="w"> </span><span class="mf">88.709</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"predict_steps_per_second"</span><span class="p">:</span><span class="w"> </span><span class="mf">11.089</span>
+<span class="p">}</span>
 </code></pre></div></div>
 
 

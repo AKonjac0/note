@@ -476,6 +476,24 @@
     
     
       <li class="md-tabs__item">
+        <a href="../../operating%20system/OS/" class="md-tabs__link">
+          
+  
+  Operating system
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
         <a href="../../probability/martingale%20and%20stopping%20times/" class="md-tabs__link">
           
   
@@ -2306,7 +2324,7 @@
         
   
   <span class="md-ellipsis">
-    STL
+    OOP
   </span>
   
 
@@ -2577,6 +2595,27 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../math/Mathematical%20Logic/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Mathematical Logic
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -2760,6 +2799,27 @@
   
   <span class="md-ellipsis">
     so-vits-svc
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../misc/summary/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    如何构造新函数完成证明
   </span>
   
 
@@ -4579,7 +4639,7 @@
             
   
   <span class="md-ellipsis">
-    Probability
+    Operating system
   </span>
   
 
@@ -4588,6 +4648,72 @@
         
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_17_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_17">
+            <span class="md-nav__icon md-icon"></span>
+            Operating system
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../operating%20system/OS/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    process synchronzation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_18" >
+        
+          
+          <label class="md-nav__link" for="__nav_18" id="__nav_18_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Probability
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_18_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_18">
             <span class="md-nav__icon md-icon"></span>
             Probability
           </label>
@@ -4659,10 +4785,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_18" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_19" >
         
           
-          <label class="md-nav__link" for="__nav_18" id="__nav_18_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_19" id="__nav_19_label" tabindex="0">
             
   
   <span class="md-ellipsis">
@@ -4673,8 +4799,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_18_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_18">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_19_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_19">
             <span class="md-nav__icon md-icon"></span>
             X86asm
           </label>
@@ -4929,13 +5055,42 @@ ip: address</p>
 <h2 id="_12">安全</h2>
 <p>DoS: Denial of Service</p>
 <h1 id="_13">物理层</h1>
-<h2 id="_14">带宽</h2>
+<h2 id="_14">波特率</h2>
+<p>波特率为每秒钟发送的符号数量</p>
+<p>比特率为每秒钟发送的<strong>有效</strong>比特数量</p>
+<p>波特率 = 比特率 <span class="arithmatex">\(\div\)</span> 码率 (编码效率)</p>
+<p>比特率 = 波特率 <span class="arithmatex">\(\times\)</span> 符号编码所需的比特数</p>
+<h2 id="_15">带宽</h2>
 <p>等于频谱的宽度</p>
 <p>也与 Bps 相关</p>
-<h2 id="_15">信道容量定理</h2>
+<h2 id="_16">信道容量定理</h2>
 <p>Nyquist-Shannon Sampling Theorem</p>
 <p>Shannon Channel Capacity Theorem</p>
-<p>见 <a href="https://akonjac0.github.io/2025/09/28/entropy/">博客</a></p></div>
+<p>见 <a href="https://akonjac0.github.io/2025/09/28/entropy/">博客</a></p>
+<h2 id="_17">复用</h2>
+<h3 id="cdma">码分复用 CDMA</h3>
+<p>每个站有一个码片</p>
+<p>对于两个不同站的码片 <span class="arithmatex">\(S,T\)</span> 满足正交: <span class="arithmatex">\(\frac 1m \sum_{i=1}^m S_i\cdot T_i=0\)</span></p>
+<p>对于一个站, 如果发送 <span class="arithmatex">\(1\)</span>, 把自己的码片发送出去, 接收端计算得到 <span class="arithmatex">\(S\cdot S=1\)</span>; 如果发送 <span class="arithmatex">\(0\)</span>, 把码片取反发送出去, 接收端计算得到 <span class="arithmatex">\(S\cdot (-S)=-1\)</span></p>
+<p>多个站的码片叠加, 接收端依次用不同站的码片计算内积, 由于这个站的码片与其他站的码片正交, 结果只显示自己站发来的码片结果</p>
+<p>这个想法与中国剩余定理类似</p>
+<h1 id="_18">数据链路层</h1>
+<h2 id="_19">检错与纠错</h2>
+<p>检查 <span class="arithmatex">\(d\)</span> 个错需要 hamming distance <span class="arithmatex">\(d+1\)</span> 的码, 因为有 <span class="arithmatex">\(d+1\)</span> 个错可能没错; 有 <span class="arithmatex">\(r&gt;d+1\)</span> 个错等价于有 <span class="arithmatex">\((r\mod (d+1))\)</span> 个错</p>
+<p>纠正 <span class="arithmatex">\(d\)</span> 个错需要 hamming distance <span class="arithmatex">\(2d+1\)</span> 的码, 为了距离为 <span class="arithmatex">\(d\)</span> 的范围不重叠</p>
+<p>参考 <a href="https://akonjac0.github.io/note/ADS/error%20correction/">笔记</a></p>
+<h2 id="_20">检错码</h2>
+<h3 id="crc">CRC</h3>
+<p>与有限域有关</p>
+<p>参考 <a id="j1"></a><a href="https://akonjac0.github.io/note/ADS/Galois%20Field/">笔记</a></p>
+<h2 id="_21">纠错码</h2>
+<p>单比特纠错: 对于 <span class="arithmatex">\(n=m+r\)</span> 的编码, 有效信息 <span class="arithmatex">\(2^m\)</span> 个, 且有 <span class="arithmatex">\(n\)</span> 个 hamming distance 为 <span class="arithmatex">\(1\)</span> 的编码, 把这 <span class="arithmatex">\(n+1\)</span> 个编码看成一族</p>
+<p>假设各个族之间不重叠, 则可以纠错; 并且总数量必须能用 <span class="arithmatex">\(2^n\)</span> 完整表示</p>
+<p>所以 <span class="arithmatex">\(2^m(n+1)\leq 2^n\)</span></p>
+<h3 id="hamming-code">hamming code</h3>
+<p>妙</p>
+<h3 id="reed-solomon-code">Reed-Solomon code</h3>
+<p>同样与 <a href="#j1">有限域</a> 有关</p></div>
 
 
 

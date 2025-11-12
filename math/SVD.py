@@ -11,6 +11,7 @@ circle = np.array([np.cos(theta), np.sin(theta)])
 # 应用变换
 transformed = A @ circle
 
+print(circle)
 # 画图
 plt.figure(figsize=(6,6))
 plt.plot(circle[0], circle[1], label='Unit Circle', color='blue')

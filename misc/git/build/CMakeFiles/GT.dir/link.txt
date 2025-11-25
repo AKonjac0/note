@@ -1,0 +1,1 @@
+/usr/bin/c++ CMakeFiles/GT.dir/src/a.cpp.o -o GT  libLIB.a

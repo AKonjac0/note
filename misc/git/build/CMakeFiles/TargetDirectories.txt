@@ -1,0 +1,4 @@
+/mnt/d/mkdocs/note/docs/misc/git/build/CMakeFiles/LIB.dir
+/mnt/d/mkdocs/note/docs/misc/git/build/CMakeFiles/GT.dir
+/mnt/d/mkdocs/note/docs/misc/git/build/CMakeFiles/edit_cache.dir
+/mnt/d/mkdocs/note/docs/misc/git/build/CMakeFiles/rebuild_cache.dir

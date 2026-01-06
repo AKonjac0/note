@@ -906,27 +906,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../../ADS/binet%20cauchy/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Binet-Cauchy
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../../ADS/cardinality%20of%20sets/" class="md-nav__link">
         
   
@@ -1079,6 +1058,27 @@
   
   <span class="md-ellipsis">
     linear programming
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ADS/matrix_tree/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Matrix Tree
   </span>
   
 
@@ -4972,11 +4972,68 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#lab-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      lab 3
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="lab 3">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sscratch-sepc-ra" class="md-nav__link">
+    <span class="md-ellipsis">
+      sscratch, sepc, ra 设置
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#lab-4" class="md-nav__link">
     <span class="md-ellipsis">
       lab 4
     </span>
   </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lab5" class="md-nav__link">
+    <span class="md-ellipsis">
+      lab5
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="lab5">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fork" class="md-nav__link">
+    <span class="md-ellipsis">
+      fork() 流程
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#wait" class="md-nav__link">
+    <span class="md-ellipsis">
+      wait() 流程
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -5251,11 +5308,68 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#lab-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      lab 3
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="lab 3">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sscratch-sepc-ra" class="md-nav__link">
+    <span class="md-ellipsis">
+      sscratch, sepc, ra 设置
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#lab-4" class="md-nav__link">
     <span class="md-ellipsis">
       lab 4
     </span>
   </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lab5" class="md-nav__link">
+    <span class="md-ellipsis">
+      lab5
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="lab5">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fork" class="md-nav__link">
+    <span class="md-ellipsis">
+      fork() 流程
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#wait" class="md-nav__link">
+    <span class="md-ellipsis">
+      wait() 流程
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -5374,6 +5488,12 @@ trap_s 剩余部分代码，恢复 B 进程的 saved register
 最后，trap_s 使用 sepc 跳转回中断发生前代码执行的位置。
 （因此 trap_s 需要保护 sepc 寄存器，即将 sepc 寄存器也保存在栈上一份）
 </code></pre></div>
+<h2 id="lab-3">lab 3</h2>
+<h3 id="sscratch-sepc-ra"><code>sscratch</code>, <code>sepc</code>, <code>ra</code> 设置</h3>
+<p>正常进入 trap_s: sscratch 存内核栈, 与 sp 交换后变成用户栈, sp 变成内核栈</p>
+<p>__switch_to 时同时交换 sp 和 sscratch, 即不同进程的内核栈和用户栈</p>
+<p>第一次进入某个进程 task-&gt;sscratch 初始值是用户栈; task-&gt;sp 初始值是 <code>task[i] + PAGE_SIZE</code>, 即内核栈底; task-&gt;ra 初始值是 <code>__init_sepc</code></p>
+<p><code>fork()</code> 出的新进程 task-&gt;sscratch 初始值是进入 fork syscall 时的 sscratch, 即用户栈指针(virtual); task-&gt;sp = register(31)*8; task-&gt;ra = trap_s_bottom</p>
 <h2 id="lab-4">lab 4</h2>
 <ol>
 <li>
@@ -5390,6 +5510,26 @@ trap_s 剩余部分代码，恢复 B 进程的 saved register
 <p><code>handler_s()</code> 判断是否是 ecall from U mode, 之后调用 <code>syscall(a7, a0, a1, a2, a3, a4, a5)</code>, 返回值存入 <code>a0, a1</code>; 其中所有寄存器都需要读取/更改进入 <code>handler_s()</code> 之前保存在栈上的值</p>
 <p><code>syscall()</code> 中用 S 态 <code>putchar()</code> 输出到 <code>UART</code>, 完成输出</p>
 </li>
+</ol>
+<h2 id="lab5">lab5</h2>
+<p>用户空间(virtual): <code>0x01000000</code> 代码, <code>0x01001000</code> 用户栈</p>
+<p>内核空间: <code>task[i]</code> 为内核栈起始位置</p>
+<h3 id="fork"><code>fork()</code> 流程</h3>
+<ol>
+<li>user <code>fork()</code></li>
+<li><code>u_syscall()</code></li>
+<li><code>trap_s</code> </li>
+<li><code>handler_s</code></li>
+<li><code>syscall</code></li>
+</ol>
+<h3 id="wait"><code>wait()</code> 流程</h3>
+<ol>
+<li>user <code>fork()</code></li>
+<li><code>u_syscall()</code></li>
+<li><code>trap_s</code> </li>
+<li><code>handler_s</code></li>
+<li><code>syscall</code></li>
+<li><code>__switch_to</code></li>
 </ol></div>
 
 

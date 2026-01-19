@@ -477,7 +477,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../probability/martingale%20and%20stopping%20times/" class="md-tabs__link">
+        <a href="../../probability/markov/" class="md-tabs__link">
           
   
   Probability
@@ -4942,6 +4942,15 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#process-thread" class="md-nav__link">
+    <span class="md-ellipsis">
+      process &amp; thread
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#schedule-algorithm" class="md-nav__link">
     <span class="md-ellipsis">
       schedule algorithm
@@ -5016,6 +5025,15 @@
   <a href="#bounding-buffer" class="md-nav__link">
     <span class="md-ellipsis">
       bounding-buffer
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reader-writer" class="md-nav__link">
+    <span class="md-ellipsis">
+      reader-writer
     </span>
   </a>
   
@@ -5328,6 +5346,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -5402,6 +5429,27 @@
             Probability
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../probability/markov/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    markov
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
             
               
                 
@@ -5611,6 +5659,15 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#process-thread" class="md-nav__link">
+    <span class="md-ellipsis">
+      process &amp; thread
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#schedule-algorithm" class="md-nav__link">
     <span class="md-ellipsis">
       schedule algorithm
@@ -5685,6 +5742,15 @@
   <a href="#bounding-buffer" class="md-nav__link">
     <span class="md-ellipsis">
       bounding-buffer
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reader-writer" class="md-nav__link">
+    <span class="md-ellipsis">
+      reader-writer
     </span>
   </a>
   
@@ -5997,6 +6063,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -6016,6 +6091,166 @@
 
 
 <div><h1 id="operating-system">operating system</h1>
+<h2 id="process-thread">process &amp; thread</h2>
+<!-- 考察进程的内核代码, 内核栈, 用户代码, 用户栈的虚拟地址和物理地址关系
+
+考察多个线程的用户栈, 内核栈
+
+进程的内核代码的虚拟/物理地址都一样, 整个 OS 只有一份内核代码
+
+进程的用户代码的虚拟地址一样, 物理地址不一样, 每个进程有一份用户代码
+
+进程的页表的
+
+每个线程有一个独立内核栈/用户栈, 与之对应的寄存器, sp, sscratch 等内容都是线程独有; 线程的内核栈虚拟地址和物理地址都不同; 用户栈的虚拟地址一样, 物理地址不一样
+
+主线程的用户代码和用户栈起始位置为 0x1000000, 0x1001000;
+
+子进程或父进程在修改 .data 段 (只读) 时会导致 page fault, OS 重新分配新的页, 所以无论 local 变量 (在用户栈) 和 global 变量 (在只读 .data 段), 父子进程修改互不影响 -->
+
+<table>
+<thead>
+<tr>
+<th>组成部分</th>
+<th>虚拟地址</th>
+<th>物理地址</th>
+<th>不同进程间是否虚拟相同</th>
+<th>不同进程间是否物理相同</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>内核代码</strong></td>
+<td>内核高地址（如 <code>0xffffffff80000000</code>）</td>
+<td>相同</td>
+<td>✅ 相同</td>
+<td>✅ 相同</td>
+<td>全系统唯一一份内核</td>
+</tr>
+<tr>
+<td><strong>内核栈</strong></td>
+<td>内核高地址（每进程一段）</td>
+<td>不同</td>
+<td>❌ 不同</td>
+<td>❌ 不同</td>
+<td>每个进程/线程私有</td>
+</tr>
+<tr>
+<td><strong>用户代码</strong></td>
+<td><code>0x01000000</code></td>
+<td>通常不同</td>
+<td>✅ 相同</td>
+<td>❌ 不同（除非共享）</td>
+<td>ELF 装载后的 text 段</td>
+</tr>
+<tr>
+<td><strong>用户栈</strong></td>
+<td><code>0x01001000</code></td>
+<td>不同</td>
+<td>✅ 相同</td>
+<td>❌ 不同</td>
+<td>每进程私有</td>
+</tr>
+<tr>
+<td><strong>sp（用户态）</strong></td>
+<td>指向用户栈虚拟地址</td>
+<td>N/A</td>
+<td>✅ 相同(起始都是 0x1001000 + PAGE_SIZE)</td>
+<td>❌ 实际指向不同物理页</td>
+<td>寄存器保存的是虚拟值</td>
+</tr>
+<tr>
+<td><strong>sscratch</strong></td>
+<td>保存内核栈指针或进程相关值</td>
+<td>N/A</td>
+<td>❌ 不同</td>
+<td>❌ 不同</td>
+<td>每个 hart/线程独立</td>
+</tr>
+<tr>
+<td><strong>通用寄存器</strong></td>
+<td>寄存器，不是地址空间</td>
+<td>N/A</td>
+<td>❌ 不同</td>
+<td>❌ 不同</td>
+<td>上下文切换时保存</td>
+</tr>
+</tbody>
+</table>
+<p>加入多线程:</p>
+<table>
+<thead>
+<tr>
+<th>组成部分</th>
+<th>虚拟地址（同一进程内线程）</th>
+<th>物理地址（同一进程内线程）</th>
+<th>不同进程间</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>内核代码</strong></td>
+<td>相同</td>
+<td>相同</td>
+<td>相同</td>
+<td>全系统唯一</td>
+</tr>
+<tr>
+<td><strong>用户代码</strong></td>
+<td>相同</td>
+<td>相同</td>
+<td>通常不同</td>
+<td>线程共享同一地址空间</td>
+</tr>
+<tr>
+<td><strong>内核栈</strong></td>
+<td>不同</td>
+<td>不同</td>
+<td>不同</td>
+<td><strong>每线程一份</strong></td>
+</tr>
+<tr>
+<td><strong>主线程用户栈</strong></td>
+<td><code>0x01001000</code></td>
+<td>独立</td>
+<td>不同</td>
+<td>只是“约定起点”</td>
+</tr>
+<tr>
+<td><strong>其他线程用户栈</strong></td>
+<td>不同</td>
+<td>不同</td>
+<td>不同</td>
+<td>由内核分配虚拟区间</td>
+</tr>
+<tr>
+<td><strong>sp（用户态）</strong></td>
+<td>不同</td>
+<td>指向不同物理页</td>
+<td>不同</td>
+<td>每线程独立</td>
+</tr>
+<tr>
+<td><strong>sscratch / TLS 指针</strong></td>
+<td>不同</td>
+<td>不同</td>
+<td>不同</td>
+<td>线程本地</td>
+</tr>
+<tr>
+<td><strong>寄存器集合</strong></td>
+<td>不同</td>
+<td>不同</td>
+<td>不同</td>
+<td>执行上下文</td>
+</tr>
+</tbody>
+</table>
+<p>fork 后父子进程修改 global/local 变量互不影响, 因为尽管用户代码段/数据段直接复制, 但是由于写时复制 (COW), 修改时会各自分配一个物理页, 所以不影响; local 在不同的用户栈中, 不影响</p>
+<p>fd 父子进程复制, 相互独立; 同时文件表项共享, 父/子进程 <code>close(fd)</code> 时减少引用计数</p>
+<p>所以文件的读写是共享的, global 变量的读写是独立的</p>
 <h2 id="schedule-algorithm">schedule algorithm</h2>
 <h3 id="round-robin">round robin</h3>
 <p>轮询, 任务到达就放到队列中, 对于在队列中的进程按顺序执行, 执行完立即执行下一个任务, 循环直到结束</p>
@@ -6032,6 +6267,16 @@
 <p>如果只使用一个 <code>mutex</code> 信息量和 <code>count</code> 整数, 会使得结果正确但效率降低</p>
 <p>使用 <code>empty</code> 和 <code>full</code> 可以允许 consumer, producer 并发, 只在更新缓存区时互斥</p>
 <p>而且只用一个 <code>count</code> 也很难设计状态</p>
+<p>对于 <code>N = 1</code> 的 bounding-buffer, 不需要 <code>mutex</code>, 因为不会出现 producer 和 consumer 同时需要修改 buffer 的情况</p>
+<h4 id="reader-writer">reader-writer</h4>
+<p>如果有计数变量 counter, 对其的读写都需要 mutex 保护</p>
+<p>例如:</p>
+<p>a，b两点之间是一段东西向的单行车道，现要设计一个自动管理系统，管理规则如下：
+1. 当ab之间有车辆在行驶时同方向的车可以同时驶入ab段，但另一方向的车必须在ab段外等待；
+2. 当ab之间无车辆在行驶时，到达a点（或b点）的车辆可以进入ab段，但不能从a点和b点同时驶入；
+3. 当某方向在ab段行驶的车辆驶出了ab段且暂无车辆进入ab段时，应让另一方向等待的车辆进入ab段行驶。 请用信号量为工具，对ab段实现正确管理以保证行驶安全。</p>
+<p>这个相当于两种互斥的 readers</p>
+<p>如果先判断 <code>if(ab == 0) wait(Sab);</code>, 那么两辆车可能有一个会长时间等待 Sab, 导致原本可以同时进入 ab 段行驶, 现在只能等待前一辆车出来才能进入, 变成串行的</p>
 <h3 id="monitor-condition-variables">monitor / condition variables</h3>
 <h4 id="dining-philosopher">dining-philosopher</h4>
 <p>等待公共资源 (筷子) 会导致死锁</p>
@@ -6317,8 +6562,10 @@ case 3 -->
 <p>clock, 转一圈, 把 <code>R = 1</code> 变成 <code>R = 0</code>, 第二次遇到时, 把 <code>R = 0</code> 替换出去</p>
 <h2 id="file">file</h2>
 <h3 id="_2">软连接/硬链接</h3>
-<p>软连接: 一边修改影响另一边</p>
-<p>硬链接: 拷贝 FCB File Control Block, 不是文件本体; 两边修改可能不一致</p>
+<!-- 软连接: 一边修改影响另一边 -->
+
+<!-- 硬链接: FCB File Control Block (inode), 不是文件本体; 两边修改可能不一致 -->
+
 <h3 id="filesystem">filesystem</h3>
 <p>每个 disk 由 MBR 规定了至多 4 个主分区 / 3 主分区 + 1 扩展分区</p>
 <p>逻辑分区都存放在扩展分区中</p>
@@ -6371,7 +6618,8 @@ blkid /dev/sdb1 # UUID
 vim /etc/fstab # 设置开机自动挂载
 </code></pre></div>
 </li>
-</ol></div>
+</ol>
+<h2 id="_3"></h2></div>
 
 
 

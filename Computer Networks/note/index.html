@@ -477,7 +477,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../probability/martingale%20and%20stopping%20times/" class="md-tabs__link">
+        <a href="../../probability/markov/" class="md-tabs__link">
           
   
   Probability
@@ -5164,6 +5164,27 @@
   
   
     <li class="md-nav__item">
+      <a href="../../probability/markov/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    markov
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../probability/martingale%20and%20stopping%20times/" class="md-nav__link">
         
   
@@ -5566,8 +5587,9 @@ ip: address</p>
 <p>例如, 在 4B/5B 编码中, 假设比特率是 <span class="arithmatex">\(100\text{ Mbps}\)</span>, 编码效率 <span class="arithmatex">\(80\%\)</span>, 说明线路中 <span class="arithmatex">\(5\)</span> 个符号转换成原始数据的 <span class="arithmatex">\(4\)</span> bit, 所以波特率 <span class="arithmatex">\(125\text{ Mbaud}\)</span></p>
 <p>如果电压有 <span class="arithmatex">\(8\)</span> 档, 那一个符号代表 <span class="arithmatex">\(\log_2 8=3\)</span> 个 bit, 所以波特率是比特率的 <span class="arithmatex">\(3\)</span> 倍</p>
 <h2 id="_15">带宽</h2>
-<p>等于频谱的宽度</p>
-<p>也与 Bps 相关</p>
+<p>有两种带宽</p>
+<p>bandwidth 等于最大数据传输的比特率</p>
+<p>frequency range 等于频谱的宽度</p>
 <h2 id="_16">信道容量定理</h2>
 <p>Nyquist-Shannon Sampling Theorem</p>
 <p>Shannon Channel Capacity Theorem</p>
@@ -5597,8 +5619,11 @@ ip: address</p>
 <p>妙</p>
 <h3 id="reed-solomon-code">Reed-Solomon code</h3>
 <p>同样与 <a href="#j1">有限域</a> 有关</p>
-<h2 id="_22">停等协议</h2>
-<h2 id="_23">滑动窗口协议</h2>
+<h2 id="_22">可靠传输</h2>
+<p>可靠信道 (有线) 可以选择不向上层提供可靠传输, 可靠传输有上层实现</p>
+<p>不可靠信道 (无线) 必须在数据链路层向上层提供可靠传输</p>
+<h2 id="_23">停等协议</h2>
+<h2 id="_24">滑动窗口协议</h2>
 <div class="arithmatex">\[a=t_p/t_f\]</div>
 <div class="arithmatex">\[U=\left\{\begin{matrix}1&amp;,W\geq 1+2a\\\frac{W}{1+2a}&amp;,W&lt;1+2a\end{matrix}\right.\]</div>
 <h3 id="piggybacking">Piggybacking</h3>
@@ -5609,66 +5634,118 @@ ip: address</p>
 <p>出错概率为 <span class="arithmatex">\(P\)</span>, 一个帧的期望传输是 <span class="arithmatex">\(N_r=\sum_i iP^{i-1}(1-P)=1/(1-P)\)</span></p>
 <div class="arithmatex">\[U=\frac{1}{N_r(1+2a)}=\frac{1-P}{1+2a}\]</div>
 <h3 id="n">回退 N</h3>
+<p>重传出错帧后的所有帧</p>
+<p>用 <span class="arithmatex">\(n\)</span> 个 bit 作为序列号</p>
+<p><span class="arithmatex">\(W_T\leq 2^n-1, W_R = 1\)</span></p>
+<p>发送过程中出错, 接收方只会回复接收到的最后一帧的序号, 导致发送方需要重传后面丢失的所有帧</p>
+<p>例如发送 0,1,2,3,4, 发送过程中 2 丢失, 接收方只会 ack 1, 所以发送方移动 2 位</p>
+<p>回传过程中丢失不影响, 比如回复了 0,1,3,4, 那么发送方照样会移动 5 位</p>
 <p>每出一次错需要重传 <span class="arithmatex">\(K\)</span> 帧</p>
 <div class="arithmatex">\[N_r=\sum_i f(i)P^{i-1}(1-P)\]</div>
 <div class="arithmatex">\[f(i)=1+(i-1)K=Ki+(1-K)\]</div>
 <div class="arithmatex">\[\therefore N_r=\frac{1-P+KP}{1-P}\]</div>
 <div class="arithmatex">\[\therefore U=\left\{\begin{matrix}\frac{1-P}{1+2aP}&amp;,W\geq 1+2a \to K=2a+1\\\frac{W(1-P)}{(1+2a)(1-P+WP)}&amp;,W&lt;1+2a \to K=W\end{matrix}\right.\]</div>
-<h3 id="_24">选择重传</h3>
+<h3 id="_25">选择重传</h3>
+<p>只重传出错的那一帧</p>
+<p><span class="arithmatex">\(W_R\leq W_T, W_T+W_R\leq 2^n\)</span></p>
+<p>发送过程中丢包, 接收方发送 NAK 给发送方, 即为选择</p>
+<p>接受过程中丢包, 发送方的窗口会卡在未接受 ACK 的帧, 其他接受 ACK 的帧不用再次发送, 等待丢失的帧超时重传, 所以效率不如 GBN</p>
 <div class="arithmatex">\[U=\left\{\begin{matrix}1-P&amp;,W\geq 1+2a\\\frac{W(1-P)}{1+2a}&amp;,W&lt;1+2a\end{matrix}\right.\]</div>
 <p>因为每个帧之间相互独立, 期望传输次数都是 <span class="arithmatex">\(N_r\)</span></p>
-<h2 id="_25">竞争协议</h2>
+<h2 id="ppp">PPP 点对点</h2>
+<h3 id="_26">透明传输</h3>
+<p>向上提供不可靠传输, 因为靠 CRC 判断, 错了就丢</p>
+<h2 id="_27">竞争协议</h2>
 <h3 id="aloha">ALOHA</h3>
 <p>符合泊松分布</p>
 <p>信道利用率: <span class="arithmatex">\(Ge^{-2G}\)</span> 和 <span class="arithmatex">\(Ge^{-G}\)</span></p>
 <h3 id="csma">CSMA</h3>
 <h4 id="csma_1">非持续 CSMA</h4>
-<h4 id="1-csma">持续 1-CSMA</h4>
-<h4 id="p-csma">持续 p-CSMA</h4>
-<h4 id="csmacd">CSMA/CD</h4>
-<ul>
+<ol>
 <li>
+<p>监听空闲则发送</p>
+</li>
+<li>
+<p>监听繁忙, 等待随机时间, 返回 1</p>
+</li>
+</ol>
+<h4 id="1-csma">持续 1-CSMA</h4>
+<ol>
+<li>
+<p>监听空闲则发送</p>
+</li>
+<li>
+<p>监听繁忙则持续监听</p>
+</li>
+</ol>
+<h4 id="p-csma">持续 p-CSMA</h4>
+<ol>
+<li>
+<p>监听空闲, <span class="arithmatex">\(p\)</span> 概率发送, <span class="arithmatex">\(1-p\)</span> 概率等待一个时间单元</p>
+</li>
+<li>
+<p>监听繁忙则持续监听, 空闲重复步骤 1</p>
+</li>
+<li>
+<p>若等待一个时间单元, 返回 1</p>
+</li>
+</ol>
+<h4 id="csmacd-1-csma">CSMA/CD(持续 1-CSMA)</h4>
+<ol>
+<li>
+<p>监听空闲则发送</p>
+</li>
+<li>
+<p>监听繁忙则持续监听</p>
+</li>
+<li>
+<p>若冲突立即停止传输, 并发送 jam 干扰信号使所有站点都能检测到冲突 </p>
+</li>
+<li>
+<p>经典以太网使用 CSMA/CD</p>
 <p>二进制回退</p>
 <p>发送一帧的平均时间 <span class="arithmatex">\(P\)</span> 秒, 一个站点获得信道的概率 <span class="arithmatex">\(A=kp(1-p)^{k-1}\)</span>, 时间槽 <span class="arithmatex">\(2\tau\)</span></p>
 <p>RTT = <span class="arithmatex">\(2\tau\)</span></p>
 <p>信道利用率 <span class="arithmatex">\(\frac{P}{P+2\tau/A}\)</span></p>
 <p><span class="arithmatex">\(\min(1/A)=e\)</span></p>
 </li>
-</ul>
-<h2 id="_26">非竞争协议</h2>
-<h3 id="_27">位图</h3>
+</ol>
+<h2 id="_28">非竞争协议</h2>
+<h3 id="_29">位图</h3>
 <p><span class="arithmatex">\(N\)</span> 个时隙(1Byte), <span class="arithmatex">\(N\)</span> 个站置 <span class="arithmatex">\(1\)</span> 表示, 之后按序传输</p>
 <p>信道利用率: 平均发送 <span class="arithmatex">\(d\)</span> 帧, 低负载 <span class="arithmatex">\(d/(d+N)\)</span>, 高负载 <span class="arithmatex">\(d/(d+1)\)</span></p>
-<h3 id="_28">令牌</h3>
+<h3 id="_30">令牌</h3>
 <p>转一圈, 数据附加在令牌上</p>
-<h3 id="_29">二进制倒数</h3>
+<h3 id="_31">二进制倒数</h3>
 <p>排序从大到小</p>
 <p><span class="arithmatex">\(d/(d+\log_2N)\)</span></p>
-<h2 id="_30">对称协议</h2>
+<h2 id="_32">对称协议</h2>
 <p>每个站以 <span class="arithmatex">\(p\)</span> 概率抢信道</p>
 <p>只有一个站抢到概率 <span class="arithmatex">\(kp(1-p)^{k-1}\)</span></p>
 <p>最优解 <span class="arithmatex">\(p=1/k\)</span></p>
-<h2 id="_31">优先竞争协议</h2>
-<h3 id="_32">自适应树搜索协议</h3>
-<p>二进制倒数改</p>
+<h2 id="_33">优先竞争协议</h2>
+<h3 id="_34">自适应树搜索协议</h3>
+<p>在一次成功传输后的第一个竞争时隙, 所有站点同时竞争</p>
+<p>如果冲突, 下个时隙递归到下一层, 竞争节点数减半</p>
+<p>第 <span class="arithmatex">\(i\)</span> 层需要 <span class="arithmatex">\(2^i\)</span> 个时隙, 每个时隙原树 <span class="arithmatex">\(2^{-i}\)</span> 的节点竞争</p>
 <p>假设维护了一个最近信道的 ready 站点数 <span class="arithmatex">\(q\)</span></p>
 <p>假设从第 <span class="arithmatex">\(i\)</span> 层开始, 每个节点下面有原树 <span class="arithmatex">\(2^{-i}\)</span> 的节点, 对应了 <span class="arithmatex">\(2^{-i}q\)</span> 个 ready 节点</p>
 <p>如果每个节点期望只有 <span class="arithmatex">\(1\)</span> 节点, 那么 <span class="arithmatex">\(i=\log_2 q\)</span></p>
-<h2 id="_33">交换机</h2>
+<h2 id="_35">交换机</h2>
 <p>网桥的现代名称</p>
 <p>与 Hub 不同, 交换机可以不每次都 flooding, 而是查 MAC 表转发到特定端口</p>
 <p>只有查不到时在广播到 <code>FF:FF:FF:FF:FF:FF</code> 进行 flooding</p>
-<h3 id="_34">三种交换模式</h3>
+<h3 id="_36">三种交换模式</h3>
 <ol>
 <li>存储转发: 接受完整帧再转发, 延迟大, 不转发错帧</li>
 <li>直通: 得到目的地址立即转发</li>
 <li>无碎片: 接受前 64 帧再转发, 过滤冲突碎片</li>
 </ol>
-<h3 id="_35">生成树协议</h3>
+<h3 id="_37">生成树协议</h3>
 <p>选优先级, ID 最小的根桥</p>
 <p>每个交换机选到根桥路径开销最小的根端口</p>
 <p>每个网段选到根桥路径开销最小的指定端口</p>
-<h1 id="_36">网络层</h1>
+<h1 id="_38">网络层</h1>
 <h2 id="vc">VC</h2>
 <h2 id="internet">internet 网际协议</h2>
 <h3 id="ipv4">IPv4</h3>
@@ -5689,12 +5766,123 @@ ip: address</p>
 <h4 id="traceroute">TraceRoute</h4>
 <p>第 <span class="arithmatex">\(i\)</span> 次发送的数据报 <code>TTL = i</code>, 这样转发到第 <span class="arithmatex">\(i\)</span> 个路由器时会超时, 路由器发送超时差错报文给客户机, 客户机收到路由器名称</p>
 <h2 id="routing-algorithm">routing algorithm</h2>
+<h3 id="rip">RIP</h3>
+<p>bellman-ford</p>
+<h3 id="ospf">OSPF</h3>
+<p>dijkstra</p>
 <hr>
-<h2 id="_37">实验</h2>
+<h1 id="_39">传输层</h1>
+<h2 id="_40">流量控制</h2>
+<h2 id="_41">拥塞控制</h2>
+<h3 id="jacobsons-algorithm">Jacobson's algorithm</h3>
+<p>Exponential Weighted Moving Average</p>
+<p>用于估计 RTT</p>
+<h1 id="_42">应用层</h1>
+<h2 id="mail">mail</h2>
+<h3 id="smtp-mime">SMTP + MIME</h3>
+<p>SMTP 仅支持 ascii</p>
+<p>所以用 MIME 将非 ascii (如二进制可执行文件) 转换成 ascii</p>
+<h3 id="pop3-imap">POP3 + IMAP</h3>
+<p>POP3 不支持管理, 仅支持下载保留/删除</p>
+<h1 id="_43">网络安全</h1>
+<h2 id="crypto">crypto</h2>
+<h3 id="rsa">RSA</h3>
+<h3 id="ecc">ECC</h3>
+<h2 id="_44">实体识别</h2>
+<h3 id="replay-attack">replay attack</h3>
+<p>对称密码体制</p>
+<p>A 向 B 发的验证可能被 C 截获, 导致 B 一直给 C 发消息</p>
+<p>所以每次发送带一个随机数</p>
+<p>A 发送 username + <span class="arithmatex">\(R_A\)</span>, B 使用对称密码算法 <span class="arithmatex">\(K_{AB}\)</span> 计算 <span class="arithmatex">\(K_AB(R_A)\)</span></p>
+<p>之后 B 发送 <span class="arithmatex">\(K_AB(R_A)\)</span> + <span class="arithmatex">\(R_B\)</span>, A 验证 <span class="arithmatex">\(K_{AB}(K_AB(R_A))=R_A\)</span>, 验证了 <span class="arithmatex">\(B\)</span> 身份</p>
+<p>A 发送 <span class="arithmatex">\(K_AB(R_B)\)</span>, B 验证 A 身份</p>
+<p>由于每次使用不同的随机数, C 不能保证自己的随机数与上一次的 <span class="arithmatex">\(R_A\)</span> 不同的同时和这一次的 <span class="arithmatex">\(R_A'\)</span> 一定相同, 即不能伪造身份</p>
+<h1 id="_45">实验</h1>
 <h3 id="socket_1">socket</h3>
 <p>client 隐式绑定, 将自己的 ip 和端口号绑定到 <code>socket_fd</code>, 端口号是随机分配的</p>
 <p>server 显示绑定, 绑定指定的端口号, 便于 client 访问</p>
-<h3 id="clientserver">client/server</h3></div>
+<h3 id="clientserver">client/server</h3>
+<h2 id="_46">应用</h2>
+<h3 id="tun">TUN</h3>
+<h4 id="_47"></h4>
+<h4 id="cs144">CS144</h4>
+<h4 id="clash-verge">clash verge</h4>
+<h3 id="_48"></h3>
+<hr>
+<h2 id="_49">重要概念</h2>
+<p>ARQ</p>
+<p>停等序列号 1 bit</p>
+<p>集线器只工作在物理层，它的每个接口仅简单地转发比特，并不进行碰撞检测；碰撞检测的任务由各站点中的网卡负责</p>
+<p><img alt="alt text" src="../image-2.png"></p>
+<p>可靠传输由用户主机保证, 即传输层</p>
+<p>各层都能实现可靠传输</p>
+<p>如数据链路层对不可靠的无线传输建立可靠传输</p>
+<p>网络层建立面向连接的虚电路</p>
+<p>协议/端口号: </p>
+<pre><code>DNS UDP 53
+
+DHCP UDP 67/68
+
+SMTP TCP 25
+
+POP3 TCP 110
+
+IMAP (internet mail access protocol) TCP 143
+
+HTTP TCP 80/8080
+
+HTTPS TCP 443
+
+RIP UDP 520
+
+BGP TCP 179
+
+FTP TCP 21/20
+
+Telnet TCP 23
+
+SSH TCP 22
+
+RTP UDP
+
+TFTP UDP
+</code></pre>
+<p>路由器相当于多张网卡, 多个 mac/ip 地址</p>
+<p>IPv4 数据报每经过一个路由器，其首部中的某些字段的值（例如 TTL、标志以及片偏移等）都可能发生变化，因此路由器都要重新计算一下首部校验和</p>
+<p>ping: 应用层直接用网络层的 ICMP</p>
+<p>traceroute: 每次增加 TTL</p>
+<p>在计算机网络中，实际进行通信的真正实体，是位于通信两端主机中的进程。如何为运行在不同主机上的应用进程提供直接的逻辑通信服务，就是传输层的主要任务。传输层协议又称为端到端协议。</p>
+<p>TCP 三次握手:</p>
+<p>防止“已失效的连接请求”突然又传到了服务端（主要原因）
+场景：Client 发出的第一个 SYN 包在网络中滞留了很久，Client 超时重发了第二个 SYN，建立了连接并传输完数据关闭了。
+问题：过了一会儿，那个滞留的第一个 SYN 包到了 Server。
+如果是两次握手：Server 收到这个旧 SYN，以为 Client 又要建立连接，于是发出 ACK，连接就建立了。Server 开始傻等 Client 发数据，浪费资源。
+如果是三次握手：Server 收到旧 SYN，回复 SYN+ACK。Client 收到后，发现“我没想建立连接啊”，于是回复 RST（复位）包，拒绝连接。</p>
+<p>TCP 四次挥手:</p>
+<p>前两次挥手后 client -&gt; server 半关闭</p>
+<p>后两次挥手是为了保证 server 处理的数据传输完毕, 之后再发送 FIN</p>
+<p>TIME_WAIT 的意义: 重传可能丢失的对 server FIN 的 ACK 包, 防止自己已经关闭以后接收到第二个 server 的 FIN, 回复 RST, 使 server 非正常关闭</p>
+<p>同时设置成 2MSL 能够保证接受所有 server 的旧 ACK 包, 防止建立新连接后接受旧数据包</p>
+<p>TCP 流量控制: 非零窗口通知丢失, client 不发, server 也不重发通知, 则会一直等待. 所以 client 要一直周期性发零窗口探测, 超时重发, 直到 server 回复非零</p>
+<p>HTTP 常见请求/响应代码:</p>
+<p>1xx（信息性状态码）：表示接收的请求正在处理。</p>
+<p>2xx（成功状态码）：表示请求正常处理完毕。</p>
+<p>3xx（重定向状态码）：需要后续操作才能完成这一请求。</p>
+<p>4xx（客户端错误状态码）：表示请求包含语法错误或无法完成。</p>
+<p>5xx（服务器错误状态码）：服务器在处理请求的过程中发生了错误。</p>
+<p>200 OK</p>
+<p>202 Accepted</p>
+<p>30x CDN redirect</p>
+<p>400 Bad Request 客户端请求的语法错误，服务器无法理解</p>
+<p>401 Unauthorized    请求要求用户的身份认证</p>
+<p>403 Forbidden   服务器理解请求客户端的请求，但是拒绝执行此请求</p>
+<p>404 Not Found   服务器无法根据客户端的请求找到资源（网页）。通过此代码，网站设计人员可设置"您所请求的资源无法找到"的个性页面</p>
+<p>500 Internal Server Error   服务器内部错误，无法完成请求</p>
+<p>502 Bad Gateway 作为网关或者代理工作的服务器尝试执行请求时，从远程服务器接收到了一个无效的响应</p>
+<p>504 Gateway Time-out    充当网关或代理的服务器，未及时从远端服务器获取请求</p>
+<p>throughput = window size(bit)/RTT</p>
+<p>line efficiency = throughput/bandwidth  </p>
+<p>啊啊啊计网你简直就是一个叛徒特务大军阀反党分子野心家走资派投降派修正主义大恶霸黑线人物不革命黑秀才黑手黑帮凶经验主义民主派中庸之道变色龙</p></div>
 
 
 

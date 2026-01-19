@@ -477,7 +477,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../probability/martingale%20and%20stopping%20times/" class="md-tabs__link">
+        <a href="../../probability/markov/" class="md-tabs__link">
           
   
   Probability
@@ -5143,6 +5143,27 @@
   
   
     <li class="md-nav__item">
+      <a href="../../probability/markov/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    markov
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../probability/martingale%20and%20stopping%20times/" class="md-nav__link">
         
   
@@ -5601,12 +5622,13 @@
 <p>强化学习的策略在 Q-Learning 里是以表格的形式存在</p>
 <p>如果数据量变大, 表格也会变大</p>
 <p>所以退而使用神经网络拟合这个策略函数</p>
-<h1 id="policy-iteration">Policy Iteration</h1>
+<h1 id="dynamic-programming">Dynamic Programming</h1>
+<h2 id="policy-iteration">Policy Iteration</h2>
 <p>与 Q learning 一样是近似值函数方法</p>
 <p>(approximate value function method)</p>
 <p>包括 policy evaluation 和 policy improvement 两个部分</p>
 <p><img alt="" src="../image-6.png"></p>
-<h2 id="policy-evaluation">policy evaluation</h2>
+<h3 id="policy-evaluation">policy evaluation</h3>
 <p>可以看到 <span class="arithmatex">\(V(s)\)</span> 直接按照一般贝尔曼方程更新:</p>
 <div class="arithmatex">\[V_{\pi}(s)=\sum_{a\in A}\pi(a|s)[R(s,a)+\gamma \sum_{s'\in S}\mathbb{P}(s'|s,a)V_{\pi}(s')]\]</div>
 <div class="arithmatex">\[=\sum_{a\in A}\pi(a|s)\sum_{s'\in S} \mathbb{P}(s'|s,a)[R(s,a,s')+\gamma V_{\pi}(s')]\]</div>
@@ -5614,11 +5636,11 @@
 <div class="arithmatex">\[V_{\pi}(s)=\sum_{s'\in S} \mathbb{P}(s'|s,a)[R(s,a,s')+\gamma V_{\pi}(s')]\]</div>
 <p>其中 <span class="arithmatex">\(a=\pi(s)\)</span></p>
 <p>当值函数在每一个状态与上一步的差都小于一个阈值 <span class="arithmatex">\(\theta\)</span>, 说明收敛, 停止评估过程</p>
-<h2 id="policy-improvement">policy improvement</h2>
+<h3 id="policy-improvement">policy improvement</h3>
 <p>按照上面类似的方法更新策略函数:</p>
 <div class="arithmatex">\[\pi(s)=\argmax_a\sum_{s'\in S} \mathbb{P}(s'|s,a)[R(s,a,s')+\gamma V_{\pi}(s')]\]</div>
 <p>最后输出一个确定性策略</p>
-<h1 id="value-iteration">Value Iteration</h1>
+<h2 id="value-iteration">Value Iteration</h2>
 <p>另一个近似值函数方法</p>
 <!-- 是 policy iteration 只进行一次 policy evaluation 的改进 -->
 

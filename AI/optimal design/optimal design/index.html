@@ -73,11 +73,6 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
-        
-        <a href="#11242025-rejected-by-sac-2026" class="md-skip">
-          Skip to content
-        </a>
-      
     </div>
     <div data-md-component="announce">
       
@@ -477,7 +472,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../../probability/martingale%20and%20stopping%20times/" class="md-tabs__link">
+        <a href="../../../probability/markov/" class="md-tabs__link">
           
   
   Probability
@@ -1857,8 +1852,6 @@
       
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
-      
-        
       
       
       <a href="./" class="md-nav__link md-nav__link--active">
@@ -4995,6 +4988,27 @@
   
   
     <li class="md-nav__item">
+      <a href="../../../probability/markov/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    markov
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../../probability/martingale%20and%20stopping%20times/" class="md-nav__link">
         
   
@@ -5186,8 +5200,6 @@
   
   
   
-    
-  
   
 </nav>
                   </div>
@@ -5205,42 +5217,47 @@
   
 
 
-<div><h1 id="11242025-rejected-by-sac-2026">11.24.2025 rejected by SAC 2026</h1>
-<ol>
-<li>流程没有创新点</li>
-<li>近似不够精确, 对于 Classification 矩阵; 同时应该实验验证可行性</li>
-<li>task 多一些, 如 summarization, generative tasks, multilingual</li>
-<li>greedy 的近似比?</li>
-<li>embedding 应该随着训练/微调进行变化, 不能使用 forzen BERT embedding</li>
-<li>experimental setup 应该说清楚 SentenceOD, RPVopt 都是什么; 同时给出超参数</li>
-<li>对于 classification tasks, 没有比 random sampling 更好的表现</li>
-<li>应该更多分析 end-to-end cost, memory usage, FLOPs 等</li>
-<li>使用更大的模型</li>
-<li>linear approximation 不够好   </li>
-</ol>
-<p>请你讲解 LoRA 的原理, 为什么这样的近似能够很好地作用在微调中; 以及能否用这种方法来近似我之前研究的 A optimal design 中 A\otimes B 的kronecker 结构? 具体地, 我希望对于大矩阵 A 进行近似, 使计算加快, 同时能与原目标 tr[(\sum_i A_i\otimes B_i)^{-1}] 相差不太远, 即有界/近似比</p>
-<hr>
-<h1 id="1232025">12.3.2025</h1>
-<ol>
-<li>
-<p>~~KFAC~~</p>
-</li>
-<li>
-<p>BADGE</p>
-</li>
-<li>
-<p>submodularity</p>
-</li>
-<li>
-<p>small proxy model to calculate FIM?</p>
-</li>
-<li>
-<p>sparse softmax</p>
-</li>
-<li>
-<p>optimal in small datasets (50)?</p>
-</li>
-</ol></div>
+  <h1>optimal design</h1>
+
+<div><blockquote>
+<p>Lemma 1 </p>
+<p>如果 
+<span class="arithmatex">\(<span class="arithmatex">\(\pi_y = \operatorname{softmax}(\hat z)_y = \frac{e^{\hat z_y}}{\sum_{m} e^{\hat z_m}}, \qquad p(y \mid \hat z) = \pi_y\)</span>\)</span></p>
+<p>那么
+<span class="arithmatex">\(<span class="arithmatex">\(\nabla^2_{\hat z} H(y \mid \hat z) = \mathrm{diag}(\pi) - \pi \pi^\top\)</span>\)</span></p>
+</blockquote>
+<p><span class="arithmatex">\(\underline{证明}\)</span>:</p>
+<p>由于</p>
+<div class="arithmatex">\[
+\log p(y \mid \hat z) 
+= \hat z_y - \log \Big( \sum_{m} e^{\hat z_m} \Big)
+\]</div>
+<p>那么求一阶偏导:</p>
+<div class="arithmatex">\[
+\frac{\partial}{\partial \hat z_k} [-\log p(y \mid \hat z)] 
+= -\frac{\partial}{\partial \hat z_k} [\hat z_y - \log \Big( \sum_{m} e^{\hat z_m} \Big)]=-(\delta_{k,y} - \pi_k)
+\]</div>
+<p>则二阶偏导:</p>
+<div class="arithmatex">\[
+\frac{\partial^2}{\partial \hat z_\ell \, \partial \hat z_k} 
+[-\log p(y \mid \hat z) ]
+= \frac{\partial (\pi_k-\delta_{k,y})}{\partial \hat z_\ell}=\frac{\partial \pi_k}{\partial \hat z_\ell}
+\]</div>
+<p>由于</p>
+<div class="arithmatex">\[\frac{\partial \pi_k}{\partial \hat z_\ell}=\frac{\partial\frac{e^{\hat z_k} }{\sum_m e^{\hat z_m} } }{\partial \hat z_l}=[e^{\hat z_k}\cdot \delta_{k,l}\cdot \sum_m e^{\hat z_m} - \sum_m (e^{\hat z_m} \cdot \delta_{m,l})\cdot e^{\hat z_k}]\cdot (\sum_m e^{\hat z_m})^{-2}
+$$
+$$=e^{\hat z_k}\cdot (\sum_m e^{\hat z_m})^{-1}\cdot \delta_{k,l}-e^{\hat z_l}\cdot e^{\hat z_k}\cdot (\sum_m e^{\hat z_m})^{-2}=\pi_k\delta_{k,l}-\pi_k\pi_l=\pi_k(\delta_{k,l}-\pi_l)\]</div>
+<p>所以</p>
+<div class="arithmatex">\[
+\frac{\partial^2}{\partial \hat z_\ell \, \partial \hat z_k} 
+[-\log p(y \mid \hat z) ]
+= \pi_k(\delta_{k,l}-\pi_l)
+\]</div>
+<p>即</p>
+<div class="arithmatex">\[
+\nabla^2_{\hat z} H(y \mid \hat z) 
+= \mathrm{diag}(\pi) - \pi \pi^\top
+\]</div></div>
 
 
 

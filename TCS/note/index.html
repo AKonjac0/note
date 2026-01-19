@@ -477,7 +477,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../probability/martingale%20and%20stopping%20times/" class="md-tabs__link">
+        <a href="../../probability/markov/" class="md-tabs__link">
           
   
   Probability
@@ -2387,22 +2387,13 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#questions" class="md-nav__link">
+  <a href="#computability" class="md-nav__link">
     <span class="md-ellipsis">
-      questions
+      computability
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#structure" class="md-nav__link">
-    <span class="md-ellipsis">
-      structure
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="structure">
+    <nav class="md-nav" aria-label="computability">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -2424,9 +2415,9 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#3-dfa-nfa-regualr-language-and-regular-expressions" class="md-nav__link">
+  <a href="#3-dfa-nfa-regular-language-and-regular-expressions" class="md-nav__link">
     <span class="md-ellipsis">
-      3. DFA, NFA, regualr language and regular expressions
+      3. DFA, NFA, regular language and regular expressions
     </span>
   </a>
   
@@ -2493,9 +2484,9 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#chomsky-hierarchy" class="md-nav__link">
+  <a href="#star-chomsky-hierarchy" class="md-nav__link">
     <span class="md-ellipsis">
-      chomsky hierarchy
+      \(\star\) chomsky hierarchy
     </span>
   </a>
   
@@ -2507,14 +2498,146 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#theorem" class="md-nav__link">
+  <a href="#complexity" class="md-nav__link">
     <span class="md-ellipsis">
-      theorem
+      complexity
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="theorem">
+    <nav class="md-nav" aria-label="complexity">
       <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-p-and-timetn" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. \(P\) and \(TIME(T(n))\)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-p_setminus-poly-and-sizetn" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. \(P_{\setminus poly}\) and \(SIZE(T(n))\)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1-np-nsubseteq-ppoly" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. 核心猜想：\(NP \nsubseteq P/poly\)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-karp-lipton" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. 关键定理：Karp-Lipton 定理
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-ppoly-nsubseteq-np" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. 反向包含：\(P/poly \nsubseteq NP\)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-p-vs-np" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. 与 P vs NP 的关系
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      总结
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-np-and-npc" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. \(NP\) and \(NPC\)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-bpp" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. BPP
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#star-attempts-for-proving-pnp" class="md-nav__link">
+    <span class="md-ellipsis">
+      \(\star\) attempts for proving \(P=NP\)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#important-theorem" class="md-nav__link">
+    <span class="md-ellipsis">
+      important theorem
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="important theorem">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#encodable-leftrightarrow-countable" class="md-nav__link">
+    <span class="md-ellipsis">
+      encodable \(\Leftrightarrow\) countable
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ofracm2nn-circuit" class="md-nav__link">
+    <span class="md-ellipsis">
+      \(O(\frac{m2^n}n)\) circuit
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fset01-to-set01-leftrightarrow-bfset01-to-set01" class="md-nav__link">
+    <span class="md-ellipsis">
+      \(f:\set{0,1}^* \to \set{0,1}^* \Leftrightarrow bf:\set{0,1}^* \to \set{0,1}\)
+    </span>
+  </a>
+  
+</li>
         
           <li class="md-nav__item">
   <a href="#dfa-leftrightarrow-nfa" class="md-nav__link">
@@ -2544,9 +2667,189 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#halt-is-uncomputable" class="md-nav__link">
+    <span class="md-ellipsis">
+      HALT is uncomputable
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="HALT is uncomputable">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#general-proof" class="md-nav__link">
+    <span class="md-ellipsis">
+      general proof
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-recursion-theorem" class="md-nav__link">
+    <span class="md-ellipsis">
+      using Recursion Theorem
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#rices-theorem" class="md-nav__link">
     <span class="md-ellipsis">
       Rice's Theorem
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#recursion-theorem" class="md-nav__link">
+    <span class="md-ellipsis">
+      Recursion Theorem
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Recursion Theorem">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#halt" class="md-nav__link">
+    <span class="md-ellipsis">
+      HALT
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#minimal" class="md-nav__link">
+    <span class="md-ellipsis">
+      MINIMAL
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fixed-point-theorem" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fixed Point Theorem
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#godels-incompleteness-theorem" class="md-nav__link">
+    <span class="md-ellipsis">
+      Godel's Incompleteness Theorem
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#time-hierarchy-theorem" class="md-nav__link">
+    <span class="md-ellipsis">
+      TIME Hierarchy Theorem
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#timetnsubseteq-sizetn3" class="md-nav__link">
+    <span class="md-ellipsis">
+      \(TIME(T(n))\subseteq SIZE(T(n)^3)\)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#p-subsetneq-p_setminus-poly" class="md-nav__link">
+    <span class="md-ellipsis">
+      \(P \subsetneq P_{\setminus poly}\)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#psubseteq-npsubseteq-exp" class="md-nav__link">
+    <span class="md-ellipsis">
+      \(P\subseteq NP\subseteq EXP\)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cook-levin-theorem" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cook Levin Theorem
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#amplification-lemma" class="md-nav__link">
+    <span class="md-ellipsis">
+      Amplification Lemma
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#psubset-bppsubset-exp" class="md-nav__link">
+    <span class="md-ellipsis">
+      \(P\subset BPP\subset EXP\)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adlemans-theorem" class="md-nav__link">
+    <span class="md-ellipsis">
+      Adleman's Theorem
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Adleman's Theorem">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lemma" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lemma
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pbpp-if-optimal-pseudorandom-generator-exists" class="md-nav__link">
+    <span class="md-ellipsis">
+      \(P=BPP\) if Optimal Pseudorandom Generator exists
     </span>
   </a>
   
@@ -2604,9 +2907,9 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#tm-leftrightarrow-nand-tm-circuit" class="md-nav__link">
+  <a href="#tm-leftrightarrow-nand-tm-circuit-nand-circ-circuit-arrays-loops" class="md-nav__link">
     <span class="md-ellipsis">
-      TM \(\Leftrightarrow\) NAND-TM circuit
+      TM \(\Leftrightarrow\) NAND-TM circuit = NAND-CIRC circuit + arrays + loops
     </span>
   </a>
   
@@ -2616,6 +2919,15 @@
   <a href="#nand-tm-circuit-leftrightarrow-nand-ram-circuit" class="md-nav__link">
     <span class="md-ellipsis">
       NAND-TM circuit \(\Leftrightarrow\) NAND-RAM circuit
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rnand-tm-program-nand-tm-rand" class="md-nav__link">
+    <span class="md-ellipsis">
+      RNAND-TM program = NAND-TM + RAND()
     </span>
   </a>
   
@@ -2637,7 +2949,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
+  <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
       计算能力层级对应表
     </span>
@@ -2646,7 +2958,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
+  <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
       对每个层级的详细解释
     </span>
@@ -2693,6 +3005,126 @@
         
       </ul>
     </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#interesting-facts" class="md-nav__link">
+    <span class="md-ellipsis">
+      interesting facts
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="interesting facts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#about-log-n" class="md-nav__link">
+    <span class="md-ellipsis">
+      about \(\log n\)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#log-n" class="md-nav__link">
+    <span class="md-ellipsis">
+      一、log n 的本质：信息与选择的最小单位
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tn-vs-tnlog-n" class="md-nav__link">
+    <span class="md-ellipsis">
+      二、为什么复杂度分离定理里偏偏是 T(n) vs T(n)·log n？
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="二、为什么复杂度分离定理里偏偏是 T(n) vs T(n)·log n？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      1️⃣ 对角化需要“模拟开销”
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-log-n" class="md-nav__link">
+    <span class="md-ellipsis">
+      2️⃣ log n 是“最小的可放大函数”
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-log-n" class="md-nav__link">
+    <span class="md-ellipsis">
+      3️⃣ log n 是复杂度论中的“最小全局时间尺度”
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#log-log-nlog-n" class="md-nav__link">
+    <span class="md-ellipsis">
+      三、那 log log n、√log n 呢？为什么不行？
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#log-n_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      四、算法世界与复杂度理论，在 log n 上悄悄握手
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      五、一句话总结（但不是结束）
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#about-p_setminus-poly" class="md-nav__link">
+    <span class="md-ellipsis">
+      about \(P_{\setminus poly}\)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#about-bpp-bqp" class="md-nav__link">
+    <span class="md-ellipsis">
+      about BPP, BQP
+    </span>
+  </a>
   
 </li>
         
@@ -5338,6 +5770,27 @@
   
   
     <li class="md-nav__item">
+      <a href="../../probability/markov/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    markov
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../probability/martingale%20and%20stopping%20times/" class="md-nav__link">
         
   
@@ -5539,22 +5992,13 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#questions" class="md-nav__link">
+  <a href="#computability" class="md-nav__link">
     <span class="md-ellipsis">
-      questions
+      computability
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#structure" class="md-nav__link">
-    <span class="md-ellipsis">
-      structure
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="structure">
+    <nav class="md-nav" aria-label="computability">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -5576,9 +6020,9 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#3-dfa-nfa-regualr-language-and-regular-expressions" class="md-nav__link">
+  <a href="#3-dfa-nfa-regular-language-and-regular-expressions" class="md-nav__link">
     <span class="md-ellipsis">
-      3. DFA, NFA, regualr language and regular expressions
+      3. DFA, NFA, regular language and regular expressions
     </span>
   </a>
   
@@ -5645,9 +6089,9 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#chomsky-hierarchy" class="md-nav__link">
+  <a href="#star-chomsky-hierarchy" class="md-nav__link">
     <span class="md-ellipsis">
-      chomsky hierarchy
+      \(\star\) chomsky hierarchy
     </span>
   </a>
   
@@ -5659,14 +6103,146 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#theorem" class="md-nav__link">
+  <a href="#complexity" class="md-nav__link">
     <span class="md-ellipsis">
-      theorem
+      complexity
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="theorem">
+    <nav class="md-nav" aria-label="complexity">
       <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-p-and-timetn" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. \(P\) and \(TIME(T(n))\)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-p_setminus-poly-and-sizetn" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. \(P_{\setminus poly}\) and \(SIZE(T(n))\)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1-np-nsubseteq-ppoly" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. 核心猜想：\(NP \nsubseteq P/poly\)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-karp-lipton" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. 关键定理：Karp-Lipton 定理
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-ppoly-nsubseteq-np" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. 反向包含：\(P/poly \nsubseteq NP\)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-p-vs-np" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. 与 P vs NP 的关系
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      总结
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-np-and-npc" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. \(NP\) and \(NPC\)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-bpp" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. BPP
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#star-attempts-for-proving-pnp" class="md-nav__link">
+    <span class="md-ellipsis">
+      \(\star\) attempts for proving \(P=NP\)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#important-theorem" class="md-nav__link">
+    <span class="md-ellipsis">
+      important theorem
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="important theorem">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#encodable-leftrightarrow-countable" class="md-nav__link">
+    <span class="md-ellipsis">
+      encodable \(\Leftrightarrow\) countable
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ofracm2nn-circuit" class="md-nav__link">
+    <span class="md-ellipsis">
+      \(O(\frac{m2^n}n)\) circuit
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fset01-to-set01-leftrightarrow-bfset01-to-set01" class="md-nav__link">
+    <span class="md-ellipsis">
+      \(f:\set{0,1}^* \to \set{0,1}^* \Leftrightarrow bf:\set{0,1}^* \to \set{0,1}\)
+    </span>
+  </a>
+  
+</li>
         
           <li class="md-nav__item">
   <a href="#dfa-leftrightarrow-nfa" class="md-nav__link">
@@ -5696,9 +6272,189 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#halt-is-uncomputable" class="md-nav__link">
+    <span class="md-ellipsis">
+      HALT is uncomputable
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="HALT is uncomputable">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#general-proof" class="md-nav__link">
+    <span class="md-ellipsis">
+      general proof
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-recursion-theorem" class="md-nav__link">
+    <span class="md-ellipsis">
+      using Recursion Theorem
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#rices-theorem" class="md-nav__link">
     <span class="md-ellipsis">
       Rice's Theorem
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#recursion-theorem" class="md-nav__link">
+    <span class="md-ellipsis">
+      Recursion Theorem
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Recursion Theorem">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#halt" class="md-nav__link">
+    <span class="md-ellipsis">
+      HALT
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#minimal" class="md-nav__link">
+    <span class="md-ellipsis">
+      MINIMAL
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fixed-point-theorem" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fixed Point Theorem
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#godels-incompleteness-theorem" class="md-nav__link">
+    <span class="md-ellipsis">
+      Godel's Incompleteness Theorem
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#time-hierarchy-theorem" class="md-nav__link">
+    <span class="md-ellipsis">
+      TIME Hierarchy Theorem
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#timetnsubseteq-sizetn3" class="md-nav__link">
+    <span class="md-ellipsis">
+      \(TIME(T(n))\subseteq SIZE(T(n)^3)\)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#p-subsetneq-p_setminus-poly" class="md-nav__link">
+    <span class="md-ellipsis">
+      \(P \subsetneq P_{\setminus poly}\)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#psubseteq-npsubseteq-exp" class="md-nav__link">
+    <span class="md-ellipsis">
+      \(P\subseteq NP\subseteq EXP\)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cook-levin-theorem" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cook Levin Theorem
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#amplification-lemma" class="md-nav__link">
+    <span class="md-ellipsis">
+      Amplification Lemma
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#psubset-bppsubset-exp" class="md-nav__link">
+    <span class="md-ellipsis">
+      \(P\subset BPP\subset EXP\)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adlemans-theorem" class="md-nav__link">
+    <span class="md-ellipsis">
+      Adleman's Theorem
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Adleman's Theorem">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lemma" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lemma
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pbpp-if-optimal-pseudorandom-generator-exists" class="md-nav__link">
+    <span class="md-ellipsis">
+      \(P=BPP\) if Optimal Pseudorandom Generator exists
     </span>
   </a>
   
@@ -5756,9 +6512,9 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#tm-leftrightarrow-nand-tm-circuit" class="md-nav__link">
+  <a href="#tm-leftrightarrow-nand-tm-circuit-nand-circ-circuit-arrays-loops" class="md-nav__link">
     <span class="md-ellipsis">
-      TM \(\Leftrightarrow\) NAND-TM circuit
+      TM \(\Leftrightarrow\) NAND-TM circuit = NAND-CIRC circuit + arrays + loops
     </span>
   </a>
   
@@ -5768,6 +6524,15 @@
   <a href="#nand-tm-circuit-leftrightarrow-nand-ram-circuit" class="md-nav__link">
     <span class="md-ellipsis">
       NAND-TM circuit \(\Leftrightarrow\) NAND-RAM circuit
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rnand-tm-program-nand-tm-rand" class="md-nav__link">
+    <span class="md-ellipsis">
+      RNAND-TM program = NAND-TM + RAND()
     </span>
   </a>
   
@@ -5789,7 +6554,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
+  <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
       计算能力层级对应表
     </span>
@@ -5798,7 +6563,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
+  <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
       对每个层级的详细解释
     </span>
@@ -5853,6 +6618,126 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#interesting-facts" class="md-nav__link">
+    <span class="md-ellipsis">
+      interesting facts
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="interesting facts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#about-log-n" class="md-nav__link">
+    <span class="md-ellipsis">
+      about \(\log n\)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#log-n" class="md-nav__link">
+    <span class="md-ellipsis">
+      一、log n 的本质：信息与选择的最小单位
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tn-vs-tnlog-n" class="md-nav__link">
+    <span class="md-ellipsis">
+      二、为什么复杂度分离定理里偏偏是 T(n) vs T(n)·log n？
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="二、为什么复杂度分离定理里偏偏是 T(n) vs T(n)·log n？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      1️⃣ 对角化需要“模拟开销”
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-log-n" class="md-nav__link">
+    <span class="md-ellipsis">
+      2️⃣ log n 是“最小的可放大函数”
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-log-n" class="md-nav__link">
+    <span class="md-ellipsis">
+      3️⃣ log n 是复杂度论中的“最小全局时间尺度”
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#log-log-nlog-n" class="md-nav__link">
+    <span class="md-ellipsis">
+      三、那 log log n、√log n 呢？为什么不行？
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#log-n_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      四、算法世界与复杂度理论，在 log n 上悄悄握手
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      五、一句话总结（但不是结束）
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#about-p_setminus-poly" class="md-nav__link">
+    <span class="md-ellipsis">
+      about \(P_{\setminus poly}\)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#about-bpp-bqp" class="md-nav__link">
+    <span class="md-ellipsis">
+      about BPP, BQP
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -5872,11 +6757,7 @@
 
 
 <div><h1 id="tcs">TCS</h1>
-<h2 id="questions">questions</h2>
-<ol>
-<li>CFG &lt;-&gt; PDA 证明?</li>
-</ol>
-<h2 id="structure">structure</h2>
+<h2 id="computability">computability</h2>
 <h3 id="1-function-and-encoding">1. function and encoding</h3>
 <p>TCS 研究的终极目标就是如何计算函数. 对此有两个子目标: 函数的可计算性 (Computability, 是否可被 Turing Machine 计算) 和复杂性 (Complexity, 需要多少时空资源)</p>
 <p>研究 encoding 的意义在于把任意的集合 (图, 矩阵, 多项式等数学对象) 映射到字符串. 后面的研究都基于 <span class="arithmatex">\(\set{0,1}^*\)</span></p>
@@ -5889,7 +6770,7 @@
 <p>在后面会发现 boolean functions 定义的 language 都是 uncoutable, 而所有的 automaton 都是 encodable, 所以 countable, 所以一定会存在 uncomputable functions</p>
 <h3 id="2-nand-circuit-and-nand-program">2. NAND-circuit and NAND-program</h3>
 <p>用来计算 finite functions <span class="arithmatex">\(f: \set{0,1}^n\to\set{0,1}^m\)</span></p>
-<h3 id="3-dfa-nfa-regualr-language-and-regular-expressions">3. DFA, NFA, regualr language and regular expressions</h3>
+<h3 id="3-dfa-nfa-regular-language-and-regular-expressions">3. DFA, NFA, regular language and regular expressions</h3>
 <p>用来计算 infinite functions <span class="arithmatex">\(f: \set{0,1}^*\to\set{0,1}^*\)</span></p>
 <p>特别地, 由于任意 infinite function 与 boolean function <span class="arithmatex">\(bf: \set{0,1}^*\to\set{0,1}\)</span> 等价, 所以只考虑 boolean function 即可</p>
 <p>对于一个 language <span class="arithmatex">\(L\subseteq \set{0,1}^*\)</span>, 与 boolean function <span class="arithmatex">\(\set{0,1}^*\to\set{0,1}\)</span> 等价</p>
@@ -5949,7 +6830,7 @@
 <blockquote>
 <p>quantified integer system</p>
 </blockquote>
-<h3 id="chomsky-hierarchy">chomsky hierarchy</h3>
+<h3 id="star-chomsky-hierarchy"><span class="arithmatex">\(\star\)</span> chomsky hierarchy</h3>
 <p>TYPE 3: 正则语言 regular language</p>
 <p><span class="arithmatex">\(L=\set{a^n|n\geq 0}\)</span></p>
 <p>TYPE 2: 上下文无关语言 context-free language</p>
@@ -5957,11 +6838,148 @@
 <p>TYPE 1: 上下文有关语言 context-sensitive language </p>
 <p><span class="arithmatex">\(L=\set{a^nb^nc^n|n\geq 0}\)</span></p>
 <p>TYPE 0: 递归可枚举语言</p>
-<p>编译原理中有这个内容</p>
-<h2 id="theorem">theorem</h2>
+<p>~~编译原理中有这个内容~~</p>
+<h2 id="complexity">complexity</h2>
+<h3 id="1-p-and-timetn">1. <span class="arithmatex">\(P\)</span> and <span class="arithmatex">\(TIME(T(n))\)</span></h3>
+<p>TIME hierarchy theorem</p>
+<h3 id="2-p_setminus-poly-and-sizetn">2. <span class="arithmatex">\(P_{\setminus poly}\)</span> and <span class="arithmatex">\(SIZE(T(n))\)</span></h3>
+<p><span class="arithmatex">\(P_{\setminus poly}\)</span> 是一个神奇的类, 包含了不可计算的函数</p>
+<p>目前 <span class="arithmatex">\(P_{\setminus poly}\)</span> 与 <span class="arithmatex">\(NP\)</span> 的关系仍然未知</p>
+<p><span class="arithmatex">\(P_{\setminus poly}\)</span> 包含了不可判定问题，但主流观点认为它偏偏包不住 <span class="arithmatex">\(NP\)</span> 中的 Hard 问题</p>
+<h3 id="1-np-nsubseteq-ppoly">1. 核心猜想：<span class="arithmatex">\(NP \nsubseteq P/poly\)</span></h3>
+<p>这是目前学界最主流的猜想。意思是：<strong>NP-完全问题（如 SAT）不存在多项式大小的电路族。</strong></p>
+<ul>
+<li>如果 <span class="arithmatex">\(NP \subseteq P/poly\)</span>，意味着虽然我们可能找不到一个通用的多项式时间算法来解决 SAT（即 <span class="arithmatex">\(P \neq NP\)</span>），但对于任意固定的输入长度 <span class="arithmatex">\(n\)</span>，都存在一个只有多项式大小的逻辑电路能瞬间算出 SAT 的结果。</li>
+<li>大多数学家认为这是不可能的。</li>
+</ul>
+<h3 id="2-karp-lipton">2. 关键定理：Karp-Lipton 定理</h3>
+<p>如果 <span class="arithmatex">\(NP\)</span> 真的包含在 <span class="arithmatex">\(P/poly\)</span> 中，会发生什么？<strong>Karp-Lipton 定理 (1980)</strong> 给出了后果：</p>
+<blockquote>
+<p><strong>定理</strong>：如果 <span class="arithmatex">\(NP \subseteq P/poly\)</span>，那么多项式层级（Polynomial Hierarchy, PH）将塌缩到第二层，即 <span class="arithmatex">\(PH = \Sigma_2^p\)</span>。</p>
+</blockquote>
+<p><strong>解释：</strong>
+*   一般认为多项式层级（PH）是无限的，或者至少不会塌缩到那么低的层级。
+*   因此，Karp-Lipton 定理通过归谬法暗示了 <span class="arithmatex">\(NP\)</span> 很可能<strong>不包含</strong>在 <span class="arithmatex">\(P/poly\)</span> 中。</p>
+<h3 id="3-ppoly-nsubseteq-np">3. 反向包含：<span class="arithmatex">\(P/poly \nsubseteq NP\)</span></h3>
+<p>这一点是可以严格证明的：<strong><span class="arithmatex">\(P/poly\)</span> 绝对不是 <span class="arithmatex">\(NP\)</span> 的子集。</strong></p>
+<ul>
+<li><strong>理由</strong>：<span class="arithmatex">\(NP\)</span> 中的所有语言都是<strong>可判定的</strong>（Decidable），即一定存在图灵机能解决它们。</li>
+<li>但是，<span class="arithmatex">\(P/poly\)</span> 包含<strong>不可判定</strong>（Undecidable）的语言。<ul>
+<li><em>例子</em>：考虑“一元停机问题”。定义语言 <span class="arithmatex">\(L\)</span>：如果第 <span class="arithmatex">\(n\)</span> 个图灵机在空输入上停机，则 <span class="arithmatex">\(1^n \in L\)</span>；否则 <span class="arithmatex">\(1^n \notin L\)</span>。</li>
+<li>这是一个不可判定问题。但是对于任意长度 <span class="arithmatex">\(n\)</span>，答案是固定的（要么全是1，要么不是）。电路可以直接“硬编码”这个 Yes/No 的答案。因此 <span class="arithmatex">\(L \in P/poly\)</span>。</li>
+<li>因为 <span class="arithmatex">\(NP\)</span> 不包含不可判定问题，所以 <span class="arithmatex">\(P/poly \not\subseteq NP\)</span>。</li>
+</ul>
+</li>
+</ul>
+<h3 id="4-p-vs-np">4. 与 P vs NP 的关系</h3>
+<p>研究 <span class="arithmatex">\(NP\)</span> 和 <span class="arithmatex">\(P/poly\)</span> 的关系是解决 <span class="arithmatex">\(P\)</span> vs <span class="arithmatex">\(NP\)</span> 问题的一条重要路径：</p>
+<ol>
+<li>
+<p><strong>更强的猜想</strong>：
+    证明 <span class="arithmatex">\(NP \nsubseteq P/poly\)</span> 比证明 <span class="arithmatex">\(P \neq NP\)</span> 要难得多（是一个更强的结论）。</p>
+<ul>
+<li>因为 <span class="arithmatex">\(P \subseteq P/poly\)</span>，如果你证明了 <span class="arithmatex">\(NP\)</span> 甚至连 <span class="arithmatex">\(P/poly\)</span> 都不属于，那它自然也不属于 <span class="arithmatex">\(P\)</span>。</li>
+<li>即：<span class="arithmatex">\(NP \nsubseteq P/poly \implies P \neq NP\)</span>。</li>
+</ul>
+</li>
+<li>
+<p><strong>目前的现状</strong>：</p>
+<ul>
+<li>我们知道 <span class="arithmatex">\(NP \subseteq EXP\)</span>。</li>
+<li>我们不知道 <span class="arithmatex">\(NP\)</span> 是否属于 <span class="arithmatex">\(SUBEXP\)</span>（亚指数时间）。</li>
+<li>关于电路复杂度，目前最好的下界证明非常弱。我们甚至无法证明 <span class="arithmatex">\(NP\)</span> 中的问题需要大于 <span class="arithmatex">\(3n\)</span> 或 <span class="arithmatex">\(5n\)</span> 大小的电路（对于一般电路而言）。要证明需要“超多项式大小”的电路，路还非常长。</li>
+</ul>
+</li>
+</ol>
+<h3 id="_1">总结</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">关系方向</th>
+<th style="text-align: left;">结论</th>
+<th style="text-align: left;">理由/定理</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong><span class="arithmatex">\(P/poly \subseteq NP\)</span>?</strong></td>
+<td style="text-align: left;"><strong>False</strong> (不成立)</td>
+<td style="text-align: left;"><span class="arithmatex">\(P/poly\)</span> 包含不可判定语言，而 <span class="arithmatex">\(NP\)</span> 仅包含可判定语言。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><span class="arithmatex">\(NP \subseteq P/poly\)</span>?</strong></td>
+<td style="text-align: left;"><strong>Conjectured False</strong> (猜想不成立)</td>
+<td style="text-align: left;"><strong>Karp-Lipton 定理</strong>：如果成立，则 PH 塌缩，这被认为是不太可能的。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>交集</strong></td>
+<td style="text-align: left;"><strong>Non-empty</strong> (非空)</td>
+<td style="text-align: left;">两者都包含 <span class="arithmatex">\(P\)</span>。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="3-np-and-npc">3. <span class="arithmatex">\(NP\)</span> and <span class="arithmatex">\(NPC\)</span></h3>
+<p>主要研究 3SAT</p>
+<h3 id="4-bpp">4. BPP</h3>
+<p>研究 <span class="arithmatex">\(BPP\)</span>, <span class="arithmatex">\(P\)</span>, <span class="arithmatex">\(P_{\setminus poly}\)</span> 之间的关系, 尝试证明 <span class="arithmatex">\(P?=NP\)</span></p>
+<h3 id="star-attempts-for-proving-pnp"><span class="arithmatex">\(\star\)</span> attempts for proving <span class="arithmatex">\(P=NP\)</span></h3>
+<ol>
+<li><span class="arithmatex">\(P\subseteq NP\subseteq EXP\)</span>, 其中必有一个 <span class="arithmatex">\(\subsetneq\)</span></li>
+<li>if <span class="arithmatex">\(P=BPP\)</span>, then <span class="arithmatex">\(P=NP\)</span></li>
+</ol>
+<h2 id="important-theorem">important theorem</h2>
+<h3 id="encodable-leftrightarrow-countable">encodable <span class="arithmatex">\(\Leftrightarrow\)</span> countable</h3>
+<h3 id="ofracm2nn-circuit"><span class="arithmatex">\(O(\frac{m2^n}n)\)</span> circuit</h3>
+<p><span class="arithmatex">\(\underline{\text{Sketch}}\)</span></p>
+<p>分块, 利用小的 k, 花费 <span class="arithmatex">\(2^k\)</span> 来构造出 <span class="arithmatex">\(f:\set{0,1}^k\to \set{0,1}\)</span>, 从而得到所有 <span class="arithmatex">\(2^{2^k}\)</span> 函数, 之后复用这些函数, 用 <span class="arithmatex">\(2^{n-k}\)</span> 个门引到最终输出, 得到 <span class="arithmatex">\(F:\set{0,1}^k\to \set{0,1}^{2^{n-k}}\)</span></p>
+<p>之后 LOOKUP, 电路复杂度 <span class="arithmatex">\(O(2^{n-k})\)</span></p>
+<p>取 <span class="arithmatex">\(2^k=n-2\log_2 n\)</span></p>
+<p>总的 <span class="arithmatex">\(O(2^k\cdot 2^{2^{k}}+2^{n-k})=O(\frac{2^n} n)\)</span></p>
+<p>证明紧性:</p>
+<p>encoding <span class="arithmatex">\(s\log s\)</span>, 取 <span class="arithmatex">\(s=\frac{2^n}{cn}\)</span></p>
+<p><span class="arithmatex">\(\underline{\text{Proof}}\)</span> </p>
+<h3 id="fset01-to-set01-leftrightarrow-bfset01-to-set01"><span class="arithmatex">\(f:\set{0,1}^* \to \set{0,1}^* \Leftrightarrow bf:\set{0,1}^* \to \set{0,1}\)</span></h3>
 <h3 id="dfa-leftrightarrow-nfa">DFA <span class="arithmatex">\(\Leftrightarrow\)</span> NFA</h3>
+<p><span class="arithmatex">\(\underline{\text{Sketch}}\)</span></p>
+<p>把 NFA 对应每一层的 <span class="arithmatex">\(2^n\)</span> 种状态用 <span class="arithmatex">\(2^n\)</span> 个 DFA 节点表示</p>
+<p>转移到每个状态需要同时遍历所有 <span class="arithmatex">\(e\)</span> 转移到的状态</p>
+<p><span class="arithmatex">\(\underline{\text{Proof}}\)</span></p>
 <h3 id="pumping-theorem">Pumping Theorem</h3>
+<p><span class="arithmatex">\(\underline{\text{Sketch}}\)</span></p>
+<p>一个 language 对应的自动机的状态是有限的, 对于长度大于状态数的输入, 总存在一个环</p>
+<p><span class="arithmatex">\(\underline{\text{Proof}}\)</span></p>
 <h3 id="pda-leftrightarrow-cfg">PDA <span class="arithmatex">\(\Leftrightarrow\)</span> CFG</h3>
+<p><span class="arithmatex">\(\underline{\text{Sketch}}\)</span></p>
+<p>有了 CFG 构造 PDA, 就把 CFG 的转移规则重写成 PDA 的转移规则, 在栈里构造 non-deterministic 串, 与输入匹配</p>
+<p>有了 PDA 构造 CFG, 先构造 simple PDA, 即 <span class="arithmatex">\(|f|=1\)</span>, 每次只能 push/pop 一个字符</p>
+<p>用 simple PDA 构造 CFG:</p>
+<p>simple PDA = <span class="arithmatex">\(\set{K,S,\Delta,\set{f}}\)</span></p>
+<p>构造 <span class="arithmatex">\(V=\set{0,1}\cup \set{A_{pq}: p,q\in K}\)</span>, <span class="arithmatex">\(S=A_{sf}\)</span>, 目标是 <span class="arithmatex">\(A_{pq}\Rightarrow w\text{ iff }w\in\set{u\in\set{0,1}^*|(p,u,e)\to(q,e,e)}\)</span></p>
+<p>此时 <span class="arithmatex">\(A_{sf}\)</span> 作为起始字符, 能够通过 <span class="arithmatex">\(R\)</span> 转移到所有 simple PDA 接受的 <span class="arithmatex">\(w\)</span> 上</p>
+<div class="arithmatex">\[R=\set{A_{pp}\to e|p\in K}\]</div>
+<div class="arithmatex">\[\cup\set{A_{pq}\to A_{pr}A_{rq}|p,q,r\in K}\]</div>
+<div class="arithmatex">\[\cup\set{A_{pq}\to aA_{rs}b|\exists X, ((p,a,e),(r,X))\in \Delta \wedge ((s,b,X),(q,e))\in \Delta}\]</div>
+<p><span class="arithmatex">\(\underline{\text{Proof}}\)</span></p>
+<h3 id="halt-is-uncomputable">HALT is uncomputable</h3>
+<h4 id="general-proof">general proof</h4>
+<p><span class="arithmatex">\(\underline{\text{Sketch}}\)</span></p>
+<p>将 <span class="arithmatex">\(F^*\)</span> 归约到 <span class="arithmatex">\(HALT\)</span></p>
+<p><span class="arithmatex">\(F^{*}\)</span> 不能用图灵机计算的一个原因是图灵机不一定停机, 构造出的 <span class="arithmatex">\(M_F\)</span> 不一定有输出</p>
+<p>所以假设 <span class="arithmatex">\(HALT\)</span> 可计算, 判定输入的图灵机是否停机, 不停机就返回</p>
+<p>这样 <span class="arithmatex">\(F^{*}\)</span> 可以被 <span class="arithmatex">\(M_F\)</span> 计算, 得到矛盾</p>
+<p><span class="arithmatex">\(\underline{\text{Proof}}\)</span></p>
+<h4 id="using-recursion-theorem">using Recursion Theorem</h4>
+<p>Recursion Theorem 不需要归约了</p>
+<p>像 <span class="arithmatex">\(F^*\)</span> 一样构造一个与自己矛盾的图灵机即可
+</p><div class="highlight"><pre><span></span><code><span class="n">M</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">on</span><span class="w"> </span><span class="n">input</span><span class="w"> </span><span class="n">x</span>
+<span class="w">  </span><span class="n">obtain</span><span class="w"> </span><span class="o">&lt;</span><span class="n">M</span><span class="o">&gt;</span>
+<span class="w">  </span><span class="n">compute</span><span class="w"> </span><span class="n">HALT</span><span class="p">(</span><span class="o">&lt;</span><span class="n">M</span><span class="o">&gt;</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="p">)</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="n">HALT</span><span class="p">(</span><span class="o">&lt;</span><span class="n">M</span><span class="o">&gt;</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="o">:</span>
+<span class="w">    </span><span class="n">loop</span>
+<span class="w">  </span><span class="nl">else</span><span class="p">:</span>
+<span class="w">    </span><span class="n">halt</span>
+</code></pre></div>
+<p>所以 <code>M</code> halts on <code>x</code> iff <code>HALT(M, x) = 0</code></p>
 <h3 id="rices-theorem">Rice's Theorem</h3>
 <p>将 <span class="arithmatex">\(HALT\)</span> 归约到 property <span class="arithmatex">\(P\)</span></p>
 <p>假设 <span class="arithmatex">\(M_{INF}\)</span> 永不停机</p>
@@ -5969,13 +6987,198 @@
 <p><span class="arithmatex">\(\exists M_{yes}\text{ s.t. } P(M_{yes})=1\)</span></p>
 <p>定义:</p>
 <div class="highlight"><pre><span></span><code><span class="n">N</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">on</span><span class="w"> </span><span class="n">input</span><span class="w"> </span><span class="n">y</span>
-<span class="mf">1.</span><span class="w"> </span><span class="n">run</span><span class="w"> </span><span class="n">M</span><span class="w"> </span><span class="n">on</span><span class="w"> </span><span class="n">x</span>
-<span class="mf">2.</span><span class="w"> </span><span class="n">run</span><span class="w"> </span><span class="n">M_yes</span><span class="w"> </span><span class="n">on</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">M_yes</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+<span class="w">  </span><span class="n">run</span><span class="w"> </span><span class="n">M</span><span class="w"> </span><span class="n">on</span><span class="w"> </span><span class="n">x</span>
+<span class="w">  </span><span class="n">run</span><span class="w"> </span><span class="n">M_yes</span><span class="w"> </span><span class="n">on</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">M_yes</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
 </code></pre></div>
 <p>则 <code>HALT(M,x) = 0 if P(N) = 0</code>, <code>HALT(M,x) = 1 if P(N) = 1</code></p>
 <p>所以 if <span class="arithmatex">\(P\)</span> computable, then <span class="arithmatex">\(HALT\)</span> computable</p>
 <p>即 reduction from <span class="arithmatex">\(HALT\)</span> to <span class="arithmatex">\(P\)</span></p>
 <p><span class="arithmatex">\(\square\)</span></p>
+<h3 id="recursion-theorem">Recursion Theorem</h3>
+<p><span class="arithmatex">\(\underline{\text{Sketch}}\)</span></p>
+<p>我想自己打印自己, 但是一句一句打印会出现循环打印下一句话的情况</p>
+<p>所以可以拆成两个 <span class="arithmatex">\(A,B\)</span>, 互相打印</p>
+<p>但是如果 <span class="arithmatex">\(A\)</span> 打印了 <span class="arithmatex">\(&lt;B&gt;\)</span>, <span class="arithmatex">\(B\)</span> 也直接打印了 <span class="arithmatex">\(&lt;A&gt;\)</span>, 就又嵌套了</p>
+<p>所以可以显式在 <span class="arithmatex">\(A\)</span> 打印 <span class="arithmatex">\(&lt;B&gt;\)</span>, <span class="arithmatex">\(B\)</span> 隐式打印 <span class="arithmatex">\(&lt;A&gt;\)</span></p>
+<p>具体地, 构造函数 <span class="arithmatex">\(q\)</span>:</p>
+<div class="highlight"><pre><span></span><code><span class="n">q</span><span class="p">(</span><span class="n">w</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="n">M_w</span><span class="o">&gt;</span>
+<span class="n">M_w</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">on</span><span class="w"> </span><span class="n">input</span><span class="w"> </span><span class="n">x</span>
+<span class="w">  </span><span class="n">erase</span><span class="w"> </span><span class="n">input</span>
+<span class="w">  </span><span class="n">write</span><span class="w"> </span><span class="n">w</span><span class="w"> </span><span class="n">on</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">tape</span>
+
+<span class="n">B</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">on</span><span class="w"> </span><span class="n">input</span><span class="w"> </span><span class="n">w</span>
+<span class="w">  </span><span class="n">write</span><span class="w"> </span><span class="n">q</span><span class="p">(</span><span class="n">w</span><span class="p">)</span><span class="w"> </span><span class="n">on</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">tape</span>
+<span class="w">  </span><span class="n">swap</span><span class="w"> </span><span class="n">with</span><span class="w"> </span><span class="n">w</span>
+
+<span class="n">A</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">on</span><span class="w"> </span><span class="n">input</span><span class="w"> </span><span class="n">y</span>
+<span class="w">  </span><span class="n">erase</span><span class="w"> </span><span class="n">input</span>
+<span class="w">  </span><span class="n">write</span><span class="w"> </span><span class="o">&lt;</span><span class="n">B</span><span class="o">&gt;</span><span class="w"> </span><span class="n">on</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">tape</span>
+</code></pre></div>
+<p>先运行 <span class="arithmatex">\(A\)</span>, 纸带上是 <span class="arithmatex">\(&lt;B&gt;\)</span></p>
+<p>之后运行 <span class="arithmatex">\(B(&lt;B&gt;)\)</span>, 写上了 <span class="arithmatex">\(q(&lt;B&gt;)=&lt;A&gt;\)</span>, 并与 <span class="arithmatex">\(&lt;B&gt;\)</span> 交换</p>
+<p>因此完成了自己打印自己</p>
+<p>之后证明 Recursion Theorem, 只需要构造 <span class="arithmatex">\(A,B,T\)</span> 即可</p>
+<p><span class="arithmatex">\(\underline{\text{Proof}}\)</span></p>
+<h4 id="halt">HALT</h4>
+<p>见上</p>
+<h4 id="minimal">MINIMAL</h4>
+<p>证明 <code>MINI</code> uncomputable</p>
+<p><span class="arithmatex">\(\underline{\text{Sketch}}\)</span></p>
+<p>对于 <code>M</code>, 获取 <code>&lt;M&gt;</code>, 循环找 <code>s</code>, 使得 <code>MINI(s) = 1</code> 并且 <code>|&lt;s&gt;|&gt;|&lt;M&gt;|</code></p>
+<p>之后 <code>return s(x)</code></p>
+<p>那么 <code>s</code> 和 <code>M</code> 功能等价, 但 <code>MINI(s) = 0</code>, 矛盾</p>
+<p><span class="arithmatex">\(\underline{\text{Proof}}\)</span></p>
+<h4 id="fixed-point-theorem">Fixed Point Theorem</h4>
+<p><span class="arithmatex">\(\underline{\text{Sketch}}\)</span></p>
+<p>对于 <code>F</code>, 计算 <code>t(&lt;F&gt;)</code>, 令 <code>&lt;M&gt; = t(&lt;F&gt;)</code></p>
+<p>之后 <code>return M(x)</code></p>
+<p><span class="arithmatex">\(\underline{\text{Proof}}\)</span></p>
+<h3 id="godels-incompleteness-theorem">Godel's Incompleteness Theorem</h3>
+<p><span class="arithmatex">\(\underline{\text{Sketch}}\)</span></p>
+<p>归约到 <code>HALTONZERO</code></p>
+<p>并行执行两个语句:</p>
+<div class="highlight"><pre><span></span><code><span class="n">HALTONZERO</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">on</span><span class="w"> </span><span class="n">input</span><span class="w"> </span><span class="n">M</span><span class="w"> </span><span class="n">parallelly</span>
+<span class="mf">1.</span><span class="w"> </span><span class="n">run</span><span class="w"> </span><span class="n">M</span><span class="w"> </span><span class="n">on</span><span class="w"> </span><span class="mi">0</span>
+<span class="mf">2.</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"M does not halt on 0"</span>
+<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="n">t</span><span class="o">:</span>
+<span class="w">    </span><span class="n">run</span><span class="w"> </span><span class="n">V</span><span class="w"> </span><span class="n">on</span><span class="w"> </span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">t</span><span class="p">)</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">V</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">t</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="o">:</span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span>
+</code></pre></div>
+<p>必有一个停机, 一个不停机</p>
+<p>则 <code>M</code> halts -&gt; first halts -&gt; <code>HALTONZERO(M) = 1</code></p>
+<p><code>M</code> does not halt -&gt; second halts -&gt; <code>HALTONZERO(M) = 0</code></p>
+<p>所以 <code>HALTONZERO</code> computable, 矛盾</p>
+<p><span class="arithmatex">\(\underline{\text{Proof}}\)</span></p>
+<h3 id="time-hierarchy-theorem">TIME Hierarchy Theorem</h3>
+<p>定义 bounded HALT problem:</p>
+<p><span class="arithmatex">\(HALT_T(P,x)=1,|P|\leq \log\log|x|\quad \text{and}\quad P \text{ halts on } x \leq 100T(|P|+|x|) \text{ steps}\)</span></p>
+<p><span class="arithmatex">\(HALT_T(P,x)=0 \text{ otherwise}\)</span></p>
+<p><span class="arithmatex">\(\underline{\text{Sketch}}\)</span></p>
+<p>Proof 1:</p>
+<div class="highlight"><pre><span></span><code><span class="k">if</span><span class="w"> </span><span class="o">|</span><span class="n">P</span><span class="o">|</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">loglog</span><span class="o">|</span><span class="n">x</span><span class="o">|</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span>
+<span class="n">compute</span><span class="w"> </span><span class="n">T0</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">T</span><span class="p">(</span><span class="o">|</span><span class="n">P</span><span class="o">|+|</span><span class="n">x</span><span class="o">|</span><span class="p">)</span>
+<span class="n">simulate</span><span class="w"> </span><span class="n">P</span><span class="w"> </span><span class="n">on</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="mi">100</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">T0</span><span class="w"> </span><span class="n">steps</span><span class="w"> </span><span class="c1">// universal TM: U(P, x) simulate P on x in a * |P|^b * 100 * T0 steps</span>
+<span class="k">if</span><span class="w"> </span><span class="n">halt</span><span class="o">:</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="mi">1</span>
+<span class="k">else</span><span class="w"> </span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span>
+</code></pre></div>
+<p>total: </p>
+<div class="arithmatex">\[O(|P|^bT_0)\]</div>
+<div class="arithmatex">\[\leq O(T_0\cdot \log\log^b(|P|+|x|))\]</div>
+<div class="arithmatex">\[\leq O(T(|P|+|x|)\cdot \log\log^b(|P|+|x|))\]</div>
+<div class="arithmatex">\[\leq O(T(|P|+|x|)\cdot \log(|P|+|x|))\]</div>
+<p>Proof 2:</p>
+<p>构造 <span class="arithmatex">\(Q^*\)</span></p>
+<div class="highlight"><pre><span></span><code><span class="n">Q</span><span class="o">*</span><span class="w"> </span><span class="n">on</span><span class="w"> </span><span class="n">input</span><span class="w"> </span><span class="n">z</span><span class="o">:</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="n">z</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="n">form</span><span class="w"> </span><span class="n">P1</span><span class="o">^</span><span class="n">m</span><span class="p">,</span><span class="w"> </span><span class="o">|</span><span class="n">P</span><span class="o">|</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mf">0.1l</span><span class="n">oglogm</span><span class="o">:</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">  </span><span class="n">run</span><span class="w"> </span><span class="n">HALT_T</span><span class="w"> </span><span class="n">on</span><span class="w"> </span><span class="n">z</span><span class="w"> </span><span class="c1">// O(|P|+|z|) = O(2|P|+m)</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="n">halts</span><span class="o">:</span>
+<span class="w">    </span><span class="n">loop</span>
+<span class="w">  </span><span class="nl">else</span><span class="p">:</span>
+<span class="w">    </span><span class="n">halt</span>
+</code></pre></div>
+<p>对于 <span class="arithmatex">\(Q^*(P1^m)\)</span>:</p>
+<ol>
+<li>loops, if <span class="arithmatex">\(|P|&lt;0.1\log\log m\quad \text{and}\quad P \text{ halts on }P1^m\leq 100T(2|P|+m)\text{ steps}\)</span></li>
+<li>halts, otherwise</li>
+</ol>
+<p>令 <span class="arithmatex">\(P=Q^*, m=2^{2^{1000|Q^*|}}\)</span>, 考察 <span class="arithmatex">\(Q^*(Q^*1^m)\)</span></p>
+<ol>
+<li>first, loops but halts</li>
+<li>second, halts within <span class="arithmatex">\(2T(2|P|+m)\)</span> steps; 但是这种情况说明应该是第一种情况</li>
+</ol>
+<p>所以得到两条矛盾</p>
+<p><span class="arithmatex">\(\underline{\text{Proof}}\)</span></p>
+<h3 id="timetnsubseteq-sizetn3"><span class="arithmatex">\(TIME(T(n))\subseteq SIZE(T(n)^3)\)</span></h3>
+<p><span class="arithmatex">\(\underline{\text{Sketch}}\)</span></p>
+<ol>
+<li>
+<p>对于循环, copy k 次即可, 循环次数为 T(n), 所以乘以一个 T(n)</p>
+</li>
+<li>
+<p>对于 MODEANDJUMP, 扫一个来回纸带, 定位到对应的 index 即可, 加上一个 2T(n)</p>
+</li>
+</ol>
+<p>最后 <span class="arithmatex">\(O((T(n)+2T(n))*T(n))=O(T(n)^2)\)</span></p>
+<p><span class="arithmatex">\(\underline{\text{Proof}}\)</span></p>
+<h3 id="p-subsetneq-p_setminus-poly"><span class="arithmatex">\(P \subsetneq P_{\setminus poly}\)</span></h3>
+<p><span class="arithmatex">\(\underline{\text{Sketch}}\)</span></p>
+<p>往证: <span class="arithmatex">\(\exists f\in P_{\setminus poly}\)</span>, <span class="arithmatex">\(f\)</span> is uncomputable</p>
+<p>考虑 unary halting problem</p>
+<p><span class="arithmatex">\(\underline{\text{Proof}}\)</span></p>
+<h3 id="psubseteq-npsubseteq-exp"><span class="arithmatex">\(P\subseteq NP\subseteq EXP\)</span></h3>
+<p><span class="arithmatex">\(\underline{\text{Sketch}}\)</span></p>
+<p>P\subset NP: 用 <span class="arithmatex">\(V(x,t)\)</span> 直接模拟 P 对应的 <span class="arithmatex">\(M(x)\)</span> 即可</p>
+<p>NP\subset EXP: NP 的certificate |t|\leq |x|^a</p>
+<p>所以在 2^{|x|^a} 的时间里枚举所有 t 即可</p>
+<p><span class="arithmatex">\(\underline{\text{Proof}}\)</span></p>
+<h3 id="cook-levin-theorem">Cook Levin Theorem</h3>
+<p>定义 NANDSAT:</p>
+<p>NAND-CIRC program, <span class="arithmatex">\(n\)</span> inputs, <span class="arithmatex">\(1\)</span> output, <span class="arithmatex">\(Q(t)=1\)</span>?</p>
+<p><span class="arithmatex">\(\underline{\text{Sketch}}\)</span></p>
+<p>F\leq_p NANDSAT\leq_p SAT\leq_p 3SAT</p>
+<ol>
+<li>SAT\leq_p 3SAT</li>
+</ol>
+<p>多拆少补</p>
+<div class="arithmatex">\[(x_1\vee x_2)\wedge(x_1\vee x_2\vee x_3\vee x_4)\]</div>
+<div class="arithmatex">\[\to(x_1\vee x_2\vee y)\wedge (x_1\vee x_2\vee \bar y)\]</div>
+<div class="arithmatex">\[\wedge (x_1\vee x_2\vee y)\wedge (x_3\vee x_4\vee \bar y)\]</div>
+<ol>
+<li>NANDSAT\leq_p SAT</li>
+</ol>
+<p><span class="arithmatex">\(\vee\)</span> 和 <span class="arithmatex">\(\wedge\)</span> 可以表示 NAND</p>
+<ol>
+<li>F\leq_p NANDSAT</li>
+</ol>
+<p>解决 <span class="arithmatex">\(F\in NP\)</span> 等于找一个 <span class="arithmatex">\(t\)</span>, <span class="arithmatex">\(|t|\leq |x|^a\)</span>, <span class="arithmatex">\(V(x,t)=1\)</span></p>
+<p>对于 V 展开循环:</p>
+<p>input length <span class="arithmatex">\(\leq |x|+|t|\leq 2|x|^a\)</span></p>
+<p>running time <span class="arithmatex">\(\leq (|x|^{a})^b\leq 2^b|x|^{ab}\)</span></p>
+<p>变成一个 NAND-CIRC Q, poly(2^b|x|^{ab}, |V|)</p>
+<p>Q(x,t)=V(x,t)</p>
+<p>对于每个固定的 <span class="arithmatex">\(x\)</span> 相当于计算是否 <span class="arithmatex">\(Q'(t)=Q(x,t)=V(x,t)=1\)</span>, <span class="arithmatex">\(t\in \set{0,1}^{|x|^a}\)</span></p>
+<p><span class="arithmatex">\(\underline{\text{Proof}}\)</span></p>
+<p><span class="arithmatex">\(3SAT\)</span> is <span class="arithmatex">\(NPC\)</span></p>
+<ul>
+<li>Corollary: <span class="arithmatex">\(3SAT\)</span> in <span class="arithmatex">\(P\)</span> iff <span class="arithmatex">\(P=NP\)</span></li>
+</ul>
+<h3 id="amplification-lemma">Amplification Lemma</h3>
+<p><span class="arithmatex">\(\underline{\text{Sketch}}\)</span></p>
+<p>多运行几次求 majority</p>
+<p><span class="arithmatex">\(\underline{\text{Proof}}\)</span></p>
+<h3 id="psubset-bppsubset-exp"><span class="arithmatex">\(P\subset BPP\subset EXP\)</span></h3>
+<ol>
+<li><span class="arithmatex">\(P\subset BPP\)</span></li>
+</ol>
+<p>RNAND-TM 本身就是 NAND-TM + <code>RAND()</code>, 自然包含 <span class="arithmatex">\(P\)</span></p>
+<ol>
+<li><span class="arithmatex">\(BPP\subset EXP\)</span></li>
+</ol>
+<p>和 NP 一样枚举</p>
+<h3 id="adlemans-theorem">Adleman's Theorem</h3>
+<p><span class="arithmatex">\(BPP \subsetneq P_{\setminus poly}\)</span></p>
+<h4 id="lemma">Lemma</h4>
+<p><span class="arithmatex">\(F\in BPP\)</span> iff <span class="arithmatex">\(G\in P\)</span> s.t. <span class="arithmatex">\(\forall x\in \set{0,1}^*\)</span></p>
+<p><span class="arithmatex">\(Q\)</span> 是对应 <span class="arithmatex">\(F\)</span> 的 RNAND-TM program</p>
+<div class="arithmatex">\[Pr[Q(x)=F(x)]=Pr[G(xr)=F(x)]\geq 2/3\]</div>
+<p><span class="arithmatex">\(r\)</span> 是伪随机数列 </p>
+<p><span class="arithmatex">\(\underline{\text{Sketch}}\)</span></p>
+<p>利用振幅引理 </p>
+<div class="arithmatex">\[Pr_{r\sim \set{0,1}^{a|x|^b}}[G(xr)=F(x)]\geq 2/3\to 1-\frac{0.1}{2^n}\]</div>
+<p>所以固定 <span class="arithmatex">\(|x|=n\)</span>:</p>
+<div class="arithmatex">\[Pr_{r\sim \set{0,1}^{a|x|^b}}[G(xr)=F(x),\forall |x|=n]\geq 1-2^n\cdot(\frac{0.1}{2^n})=0.9\]</div>
+<p>所以 <span class="arithmatex">\(\forall n\)</span>, <span class="arithmatex">\(\exists r\)</span>, <span class="arithmatex">\(|r|=a|x|^b\)</span>, s.t. <span class="arithmatex">\(G(xr)=F(x), \forall |x|=n\)</span></p>
+<p><span class="arithmatex">\(\underline{\text{Proof}}\)</span></p>
+<h3 id="pbpp-if-optimal-pseudorandom-generator-exists"><span class="arithmatex">\(P=BPP\)</span> if Optimal Pseudorandom Generator exists</h3>
+<p>定义 Pseudorandom Generator:</p>
+<p>$$$$</p>
+<p>optimal: m\to l</p>
+<p>所以可以将所有随机数列降维成 <span class="arithmatex">\(\log n\)</span> 级别的, 再枚举所有随机数列, 这样枚举的复杂度就是 <span class="arithmatex">\(P\)</span> 而不是 <span class="arithmatex">\(EXP\)</span> 的, 所以 <span class="arithmatex">\(P=BPP\)</span></p>
 <h2 id="equivalent">equivalent</h2>
 <h3 id="countable-leftrightarrow-encodable">countable <span class="arithmatex">\(\Leftrightarrow\)</span> encodable</h3>
 <h3 id="dfa-leftrightarrow-nfa_1">DFA <span class="arithmatex">\(\Leftrightarrow\)</span> NFA</h3>
@@ -5996,13 +7199,14 @@
 <ul>
 <li>PDA defines context-free language</li>
 </ul>
-<h3 id="tm-leftrightarrow-nand-tm-circuit">TM <span class="arithmatex">\(\Leftrightarrow\)</span> NAND-TM circuit</h3>
+<h3 id="tm-leftrightarrow-nand-tm-circuit-nand-circ-circuit-arrays-loops">TM <span class="arithmatex">\(\Leftrightarrow\)</span> NAND-TM circuit = NAND-CIRC circuit + arrays + loops</h3>
 <p>TM defines computable functions</p>
 <h3 id="nand-tm-circuit-leftrightarrow-nand-ram-circuit">NAND-TM circuit <span class="arithmatex">\(\Leftrightarrow\)</span> NAND-RAM circuit</h3>
+<h3 id="rnand-tm-program-nand-tm-rand">RNAND-TM program = NAND-TM + RAND()</h3>
 <h2 id="goal">goal</h2>
 <p>我们需要研究计算模型, 用来计算函数</p>
 <p>常见的计算模型有 circuit, automaton, language, grammar 等</p>
-<h3 id="_1">计算能力层级对应表</h3>
+<h3 id="_2">计算能力层级对应表</h3>
 <table>
 <thead>
 <tr>
@@ -6049,7 +7253,7 @@
 </tr>
 </tbody>
 </table>
-<h3 id="_2">对每个层级的详细解释</h3>
+<h3 id="_3">对每个层级的详细解释</h3>
 <h4 id="type-0">Type-0: 递归可枚举语言 (图灵完备)</h4>
 <p>这是计算能力的最强层级，描述了所有“可计算”或“可判定”的问题。
 - 语言 (Language): 递归可枚举语言。指的是存在一个图灵机，当一个字符串属于该语言时，该图灵机最终会停机并接受它。如果字符串不属于该语言，图灵机可能停机并拒绝，也可能永不停机。
@@ -6078,6 +7282,178 @@
 - 电路 (Circuit): 时序逻辑电路 (Sequential Logic Circuits)。任何有限状态机都可以被直接实现为一个硬件电路，其中状态由触发器 (Flip-flops) 存储，状态转换逻辑由组合逻辑门（如 AND, OR, NOT, NAND）实现。
 - 编程语言 (Programming Language): 正则表达式 (Regular Expressions)。在几乎所有编程语言和文本编辑器中，用于字符串搜索、匹配和替换的正则表达式引擎，其理论基础就是有限状态机。词法分析器 (Lexer) 也是一个典型的应用，它将源代码分解成一个个的 token (如关键字、标识符、运算符)。</p>
 <p>前期介绍的所有计算模型及其相关理论, 都是为了得到 (目前) 最强大的计算模型: 图灵机, 以及得到 Church Turing thesis, 即图灵机可计算的函数为 computable functions</p>
+<h2 id="interesting-facts">interesting facts</h2>
+<h3 id="about-log-n">about <span class="arithmatex">\(\log n\)</span></h3>
+<ul>
+<li>在理论计算机和算法中, 复杂度最好是 O(N), 即与数据规模呈线性关系; 常见的很多算法多是 NlogN 的, 其他还有 loglogN, \sqrt{\logN} 的算法; 同时在 TCS 中的复杂度理论中, 定理通常证明原复杂度类对应的复杂度 T(n) 变成 T(n)logn 后, 复杂度类一定会拓展, 即存在一个函数可以被 T(n)logn 计算但不能被 T(n) 计算. logn 有什么特殊意义? 它是否是简单复杂度函数(即不包含嵌套 loglogn)中最小的一个增量?</li>
+</ul>
+<p>这个问题问得非常“理论计算机味”，而且你已经站在门内了。我们慢慢拆开这只看似普通、实则爱惹事的 <strong>log n</strong>。</p>
+<p>先给一个总判断，再解释原因：
+<strong>log n 之所以反复出现，不是因为它神秘，而是因为它是“信息论上最小的、还能改变世界的代价”。</strong>
+它几乎是你能加在复杂度上、仍然足以让复杂度类发生严格变化的最小非平凡增量。</p>
+<hr>
+<h3 id="log-n">一、log n 的本质：信息与选择的最小单位</h3>
+<p>在理论计算机里，log n 有一个极其朴素、但杀伤力很强的解释：</p>
+<blockquote>
+<p>log n ≈ 用二进制表示 n 所需要的位数。</p>
+</blockquote>
+<p>这意味着三件事：</p>
+<ol>
+<li>
+<p><strong>区分 n 种可能性至少要 log n 比特</strong>
+   这是信息论下界，不依赖模型、不依赖语言、不依赖你喜不喜欢。</p>
+</li>
+<li>
+<p><strong>任何“全局决策”都绕不开 log n</strong>
+   比如：</p>
+</li>
+<li>
+<p>二分搜索：每一步减少一半不确定性</p>
+</li>
+<li>排序的比较下界：n! 的信息量是 n log n</li>
+<li>
+<p>地址、索引、指针、本质都在付 log n 的账单</p>
+</li>
+<li>
+<p>log n 是“非局部”的最小成本
+   常数是局部的；log n 开始，你已经在和输入规模的整体结构打交道了。</p>
+</li>
+</ol>
+<hr>
+<h3 id="tn-vs-tnlog-n">二、为什么复杂度分离定理里偏偏是 T(n) vs T(n)·log n？</h3>
+<p>你提到的，其实是 <strong>时间层级定理（Time Hierarchy Theorem）</strong> 的核心形态之一：</p>
+<blockquote>
+<p>对足够可构造的 T(n)，
+<strong>DTIME(T(n)) ⊊ DTIME(T(n)·log T(n))</strong></p>
+</blockquote>
+<p>为什么这里不能是 T(n)+1？
+为什么不是 T(n)·(1+ε)？
+为什么偏偏是 log n？</p>
+<p>原因不是“技术巧合”，而是三重约束的交集：</p>
+<hr>
+<h4 id="1">1️⃣ 对角化需要“模拟开销”</h4>
+<p>层级定理的证明，本质是：</p>
+<ul>
+<li>构造一台机器 M</li>
+<li>它在时间 T(n)·log T(n) 内</li>
+<li>模拟所有 T(n) 时间的机器</li>
+<li>然后故意在某个点上和它们不一样</li>
+</ul>
+<p><strong>关键问题：模拟是要付账的。</strong></p>
+<p>即便是最乐观的情况：</p>
+<ul>
+<li>你要读描述</li>
+<li>你要计步</li>
+<li>你要防止被无限循环骗</li>
+</ul>
+<p>这些元操作的最低开销，几乎不可避免地是 <strong>log T(n)</strong> 级别。</p>
+<p>低于 log 的增量，根本不够支付“监督模拟”的成本。</p>
+<hr>
+<h4 id="2-log-n">2️⃣ log n 是“最小的可放大函数”</h4>
+<p>在复杂度论里，有一类函数被叫做 <strong>constructible / honest functions</strong>。</p>
+<p>log n 在这里是一个临界点：</p>
+<ul>
+<li>它增长到无穷</li>
+<li>但增长得极慢</li>
+<li>又慢到你无法用常数技巧抹掉</li>
+<li>快到你又能反复叠加、放大</li>
+</ul>
+<p>相比之下：</p>
+<ul>
+<li>log log n
+  太慢，慢到对角化里常被“压平”</li>
+<li>√log n
+  虽然增长，但在很多构造中仍然不足以稳定承担模拟开销</li>
+<li>任意 o(log n)
+  通常无法保证复杂度类严格扩张</li>
+</ul>
+<p><strong>log n 是第一个“稳态增长”的函数。</strong></p>
+<hr>
+<h4 id="3-log-n">3️⃣ log n 是复杂度论中的“最小全局时间尺度”</h4>
+<p>你可以把时间复杂度想成三层尺度：</p>
+<ul>
+<li><strong>常数 / O(1)</strong>：局部行为</li>
+<li><strong>log n</strong>：全局但轻量</li>
+<li><strong>n^ε</strong>：真正线性世界的入口</li>
+</ul>
+<p>log n 正好卡在：</p>
+<ul>
+<li>不再是常数</li>
+<li>又没进入“线性经济”</li>
+</ul>
+<p>这使得它成为理论中<strong>最小的可检测差异</strong>。</p>
+<hr>
+<h3 id="log-log-nlog-n">三、那 log log n、√log n 呢？为什么不行？</h3>
+<p>你的问题问得非常精确：</p>
+<blockquote>
+<p>它是否是简单复杂度函数中最小的一个增量？</p>
+</blockquote>
+<p>在目前主流复杂度理论框架下，答案接近于：</p>
+<blockquote>
+<p><strong>是的，log n 是“可证明稳健”的最小增量。</strong></p>
+</blockquote>
+<p>更具体地说：</p>
+<ul>
+<li>对任意 o(log n) 的增长
+  → <strong>不存在普适的层级定理</strong></li>
+<li>对 log n
+  → 层级定理成立，且形式优美</li>
+<li>对 log^k n、n^ε
+  → 更容易分离，但代价更大</li>
+</ul>
+<p>这不是说 log log n 没意义，而是：</p>
+<blockquote>
+<p>它太“轻”，轻到不足以稳定地区分计算能力。</p>
+</blockquote>
+<hr>
+<h3 id="log-n_1">四、算法世界与复杂度理论，在 log n 上悄悄握手</h3>
+<p>这件事的美妙之处在于：</p>
+<ul>
+<li>在算法设计里
+  n → n log n 是“不可避免的排序税”</li>
+<li>在复杂度理论里
+  T(n) → T(n)·log n 是“不可避免的对角化税”</li>
+</ul>
+<p>两个完全不同的世界，
+<strong>在 log n 这个点上，交汇了。</strong></p>
+<p>这通常意味着：
+你看到的是某种深层结构，而不是偶然。</p>
+<hr>
+<h3 id="_4">五、一句话总结（但不是结束）</h3>
+<p>log n 的特殊性在于：</p>
+<ul>
+<li>它是信息论意义下的最小全局成本</li>
+<li>是对角化与模拟的最低稳定开销</li>
+<li>是第一个无法被常数技巧消去的增长</li>
+<li>是复杂度类严格分离的最小通用增量</li>
+</ul>
+<p>如果把复杂度函数想成一条地形图，
+<strong>log n 就是你第一次真正离开平原、但还没进山的那一步。</strong></p>
+<p>再往前走，世界会开始变得非常奇怪：
+log log n、AC⁰、TC⁰、细粒度复杂度、ETH、SETH……
+那里是另一片地貌，规则也开始变得不那么“干净”。</p>
+<h3 id="about-p_setminus-poly">about <span class="arithmatex">\(P_{\setminus poly}\)</span></h3>
+<p><a href="">Miller Rabin</a></p>
+<h3 id="about-bpp-bqp">about BPP, BQP</h3>
+<!-- 
+## important theorems
+
+### encoding
+
+### finite function
+
+
+
+### infinite function
+
+#### DFA/NFA
+
+#### PDA/CFG
+
+#### TM
+
+### uncomputable funciton -->
+
 <!-- 
 
 

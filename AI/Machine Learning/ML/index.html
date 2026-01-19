@@ -477,7 +477,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../../probability/martingale%20and%20stopping%20times/" class="md-tabs__link">
+        <a href="../../../probability/markov/" class="md-tabs__link">
           
   
   Probability
@@ -5052,6 +5052,27 @@
   
   
     <li class="md-nav__item">
+      <a href="../../../probability/markov/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    markov
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../../probability/martingale%20and%20stopping%20times/" class="md-nav__link">
         
   
@@ -5351,8 +5372,452 @@
 <h3 id="representer-theorem">Representer Theorem</h3>
 <h3 id="mercers-theorem">Mercer's Theorem</h3>
 <p>如果核函数矩阵是半正定的, 那么其可以作为核函数使用</p>
+<h3 id="ridge-regression_1">Ridge Regression</h3>
+<h3 id="1">1. 动机与直觉：为什么要搞对偶？</h3>
+<p><strong>岭回归 (Ridge Regression)</strong> 的原问题（Primal Problem）是一个无约束优化问题：
+$$ \min_w J(w) = \frac{1}{2} \sum_{i=1}^N (y_i - w^T x_i)^2 + \frac{\lambda}{2} ||w||^2 $$</p>
+<p><strong>直接求解的痛点：</strong>
+如果我们对 <span class="arithmatex">\(w\)</span> 求导并令其为 0，得到的解是：<span class="arithmatex">\(w = (X^T X + \lambda I)^{-1} X^T y\)</span>。
+这里涉及一个矩阵求逆 <span class="arithmatex">\((X^T X + \lambda I)\)</span>。
+*   如果特征维度 <span class="arithmatex">\(D\)</span> 很大（甚至无限大，如 RBF 核），<span class="arithmatex">\(X^T X\)</span> 是 <span class="arithmatex">\(D \times D\)</span> 的矩阵，根本算不动。
+*   <strong>目标</strong>：我们希望把计算转化为 <span class="arithmatex">\(N \times N\)</span> 的矩阵（只与样本数量有关），并且把点积 <span class="arithmatex">\(x_i^T x_j\)</span> 替换为核函数 <span class="arithmatex">\(K(x_i, x_j)\)</span>。</p>
+<p>这就需要通过<strong>对偶形式</strong>来实现。</p>
+<hr>
+<h3 id="2">2. 构造约束优化问题</h3>
+<p>普通的岭回归没有约束，怎么用拉格朗日乘子法？
+<strong>技巧：引入辅助变量（误差变量） <span class="arithmatex">\(\xi\)</span>。</strong></p>
+<p>我们将预测误差定义为 <span class="arithmatex">\(\xi_i = y_i - w^T x_i\)</span>，那么原问题可以等价地写成一个<strong>带等式约束</strong>的优化问题：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+\min_{w, \xi} \quad &amp; \frac{1}{2} \sum_{i=1}^N \xi_i^2 + \frac{\lambda}{2} ||w||^2 \\
+\text{s.t.} \quad &amp; y_i - w^T x_i - \xi_i = 0, \quad i=1,\dots,N
+\end{aligned}
+\]</div>
+<p><strong>对比 SVM：</strong>
+*   <strong>SVM</strong> 的约束是 <span class="arithmatex">\(y_i(w^Tx_i+b) \ge 1\)</span>（不等式约束），所以 KKT 导致了稀疏解（有些 <span class="arithmatex">\(\alpha=0\)</span>）。
+*   <strong>Ridge</strong> 的约束是 <span class="arithmatex">\(y_i - w^Tx_i = \xi_i\)</span>（等式约束），这意味着所有样本都参与计算，解是稠密的。</p>
+<hr>
+<h3 id="3">3. 构造拉格朗日函数</h3>
+<p>引入拉格朗日乘子 <span class="arithmatex">\(\alpha_i\)</span>（注意：因为是等式约束，<span class="arithmatex">\(\alpha_i\)</span> <strong>没有</strong>非负限制，可以是任意实数）。</p>
+<div class="arithmatex">\[
+L(w, \xi, \alpha) = \underbrace{\frac{1}{2} \sum_{i=1}^N \xi_i^2 + \frac{\lambda}{2} ||w||^2}_{\text{目标函数}} + \sum_{i=1}^N \alpha_i \underbrace{(y_i - w^T x_i - \xi_i)}_{\text{约束条件}}
+\]</div>
+<p>写成向量形式更简洁：
+$$
+L(w, \xi, \alpha) = \frac{1}{2} \xi^T \xi + \frac{\lambda}{2} w^T w + \alpha^T (y - Xw - \xi)
+$$</p>
+<hr>
+<h3 id="4-kkt">4. KKT 条件推导</h3>
+<p>我们要解决的是极小极大问题：<span class="arithmatex">\(\max_\alpha \min_{w, \xi} L(w, \xi, \alpha)\)</span>。
+根据 KKT 条件中的<strong>平稳性 (Stationarity)</strong>，我们在极值点对原始变量 <span class="arithmatex">\(w\)</span> 和 <span class="arithmatex">\(\xi\)</span> 的偏导必须为 0。</p>
+<h4 id="a-w">A. 对 <span class="arithmatex">\(w\)</span> 求偏导（表示定理的由来）</h4>
+<div class="arithmatex">\[
+\nabla_w L = \lambda w - X^T \alpha = 0
+$$
+$$
+\implies \mathbf{w = \frac{1}{\lambda} X^T \alpha = \frac{1}{\lambda} \sum_{i=1}^N \alpha_i x_i}
+\]</div>
+<blockquote>
+<p><strong>深度解读</strong>：这一步推导出了著名的 <strong>表示定理 (Representer Theorem)</strong>。它告诉我们，最优的权重向量 <span class="arithmatex">\(w\)</span> 其实就是所有训练样本 <span class="arithmatex">\(x_i\)</span> 的线性组合。这使得我们可以用核函数替换 <span class="arithmatex">\(w^T x\)</span>。</p>
+</blockquote>
+<h4 id="b-xi">B. 对 <span class="arithmatex">\(\xi\)</span> 求偏导</h4>
+<div class="arithmatex">\[
+\nabla_\xi L = \xi - \alpha = 0
+$$
+$$
+\implies \mathbf{\xi = \alpha}
+\]</div>
+<blockquote>
+<p><strong>直觉</strong>：这步非常有意思。在岭回归的对偶形式里，拉格朗日乘子 <span class="arithmatex">\(\alpha\)</span> 本质上就是<strong>缩放后的预测误差</strong>。</p>
+</blockquote>
+<hr>
+<h3 id="5">5. 导出对偶问题并求解</h3>
+<p>现在，我们将求出的 <span class="arithmatex">\(w\)</span> 和 <span class="arithmatex">\(\xi\)</span> 代回拉格朗日函数 <span class="arithmatex">\(L\)</span> 中，消去原始变量。</p>
+<div class="arithmatex">\[
+\begin{aligned}
+L &amp;= \frac{1}{2} \alpha^T \alpha + \frac{\lambda}{2} (\frac{1}{\lambda} X^T \alpha)^T (\frac{1}{\lambda} X^T \alpha) + \alpha^T (y - X(\frac{1}{\lambda} X^T \alpha) - \alpha) \\
+&amp;= \frac{1}{2} \alpha^T \alpha + \frac{1}{2\lambda} \alpha^T X X^T \alpha + \alpha^T y - \frac{1}{\lambda} \alpha^T X X^T \alpha - \alpha^T \alpha \\
+&amp;= \mathbf{-\frac{1}{2} \alpha^T \alpha - \frac{1}{2\lambda} \alpha^T (X X^T) \alpha + \alpha^T y}
+\end{aligned}
+\]</div>
+<p>我们要<strong>最大化</strong>这个对偶函数（相对于 <span class="arithmatex">\(\alpha\)</span>）。为了方便，转为<strong>最小化</strong>它的相反数：</p>
+<div class="arithmatex">\[
+\min_\alpha \quad \frac{1}{2} \alpha^T (I + \frac{1}{\lambda} X X^T) \alpha - y^T \alpha
+\]</div>
+<h4 id="alpha">求解最优 <span class="arithmatex">\(\alpha\)</span></h4>
+<p>这是一个关于 <span class="arithmatex">\(\alpha\)</span> 的二次函数，直接求导令其为 0：
+$$
+(I + \frac{1}{\lambda} X X^T) \alpha - y = 0
+$$
+$$
+(I + \frac{1}{\lambda} G) \alpha = y \quad (\text{其中 } G = XX^T \text{ 是 Gram 矩阵})
+$$
+$$
+\alpha = (I + \frac{1}{\lambda} G)^{-1} y
+$$
+为了公式美观，通常我们会做一个变量代换（或者在最开始定义拉格朗日项时乘以系数）。让我们直接整理成最终预测公式。</p>
+<hr>
+<h3 id="6-kernel-method">6. 引入核函数 (Kernel Method)</h3>
+<p>现在，我们把所有的内积 <span class="arithmatex">\(x_i^T x_j\)</span> 替换为核函数 <span class="arithmatex">\(K(x_i, x_j)\)</span>。
+矩阵 <span class="arithmatex">\(G\)</span> 变为核矩阵 <span class="arithmatex">\(\mathbf{K}\)</span>。</p>
+<p>我们得到 <strong>Dual Variable</strong> <span class="arithmatex">\(\alpha\)</span> 的解：
+$$ \alpha = (\mathbf{K} + \lambda I)^{-1} \lambda y $$
+<em>(注：这里 <span class="arithmatex">\(\alpha\)</span> 的具体系数取决于 <span class="arithmatex">\(\lambda\)</span> 放在 <span class="arithmatex">\(L\)</span> 的哪一边，但核心结构是 <span class="arithmatex">\((K+\lambda I)^{-1}y\)</span>)</em>。</p>
+<h4 id="_1">最终预测公式</h4>
+<p>对于一个新样本 <span class="arithmatex">\(x_{new}\)</span>，我们要预测 <span class="arithmatex">\(f(x_{new}) = w^T x_{new}\)</span>。
+代入 <span class="arithmatex">\(w = \frac{1}{\lambda} \sum \alpha_i x_i\)</span>：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+f(x_{new}) &amp;= (\frac{1}{\lambda} \sum_{i=1}^N \alpha_i x_i)^T x_{new} \\
+&amp;= \frac{1}{\lambda} \sum_{i=1}^N \alpha_i \underbrace{(x_i^T x_{new})}_{K(x_i, x_{new})}
+\end{aligned}
+\]</div>
+<p>如果我们把求解出来的 <span class="arithmatex">\(\alpha\)</span> 代入并整理常数，Kernel Ridge Regression 的<strong>标准预测公式</strong>为：
+$$ \mathbf{f(x_{new}) = y^T (K + \lambda I)^{-1} \kappa(x_{new})} $$
+其中 <span class="arithmatex">\(\kappa(x_{new})\)</span> 是一个列向量，包含新样本与所有训练样本的核函数值 <span class="arithmatex">\([K(x_1, x_{new}), ..., K(x_N, x_{new})]^T\)</span>。</p>
+<hr>
+<h3 id="7-svm-vs-kernel-ridge">7. 总结：SVM vs Kernel Ridge</h3>
+<p>通过推导，我们可以清晰地看到两者的 KKT 条件差异带来的影响：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">特性</th>
+<th style="text-align: left;">SVM (对偶)</th>
+<th style="text-align: left;">Kernel Ridge (对偶)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>原约束</strong></td>
+<td style="text-align: left;"><strong>不等式</strong> <span class="arithmatex">\(1 - y(wx+b) \le 0\)</span></td>
+<td style="text-align: left;"><strong>等式</strong> <span class="arithmatex">\(y - wx - \xi = 0\)</span></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>乘子限制</strong></td>
+<td style="text-align: left;"><span class="arithmatex">\(\alpha_i \ge 0\)</span></td>
+<td style="text-align: left;"><span class="arithmatex">\(\alpha_i \in \mathbb{R}\)</span> (无限制)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>互补松弛</strong></td>
+<td style="text-align: left;"><span class="arithmatex">\(\alpha_i g_i(x) = 0\)</span></td>
+<td style="text-align: left;">无 (总是满足)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>稀疏性</strong></td>
+<td style="text-align: left;"><strong>稀疏</strong> (只在边界上的点 <span class="arithmatex">\(\alpha \neq 0\)</span>)</td>
+<td style="text-align: left;"><strong>稠密</strong> (所有点的 <span class="arithmatex">\(\alpha \neq 0\)</span>)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>求解难度</strong></td>
+<td style="text-align: left;">二次规划 (QP)，需迭代求解</td>
+<td style="text-align: left;">线性方程组，也就是矩阵求逆</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>对异常值</strong></td>
+<td style="text-align: left;">较鲁棒 (Hinge Loss 线性)</td>
+<td style="text-align: left;">敏感 (平方误差 L2)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>一句话总结：</strong>
+对 Ridge Regression 使用拉格朗日乘子法，实际上是将“求 <span class="arithmatex">\(w\)</span> 的逆矩阵问题”转化为了“求 <span class="arithmatex">\(\alpha\)</span> 的逆矩阵问题”，并通过<strong>表示定理</strong>将线性权重转化为样本权重的线性组合，从而完美引入了 Kernel Trick。</p>
+<h3 id="svm_1">SVM</h3>
+<h3 id="1_1">1. 动机直觉：为什么要使用对偶形式？</h3>
+<p>SVM 的<strong>原问题 (Primal Problem)</strong> 是直观的几何理解：找一个超平面 <span class="arithmatex">\((w, b)\)</span>，把正负样本隔得越远越好。
+目标是最小化 <span class="arithmatex">\(w\)</span> 的范数 <span class="arithmatex">\(\frac{1}{2}||w||^2\)</span>，约束是所有点都要被正确分类且在间隔外。</p>
+<p>既然原问题这么清晰，为什么还要转化为<strong>对偶问题 (Dual Problem)</strong>？主要有两个核心动机：</p>
+<h4 id="a-kernel-trick">A. 引入核函数 (Kernel Trick)</h4>
+<p>这是最重要的原因。
+*   <strong>原问题</strong>依赖于 <span class="arithmatex">\(w\)</span>，它是特征空间维度的向量。如果我们将数据映射到无限维空间（为了线性可分），<span class="arithmatex">\(w\)</span> 也就变成了无限维，根本没法算。
+*   <strong>对偶问题</strong>将计算转化为了样本之间的内积 <span class="arithmatex">\(\langle x_i, x_j \rangle\)</span>。我们不需要知道无限维的 <span class="arithmatex">\(x\)</span> 长什么样，只需要知道它们内积的结果（核函数）。这使得高维映射成为可能。</p>
+<h4 id="b-sparsity">B. 稀疏性 (Sparsity) 与支持向量</h4>
+<ul>
+<li>在对偶形式中，我们求解的变量变成了 <span class="arithmatex">\(\alpha\)</span>（每个样本对应的权重）。</li>
+<li>通过 KKT 条件（互补松弛性），我们会发现绝大多数样本的 <span class="arithmatex">\(\alpha_i = 0\)</span>。只有少数在边界上的点（<strong>支持向量</strong>）的 <span class="arithmatex">\(\alpha_i &gt; 0\)</span>。</li>
+<li>这告诉我们：<strong>决定分类边界的，只有那几个关键的支持向量，其他数据点其实是“废”的。</strong> 这种深刻的物理意义在原问题中很难看出来。</li>
+</ul>
+<hr>
+<h3 id="2-lagrange">2. 为什么使用 Lagrange 乘子法？</h3>
+<p>在数学上，当我们想求一个函数 <span class="arithmatex">\(f(x)\)</span> 的极值，但 <span class="arithmatex">\(x\)</span> 受到某些条件限制（比如 <span class="arithmatex">\(g(x) \le 0\)</span>）时，我们不能直接求导等于 0。</p>
+<p><strong>Lagrange 乘子法的作用：</strong>
+它通过引入一个新的变量（<span class="arithmatex">\(\lambda\)</span> 或 <span class="arithmatex">\(\alpha\)</span>），将<strong>“带约束的优化问题”</strong>转化为了<strong>“无约束的优化问题”</strong>。</p>
+<p><strong>直观理解（力学类比）：</strong>
+想象一个小球在碗里滚（寻找最小值），由于重力它会滚到碗底。
+现在的约束是：加了一堵墙，小球不能越过这堵墙。
+*   如果碗底在墙内，墙没用（约束无效）。
+*   如果碗底在墙外，小球会停在墙边。此时，小球受到两个力平衡：<strong>重力（原目标的梯度）</strong> 和 <strong>墙的支持力（约束的梯度）</strong>。
+*   Lagrange 乘子 <span class="arithmatex">\(\alpha\)</span> 其实就是这个<strong>“墙的支持力”的大小</strong>。</p>
+<hr>
+<h3 id="3-kkt-lagrange">3. KKT 条件是什么？它与不等式 Lagrange 的关系</h3>
+<p>KKT (Karush-Kuhn-Tucker) 条件是 Lagrange 乘子法在<strong>不等式约束</strong>下的推广。对于凸优化问题，KKT 是最优解的<strong>充要条件</strong>。</p>
+<h4 id="kkt">为什么不等式约束需要 KKT？</h4>
+<p>对于等式约束 <span class="arithmatex">\(h(x)=0\)</span>，拉格朗日乘子 <span class="arithmatex">\(\lambda\)</span> 可以是正也可以是负（墙可以在左边挡你，也可以在右边挡你）。
+但对于不等式约束 <span class="arithmatex">\(g(x) \le 0\)</span>，我们通常限制乘子 <span class="arithmatex">\(\alpha \ge 0\)</span>。因为墙只能把小球往<strong>一个方向</strong>推（即推回可行域内），而不能把小球吸过去。</p>
+<h4 id="kkt_1">KKT 条件的四大金刚</h4>
+<p>假设我们要解决：<span class="arithmatex">\(\min f(x)\)</span>，约束 <span class="arithmatex">\(g_i(x) \le 0\)</span>。
+构造拉格朗日函数：<span class="arithmatex">\(L(x, \alpha) = f(x) + \sum \alpha_i g_i(x)\)</span>。</p>
+<p>最优解 <span class="arithmatex">\(x^*\)</span> 和 <span class="arithmatex">\(\alpha^*\)</span> 必须满足：</p>
+<ol>
+<li><strong>平稳性 (Stationarity)</strong>：<span class="arithmatex">\(\nabla_x L(x^*, \alpha^*) = 0\)</span><ul>
+<li>力学平衡：原函数的梯度和约束梯度的线性组合为 0。</li>
+</ul>
+</li>
+<li><strong>原始可行性 (Primal Feasibility)</strong>：<span class="arithmatex">\(g_i(x^*) \le 0\)</span><ul>
+<li>解必须满足原来的约束条件。</li>
+</ul>
+</li>
+<li><strong>对偶可行性 (Dual Feasibility)</strong>：<span class="arithmatex">\(\alpha_i \ge 0\)</span><ul>
+<li>拉格朗日乘子必须非负（墙的支持力只能向内）。</li>
+</ul>
+</li>
+<li><strong>互补松弛性 (Complementary Slackness)</strong>：<span class="arithmatex">\(\alpha_i g_i(x^*) = 0\)</span> <strong>(最关键的一条！)</strong><ul>
+<li>这个公式包含了两个逻辑：<ul>
+<li>要么 <span class="arithmatex">\(\alpha_i = 0\)</span>：表示约束没起作用（点在可行域内部），不需要“墙的支持力”。</li>
+<li>要么 <span class="arithmatex">\(g_i(x^*) = 0\)</span>：表示约束起作用了（点正好在边界上），此时 <span class="arithmatex">\(\alpha_i &gt; 0\)</span>。</li>
+</ul>
+</li>
+<li><strong>对应 SVM</strong>：这就是为什么只有<strong>支持向量</strong>（在边界上的点）的 <span class="arithmatex">\(\alpha &gt; 0\)</span>，而非支持向量的 <span class="arithmatex">\(\alpha = 0\)</span>。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h3 id="4">4. 理论推导：从原问题到对偶形式</h3>
+<h4 id="step-1-svm">Step 1: SVM 原问题</h4>
+<p>目标是最大化间隔，等价于最小化 <span class="arithmatex">\(w\)</span> 的模长。
+$$
+\begin{aligned}
+\min_{w, b} \quad &amp; \frac{1}{2} ||w||^2 \
+\text{s.t.} \quad &amp; y_i (w^T x_i + b) \ge 1, \quad i=1,\dots,N
+\end{aligned}
+$$
+为了配合标准形式（<span class="arithmatex">\(g(x) \le 0\)</span>），我们将约束改写为：<span class="arithmatex">\(1 - y_i (w^T x_i + b) \le 0\)</span>。</p>
+<h4 id="step-2">Step 2: 构造拉格朗日函数</h4>
+<p>引入拉格朗日乘子 <span class="arithmatex">\(\alpha_i \ge 0\)</span>：
+$$
+L(w, b, \alpha) = \frac{1}{2}||w||^2 + \sum_{i=1}^N \alpha_i [1 - y_i(w^T x_i + b)]
+$$
+<em>注意：这里加号后面是约束项。如果约束是 <span class="arithmatex">\(\ge 0\)</span>，则通常用减号。本质一样，都是为了让这一项非正。</em></p>
+<p>整理一下：
+$$
+L(w, b, \alpha) = \frac{1}{2}||w||^2 - \sum_{i=1}^N \alpha_i y_i (w^T x_i + b) + \sum_{i=1}^N \alpha_i
+$$</p>
+<h4 id="step-3-min-max">Step 3: 极小极大问题 (Min-Max)</h4>
+<p>根据对偶理论，原问题等价于：
+$$ \min_{w, b} \max_{\alpha \ge 0} L(w, b, \alpha) $$
+<em>解释</em>：如果某个约束被违反了（即 <span class="arithmatex">\(1 - y(\dots) &gt; 0\)</span>），那么 <span class="arithmatex">\(\max_{\alpha} L\)</span> 会让 <span class="arithmatex">\(\alpha\)</span> 趋向无穷大，导致函数值为无穷大。只有满足约束，最大值才是 <span class="arithmatex">\(\frac{1}{2}||w||^2\)</span>。所以最小化这个 Max 函数就等于在满足约束的前提下最小化目标。</p>
+<h4 id="step-4-dual-problem">Step 4: 转化为对偶问题 (Dual Problem)</h4>
+<p>强对偶性允许我们交换 min 和 max 的顺序（因为是凸二次规划问题，满足 Slater 条件）：
+$$ \max_{\alpha \ge 0} \min_{w, b} L(w, b, \alpha) $$</p>
+<p>现在我们先解内部的 <strong><span class="arithmatex">\(\min_{w, b} L(w, b, \alpha)\)</span></strong>。
+对 <span class="arithmatex">\(w\)</span> 和 <span class="arithmatex">\(b\)</span> 求偏导并令其为 0：</p>
+<ol>
+<li>
+<p><strong>对 <span class="arithmatex">\(w\)</span> 求导</strong>：
+    $$ \nabla_w L = w - \sum_{i=1}^N \alpha_i y_i x_i = 0 \implies \mathbf{w = \sum_{i=1}^N \alpha_i y_i x_i} $$
+    <em>物理意义：权重向量 <span class="arithmatex">\(w\)</span> 是数据向量 <span class="arithmatex">\(x_i\)</span> 的线性组合。</em></p>
+</li>
+<li>
+<p><strong>对 <span class="arithmatex">\(b\)</span> 求导</strong>：
+    $$ \nabla_b L = - \sum_{i=1}^N \alpha_i y_i = 0 \implies \mathbf{\sum_{i=1}^N \alpha_i y_i = 0} $$</p>
+</li>
+</ol>
+<h4 id="step-5">Step 5: 代回并得到最终对偶形式</h4>
+<p>将上面求出的 <span class="arithmatex">\(w\)</span> 代回 <span class="arithmatex">\(L(w, b, \alpha)\)</span> 中：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+L &amp;= \frac{1}{2} (\sum_{i} \alpha_i y_i x_i)^T (\sum_{j} \alpha_j y_j x_j) - \sum_{i} \alpha_i y_i ((\sum_{j} \alpha_j y_j x_j)^T x_i + b) + \sum_{i} \alpha_i \\
+&amp;= \frac{1}{2} \sum_{i,j} \alpha_i \alpha_j y_i y_j x_i^T x_j - \sum_{i,j} \alpha_i \alpha_j y_i y_j x_i^T x_j - b\underbrace{\sum_{i} \alpha_i y_i}_{0} + \sum_{i} \alpha_i \\
+&amp;= \sum_{i=1}^N \alpha_i - \frac{1}{2} \sum_{i=1}^N \sum_{j=1}^N \alpha_i \alpha_j y_i y_j \mathbf{x_i^T x_j}
+\end{aligned}
+\]</div>
+<p><strong>最终的 SVM 对偶问题</strong>：
+$$
+\begin{aligned}
+\max_{\alpha} \quad &amp; \sum_{i=1}^N \alpha_i - \frac{1}{2} \sum_{i=1}^N \sum_{j=1}^N \alpha_i \alpha_j y_i y_j (x_i^T x_j) \
+\text{s.t.} \quad &amp; \sum_{i=1}^N \alpha_i y_i = 0 \
+&amp; \alpha_i \ge 0, \quad i=1,\dots,N
+\end{aligned}
+$$</p>
+<h3 id="_2">总结</h3>
+<ol>
+<li><strong>动机</strong>：对偶形式让我们可以把 <span class="arithmatex">\(x_i^T x_j\)</span> 替换成核函数 <span class="arithmatex">\(K(x_i, x_j)\)</span>，从而处理非线性分类，且计算复杂度只与样本量有关，与维度无关。</li>
+<li><strong>Lagrange</strong>：把约束放进目标函数里，形成 <span class="arithmatex">\(L\)</span>。</li>
+<li><strong>KKT</strong>：其中的互补松弛条件 <span class="arithmatex">\(\alpha_i (1 - y_i(w^Tx_i+b)) = 0\)</span> 揭示了 SVM 的稀疏性——只有即使得约束等号成立的点（支持向量），其 <span class="arithmatex">\(\alpha_i\)</span> 才不为 0。</li>
+</ol>
+<hr>
+<p>你的观察非常精准！这确实是很多人在学习 SVM 时会忽略的一个微妙之处。</p>
+<p><strong>结论先行：</strong>
+是的，在<strong>推导对偶问题的数学形式</strong>（即写出 <span class="arithmatex">\(\max_\alpha \dots\)</span> 这个公式）的过程中，我们<strong>只</strong>用到了“稳定性（Stationarity）”和“对偶可行性（Dual Feasibility, <span class="arithmatex">\(\alpha \ge 0\)</span>）”。</p>
+<p>但是，<strong>“原始可行性”和“互补松弛性”并没有消失</strong>，它们隐藏在“强对偶性”的理论保障背后。如果不满足这两条，解出来的 <span class="arithmatex">\(\alpha^*\)</span> 确实<strong>无法</strong>对应原问题的最优解 <span class="arithmatex">\(w^*\)</span>。</p>
+<p>下面我为你拆解这里的逻辑陷阱。</p>
+<hr>
+<h3 id="1_2">1. 为什么推导对偶形式时“看似”不需要那两条？</h3>
+<p>让我们回顾一下从 Lagrange 函数 <span class="arithmatex">\(L(w,b,\alpha)\)</span> 变成对偶函数 <span class="arithmatex">\(g(\alpha)\)</span> 的过程：</p>
+<div class="arithmatex">\[ g(\alpha) = \min_{w,b} L(w,b,\alpha) \]</div>
+<p>为了求这个 <span class="arithmatex">\(\min\)</span>，我们做了什么？
+1.  <strong>求导等于 0</strong>：<span class="arithmatex">\(\nabla_w L = 0, \nabla_b L = 0\)</span>。这是 <strong>KKT 的稳定性</strong>。
+2.  <strong>代回整理</strong>：得到了 <span class="arithmatex">\(-\frac{1}{2}\sum\sum\dots + \sum\alpha_i\)</span>。</p>
+<p>然后我们要求 <span class="arithmatex">\(\max g(\alpha)\)</span>：
+3.  <strong>加上约束</strong>：<span class="arithmatex">\(\alpha_i \ge 0\)</span>。这是 <strong>KKT 的对偶可行性</strong>。</p>
+<p><strong>发现了吗？</strong>
+在这个代数变形的过程中，我们根本不需要知道 <span class="arithmatex">\(w\)</span> 是否满足 <span class="arithmatex">\(1-y(wx+b) \le 0\)</span>（原始可行性），也不需要知道 <span class="arithmatex">\(\alpha_i(1-y(wx+b))=0\)</span>（互补松弛性）。
+我们只是在做一个数学上的 <strong>Lower Bound（下界）估计</strong>。无论那两条是否满足，<span class="arithmatex">\(g(\alpha)\)</span> 永远是原问题的一个下界。</p>
+<hr>
+<h3 id="2-alpha">2. 如果不加上那两条，解出来的 <span class="arithmatex">\(\alpha^*\)</span> 会怎样？</h3>
+<p>这是核心所在。</p>
+<p>假设我们只解出了对偶问题的最优解 <span class="arithmatex">\(\alpha^*\)</span>（这一步完全没问题，毕竟对偶问题本身就是一个定义良好的二次规划 QP 问题）。
+然后，我们通过稳定性公式算出 <span class="arithmatex">\(w^* = \sum \alpha_i^* y_i x_i\)</span>。</p>
+<p><strong>如果没有“原始可行性”和“互补松弛性”的约束（即没有强对偶性保障），会发生以下灾难：</strong></p>
+<h4 id="duality-gap-0">灾难一：Duality Gap &gt; 0（算出的解毫无意义）</h4>
+<p>对偶问题的最大值 <span class="arithmatex">\(d^*\)</span> 会严格小于原问题的最小值 <span class="arithmatex">\(p^*\)</span>。
+这意味着，你算出的 <span class="arithmatex">\(\alpha^*\)</span> 虽然让对偶函数最大了，但通过它反算出来的 <span class="arithmatex">\(w^*\)</span> <strong>并不是原问题的最优解</strong>。这个 <span class="arithmatex">\(w^*\)</span> 可能根本就没有把数据分开，或者间隔不是最大的。</p>
+<h4 id="_3">灾难二：违背原始约束</h4>
+<p>你算出的 <span class="arithmatex">\(w^*\)</span> 很可能根本不满足 <span class="arithmatex">\(y_i(w^{*T}x_i+b) \ge 1\)</span>。
+因为在推导对偶函数 <span class="arithmatex">\(g(\alpha) = \min_{w,b} L\)</span> 时，我们只是在一个无约束的 <span class="arithmatex">\(w, b\)</span> 空间里找极值。如果没有强对偶性把 <span class="arithmatex">\(w\)</span> “拉回”可行域，这个 <span class="arithmatex">\(\min\)</span> 可能会跑到可行域外面去。</p>
+<hr>
+<h3 id="3_1">3. 那两条条件到底去哪了？</h3>
+<p>它们其实是<strong>强对偶性（Strong Duality）</strong>的化身。</p>
+<p>当我们理直气壮地说：“解完对偶问题（Dual），得到的解就等于原问题（Primal）的解”时，我们其实默默引用了 <strong>Slater 条件</strong>（因为 SVM 问题是凸的且有可行解）。</p>
+<p>强对偶性成立 <span class="arithmatex">\(p^* = d^*\)</span>，而在数学上，这<strong>等价于</strong>最优解 <span class="arithmatex">\((w^*, b^*, \alpha^*)\)</span> 必须满足所有 KKT 条件。</p>
+<p>让我们看看<strong>互补松弛性</strong>是怎么把 Primal 和 Dual 锁死的：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+p^* &amp;= L(w^*, b^*, \alpha^*) \\
+&amp;= \frac{1}{2}||w^*||^2 + \sum \alpha_i^* \underbrace{(1 - y_i(w^{*T}x_i+b^*))}_{\le 0 \text{ (原始可行性)}}
+\end{aligned}
+\]</div>
+<ul>
+<li>对偶问题的目标是 <span class="arithmatex">\(d^* = \min_{w,b} L(w,b,\alpha^*)\)</span>。</li>
+<li>原问题的目标是 <span class="arithmatex">\(p^* = \frac{1}{2}||w^*||^2\)</span>。</li>
+</ul>
+<p><strong>如果 <span class="arithmatex">\(d^* = p^*\)</span>（强对偶），那么上式中的求和项必须为 0！</strong>
+即：
+$$ \sum \alpha_i^<em> (1 - y_i(w^{</em>T}x_i+b^<em>)) = 0 $$
+由于 <span class="arithmatex">\(\alpha \ge 0\)</span> 且约束 <span class="arithmatex">\(\le 0\)</span>，每一项都非正。要让和为 0，</em><em>每一项都必须是 0</em><em>。
+这就是 </em><em>互补松弛性</em>*。</p>
+<h3 id="_4">总结</h3>
+<ol>
+<li><strong>推导过程</strong>：确实只用了“稳定性”和“对偶可行性”来构造对偶问题的<strong>目标函数形式</strong>。这一步是纯代数变换。</li>
+<li><strong>解的对应关系</strong>：<strong>“原始可行性”</strong>和<strong>“互补松弛性”</strong>是桥梁。<ul>
+<li>如果你解出了 <span class="arithmatex">\(\alpha^*\)</span>，想宣称它对应的 <span class="arithmatex">\(w^*\)</span> 就是原问题的最优解，你<strong>必须</strong>依赖强对偶性。</li>
+<li>而强对偶性<strong>强制</strong>要求那两条“消失”的 KKT 条件在终点处必须成立。</li>
+</ul>
+</li>
+<li><strong>回答你的假设</strong>：如果没有那两条（即没有强对偶性），你解出的 <span class="arithmatex">\(\alpha^*\)</span> 只是对偶问题的最优解，它对应的 <span class="arithmatex">\(w^*\)</span> <strong>不是</strong> 原问题的最优解，甚至可能不满足原问题的约束。</li>
+</ol>
+<p>所以，SVM 的推导逻辑是：
+<strong>构造对偶形式（用前两条 KKT） <span class="arithmatex">\(\to\)</span> 证明强对偶性 <span class="arithmatex">\(\to\)</span> 只有在强对偶性成立时，剩余的两条 KKT 条件才自动生效，保证了 <span class="arithmatex">\(\alpha^*\)</span> 和 <span class="arithmatex">\(w^*\)</span> 的一一对应。</strong></p>
+<hr>
+<p>这是一个非常深刻的理论问题。你其实触碰到了优化理论中<strong>对偶性（Duality）</strong>定义的本质。</p>
+<p>答案是：<strong>有的。除了通常说的“Min-Max 交换（Lagrange Duality）”视角外，最著名的替代方法是“Wolfe Duality（沃尔夫对偶）”。</strong></p>
+<p>事实上，在很多早期的非线性规划教材中，推导 SVM 对偶问题时使用的正是 <strong>Wolfe Duality</strong>，而不是现在流行的 Min-Max 交换视角。虽然结果一样，但它们的<strong>思维路径</strong>和<strong>对 KKT 的使用方式</strong>完全不同。</p>
+<p>我将为你详细讲解 <strong>Wolfe Duality</strong>，以及它如何通过 KKT 条件直接构造对偶问题。</p>
+<hr>
+<h3 id="wolfe-duality">方法二：Wolfe Duality (沃尔夫对偶)</h3>
+<p><strong>核心区别</strong>：
+*   <strong>Min-Max (Lagrange Duality)</strong>：基于<strong>博弈论/鞍点</strong>视角。先定义 <span class="arithmatex">\(g(\alpha) = \min_w L\)</span>，然后求 <span class="arithmatex">\(\max g(\alpha)\)</span>。它的逻辑基础是 <span class="arithmatex">\(\min \max \ge \max \min\)</span>（弱对偶）以及 Slater 条件（强对偶）。
+*   <strong>Wolfe Duality</strong>：基于<strong>梯度/平稳性</strong>视角。它直接把 <strong>KKT 条件中的“梯度为0”</strong> 作为一个<strong>约束条件</strong>写进了对偶问题里。</p>
+<h4 id="1-wolfe-duality">1. Wolfe Duality 的定义</h4>
+<p>对于原问题（Primal）：
+$$ \min_x f(x) \quad \text{s.t.} \quad g_i(x) \le 0 $$</p>
+<p>其 <strong>Wolfe Dual</strong> 问题定义为：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+\max_{x, \alpha} \quad &amp; L(x, \alpha) = f(x) + \sum \alpha_i g_i(x) \\
+\text{s.t.} \quad &amp; \nabla_x L(x, \alpha) = 0 \quad (\text{KKT 的平稳性条件}) \\
+&amp; \alpha_i \ge 0 \quad (\text{KKT 的对偶可行性})
+\end{aligned}
+\]</div>
+<p><strong>注意这里的神奇之处：</strong>
+1.  <strong>变量</strong>：Wolfe 对偶问题的变量同时包含原变量 <span class="arithmatex">\(x\)</span> 和对偶变量 <span class="arithmatex">\(\alpha\)</span>。
+2.  <strong>目标</strong>：直接最大化拉格朗日函数 <span class="arithmatex">\(L\)</span>。
+3.  <strong>约束</strong>：显式地加上了 <span class="arithmatex">\(\nabla_x L = 0\)</span>。</p>
+<h4 id="2-svm-wolfe">2. 在 SVM 中的推导 (Wolfe 路径)</h4>
+<p>让我们看看用 Wolfe Duality 推导 SVM 有多顺滑：</p>
+<p><strong>Step 1: 写出 Lagrangian</strong>
+$$ L(w, b, \alpha) = \frac{1}{2}||w||^2 + \sum \alpha_i (1 - y_i(w^Tx_i+b)) $$</p>
+<p><strong>Step 2: 构造 Wolfe Dual 问题</strong>
+我们要最大化 <span class="arithmatex">\(L(w,b,\alpha)\)</span>，受限于梯度为 0：
+$$
+\begin{aligned}
+\max_{w, b, \alpha} \quad &amp; L(w, b, \alpha) \
+\text{s.t.} \quad &amp; \nabla_w L = w - \sum \alpha_i y_i x_i = 0 \
+&amp; \nabla_b L = -\sum \alpha_i y_i = 0 \
+&amp; \alpha_i \ge 0
+\end{aligned}
+$$</p>
+<p><strong>Step 3: 简化 (代入消除)</strong>
+既然约束里强制要求 <span class="arithmatex">\(\nabla_w L = 0\)</span> 和 <span class="arithmatex">\(\nabla_b L = 0\)</span>，我们可以利用这两个等式把 <span class="arithmatex">\(L\)</span> 里的 <span class="arithmatex">\(w\)</span> 和 <span class="arithmatex">\(b\)</span> 消除掉（这和 Min-Max 方法中的“求解内部最小值”数学操作一模一样，但逻辑不同：这里是利用约束代入）。</p>
+<p>代入后，目标函数 <span class="arithmatex">\(L\)</span> 变成了只含 <span class="arithmatex">\(\alpha\)</span> 的式子：
+$$ \sum \alpha_i - \frac{1}{2} \sum \sum \alpha_i \alpha_j y_i y_j x_i^T x_j $$</p>
+<p>约束剩下：
+$$ \sum \alpha_i y_i = 0, \quad \alpha_i \ge 0 $$</p>
+<p><strong>结果</strong>：得到了和 Min-Max 完全一样的对偶问题形式。</p>
+<h4 id="3-wolfe-duality">3. 为什么 Wolfe Duality 能保证最优解等价？</h4>
+<p>这里利用 KKT 的逻辑非常直接：</p>
+<ul>
+<li><strong>弱对偶性</strong>：对于任意满足 Wolfe 约束（即满足梯度为0）的 <span class="arithmatex">\((x, \alpha)\)</span>，都有 <span class="arithmatex">\(L(x, \alpha) \le f(x^*)\)</span>（假设 <span class="arithmatex">\(f\)</span> 是凸的）。</li>
+<li><strong>强对偶性</strong>：如果原问题是凸的且满足 Slater 条件，那么一定存在 <span class="arithmatex">\((x^*, \alpha^*)\)</span> 满足 KKT 条件。<ul>
+<li>既然满足 KKT，那么它们一定满足 Wolfe Dual 的约束（因为 Wolfe 把 KKT 的一部分作为了约束）。</li>
+<li>又因为在 KKT 点处，互补松弛性成立（<span class="arithmatex">\(\alpha g = 0\)</span>），所以 <span class="arithmatex">\(L(x^*, \alpha^*) = f(x^*) + 0 = f(x^*)\)</span>。</li>
+<li>这意味着 Wolfe Dual 的最大值<strong>能够取到</strong>原问题的最小值。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="fenchel-duality">方法三：Fenchel Duality (共轭函数法)</h3>
+<p>这是更现代、更纯粹的凸分析视角。它不需要显式地构造 Lagrangian，也不强调 KKT，而是利用<strong>共轭函数（Conjugate Function）</strong>。</p>
+<p>原问题看作：<span class="arithmatex">\(\min_w f(w) + g(Aw)\)</span>
+其中 <span class="arithmatex">\(f(w) = \frac{1}{2}||w||^2\)</span>， <span class="arithmatex">\(g(u)\)</span> 是指示函数（或 Hinge Loss）。</p>
+<p>利用 Fenchel 对偶定理：
+$$ \min_w f(w) + g(Aw) = \max_\alpha -f^<em>(A^T \alpha) - g^</em>(-\alpha) $$</p>
+<ul>
+<li><span class="arithmatex">\(f^*\)</span> 是 <span class="arithmatex">\(\frac{1}{2}||w||^2\)</span> 的共轭函数，算出来是 <span class="arithmatex">\(\frac{1}{2}||\alpha||^2\)</span>。</li>
+<li><span class="arithmatex">\(g^*\)</span> 是约束项的共轭函数。</li>
+</ul>
+<p>通过这种“勒让德变换（Legendre Transform）”式的操作，也能直接推导出 SVM 的对偶形式。这种方法在推导 <strong>Soft Margin SVM</strong> 或者其他正则化模型（如 ElasticNet）时比 Lagrange 方法更强大、更简洁。</p>
+<hr>
+<h3 id="_5">总结：三种视角的对比</h3>
+<p>你问的是<strong>“除了 Min-Max 还有没有别的方法”</strong>，以及<strong>“KKT 如何起作用”</strong>。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">视角</th>
+<th style="text-align: left;">核心逻辑</th>
+<th style="text-align: left;">KKT 的角色</th>
+<th style="text-align: left;">适用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Lagrange Dual (Min-Max)</strong></td>
+<td style="text-align: left;"><strong>博弈论</strong>：寻找鞍点。定义 <span class="arithmatex">\(g(\alpha)\)</span> 为下界函数，最大化下界。</td>
+<td style="text-align: left;">KKT 是强对偶性成立后的<strong>结果</strong>（充要条件）。</td>
+<td style="text-align: left;">现在的教科书主流，逻辑链最完整。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Wolfe Duality</strong></td>
+<td style="text-align: left;"><strong>方程组</strong>：最大化 Lagrangian，但强行限制在<strong>驻点</strong>（梯度为0）上搜索。</td>
+<td style="text-align: left;">KKT 的<strong>平稳性</strong>直接被用作对偶问题的<strong>约束</strong>。</td>
+<td style="text-align: left;">早期非线性规划，直观理解“代入消元”。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Fenchel Duality</strong></td>
+<td style="text-align: left;"><strong>凸分析</strong>：利用函数的共轭性质（斜率与截距的变换）。</td>
+<td style="text-align: left;">KKT 隐含在共轭变换的等号条件中。</td>
+<td style="text-align: left;">复杂正则化问题，深度学习优化理论。</td>
+</tr>
+</tbody>
+</table>
+<p><strong>直接回答你的问题：</strong>
+<strong>Wolfe Duality</strong> 就是你寻找的那个方法。它构造了 Lagrange 乘子，但它不讲“Min-Max 交换”，而是直接讲“<strong>把 KKT 的梯度条件作为约束，去优化 Lagrangian</strong>”。这在逻辑上更直接地利用了 KKT 条件来锁定原问题的最优解。</p>
 <h1 id="deep-learning">Deep Learning</h1>
 <h2 id="perceptron">perceptron</h2>
+<p>误分类的节点有 <span class="arithmatex">\(-y_i(\omega^\top x_i+b)&gt;0\)</span></p>
+<p>所以损失函数定义为 <span class="arithmatex">\(L(\omega,b)=-\sum_i y_i(\omega^\top x_i+b)\)</span></p>
+<p>用梯度下降去更新: </p>
+<p><span class="arithmatex">\(\nabla_\omega L=-y_ix_i\)</span></p>
+<p><span class="arithmatex">\(\omega_{t+1}=\omega_t +y_ix_i\)</span></p>
 <h3 id="convergence-theorem">convergence theorem</h3>
 <h2 id="activate-function">activate function</h2>
 <h3 id="sigmoid_1">sigmoid</h3>
@@ -5363,12 +5828,17 @@
 <h2 id="posterior">posterior</h2>
 <h2 id="mle_2">MLE</h2>
 <div class="arithmatex">\[\mu^*=\frac 1n\sum_{i} x_k\]</div>
-<h1 id="metric-learning">Metric Learning</h1>
-<h2 id="_1"></h2>
 <h1 id="knn">KNN</h1>
 <h2 id="knn_1">KNN</h2>
+<h2 id="metric-learning">Metric Learning</h2>
+<p>学习一个好的 Metric, 让有效的特征在 KNN 中尽可能近</p>
+<p>使用 <span class="arithmatex">\(\sum\rho\geq1\)</span> 而不是 <span class="arithmatex">\(\sum\rho^2\geq 1\)</span></p>
+<p>因为使用 <span class="arithmatex">\(\sum\rho^2\geq 1\)</span>, 整个问题转换成 Rayleigh quotient, 问题缩减到了一维不变子空间 (最大特征值)</p>
+<p>所以降维太严重</p>
 <h2 id="aknn">AKNN</h2>
-<h1 id="dimension-reduction">dimension reduction</h1>
+<h3 id="hnsw">HNSW</h3>
+<p>skip list?</p>
+<h1 id="linear-dimension-reduction">linear dimension reduction</h1>
 <h2 id="pca">PCA</h2>
 <p>目标: 找出方差依次递减的, 不相关的维度, 只保留这些维度</p>
 <ol>
@@ -5381,10 +5851,371 @@
 </li>
 </ol>
 <h2 id="lda">LDA</h2>
-<p>和 bayesian learning 的联系?</p>
+<h3 id="1-bayesian-learning">1. 和 bayesian learning 的联系?</h3>
+<p>LDA 有两种解释视角：
+1.  <strong>Fisher 视角</strong>：几何视角，寻找一个投影方向，最大化类间方差与类内方差之比（瑞利商）。
+2.  <strong>贝叶斯视角</strong>：概率视角，假设数据服从高斯分布，通过比较后验概率进行分类。</p>
+<p><strong>我们要证明的是：在二分类问题中，当假设两类数据服从同方差的高斯分布时，贝叶斯最优决策边界的法向量，与 Fisher LDA 求得的投影方向 <span class="arithmatex">\(w\)</span> 是重合的。</strong></p>
+<h4 id="1_3">1. 贝叶斯视角的推导</h4>
+<p>假设两类数据 <span class="arithmatex">\(C_1, C_2\)</span> 服从多元高斯分布，且<strong>协方差矩阵相同</strong>：
+*   <span class="arithmatex">\(P(x|C_1) \sim N(\mu_1, \Sigma)\)</span>
+*   <span class="arithmatex">\(P(x|C_2) \sim N(\mu_2, \Sigma)\)</span></p>
+<p>根据贝叶斯决策规则，我们比较对数后验概率比（Log-odds）：
+$$ \ln \frac{P(C_1|x)}{P(C_2|x)} &gt; 0 \implies \text{Class 1} $$</p>
+<p>利用贝叶斯公式 <span class="arithmatex">\(P(C_k|x) \propto P(x|C_k)P(C_k)\)</span>，并在高斯分布公式中展开（忽略常数项）：
+$$ \ln \frac{P(x|C_1)}{P(x|C_2)} + \ln \frac{P(C_1)}{P(C_2)} $$
+$$ = \left[ -\frac{1}{2}(x-\mu_1)^T \Sigma^{-1} (x-\mu_1) \right] - \left[ -\frac{1}{2}(x-\mu_2)^T \Sigma^{-1} (x-\mu_2) \right] + \text{const} $$</p>
+<p>展开平方项 <span class="arithmatex">\(x^T \Sigma^{-1} x\)</span>，你会发现该项在两类中是一样的（因为 <span class="arithmatex">\(\Sigma\)</span> 相同），所以可以消去。剩下的就是关于 <span class="arithmatex">\(x\)</span> 的<strong>线性项</strong>：
+$$ = x^T \Sigma^{-1} \mu_1 - x^T \Sigma^{-1} \mu_2 + \text{bias terms} $$
+$$ = x^T \underbrace{\Sigma^{-1} (\mu_1 - \mu_2)}<em bayes="Bayes">{w</em> + b $$}</p>
+<p><strong>结论</strong>：贝叶斯决策边界是一个超平面 <span class="arithmatex">\(w_{Bayes}^T x + b = 0\)</span>，其法向量方向为：
+$$ w_{Bayes} = \Sigma^{-1} (\mu_1 - \mu_2) $$</p>
+<h4 id="2-fisher">2. Fisher (瑞利商) 视角的推导</h4>
+<p>Fisher LDA 的目标是最大化瑞利商：
+$$ J(w) = \frac{w^T S_B w}{w^T S_W w} $$
+其中二分类的 <span class="arithmatex">\(S_B = (\mu_1 - \mu_2)(\mu_1 - \mu_2)^T\)</span>。</p>
+<p>对 <span class="arithmatex">\(w\)</span> 求导并令其为 0，得到广义特征值问题：
+$$ S_B w = \lambda S_W w $$</p>
+<p>代入 <span class="arithmatex">\(S_B\)</span> 的定义：
+$$ (\mu_1 - \mu_2)(\mu_1 - \mu_2)^T w = \lambda S_W w $$</p>
+<p>请注意，<span class="arithmatex">\((\mu_1 - \mu_2)^T w\)</span> 是一个<strong>标量</strong>（scalar），我们记为 <span class="arithmatex">\(\alpha\)</span>。于是方程变为：
+$$ \alpha (\mu_1 - \mu_2) = \lambda S_W w $$</p>
+<p>我们需要解的是 <span class="arithmatex">\(w\)</span> 的方向，忽略标量缩放因子（<span class="arithmatex">\(\alpha\)</span> 和 <span class="arithmatex">\(\lambda\)</span>），我们可以得到：
+$$ w_{Fisher} \propto S_W^{-1} (\mu_1 - \mu_2) $$</p>
+<h4 id="3_2">3. 两者的联系</h4>
+<ul>
+<li><strong>贝叶斯方向</strong>：<span class="arithmatex">\(w_{Bayes} = \Sigma^{-1} (\mu_1 - \mu_2)\)</span></li>
+<li><strong>Fisher方向</strong>：<span class="arithmatex">\(w_{Fisher} \propto S_W^{-1} (\mu_1 - \mu_2)\)</span></li>
+</ul>
+<p>在统计学中，类内散度矩阵 <span class="arithmatex">\(S_W\)</span> 其实就是协方差矩阵 <span class="arithmatex">\(\Sigma\)</span> 的一个估计（通常差一个系数 <span class="arithmatex">\(N-c\)</span>）。即 <span class="arithmatex">\(S_W \propto \Sigma\)</span>。</p>
+<p><strong>因此， <span class="arithmatex">\(w_{Bayes}\)</span> 和 <span class="arithmatex">\(w_{Fisher}\)</span> 指向同一个方向。</strong>
+这就解释了为什么当数据满足“同方差高斯分布”假设时，LDA 是贝叶斯最优分类器。</p>
+<h3 id="2-ranks_b-leq-c-1">2. <span class="arithmatex">\(rank(S_B) \leq c-1\)</span></h3>
+<h4 id="1_4">1. 定义</h4>
+<p>假设有 <span class="arithmatex">\(c\)</span> 个类别，全局均值为 <span class="arithmatex">\(\mu\)</span>，第 <span class="arithmatex">\(i\)</span> 类的均值为 <span class="arithmatex">\(\mu_i\)</span>，样本数为 <span class="arithmatex">\(n_i\)</span>。
+类间散度矩阵 <span class="arithmatex">\(S_B\)</span> 定义为：
+$$ S_B = \sum_{i=1}^{c} n_i (\mu_i - \mu)(\mu_i - \mu)^T $$</p>
+<h4 id="2_1">2. 向量空间的张成</h4>
+<p>这实际上是 <span class="arithmatex">\(c\)</span> 个向量的外积之和。定义向量 <span class="arithmatex">\(m_i = \sqrt{n_i}(\mu_i - \mu)\)</span>。
+那么 <span class="arithmatex">\(S_B\)</span> 可以写成：
+$$ S_B = \sum_{i=1}^{c} m_i m_i^T $$</p>
+<p>根据线性代数知识，矩阵 <span class="arithmatex">\(S_B\)</span> 的秩等于这 <span class="arithmatex">\(c\)</span> 个向量 <span class="arithmatex">\(\{m_1, m_2, ..., m_c\}\)</span> 所张成的空间的维数。
+$$ \text{rank}(S_B) = \dim(\text{span}{ \mu_1 - \mu, \mu_2 - \mu, ..., \mu_c - \mu }) $$</p>
+<p>乍一看有 <span class="arithmatex">\(c\)</span> 个向量，秩似乎是 <span class="arithmatex">\(c\)</span>。但是，这 <span class="arithmatex">\(c\)</span> 个向量是<strong>线性相关</strong>的。</p>
+<h4 id="3_3">3. 线性相关性证明</h4>
+<p>我们来看这 <span class="arithmatex">\(c\)</span> 个向量的加权和。
+由全局均值的定义可知：
+$$ \mu = \frac{1}{N} \sum_{i=1}^{c} n_i \mu_i $$
+即：
+$$ \sum_{i=1}^{c} n_i \mu_i = N \mu = (\sum_{i=1}^{c} n_i) \mu = \sum_{i=1}^{c} n_i \mu $$</p>
+<p>移项得到：
+$$ \sum_{i=1}^{c} n_i (\mu_i - \mu) = \mathbf{0} $$</p>
+<p>这意味着，向量集 <span class="arithmatex">\(\{ \mu_1 - \mu, ..., \mu_c - \mu \}\)</span> 中，任意一个向量都可以被其他 <span class="arithmatex">\(c-1\)</span> 个向量线性表示（因为它们的加权和为零向量）。</p>
+<h4 id="4_1">4. 结论</h4>
+<p>因为存在这就这一个线性约束条件（Constraint），所以这 <span class="arithmatex">\(c\)</span> 个向量构成的子空间维数减少了 1。</p>
+<p><strong>因此，<span class="arithmatex">\(S_B\)</span> 的秩最多为 <span class="arithmatex">\(c-1\)</span>。</strong></p>
+<ul>
+<li><strong>特例</strong>：在二分类 (<span class="arithmatex">\(c=2\)</span>) 中，<span class="arithmatex">\(S_B\)</span> 的秩最多是 1。这就是为什么二分类 LDA 只能投影到一条直线上。</li>
+<li><strong>物理意义</strong>：<span class="arithmatex">\(c\)</span> 个类的中心点 <span class="arithmatex">\(\mu_i\)</span> 位于一个 <span class="arithmatex">\(c-1\)</span> 维的超平面上（因为它们确定了一个重心 <span class="arithmatex">\(\mu\)</span>）。例如，3个点确定一个平面（2维），而不是一个体（3维）。</li>
+</ul>
+<h4 id="5_1">5. 补充</h4>
+<p>证明对于实矩阵 <span class="arithmatex">\(M=[m_1,\cdots,m_c]\)</span>, <span class="arithmatex">\(rank(MM^\top)=rank(M)\)</span></p>
+<p><span class="arithmatex">\(\underline{\text{Proof}}\)</span></p>
+<p>证明 <span class="arithmatex">\(null(MM^\top)=null(M)\)</span></p>
+<p>如果 <span class="arithmatex">\(M^\top x=0\)</span>, 那么 <span class="arithmatex">\(MM^\top x=0\)</span></p>
+<p>所以 <span class="arithmatex">\(null(M)\subseteq null(MM^\top)\)</span></p>
+<p>如果 <span class="arithmatex">\(MM^\top x=0\)</span>, 那么 <span class="arithmatex">\(x^\top MM^\top x=0 \to y^\top y=0\)</span></p>
+<p>因为 <span class="arithmatex">\(y\)</span> 的模长等于 <span class="arithmatex">\(0\)</span>, 所以 <span class="arithmatex">\(y=0\)</span></p>
+<p>即 <span class="arithmatex">\(M^\top x=0, null(MM^\top)\subseteq null(M)\)</span></p>
+<p><span class="arithmatex">\(\blacksquare\)</span></p>
+<h3 id="3-fisher-fim-fisher">3. Fisher 是 FIM 的 Fisher 吗?</h3>
 <h2 id="lpp">LPP</h2>
 <p>Laplacian Matrix</p>
-<p>见 <a href="https://akonjac0.github.io/note/ADS/matrix_tree/">矩阵树定理</a></p></div>
+<p>见 <a href="https://akonjac0.github.io/note/ADS/matrix_tree/">矩阵树定理</a></p>
+<h2 id="regularization_1">regularization</h2>
+<ol>
+<li>PCA</li>
+</ol>
+<div class="arithmatex">\[\max_a \frac{a^\top XX^\top a}{a^\top a}\]</div>
+<ol>
+<li>LDA</li>
+</ol>
+<div class="arithmatex">\[\max_a \frac{a^\top S_B a}{a^\top (S_W+\lambda I)a}\]</div>
+<p>or </p>
+<div class="arithmatex">\[\max_a \frac{a^\top S_B a}{a^\top (S_T+\lambda I)a}\]</div>
+<ol>
+<li>LPP</li>
+</ol>
+<div class="arithmatex">\[\max_a \frac{a^\top XWX^\top a}{a^\top (XDX^\top+\lambda I)a}\]</div>
+<p>or </p>
+<div class="arithmatex">\[\min_a \frac{a^\top XLX^\top a}{a^\top (XDX^\top+\lambda I)a}\]</div>
+<h1 id="nonlinear-dimension-reduction">nonlinear dimension reduction</h1>
+<h2 id="mds">MDS</h2>
+<p>已知距离矩阵 D, 给出内积矩阵 B=Z^\top Z, 反求 Z</p>
+<h2 id="isomap">ISOMAP</h2>
+<p>计算 knn graph</p>
+<p>计算最短路 (floyd/dijkstra)</p>
+<p>计算 MDS (已知 D)</p>
+<h2 id="lle-locally-linear-embedding">LLE Locally Linear Embedding</h2>
+<h2 id="laplacian-eigenmap">Laplacian Eigenmap</h2>
+<p>LPP is the linear version of LE</p>
+<h1 id="other-dimension-reduction">other dimension reduction</h1>
+<h2 id="robust-pca">Robust PCA</h2>
+<h2 id="aevaevq-vae">AE/VAE/VQ-VAE</h2>
+<h2 id="embedding-word2vec">Embedding (Word2Vec)</h2>
+<h1 id="ensemble">Ensemble</h1>
+<h2 id="bagging">Bagging</h2>
+<h3 id="random-forest">Random Forest</h3>
+<p>随机选择数据集, 每个内部节点随机选择 feature</p>
+<p>使用决策树, 允许过拟合, 对微小变化敏感</p>
+<hr>
+<p>为了从数学上证明为什么<strong>平均</strong>可以减小方差，我们需要考虑两种情况：一种是理想情况（模型完全独立），另一种是现实情况（模型之间存在相关性）。</p>
+<p>设我们有 <span class="arithmatex">\(N\)</span> 个基模型（Base Learners），它们的预测结果分别看作是随机变量 <span class="arithmatex">\(X_1, X_2, \dots, X_N\)</span>。
+假设这些模型是<strong>同分布</strong>的（因为都是从同一个大训练集 <span class="arithmatex">\(D\)</span> 采样训练出来的）：
+*   <strong>均值</strong>：<span class="arithmatex">\(\mathbb{E}[X_i] = \mu\)</span>
+*   <strong>方差</strong>：<span class="arithmatex">\(\text{Var}(X_i) = \sigma^2\)</span> （这里对应你提到的“方差很大”）</p>
+<p>我们的聚合模型（Bagging后的结果）是取平均：
+$$ \bar{X} = \frac{1}{N} \sum_{i=1}^N X_i $$</p>
+<p>我们现在的目标是计算 <span class="arithmatex">\(\text{Var}(\bar{X})\)</span>，看看它是否比单个模型的方差 <span class="arithmatex">\(\sigma^2\)</span> 小。</p>
+<hr>
+<h3 id="_6">情况一：理想情况（模型完全独立）</h3>
+<p>假设这 <span class="arithmatex">\(N\)</span> 个模型是完全独立的（Independent），即 <span class="arithmatex">\(\text{Cov}(X_i, X_j) = 0\)</span> (当 <span class="arithmatex">\(i \neq j\)</span>)。</p>
+<p>利用方差的性质：
+$$ \text{Var}(aX) = a^2 \text{Var}(X) $$
+$$ \text{Var}(X + Y) = \text{Var}(X) + \text{Var}(Y) \quad (\text{若独立}) $$</p>
+<p>推导如下：
+$$
+\begin{aligned}
+\text{Var}(\bar{X}) &amp;= \text{Var}\left( \frac{1}{N} \sum_{i=1}^N X_i \right) \
+&amp;= \frac{1}{N^2} \sum_{i=1}^N \text{Var}(X_i) \
+&amp;= \frac{1}{N^2} \cdot (N \cdot \sigma^2) \
+&amp;= \frac{\sigma^2}{N}
+\end{aligned}
+$$</p>
+<p><strong>结论</strong>：如果模型完全独立，随着模型数量 <span class="arithmatex">\(N\)</span> 的增加，集成后的方差会以 <span class="arithmatex">\(\frac{1}{N}\)</span> 的速度<strong>线性减少</strong>。
+*   <strong>直觉</strong>：这就像为了测一段距离，你让一个人测可能手抖（方差大），但你让100个人测然后取平均，手抖的误差就互相抵消了。</p>
+<hr>
+<h3 id="_7">情况二：现实情况（模型存在相关性）</h3>
+<p>在 Bagging 中，每个模型都是用 Bootstrap（有放回抽样）的数据集训练的。因为数据集有重叠，所以训练出来的模型 <span class="arithmatex">\(X_i\)</span> 和 <span class="arithmatex">\(X_j\)</span> 之间是<strong>正相关</strong>的，不是独立的。</p>
+<p>设任意两个不同模型之间的<strong>相关系数 (Correlation Coefficient)</strong> 为 <span class="arithmatex">\(\rho\)</span> （<span class="arithmatex">\(0 &lt; \rho &lt; 1\)</span>）。
+根据协方差定义：<span class="arithmatex">\(\text{Cov}(X_i, X_j) = \rho \sigma \sigma = \rho \sigma^2\)</span>。</p>
+<p>利用一般情况下的方差和公式：
+$$ \text{Var}\left( \sum_{i=1}^N X_i \right) = \sum_{i=1}^N \text{Var}(X_i) + \sum_{i \neq j} \text{Cov}(X_i, X_j) $$</p>
+<p>推导聚合模型的方差：
+$$
+\begin{aligned}
+\text{Var}(\bar{X}) &amp;= \frac{1}{N^2} \text{Var}\left( \sum_{i=1}^N X_i \right) \
+&amp;= \frac{1}{N^2} \left[ \sum_{i=1}^N \text{Var}(X_i) + \sum_{i \neq j} \text{Cov}(X_i, X_j) \right]
+\end{aligned}
+$$</p>
+<p>这里有 <span class="arithmatex">\(N\)</span> 个方差项，和 <span class="arithmatex">\(N(N-1)\)</span> 个协方差项：
+$$
+\begin{aligned}
+\text{Var}(\bar{X}) &amp;= \frac{1}{N^2} \left[ N\sigma^2 + N(N-1)\rho\sigma^2 \right] \
+&amp;= \frac{\sigma^2}{N} + \frac{N-1}{N}\rho\sigma^2
+\end{aligned}
+$$</p>
+<p>当 <span class="arithmatex">\(N\)</span> 很大时（<span class="arithmatex">\(N \to \infty\)</span>），<span class="arithmatex">\(\frac{1}{N} \to 0\)</span>，且 <span class="arithmatex">\(\frac{N-1}{N} \to 1\)</span>。所以：
+$$ \lim_{N \to \infty} \text{Var}(\bar{X}) = \rho \sigma^2 $$</p>
+<hr>
+<h3 id="_8">深度解析：这个公式说明了什么？</h3>
+<p>最终的方差公式是：
+$$ \text{Var}(\text{Bagging}) = \underbrace{\frac{1-\rho}{N}\sigma^2}<em _text_>{\text{第一项}} + \underbrace{\rho \sigma^2}</em> $$}</p>
+<ol>
+<li><strong>第一项 (<span class="arithmatex">\(\frac{1-\rho}{N}\sigma^2\)</span>)</strong>：<ul>
+<li>随着 <span class="arithmatex">\(N\)</span>（树的数量）增加，这一项会消失。这代表了通过“人多力量大”消除的那部分随机噪声。</li>
+</ul>
+</li>
+<li><strong>第二项 (<span class="arithmatex">\(\rho \sigma^2\)</span>)</strong>：<ul>
+<li><strong>这是瓶颈所在！</strong> 无论你加多少棵树，<span class="arithmatex">\(N\)</span> 再大，方差也降不到 <span class="arithmatex">\(\rho \sigma^2\)</span> 以下。</li>
+<li>如果模型之间<strong>太像了</strong>（<span class="arithmatex">\(\rho\)</span> 很大），Bagging 的效果就很差。</li>
+</ul>
+</li>
+</ol>
+<h3 id="random-forest_1">这就是为什么需要“随机森林” (Random Forest)</h3>
+<p>随机森林相对于普通 Bagging 的数学动机：</p>
+<ul>
+<li><strong>普通 Bagging</strong>：只是样本随机，树之间可能还是很像（比如某个特征特别强，所有树第一层都选它），导致 <span class="arithmatex">\(\rho\)</span> 比较高。</li>
+<li><strong>随机森林 (Random Forest)</strong>：通过强制<strong>随机选择特征</strong>（Feature Randomness），故意让每棵树长得“不一样”，哪怕牺牲一点单棵树的准确率。<ul>
+<li><strong>数学后果</strong>：这大大降低了模型间的<strong>相关系数 <span class="arithmatex">\(\rho\)</span></strong>。</li>
+<li><strong>结果</strong>：因为 <span class="arithmatex">\(\rho\)</span> 变小了，所以最终的极限方差 <span class="arithmatex">\(\rho \sigma^2\)</span> 也就变小了。</li>
+</ul>
+</li>
+</ul>
+<h3 id="_9">总结</h3>
+<p>从数学角度看，聚合（平均）通过统计学中的<strong>大数定律</strong>效应来降低方差。
+*   如果直接<strong>相加</strong>：方差会变成 <span class="arithmatex">\(N^2\)</span> 倍（因为 <span class="arithmatex">\(\text{Var}(N X) = N^2 \text{Var}(X)\)</span>），误差会爆炸。
+*   如果<strong>取平均</strong>：
+    *   独立时：方差变为 <span class="arithmatex">\(1/N\)</span>。
+    *   相关时：方差被限制在 <span class="arithmatex">\(\rho \sigma^2\)</span>。<strong>随机森林的本质就是通过算法手段降低 <span class="arithmatex">\(\rho\)</span></strong>。</p>
+<h2 id="boosting">Boosting</h2>
+<p>Bagging 是 parallel 的, Boosting 是 sequential 的</p>
+<h3 id="adaboost">AdaBoost</h3>
+<p>对 AdaBoost 有两个不同维度的视角（Insights）来解释同一个算法。</p>
+<p>这两种 Insight 分别是：
+1.  <strong>统计直觉视角 (Statistical/Intuitive View)</strong>：通过调整权重，让下一个分类器与当前模型“不相关” (Uncorrelated/Diverse)。
+2.  <strong>优化理论视角 (Optimization View)</strong>：将 AdaBoost 看作是指数损失函数 (Exponential Loss) 的逐步最小化过程。</p>
+<h3 id="insight-1-re-weighting-for-diversity">Insight 1：基于“多样性与去相关”的直觉推导 (Re-weighting for Diversity)</h3>
+<p>我们希望新加入的弱分类器 <span class="arithmatex">\(g_{m+1}\)</span> 能专注于前一个模型 <span class="arithmatex">\(g_m\)</span> 做错的地方。
+具体的衡量标准是：<strong>在新权重的分布下，当前的分类器 <span class="arithmatex">\(g_m\)</span> 的表现应当等同于“瞎猜”（错误率为 50%）。</strong></p>
+<p>为什么？因为如果 <span class="arithmatex">\(g_m\)</span> 在新权重下错误率还是低于 50%，说明新权重对错误的惩罚还不够；如果高于 50%，说明惩罚过头了。只有当旧模型在新权重下“失效”了（表现为随机猜测），新模型 <span class="arithmatex">\(g_{m+1}\)</span> 才能在一个完全不同的基础上通过学习来提供新的增益。</p>
+<h4 id="_10">推导步骤：</h4>
+<ol>
+<li>
+<p><strong>定义目标</strong>：
+    我们需要构造新的权重 <span class="arithmatex">\(w^{(m+1)}\)</span>，使得当前分类器 <span class="arithmatex">\(y^{(m)}\)</span> 在新权重下的加权错误率为 0.5。
+    $$ \epsilon_{new} = \frac{\sum_{n=1}^N w_n^{(m+1)} \mathbb{I}(y_n^{(m)} \neq t_n)}{\sum_{n=1}^N w_n^{(m+1)}} = \frac{1}{2} $$
+    这意味着：<strong>分对样本的总权重 = 分错样本的总权重</strong>。</p>
+</li>
+<li>
+<p><strong>构造权重更新规则</strong>：
+    我们假设分对的样本权重乘以 <span class="arithmatex">\(e^{-\alpha}\)</span> (降低权重)，分错的样本权重乘以 <span class="arithmatex">\(e^{\alpha}\)</span> (增加权重)。</p>
+<ul>
+<li>分错集 <span class="arithmatex">\(W_{wrong} = \sum_{y \neq t} w_n^{(m)}\)</span></li>
+<li>分对集 <span class="arithmatex">\(W_{correct} = \sum_{y = t} w_n^{(m)}\)</span></li>
+<li>当前错误率 <span class="arithmatex">\(\epsilon_m = \frac{W_{wrong}}{W_{total}}\)</span></li>
+</ul>
+</li>
+<li>
+<p><strong>建立等式</strong>：
+    根据目标“分对总权重 = 分错总权重”：
+    $$ W_{correct} \cdot e^{-\alpha} = W_{wrong} \cdot e^{\alpha} $$</p>
+</li>
+<li>
+<p><strong>解出 <span class="arithmatex">\(\alpha\)</span></strong>：
+    $$ \frac{e^{\alpha}}{e^{-\alpha}} = \frac{W_{correct}}{W_{wrong}} $$
+    $$ e^{2\alpha} = \frac{1 - \epsilon_m}{\epsilon_m} $$
+    $$ 2\alpha = \ln \left( \frac{1 - \epsilon_m}{\epsilon_m} \right) $$
+    $$ \alpha = \frac{1}{2} \ln \left( \frac{1 - \epsilon_m}{\epsilon_m} \right) $$</p>
+</li>
+</ol>
+<p><strong>结论</strong>：这个 <span class="arithmatex">\(\alpha\)</span> 正是 AdaBoost 算法中每个分类器的话语权权重。</p>
+<hr>
+<h3 id="insight-2-optimization-of-exponential-loss">Insight 2：基于“指数损失最小化”的数学推导 (Optimization of Exponential Loss)</h3>
+<p>AdaBoost 其实也是一个<strong>加法模型 (Additive Model)</strong> 的前向分步算法。我们的目标是最小化全局的<strong>指数损失函数</strong>。</p>
+<h4 id="_11">推导步骤：</h4>
+<ol>
+<li>
+<p><strong>定义损失函数</strong>：
+    全局损失 <span class="arithmatex">\(E = \sum_{n=1}^N \exp(-t_n f_M(x_n))\)</span>，其中 <span class="arithmatex">\(f_M(x)\)</span> 是最终的强分类器。</p>
+</li>
+<li>
+<p><strong>前向分步假设</strong>：
+    假设我们已经有了 <span class="arithmatex">\(f_{m-1}(x)\)</span>，现在要加一个新的基分类器 <span class="arithmatex">\(y_m(x)\)</span> 和它的权重 <span class="arithmatex">\(\alpha_m\)</span>：
+    $$ f_m(x) = f_{m-1}(x) + \alpha_m y_m(x) $$</p>
+</li>
+<li>
+<p><strong>展开损失函数 (PPT P29 的关键步骤)</strong>：
+    $$
+    \begin{aligned}
+    E &amp;= \sum_{n=1}^N \exp \left( -t_n [f_{m-1}(x_n) + \alpha_m y_m(x_n)] \right) \
+    &amp;= \sum_{n=1}^N \underbrace{\exp(-t_n f_{m-1}(x_n))}<em n="1">{\text{这一项就是上一轮的权重 } w_n^{(m)}} \cdot \exp(-t_n \alpha_m y_m(x_n)) \
+    &amp;= \sum</em> \exp(-t_n \alpha_m y_m(x_n))
+    \end{aligned}
+    $$}^N w_n^{(m)</p>
+</li>
+<li>
+<p><strong>拆分求和项</strong>：
+    注意 <span class="arithmatex">\(t_n\)</span> 和 <span class="arithmatex">\(y_m(x_n)\)</span> 都是 <span class="arithmatex">\(\in \{-1, 1\}\)</span>。</p>
+<ul>
+<li>如果分类正确 (<span class="arithmatex">\(y_m = t_n\)</span>)：<span class="arithmatex">\(t_n y_m = 1\)</span>，项变为 <span class="arithmatex">\(e^{-\alpha_m}\)</span>。</li>
+<li>如果分类错误 (<span class="arithmatex">\(y_m \neq t_n\)</span>)：<span class="arithmatex">\(t_n y_m = -1\)</span>，项变为 <span class="arithmatex">\(e^{\alpha_m}\)</span>。</li>
+</ul>
+<p>于是损失函数变为：
+$$ E = e^{-\alpha_m} \sum_{y=t} w_n^{(m)} + e^{\alpha_m} \sum_{y \neq t} w_n^{(m)} $$</p>
+</li>
+<li>
+<p><strong>引入错误率 <span class="arithmatex">\(\epsilon_m\)</span></strong>：
+    令总权重 <span class="arithmatex">\(W = \sum w_n^{(m)}\)</span>。
+    则 <span class="arithmatex">\(\sum_{y \neq t} w_n^{(m)} = W \epsilon_m\)</span>，<span class="arithmatex">\(\sum_{y=t} w_n^{(m)} = W(1 - \epsilon_m)\)</span>。
+    $$ E = W \left( (1-\epsilon_m)e^{-\alpha_m} + \epsilon_m e^{\alpha_m} \right) $$</p>
+</li>
+<li>
+<p><strong>最优化求解 (<span class="arithmatex">\(\frac{\partial E}{\partial \alpha_m} = 0\)</span>)</strong>：
+    对 <span class="arithmatex">\(\alpha_m\)</span> 求导：
+    $$ \frac{\partial E}{\partial \alpha_m} = W \left( -(1-\epsilon_m)e^{-\alpha_m} + \epsilon_m e^{\alpha_m} \right) = 0 $$
+    $$ (1-\epsilon_m)e^{-\alpha_m} = \epsilon_m e^{\alpha_m} $$
+    $$ \frac{1-\epsilon_m}{\epsilon_m} = e^{2\alpha_m} $$
+    $$ \alpha_m = \frac{1}{2} \ln \left( \frac{1-\epsilon_m}{\epsilon_m} \right) $$</p>
+</li>
+</ol>
+<p><strong>结论</strong>：这再次推导出了完全相同的 <span class="arithmatex">\(\alpha_m\)</span> 公式。同时，如果我们把最优的 <span class="arithmatex">\(\alpha_m\)</span> 代回权重更新公式 <span class="arithmatex">\(w_{n}^{(m+1)} = w_n^{(m)} \exp(-t_n \alpha_m y_m(x_n))\)</span>，就得到了标准的 AdaBoost 权重更新。</p>
+<hr>
+<h3 id="exponential-loss">为什么选用 Exponential Loss？</h3>
+<p>你可能会问，分类问题通常用 0/1 损失或者 Cross-entropy，为什么 AdaBoost 偏偏选 <span class="arithmatex">\(\exp(-z)\)</span>？</p>
+<p><strong>1. 计算上的优雅与解耦 (Computational Efficiency)</strong>
+从上面的推导 Insight 2 可以看到，指数损失有一个神奇的数学性质：<span class="arithmatex">\(\exp(a+b) = \exp(a) \cdot \exp(b)\)</span>。
+这使得我们在计算第 <span class="arithmatex">\(m\)</span> 步的损失时，可以将前 <span class="arithmatex">\(m-1\)</span> 步的结果直接打包成一个“权重” <span class="arithmatex">\(w_n^{(m)}\)</span>。
+*   <strong>结果</strong>：这一性质将一个复杂的加法模型优化问题，转化为了一个简单的<strong>带权重的最小二乘/分类问题</strong>。如果是其他损失函数（如 Hinge Loss 或 Log Loss），就很难拆分得这么干净，无法导出这么简单的权重更新公式。</p>
+<p><strong>2. 统计学上的解释 (Statistical Consistency)</strong>
+Friedman 等人证明了，最小化指数损失 <span class="arithmatex">\(\mathbb{E}[\exp(-y f(x))]\)</span> 等价于最大化对数似然函数（类似于逻辑回归）。
+最终训练出的强分类器 <span class="arithmatex">\(f(x)\)</span> 实际上在逼近：
+$$ f(x) = \frac{1}{2} \ln \frac{P(y=1|x)}{P(y=-1|x)} $$
+这意味着 AdaBoost 不仅能分类，在这个 Loss 下它输出的数值还具有概率含义。</p>
+<p><strong>3. 缺点：对异常值极度敏感 (Robustness Issue)</strong>
+PPT 第 31 页的图非常关键。
+*   横轴是 <span class="arithmatex">\(z = t \cdot f(x)\)</span>（Margin）。<span class="arithmatex">\(z &lt; 0\)</span> 表示分错了。
+*   <strong>Hinge Loss (SVM)</strong>：随着分错的程度增加，惩罚是线性的。
+*   <strong>Exponential Loss (AdaBoost)</strong>：随着分错程度增加（即 <span class="arithmatex">\(z\)</span> 越负），<strong>惩罚呈指数级爆炸增长</strong>。</p>
+<p><strong>后果</strong>：如果数据中有<strong>噪声 (Noise)</strong> 或<strong>异常值 (Outliers)</strong>（比如标签标错了），AdaBoost 会为了拟合这个单独的错误样本，分配给它极其巨大的权重（因为它在 Loss 中占了绝大比例）。这会导致模型为了这就迁就这一个噪声而把整个边界搞乱，导致过拟合。
+这也是为什么 Boosting 对异常值不如 Bagging 鲁棒的原因。</p>
+<h3 id="gbdt">GBDT</h3>
+<p>直接拟合残差, 就像梯度下降一样, 每次得到一个预测值, 下一个模型预测 residual, 逐步迭代 </p>
+<h1 id="rl">RL</h1>
+<h2 id="mdp">MDP</h2>
+<h2 id="dynamic-programming">Dynamic Programming</h2>
+<p>Policy Iteration</p>
+<p>Value Iteration
+$$
+v(s) \leftarrow \sum_a \pi(a, s) \sum_{s', r} p(s', r | s, a)(r + \gamma v(s'))
+$$</p>
+<h2 id="monte-carlo-constant-alpha-mc">Monte Carlo (constant-<span class="arithmatex">\(\alpha\)</span> MC)</h2>
+<div class="arithmatex">\[
+V(S_t) \leftarrow V(S_t) + \alpha [G_t - V(S_t)]
+\]</div>
+<h2 id="temporal-difference-td">temporal difference (TD)</h2>
+<div class="arithmatex">\[
+V(S_t) \leftarrow V(S_t) + \alpha [R_{t+1} + \gamma V(S_{t+1}) - V(S_t)]
+\]</div>
+<p>MC 可以写成 TD 加和形式:  </p>
+<div class="arithmatex">\[G_t-V(S_t)=\delta_t+\gamma \delta_{t+1}+\cdots+\gamma^{T-t-1}\delta_{T-1}\]</div>
+<h3 id="q-learning-off-policy">Q-Learning (Off-policy)</h3>
+<div class="arithmatex">\[
+Q(s, a) \leftarrow Q(s, a) + \alpha \left[ r + \max_{a'} \gamma Q(s', a') - Q(s, a) \right]
+\]</div>
+<ul>
+<li><strong>Updated Q Value</strong>: <span class="arithmatex">\(Q(s, a)\)</span> </li>
+<li><strong>Current Q Value</strong>: <span class="arithmatex">\(Q(s, a)\)</span> </li>
+<li><strong>Target Q Value</strong>: <span class="arithmatex">\(r + \max_{a'} \gamma Q(s', a')\)</span></li>
+<li><strong>Target policy is always Greedy Policy</strong></li>
+</ul>
+<blockquote>
+<p><span class="arithmatex">\(\alpha\)</span> = Learning Rate</p>
+</blockquote>
+<h3 id="sarsa-state-action-reward-state-action-algorithm-on-policy">SARSA (State Action Reward State Action) Algorithm (On-policy)</h3>
+<div class="arithmatex">\[
+Q(s, a) \leftarrow Q(s, a) + \alpha \left[ r + \gamma Q(s', a') - Q(s, a) \right]
+\]</div>
+<ul>
+<li><strong>Updated Q Value</strong>: <span class="arithmatex">\(Q(s, a)\)</span> </li>
+<li><strong>Current Q Value</strong>: <span class="arithmatex">\(Q(s, a)\)</span> </li>
+<li><strong>Target Q Value</strong>: <span class="arithmatex">\(r + \gamma Q(s', a')\)</span></li>
+<li><strong>Target Policy is always same as Behaviour Policy</strong></li>
+</ul>
+<blockquote>
+<p><span class="arithmatex">\(\alpha\)</span> = Learning Rate</p>
+</blockquote>
+<hr>
+<p><img alt="alt text" src="../image-1.png"></p>
+<h2 id="summary">Summary</h2>
+<p><img alt="alt text" src="../image.png"></p>
+<h2 id="deep-q-learning">Deep Q-Learning</h2>
+<p>世界太大, 需要近似</p>
+<h2 id="policy-gradient">Policy Gradient</h2>
+<p>动作连续时, 细微变化会导致策略不收敛</p>
+<h3 id="reinforce">REINFORCE</h3>
+<h3 id="actor-critic">Actor-Critic</h3>
+<p>见 <a href="https://akonjac0.github.io/2025/04/13/Policy%20Gradient%20Method/#Policy-Gradient-with-Approximation">博客</a></p></div>
 
 
 

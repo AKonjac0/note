@@ -477,7 +477,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../../probability/martingale%20and%20stopping%20times/" class="md-tabs__link">
+        <a href="../../../probability/markov/" class="md-tabs__link">
           
   
   Probability
@@ -5138,6 +5138,27 @@
   
   
     <li class="md-nav__item">
+      <a href="../../../probability/markov/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    markov
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../../probability/martingale%20and%20stopping%20times/" class="md-nav__link">
         
   
@@ -5562,15 +5583,17 @@
 <h2 id="gram-matrix-and-scatter-matrix">Gram Matrix and Scatter Matrix</h2>
 <p>对于 <span class="arithmatex">\(X\in \mathbb R^{d\times n}\)</span>:</p>
 <h3 id="gram">Gram</h3>
-<p><span class="arithmatex">\(X^\top X\in \mathbb R^{n\times n}\)</span>: 样本内积矩阵, 描述样本间的相似性</p>
+<p><span class="arithmatex">\(G=X^\top X\in \mathbb R^{n\times n}\)</span>: 样本内积矩阵, 描述样本间的相似性</p>
+<p><span class="arithmatex">\(G_{i,j}=x_i^\top x_j=\sum_{k=1}^d x_i^kx_j^k\)</span>, 即第 <span class="arithmatex">\(i\)</span> 个特征和第 <span class="arithmatex">\(j\)</span> 个特征遍历 <span class="arithmatex">\(n\)</span> 个特征求出的相似度</p>
 <p>相当于两个样本做内积, 与 cosine similarity 类似</p>
 <h3 id="scatter">Scatter</h3>
-<p><span class="arithmatex">\(XX^\top\in \mathbb{R}^{d\times d}\)</span>: 协方差型矩阵, 描述特征间的相似性</p>
-<p>协方差矩阵是 <span class="arithmatex">\(\frac 1n XX^\top\)</span></p>
+<p><span class="arithmatex">\(S=XX^\top\in \mathbb{R}^{d\times d}\)</span>: 协方差型矩阵, 描述特征间的相似性</p>
+<p>协方差矩阵 <span class="arithmatex">\(XX^\top=\frac{1}{n}\sum_{i=1}^n (x-\mu)(x-\mu)^\top\)</span></p>
+<p><span class="arithmatex">\(S_{i,j}=\sum_{k=1}^n x_{k}^ix_{k}^j\)</span>, 即第 <span class="arithmatex">\(i\)</span> 个特征和第 <span class="arithmatex">\(j\)</span> 个特征遍历 <span class="arithmatex">\(n\)</span> 个数据求出的协方差</p>
 <h3 id="connections">connections</h3>
 <p>非零特征值相同</p>
 <p>对于奇异值分解:</p>
-<p><span class="arithmatex">\(X=U\Sigma V^\top,XX^\top=V\Sigma^2V^\top, X^\top X=U\Sigma^2U^\top\)</span></p>
+<p><span class="arithmatex">\(X=U\Sigma V^\top,XX^\top=U\Sigma\Sigma^\top U^\top, X^\top X=V\Sigma^\top \Sigma V^\top\)</span></p>
 <h2 id="0">0</h2>
 <p>任意向量空间都至少包含全 <span class="arithmatex">\(0\)</span> 向量</p>
 <p>空向量组 <span class="arithmatex">\(()\)</span> 张成空间为 <span class="arithmatex">\(\set{0}\)</span></p></div>

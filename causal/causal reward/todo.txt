@@ -1,0 +1,48 @@
+# PRM
+
+
+
+1. PRISM-Physics: Causal DAG-Based Process Evaluation for Physics Reasoning (MATH-AI Workshop at NeurIPS'25)
+
+链接：可在 NeurIPS MATH-AI 2025 workshop papers 中找到（搜索 "PRISM-Physics"）。
+为什么与 causal PRM 相关：该工作使用 Causal DAG（有向无环图）来建模物理推理过程的因果关系，作为 process-level evaluation 的基础。这直接将因果结构注入 PRM-like 的过程评估中，避免依赖 LLM judge 生成高质量 step reward。通过因果边捕捉步骤间的依赖关系，实现 scalable、无需 LLM judge 的 process reward 生成。这与你的列表中用 causal lens 处理 length bias 或 hacking 的思路高度一致（例如用 causal graph 分析 PRM 预测行为）。
+
+
+5. LLM Reasoning with Process Rewards for Outcome-Guided Steps (arXiv:2604.02341v1)
+
+链接：https://arxiv.org/html/2604.02341v1
+为什么与 causal PRM 相关：明确使用 prefix-causal PRM（decoder-only PRM with causal attention mask），在每个 delimiter 位置提取 hidden states，只依赖前缀（prefix-dependent）。这强化了 reasoning steps 的 temporal causality（步骤 t 只依赖前 t-1 步），解决标准 PRM 的 credit assignment 问题。直接提到 PRM 的 causal mask 和 prefix causality，与你的 CoLD（counterfactual length debiasing）和 Conditional Reward Modeling 高度相关。
+
+6. VRPRM: Process Reward Modeling via Visual Reasoning (arXiv:2508.03556v2)
+
+链接：https://arxiv.org/html/2508.03556v2
+为什么与 causal PRM 相关：提出视觉推理增强的 PRM，明确设计机制让模型 explicitly consider the causal relationships and execution logic of each step。解决传统 PRM 缺乏 deep causal understanding 的问题，提升对复杂 reasoning path 的判断。这与 causal intervention 在 PRM 中的应用类似（捕捉步骤间的因果执行逻辑）。
+
+
+7. R-PRM: Reasoning-Driven Process Reward Modeling (arXiv:2502.06781 等，2025)：在 GitHub reward papers 列表中多次出现，强调 reasoning-driven PRM，常与 causal credit assignment 结合讨论。
+
+8. Analyzing the Causal Structures of LLM and LRM Reasoning Process (alphaXiv:2509.17380)：使用 intervention-based causal analysis 区分 genuine reasoning vs. correlation，直接涉及 PRM 是否必要及 implicit PRM 的 causal 结构。
+
+9. Free Process Rewards without Process Labels (arXiv:2412.01981)：隐式 PRM（implicit process reward），通过 outcome labels 推导，涉及 causal LM 的 prefix 依赖（与 prefix-causal PRM 相关）。
+
+10. PURE: Process sUpervised Reinforcement lEarning
+
+11. RRM: Robust Reward Model Training Mitigates Reward Hacking
+
+~12. Causal-RLHF: Causal Information is All You Need for Safe and Helpful LLMs
+
+
+
+# token attribution
+
+1. From Reasoning to Agentic: Credit Assignment in LLMs (arXiv:2604.09459, 2026)
+提出 SCAR（Shapley Credit Assignment Rewards），将推理链视为合作博弈，进行 token 级因果信用分配。causal credit + token attribution（奖励）
+
+2. 因果忠实性检验 (arXiv:2603.13988 / 2603.05167)
+
+3. 解耦假设验证 (arXiv:2505.17406)
+
+# causal reward
+
+1. Causal Consistency Regularization (arXiv:2509.01544)
+

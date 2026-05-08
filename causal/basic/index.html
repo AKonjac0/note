@@ -1,0 +1,8496 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../../book%26article/causal/book/">
+      
+      
+        <link rel="next" href="interpretability/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.50">
+    
+    
+      
+        <title>causal - My Docs</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.a40c8224.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="https://unpkg.com/katex@0/dist/katex.min.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue-grey" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#causal" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="My Docs" class="md-header__button md-logo" aria-label="My Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            My Docs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              causal
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="blue-grey" data-md-color-accent="blue"  aria-label="切换到暗色模式"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="切换到暗色模式" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="deep-purple" data-md-color-accent="purple"  aria-label="切换到亮色模式"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="切换到亮色模式" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/akonjac0/note" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Ako's Note
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../about/" class="md-tabs__link">
+        
+  
+    
+  
+  About
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../ADS/BPlusTree/" class="md-tabs__link">
+          
+  
+  ADS
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../AI/BERT/" class="md-tabs__link">
+          
+  
+  AI
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../CA/CA/" class="md-tabs__link">
+          
+  
+  CA
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../Computer%20Networks/note/" class="md-tabs__link">
+          
+  
+  Computer Networks
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../Computer%20Organization/computer%20organization%20and%20design/" class="md-tabs__link">
+          
+  
+  Computer Organization
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../Convex%20Optimization/note/" class="md-tabs__link">
+          
+  
+  Convex Optimization
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../DB/database/" class="md-tabs__link">
+          
+  
+  DB
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../OOP/oop/" class="md-tabs__link">
+          
+  
+  OOP
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../TCS/note/" class="md-tabs__link">
+          
+  
+  TCS
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      
+  
+  
+  
+    
+    
+      
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../book%26article/causal/book/" class="md-tabs__link">
+          
+  
+  Book&article
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="./" class="md-tabs__link">
+          
+  
+  Causal
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../compiler/" class="md-tabs__link">
+          
+  
+  Compiler
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../general%20physics/General%20Pyhsics%20II/" class="md-tabs__link">
+          
+  
+  General physics
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../math/MA/" class="md-tabs__link">
+          
+  
+  Math
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../misc/2025BW/" class="md-tabs__link">
+          
+  
+  Misc
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../my%20past/MCU/51/" class="md-tabs__link">
+          
+  
+  My past
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../operating%20system/OS/" class="md-tabs__link">
+          
+  
+  Operating system
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../probability/markov/" class="md-tabs__link">
+          
+  
+  Probability
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../quantum/note/" class="md-tabs__link">
+          
+  
+  Quantum
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../x86asm/ASM/" class="md-tabs__link">
+          
+  
+  X86asm
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="My Docs" class="md-nav__button md-logo" aria-label="My Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    My Docs
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/akonjac0/note" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Ako's Note
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    About
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    ADS
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            ADS
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ADS/BPlusTree/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    BPlusTree
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ADS/Binomial%20Queue/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Binomial Queue
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ADS/Dijkstra/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Dijkstra
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ADS/FFT/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Fast Fourier Transform
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ADS/Galois%20Field/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Galois Field
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ADS/IFI/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IFI
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ADS/Master%20Theorem/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Master Theorem
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ADS/Misra-Gries/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Misra-Gries
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ADS/NPC%20and%20Approximation%20and%20Local%20Search/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    NPC and Approximation and Local Search
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ADS/SkipList/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Skip List
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ADS/WBLT/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    WBLT
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ADS/amortized%20analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    amortized analysis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ADS/cardinality%20of%20sets/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    cardinality of sets
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ADS/computation%20problem/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    computation problem
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ADS/convex/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    convex
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ADS/error%20correction/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    error correction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ADS/external%20sorting/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    external sorting
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ADS/group%20theory/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    group theory
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ADS/hash/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    hash
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ADS/linear%20programming/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    linear programming
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ADS/matrix_tree/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Matrix Tree
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ADS/parallel/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    parallel
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ADS/randomized/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    randomized
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ADS/red%20black%20tree/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    red black tree
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ADS/scapegoat%20tree/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    scapegoat
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ADS/searching/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    searching
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ADS/skew%20heap/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    skew heap
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ADS/splay/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    splay
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    AI
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            AI
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AI/BERT/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    BERT
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AI/DeepSeek-R1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    deepseek
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AI/MLLM/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    MLLM
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AI/article/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Article
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AI/misc/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Misc
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_6" id="__nav_4_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Agent
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_6">
+            <span class="md-nav__icon md-icon"></span>
+            Agent
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_6_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_6_1" id="__nav_4_6_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    GUI SRTP
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_6_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_6_1">
+            <span class="md-nav__icon md-icon"></span>
+            GUI SRTP
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AI/Agent/GUI-SRTP/Agents/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agents
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AI/Agent/GUI-SRTP/Benchmarks/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Benchmarks
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AI/Agent/GUI-SRTP/research/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Grounding
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_6_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_6_2" id="__nav_4_6_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Memory SRTP
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_6_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_6_2">
+            <span class="md-nav__icon md-icon"></span>
+            Memory SRTP
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AI/Agent/Memory-SRTP/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Memory-SRTP
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_6_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_6_2_2" id="__nav_4_6_2_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Docs
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_4_6_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_6_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            Docs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_6_2_2_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_6_2_2_1" id="__nav_4_6_2_2_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Yyr
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="5" aria-labelledby="__nav_4_6_2_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_6_2_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            Yyr
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AI/Agent/Memory-SRTP/docs/yyr/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Index
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_6_2_2_1_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_6_2_2_1_2" id="__nav_4_6_2_2_1_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    AISummary
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="6" aria-labelledby="__nav_4_6_2_2_1_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_6_2_2_1_2">
+            <span class="md-nav__icon md-icon"></span>
+            AISummary
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_6_2_2_1_2_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_6_2_2_1_2_1" id="__nav_4_6_2_2_1_2_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Article
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="7" aria-labelledby="__nav_4_6_2_2_1_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_6_2_2_1_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            Article
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_6_2_2_1_2_1_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_6_2_2_1_2_1_1" id="__nav_4_6_2_2_1_2_1_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Graph
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="8" aria-labelledby="__nav_4_6_2_2_1_2_1_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_6_2_2_1_2_1_1">
+            <span class="md-nav__icon md-icon"></span>
+            Graph
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AI/Agent/Memory-SRTP/docs/yyr/AISummary/article/Graph/BrowseNet/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    BrowseNet
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AI/Agent/Memory-SRTP/docs/yyr/AISummary/article/Graph/Clause/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Clause
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_6_2_2_1_2_1_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_6_2_2_1_2_1_2" id="__nav_4_6_2_2_1_2_1_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Hyper
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="8" aria-labelledby="__nav_4_6_2_2_1_2_1_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_6_2_2_1_2_1_2">
+            <span class="md-nav__icon md-icon"></span>
+            Hyper
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AI/Agent/Memory-SRTP/docs/yyr/AISummary/article/Hyper/HGMem/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    HGMem
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AI/Agent/Memory-SRTP/docs/yyr/AISummary/article/Hyper/HyperG/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    HyperG
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_6_2_2_1_2_1_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_6_2_2_1_2_1_3" id="__nav_4_6_2_2_1_2_1_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Neuro
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="8" aria-labelledby="__nav_4_6_2_2_1_2_1_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_6_2_2_1_2_1_3">
+            <span class="md-nav__icon md-icon"></span>
+            Neuro
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AI/Agent/Memory-SRTP/docs/yyr/AISummary/article/Neuro/Hyperbolic/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Hyperbolic
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AI/Agent/Memory-SRTP/docs/yyr/AISummary/article/Neuro/Neuro/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Neuro
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AI/Agent/Memory-SRTP/docs/yyr/AISummary/article/Neuro/TEM/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    TEM
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AI/Agent/Memory-SRTP/docs/yyr/AISummary/article/Neuro/Vector/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    神经科学: 向量导航
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_6_2_2_1_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_6_2_2_1_2_2" id="__nav_4_6_2_2_1_2_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Survey
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="7" aria-labelledby="__nav_4_6_2_2_1_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_6_2_2_1_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            Survey
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AI/Agent/Memory-SRTP/docs/yyr/AISummary/survey/AIMeetsBrain/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    AIMeetsBrain
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AI/Agent/Memory-SRTP/docs/yyr/AISummary/survey/GraphBasedAgentMemory/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    GraphBasedAgentMemory
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_7" id="__nav_4_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Deep Learning
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_7">
+            <span class="md-nav__icon md-icon"></span>
+            Deep Learning
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AI/Deep%20Learning/DL/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Deep Learning
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AI/Deep%20Learning/Normalization/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Normalization
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AI/Deep%20Learning/Optimizer/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Optimizer
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AI/Deep%20Learning/diffusion/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DLM
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AI/Deep%20Learning/image/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Image
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_8" id="__nav_4_8_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Machine Learning
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_8">
+            <span class="md-nav__icon md-icon"></span>
+            Machine Learning
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AI/Machine%20Learning/ML/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Machine Learning
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AI/Machine%20Learning/note/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Machine Learning
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_9" id="__nav_4_9_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Reinforcement Learning
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_9">
+            <span class="md-nav__icon md-icon"></span>
+            Reinforcement Learning
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AI/Reinforcement%20Learning/RL/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Reinforcement Learning
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_10" id="__nav_4_10_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Code
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_10">
+            <span class="md-nav__icon md-icon"></span>
+            Code
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AI/code/code/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    code
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AI/code/coding/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    有关写代码
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_11" id="__nav_4_11_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Optimal design
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_11">
+            <span class="md-nav__icon md-icon"></span>
+            Optimal design
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AI/optimal%20design/optimal%20design/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    optimal design
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    CA
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            CA
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CA/CA/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ILP
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Computer Networks
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Computer Networks
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Computer%20Networks/note/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    引言
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Computer Organization
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Computer Organization
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Computer%20Organization/computer%20organization%20and%20design/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    computer organization and design
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Convex Optimization
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            Convex Optimization
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Convex%20Optimization/note/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Note
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    DB
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            DB
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DB/database/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    database
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DB/minisql/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    minisql 个人报告
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    OOP
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            OOP
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../OOP/oop/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    OOP
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    TCS
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            TCS
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../TCS/note/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    TCS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12" >
+        
+          
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Book&article
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12">
+            <span class="md-nav__icon md-icon"></span>
+            Book&article
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_12_1" id="__nav_12_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Causal
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_12_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12_1">
+            <span class="md-nav__icon md-icon"></span>
+            Causal
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12_1_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_12_1_1" id="__nav_12_1_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Book
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_12_1_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12_1_1">
+            <span class="md-nav__icon md-icon"></span>
+            Book
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../book%26article/causal/book/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Introduction to Causal Inference from a Machine Learning Perspective
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_13" id="__nav_13_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Causal
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_13">
+            <span class="md-nav__icon md-icon"></span>
+            Causal
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13_1" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_13_1" id="__nav_13_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Basic
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_13_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_13_1">
+            <span class="md-nav__icon md-icon"></span>
+            Basic
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    causal
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    causal
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#scm" class="md-nav__link">
+    <span class="md-ellipsis">
+      SCM
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="SCM">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#causal-graph" class="md-nav__link">
+    <span class="md-ellipsis">
+      causal graph
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="causal graph">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#link" class="md-nav__link">
+    <span class="md-ellipsis">
+      link
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fork" class="md-nav__link">
+    <span class="md-ellipsis">
+      fork
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#collider" class="md-nav__link">
+    <span class="md-ellipsis">
+      collider
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="collider">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#collider-bias" class="md-nav__link">
+    <span class="md-ellipsis">
+      collider bias
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#block" class="md-nav__link">
+    <span class="md-ellipsis">
+      block
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#d-seperate" class="md-nav__link">
+    <span class="md-ellipsis">
+      d-seperate
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#structual-equation" class="md-nav__link">
+    <span class="md-ellipsis">
+      structual equation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="structual equation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#causal-markovian-condition" class="md-nav__link">
+    <span class="md-ellipsis">
+      causal markovian condition
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#do-calculus" class="md-nav__link">
+    <span class="md-ellipsis">
+      do-calculus
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#backdoor" class="md-nav__link">
+    <span class="md-ellipsis">
+      backdoor
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="backdoor">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#backdoor-path" class="md-nav__link">
+    <span class="md-ellipsis">
+      backdoor path
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#backdoor-criterion" class="md-nav__link">
+    <span class="md-ellipsis">
+      backdoor criterion
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#confounder" class="md-nav__link">
+    <span class="md-ellipsis">
+      confounder
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="confounder">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#confounding-bias" class="md-nav__link">
+    <span class="md-ellipsis">
+      confounding bias
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#confounder-confounding-variable" class="md-nav__link">
+    <span class="md-ellipsis">
+      confounder (confounding variable)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#backdoor-adjustment" class="md-nav__link">
+    <span class="md-ellipsis">
+      backdoor adjustment
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="backdoor adjustment">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#causal-identification" class="md-nav__link">
+    <span class="md-ellipsis">
+      causal identification
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#selection-bias-confounding-bias-without-backdoor-path" class="md-nav__link">
+    <span class="md-ellipsis">
+      selection bias (confounding bias without backdoor path)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#selection-bias" class="md-nav__link">
+    <span class="md-ellipsis">
+      一、 什么是选择性偏差（Selection Bias）？
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#collider_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      二、 核心机制：对撞因子（Collider）与伯克森悖论
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="二、 核心机制：对撞因子（Collider）与伯克森悖论">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#berksons-paradox" class="md-nav__link">
+    <span class="md-ellipsis">
+      为什么对撞因子会导致偏差？（伯克森悖论 Berkson's Paradox）
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#confounding-bias_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      三、 为什么这会导致“没有后门路径的 Confounding Bias”？
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      四、 现实中的经典案例
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      总结
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#counterfactuals" class="md-nav__link">
+    <span class="md-ellipsis">
+      counterfactuals
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="counterfactuals">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#probability-of-necessity-pn" class="md-nav__link">
+    <span class="md-ellipsis">
+      probability of necessity (PN)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. 结构模型部分：反事实是怎么被数学化的
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. 结构模型部分：反事实是怎么被数学化的">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#v_if_ivu" class="md-nav__link">
+    <span class="md-ellipsis">
+      公式 (v_i=f_i(v,u))
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      公式 (1)：反事实的定义
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      反事实联合分布为何是合法的
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#coe" class="md-nav__link">
+    <span class="md-ellipsis">
+      CoE 查询的原型
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#abduction-action-prediction" class="md-nav__link">
+    <span class="md-ellipsis">
+      反事实计算三步：abduction, action, prediction
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. 法律责任部分：文章真正关心的量是什么
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. 法律责任部分：文章真正关心的量是什么">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#2-pn" class="md-nav__link">
+    <span class="md-ellipsis">
+      公式 (2)：概率必要性 (PN)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dff-pc-pn" class="md-nav__link">
+    <span class="md-ellipsis">
+      DFF 的 (PC^*) 与 (PN) 的区别
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-345" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. 识别结果：公式 (3)、(4)、(5)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. 识别结果：公式 (3)、(4)、(5)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      单调性假设
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      公式 (3)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      公式 (4)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      公式 (5)：无单调性时的上下界
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-table-1-613" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. 第一个数值例子：Table 1 与公式 (6)–(13)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. 第一个数值例子：Table 1 与公式 (6)–(13)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      表 1 的含义
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-7" class="md-nav__link">
+    <span class="md-ellipsis">
+      公式 (6) 与 (7)：实验因果效应
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#811" class="md-nav__link">
+    <span class="md-ellipsis">
+      公式 (8)–(11)：观察分布
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-4-pn" class="md-nav__link">
+    <span class="md-ellipsis">
+      公式 (12)：代入 (4) 计算 (PN)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      用公式 (5) 再验证一次：即便不假设单调性，仍然得到 1
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="interpretability/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Mechanistic Interpretability
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_13_2" id="__nav_13_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Causal reward
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_13_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_13_2">
+            <span class="md-nav__icon md-icon"></span>
+            Causal reward
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../causal%20reward/CausalReward/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    causal reward
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../causal%20reward/PRM/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PRM
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../causal%20reward/TokenAttribution/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    token attribution
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_14" >
+        
+          
+          <label class="md-nav__link" for="__nav_14" id="__nav_14_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Compiler
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_14_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_14">
+            <span class="md-nav__icon md-icon"></span>
+            Compiler
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../compiler/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Index
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_15" >
+        
+          
+          <label class="md-nav__link" for="__nav_15" id="__nav_15_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    General physics
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_15_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_15">
+            <span class="md-nav__icon md-icon"></span>
+            General physics
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../general%20physics/General%20Pyhsics%20II/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    General Pyhsics II
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../general%20physics/Schr%C3%B6dinger%20equation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Schrödinger equation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../general%20physics/quantum%20computation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    quantum computation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_16" >
+        
+          
+          <label class="md-nav__link" for="__nav_16" id="__nav_16_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Math
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_16_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_16">
+            <span class="md-nav__icon md-icon"></span>
+            Math
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../math/MA/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Mathematical Analysis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../math/Mathematical%20Logic/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Mathematical Logic
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../math/complex%20function/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Complex function
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../math/functional%20analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    泛函分析
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_16_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_16_5" id="__nav_16_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Linear algebra
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_16_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_16_5">
+            <span class="md-nav__icon md-icon"></span>
+            Linear algebra
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../math/linear%20algebra/LASummary/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    LASummary
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../math/linear%20algebra/abstract%20algebra/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Abstract algebra
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../math/linear%20algebra/linear%20algebra/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Linear Algebra
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_17" >
+        
+          
+          <label class="md-nav__link" for="__nav_17" id="__nav_17_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Misc
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_17_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_17">
+            <span class="md-nav__icon md-icon"></span>
+            Misc
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../misc/2025BW/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Bilibili World 2025 游记 - 7.13 场
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../misc/CF/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CF
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../misc/CTF/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CTF-WriteUp
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../misc/bangumi/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Bangumi
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../misc/fly/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Fly
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../misc/git/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Git
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../misc/music%20theory/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    intonation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../misc/reaction/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    关于引入奖励机制对人反应力的影响
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../misc/sovits/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    so-vits-svc
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../misc/summary/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    如何构造新函数
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_17_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_17_11" id="__nav_17_11_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    TOEFL
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_17_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_17_11">
+            <span class="md-nav__icon md-icon"></span>
+            TOEFL
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../misc/TOEFL/TOEFL/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    记录
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../misc/TOEFL/listening/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Listening
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../misc/TOEFL/reading/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Reading
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../misc/TOEFL/speaking/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Speaking
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../misc/TOEFL/writing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Writing
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_18" >
+        
+          
+          <label class="md-nav__link" for="__nav_18" id="__nav_18_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    My past
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_18_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_18">
+            <span class="md-nav__icon md-icon"></span>
+            My past
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_18_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_18_1" id="__nav_18_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    MCU
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_18_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_18_1">
+            <span class="md-nav__icon md-icon"></span>
+            MCU
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/MCU/51/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    51单片机
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_18_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_18_2" id="__nav_18_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    OI
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_18_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_18_2">
+            <span class="md-nav__icon md-icon"></span>
+            OI
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/0.9loop%3D1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    0.999...=1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/01%E5%BA%8F%E5%88%97/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    将复杂序列问题转换成01序列求解的优化
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/2022%E6%95%B0%E8%81%94%E6%B8%B8%E8%AE%B0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2022数联游记
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/AC%E8%87%AA%E5%8A%A8%E6%9C%BA/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    AC自动机
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/CF1896D/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CF1896D
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/CRT/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    中国剩余定理
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/CSP-S%202021/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CSP-S 2021
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/DLX/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Dancing Links X
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/FFT/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    快速傅里叶变换 FFT
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/Fast%20IO/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Fast io
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/Game%20with%20Marbles%20%28Hard%20Version%29/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CF1914E2
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/MST/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    最小生成树MST
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/NOI%20Online%202022/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    NOI Online 2022
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/P1633/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    P1633
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/STL/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    STL
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/Trie/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Trie
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/algorithm/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    algorithm
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/cstring/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    cstring
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/dp/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    期望dp
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/dp%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    dp常用方法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/dp%E8%BD%AC%E7%A7%BB/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    dp转移
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/gcd/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    欧几里得&amp;扩展欧几里得
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/kruskal%E9%87%8D%E6%9E%84%E6%A0%91/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    kruskal重构树
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/manacher/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    manacher算法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/wqs%E4%BA%8C%E5%88%86/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    wqs二分
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/xor/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    异或
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/%E4%B8%BB%E5%B8%AD%E6%A0%91/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    主席树
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/%E4%BA%8C%E5%88%86/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    二分
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/%E4%BA%8C%E7%BA%A7%E6%8C%87%E9%92%88/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    二维数组与二级指针
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/%E4%BC%98%E5%85%88%E9%98%9F%E5%88%97/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    优先队列/二叉堆
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/%E4%BC%98%E5%8C%96dp/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    斜率优化dp
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/%E4%BD%8D%E8%BF%90%E7%AE%97/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    进制 &amp; 位运算
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/%E5%80%8D%E5%A2%9E/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    倍增
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/%E5%87%8F%E5%B0%91%E6%97%A0%E7%94%A8%E7%8A%B6%E6%80%81/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    减少无用状态
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/%E5%88%86%E6%B2%BB/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    分治
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/%E5%8C%BA%E9%97%B4dp/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    区间dp总结
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/%E5%8F%8C%E6%8C%87%E9%92%88/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    尺取法 two-pointers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/%E5%9B%BE%E8%AE%BA/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    图论
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/%E5%A4%8D%E6%9D%82%E5%BA%A6/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    看似错误的复杂度的渐近处理
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/%E5%B9%B6%E6%9F%A5%E9%9B%86/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    并查集
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/%E6%95%B0%E5%AD%A6/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    泰勒级数
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/%E6%9C%80%E7%9F%AD%E8%B7%AF/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    最短路
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/%E6%9E%84%E9%80%A0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    构造
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/%E6%A0%91%E5%BD%A2dp/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    树形dp总结
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/%E6%A0%91%E7%9A%84%E7%9B%B4%E5%BE%84/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    树的直径
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/%E6%A0%91%E9%93%BE%E5%89%96%E5%88%86/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    树链剖分
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/%E6%A8%A1%E6%8B%9F/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    模拟
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/%E6%AC%A7%E6%8B%89%E5%87%BD%E6%95%B0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    欧拉函数
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/%E7%82%B9%E5%88%86%E6%B2%BB/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    点分治
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/%E7%8A%B6%E5%8E%8Bdp/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    状压dp总结
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/%E7%9F%A9%E9%98%B5%E4%B9%98%E6%B3%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    矩阵乘法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/%E7%A6%BB%E6%95%A3%E5%8C%96_%E5%93%88%E5%B8%8C/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    离散优化
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/%E7%BA%BF%E6%80%A7dp/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    线性dp/普通dp
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    线性代数
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/%E7%BA%BF%E6%80%A7%E7%AD%9B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    欧拉筛
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/%E7%BA%BF%E6%AE%B5%E6%A0%91/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    线段树
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/%E7%BA%BF%E6%AE%B5%E6%A0%91%E5%90%88%E5%B9%B6/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    线段树合并
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/%E7%BB%93%E6%9E%84%E4%BD%93/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    结构体
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/%E7%BC%A9%E7%82%B9/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    缩点
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/%E7%BD%91%E7%BB%9C%E6%B5%81/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    网络流
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/%E8%83%8C%E5%8C%85/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    背包总结
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/%E8%8E%AB%E6%AF%94%E4%B9%8C%E6%96%AF%E5%8F%8D%E6%BC%94/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    莫比乌斯反演
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/%E8%8E%AB%E9%98%9F/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    莫队
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/%E8%99%9A%E6%A0%91/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    虚树
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/%E8%AE%B0%E5%BF%86%E5%8C%96%E6%90%9C%E7%B4%A2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    记忆化搜索
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/%E8%B4%AA%E5%BF%83/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    贪心
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/%E9%80%86%E5%85%83/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    乘法逆元
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/%E9%80%92%E5%BD%92/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    递归 &amp; 递推
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/%E9%AB%98%E6%96%AF%E6%B6%88%E5%85%83/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    高斯消元
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/OI/%E9%AB%98%E7%B2%BE%E5%BA%A6/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    高精度
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_18_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_18_3" id="__nav_18_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Python
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_18_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_18_3">
+            <span class="md-nav__icon md-icon"></span>
+            Python
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/python/Bongo%20Cat/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    python
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/python/pokemon/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    python
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/python/spider/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    python 爬虫总结
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../my%20past/python/tool/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    python
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_19" >
+        
+          
+          <label class="md-nav__link" for="__nav_19" id="__nav_19_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Operating system
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_19_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_19">
+            <span class="md-nav__icon md-icon"></span>
+            Operating system
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../operating%20system/OS/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    operating system
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../operating%20system/lab/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    lab
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_20" >
+        
+          
+          <label class="md-nav__link" for="__nav_20" id="__nav_20_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Probability
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_20_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_20">
+            <span class="md-nav__icon md-icon"></span>
+            Probability
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../probability/markov/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    markov
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../probability/martingale%20and%20stopping%20times/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    martingale and stopping times
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../probability/probability/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    probability
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_21" >
+        
+          
+          <label class="md-nav__link" for="__nav_21" id="__nav_21_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Quantum
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_21_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_21">
+            <span class="md-nav__icon md-icon"></span>
+            Quantum
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../quantum/note/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    quantum computation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_22" >
+        
+          
+          <label class="md-nav__link" for="__nav_22" id="__nav_22_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    X86asm
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_22_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_22">
+            <span class="md-nav__icon md-icon"></span>
+            X86asm
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../x86asm/ASM/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    asm
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#scm" class="md-nav__link">
+    <span class="md-ellipsis">
+      SCM
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="SCM">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#causal-graph" class="md-nav__link">
+    <span class="md-ellipsis">
+      causal graph
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="causal graph">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#link" class="md-nav__link">
+    <span class="md-ellipsis">
+      link
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fork" class="md-nav__link">
+    <span class="md-ellipsis">
+      fork
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#collider" class="md-nav__link">
+    <span class="md-ellipsis">
+      collider
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="collider">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#collider-bias" class="md-nav__link">
+    <span class="md-ellipsis">
+      collider bias
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#block" class="md-nav__link">
+    <span class="md-ellipsis">
+      block
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#d-seperate" class="md-nav__link">
+    <span class="md-ellipsis">
+      d-seperate
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#structual-equation" class="md-nav__link">
+    <span class="md-ellipsis">
+      structual equation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="structual equation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#causal-markovian-condition" class="md-nav__link">
+    <span class="md-ellipsis">
+      causal markovian condition
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#do-calculus" class="md-nav__link">
+    <span class="md-ellipsis">
+      do-calculus
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#backdoor" class="md-nav__link">
+    <span class="md-ellipsis">
+      backdoor
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="backdoor">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#backdoor-path" class="md-nav__link">
+    <span class="md-ellipsis">
+      backdoor path
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#backdoor-criterion" class="md-nav__link">
+    <span class="md-ellipsis">
+      backdoor criterion
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#confounder" class="md-nav__link">
+    <span class="md-ellipsis">
+      confounder
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="confounder">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#confounding-bias" class="md-nav__link">
+    <span class="md-ellipsis">
+      confounding bias
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#confounder-confounding-variable" class="md-nav__link">
+    <span class="md-ellipsis">
+      confounder (confounding variable)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#backdoor-adjustment" class="md-nav__link">
+    <span class="md-ellipsis">
+      backdoor adjustment
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="backdoor adjustment">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#causal-identification" class="md-nav__link">
+    <span class="md-ellipsis">
+      causal identification
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#selection-bias-confounding-bias-without-backdoor-path" class="md-nav__link">
+    <span class="md-ellipsis">
+      selection bias (confounding bias without backdoor path)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#selection-bias" class="md-nav__link">
+    <span class="md-ellipsis">
+      一、 什么是选择性偏差（Selection Bias）？
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#collider_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      二、 核心机制：对撞因子（Collider）与伯克森悖论
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="二、 核心机制：对撞因子（Collider）与伯克森悖论">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#berksons-paradox" class="md-nav__link">
+    <span class="md-ellipsis">
+      为什么对撞因子会导致偏差？（伯克森悖论 Berkson's Paradox）
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#confounding-bias_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      三、 为什么这会导致“没有后门路径的 Confounding Bias”？
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      四、 现实中的经典案例
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      总结
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#counterfactuals" class="md-nav__link">
+    <span class="md-ellipsis">
+      counterfactuals
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="counterfactuals">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#probability-of-necessity-pn" class="md-nav__link">
+    <span class="md-ellipsis">
+      probability of necessity (PN)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. 结构模型部分：反事实是怎么被数学化的
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. 结构模型部分：反事实是怎么被数学化的">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#v_if_ivu" class="md-nav__link">
+    <span class="md-ellipsis">
+      公式 (v_i=f_i(v,u))
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      公式 (1)：反事实的定义
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      反事实联合分布为何是合法的
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#coe" class="md-nav__link">
+    <span class="md-ellipsis">
+      CoE 查询的原型
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#abduction-action-prediction" class="md-nav__link">
+    <span class="md-ellipsis">
+      反事实计算三步：abduction, action, prediction
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. 法律责任部分：文章真正关心的量是什么
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. 法律责任部分：文章真正关心的量是什么">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#2-pn" class="md-nav__link">
+    <span class="md-ellipsis">
+      公式 (2)：概率必要性 (PN)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dff-pc-pn" class="md-nav__link">
+    <span class="md-ellipsis">
+      DFF 的 (PC^*) 与 (PN) 的区别
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-345" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. 识别结果：公式 (3)、(4)、(5)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. 识别结果：公式 (3)、(4)、(5)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      单调性假设
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      公式 (3)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      公式 (4)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      公式 (5)：无单调性时的上下界
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-table-1-613" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. 第一个数值例子：Table 1 与公式 (6)–(13)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. 第一个数值例子：Table 1 与公式 (6)–(13)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      表 1 的含义
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-7" class="md-nav__link">
+    <span class="md-ellipsis">
+      公式 (6) 与 (7)：实验因果效应
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#811" class="md-nav__link">
+    <span class="md-ellipsis">
+      公式 (8)–(11)：观察分布
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-4-pn" class="md-nav__link">
+    <span class="md-ellipsis">
+      公式 (12)：代入 (4) 计算 (PN)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      用公式 (5) 再验证一次：即便不假设单调性，仍然得到 1
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<div><h1 id="causal">causal</h1>
+<h2 id="scm">SCM</h2>
+<h3 id="causal-graph">causal graph</h3>
+<h4 id="link">link</h4>
+<h4 id="fork">fork</h4>
+<h4 id="collider">collider</h4>
+<p><img alt="alt text" src="image.png"></p>
+<p>上面定义了 causal graph 中三种基本结构, 相关性会在这些结构上 "流动", 即可以通过这些结构组成的路径传递, 由于路径中相邻点有相关性, 整个路径的两个端点就具有了相关性</p>
+<h5 id="collider-bias">collider bias</h5>
+<p>即观测了collider 中的 <span class="arithmatex">\(z\)</span>, <span class="arithmatex">\(x\)</span> 和 <span class="arithmatex">\(y\)</span> 反而相关了</p>
+<p>例如, 一个妈妈有两个孩子, 当已知其中一个孩子是男孩时, 另一个是男孩的概率变成:</p>
+<div class="arithmatex">\[P(另一个男孩|其中一个男孩)=P(两个男孩)/P(其中一个男孩)=\frac{1/4}{3/4}=1/3\]</div>
+<p>可以看到不是 <span class="arithmatex">\(1/2\)</span>, 两个孩子的性别相关了</p>
+<p>因为两个孩子的性别相当于 <span class="arithmatex">\(x,y\)</span>, 共同影响了男孩的个数 <span class="arithmatex">\(z\)</span>, 当 <span class="arithmatex">\(z\)</span> 被观测且确定为 <span class="arithmatex">\(\geq 1\)</span>, 那么 <span class="arithmatex">\(x,y\)</span> 就相关了</p>
+<p>(如果标注了 Bob 是男孩, Alice 是男孩的概率就还是 <span class="arithmatex">\(1/2\)</span>)</p>
+<p>同样地, 如果其中一个是星期二的男孩, 那么另一个是男孩的概率是</p>
+<div class="arithmatex">\[P(另一个男孩|其中一个星期二男孩)=P(两个男孩, 其中一个星期二)/P(其中一个星期二男孩)=\frac{(6+6+1)/196}{(13+13+1)/196}=13/27\]</div>
+<p>从数样本空间的角度考虑, "两个男孩, 其中一个星期二" 是说从两个都是男孩的 <span class="arithmatex">\(49\)</span> 个样本中, 选择至少一个为周二, 那么两个都是周二为 <span class="arithmatex">\(1/49\)</span>, 一个为周二另一个不是的概率为 <span class="arithmatex">\(6/49+6/49\)</span>, 所以乘回 <span class="arithmatex">\(1/4\)</span> 变成 <span class="arithmatex">\(13/196\)</span></p>
+<p>"其中一个星期二男孩" 就是从两个都是星期二男孩的 <span class="arithmatex">\(1/196\)</span> 加上一个是星期二男孩, 另一个不是的概率(星期二女孩+其他星期男女孩, <span class="arithmatex">\(12+1=13\)</span>), 为 <span class="arithmatex">\(13/196+13/196\)</span></p>
+<h4 id="block">block</h4>
+<p>如果一条路径上有点被 block 了, 相关性就被阻断了</p>
+<blockquote>
+<p>We say a node <span class="arithmatex">\(z\)</span> is blocked by conditioning on a set of nodes <span class="arithmatex">\(s\)</span> if one of the two conditions is satisfied: </p>
+<ol>
+<li>
+<p><span class="arithmatex">\(z ∈ s\)</span> and <span class="arithmatex">\(z\)</span> is not a collider node (Fig. 2a); </p>
+</li>
+<li>
+<p><span class="arithmatex">\(z\)</span> is a collider node, <span class="arithmatex">\(z \not\in s\)</span> and no descendant of <span class="arithmatex">\(z\)</span> is in <span class="arithmatex">\(s\)</span> (Fig. 2b)</p>
+</li>
+</ol>
+</blockquote>
+<p><img alt="alt text" src="image-1.png"></p>
+<p>如果 <span class="arithmatex">\(z\)</span> 在 <span class="arithmatex">\(s\)</span> 中, <span class="arithmatex">\(s\)</span> 被固定了, 那么 <span class="arithmatex">\(z\)</span> 就阻断了经过他的路径</p>
+<ol>
+<li>
+<p>Fig. 3a Conditioning on a non-collider</p>
+<p><span class="arithmatex">\(x \rightarrow z \rightarrow u \rightarrow y\)</span></p>
+<p>建立线性 SCM 方程</p>
+<p><span class="arithmatex">\(x = \epsilon_x\)</span></p>
+<p><span class="arithmatex">\(z = a \cdot x + \epsilon_z\)</span></p>
+<p><span class="arithmatex">\(u = b \cdot z + \epsilon_u\)</span></p>
+<p><span class="arithmatex">\(y = c \cdot u + \epsilon_y\)</span></p>
+<ul>
+<li>
+<p>假如不控制 <span class="arithmatex">\(z\)</span>, 路径通畅</p>
+<p>我们把方程代入, 看看 <span class="arithmatex">\(x\)</span> 怎么影响 <span class="arithmatex">\(y\)</span>:</p>
+<p><span class="arithmatex">\(y = c \cdot u + \epsilon_y\)</span></p>
+<p><span class="arithmatex">\(= c \cdot (b \cdot z + \epsilon_u) + \epsilon_y\)</span></p>
+<p><span class="arithmatex">\(= c \cdot b \cdot (a \cdot x + \epsilon_z) + c \cdot \epsilon_u + \epsilon_y\)</span></p>
+<p><span class="arithmatex">\(= (a \cdot b \cdot c) \cdot x + \mathcal{L}(\epsilon_u, \epsilon_x, \epsilon_y, \epsilon_z)\)</span></p>
+<p>因此 <span class="arithmatex">\(x\)</span> 与 <span class="arithmatex">\(y\)</span> 相关</p>
+</li>
+<li>
+<p>假如控制了 <span class="arithmatex">\(z\)</span>, <span class="arithmatex">\(z \in s\)</span>, 路径被阻断</p>
+<p>在统计学/因果推断中 "控制 <span class="arithmatex">\(z\)</span>" 意味着我们在给定 <span class="arithmatex">\(z\)</span> 为某个具体值的前提下观察世界</p>
+<p>我们将 <span class="arithmatex">\(z=k\)</span> 直接代入后面的方程</p>
+<p><span class="arithmatex">\(u = b \cdot k + \epsilon_u\)</span></p>
+<p><span class="arithmatex">\(y = c \cdot (b \cdot k + \epsilon_u) + \epsilon_y\)</span></p>
+<p><span class="arithmatex">\(= c \cdot b \cdot k + c \cdot \epsilon_u + \epsilon_y\)</span></p>
+<p>里面完全没有 <span class="arithmatex">\(x\)</span> 了<span class="arithmatex">\(y\)</span> 的值只取决于常数 <span class="arithmatex">\(k\)</span> 和噪声. 这证明了控制非对撞节点 <span class="arithmatex">\(z\)</span> 阻断了路径</p>
+</li>
+</ul>
+</li>
+<li>
+<p>Fig. 3b Collider naturally blocks</p>
+<p>建立包含对撞结构的线性 SCM 方程
+<span class="arithmatex">\(x = \epsilon_x\)</span></p>
+<p><span class="arithmatex">\(u = \epsilon_u\)</span></p>
+<p><span class="arithmatex">\(z = a \cdot x + b \cdot u + \epsilon_z\)</span></p>
+<p><span class="arithmatex">\(z' = c \cdot z + \epsilon_{z'}\)</span></p>
+<p><span class="arithmatex">\(y = d \cdot u + \epsilon_y\)</span></p>
+<p>此时如果 <span class="arithmatex">\(u\)</span> 没被控制, <span class="arithmatex">\(x,y\)</span> 是相关的</p>
+<p>而如果 <span class="arithmatex">\(u=k\)</span>, 那么 <span class="arithmatex">\(x,y\)</span> 独立</p>
+<p>同时利用这个例子, 考察 <span class="arithmatex">\(x,u\)</span></p>
+<p>由于 <span class="arithmatex">\(x=\lambda_1 u+\lambda_2 z + \epsilon\)</span>, 所以不能说 <span class="arithmatex">\(x,u\)</span> 相关</p>
+<p>如果令 <span class="arithmatex">\(z = m\)</span>, 那么 <span class="arithmatex">\(x=\lambda_1 u+\lambda_2 z + \epsilon\)</span>, 他们就相关了</p>
+</li>
+</ol>
+<h4 id="d-seperate">d-seperate</h4>
+<blockquote>
+<p>we say a set of nodes <span class="arithmatex">\(s\)</span> d-separates two variables <span class="arithmatex">\(x\)</span> and <span class="arithmatex">\(y\)</span> iff <span class="arithmatex">\(s\)</span> blocks all paths between them</p>
+</blockquote>
+<p>后面会说到, 满足 backdoor criterion 的点集就是 d-seperate</p>
+<h3 id="structual-equation">structual equation</h3>
+<h4 id="causal-markovian-condition">causal markovian condition</h4>
+<p>用条件概率来计算整个图:</p>
+<div class="arithmatex">\[P(x_{,1}, \dots, x_{,J}) = \prod_{j=1}^{J} P(x_{,j} | Pa_{,j}, \epsilon_{,j}),\]</div>
+<h4 id="do-calculus">do-calculus</h4>
+<p><img alt="alt text" src="image-2.png"></p>
+<p>由模块化假设, do-calculus 只影响被干预变量的直接 parent, 将其连向被干预变量的边去掉</p>
+<p>形式化来说, 对于上面 Fig. 3a, 就是对于 <span class="arithmatex">\(t=f_t(x, \epsilon_t)\)</span> 方程, 改写成 <span class="arithmatex">\(t=t'\)</span></p>
+<p>意思就是说被干预变量的父亲不会再影响自己, 自己一直是个常量</p>
+<p>根据 Fig. 3a, 三个变量的联合概率分布是: </p>
+<div class="arithmatex">\[ P(y, t, x) = P(x)P(t \mid x)P(y \mid t, x) \]</div>
+<div class="arithmatex">\[ P(y, x \mid do(t)) = P(x)P(y \mid t, x) \]</div>
+<p>对 <span class="arithmatex">\(x\)</span> 进行边缘化得到:</p>
+<div class="arithmatex">\[ P(y \mid do(t)) = \sum_{x} P(y, x \mid do(t)) = \sum_{x} P(x)P(y \mid t, x) \]</div>
+<p><span class="arithmatex">\(P(x)\)</span> 换成 <span class="arithmatex">\(P(x \mid t)\)</span>, 得到:</p>
+<div class="arithmatex">\[ \sum_{x} P(x \mid t)P(y \mid t, x) = \sum_{x} P(y, x \mid t) = P(y \mid t) \]</div>
+<p>这也就是被动观察 <span class="arithmatex">\(P(y|t)\)</span> 与主动干预 <span class="arithmatex">\(P(y|do(t))\)</span> 的代数差异, 即 <span class="arithmatex">\(x\)</span> 不再受 <span class="arithmatex">\(t\)</span> 关联的影响, 干预使得两者的因果断开</p>
+<hr>
+<p>例子:</p>
+<p>设定基础生成方程:</p>
+<p><span class="arithmatex">\(x = \epsilon_x\)</span> (混淆变量, 假设期望 <span class="arithmatex">\(E[x]=0\)</span>)</p>
+<p><span class="arithmatex">\(t = \alpha \cdot x + \epsilon_t\)</span> (处理变量)</p>
+<p><span class="arithmatex">\(y = \beta \cdot t + \gamma \cdot x + \epsilon_y\)</span> (结果变量, 真实因果效应为 <span class="arithmatex">\(\beta\)</span>)</p>
+<ul>
+<li><strong>观察 <span class="arithmatex">\(P(y|t)\)</span></strong>: 看到 <span class="arithmatex">\(t=k\)</span>, 顺藤摸瓜猜 <span class="arithmatex">\(x\)</span>. 假设代数关系 <span class="arithmatex">\(E[x|t=k] = \theta \cdot k\)</span> (事实上 <span class="arithmatex">\(E[\epsilon_t]=0\)</span> 时 <span class="arithmatex">\(\theta=\frac{1}{\alpha}\)</span>), 代入 <span class="arithmatex">\(y\)</span> 方程: 
+    <span class="arithmatex">\(<span class="arithmatex">\(E[y|t=k] = \beta \cdot k + \gamma \cdot (\theta \cdot k) = (\beta + \gamma \cdot \theta) \cdot k\)</span>\)</span></li>
+<li>
+<p><strong>干预 <span class="arithmatex">\(P(y|do(t))\)</span></strong>: 强行命令 <span class="arithmatex">\(t=k\)</span></p>
+<p>形式化来说, 就是修改第二个方程使其为 <span class="arithmatex">\(t=t'\)</span></p>
+<p>相当于切断了 <span class="arithmatex">\(x \rightarrow t\)</span> 的联系, <span class="arithmatex">\(x\)</span> 保持均值 <span class="arithmatex">\(E[\epsilon_x]=0\)</span>. </p>
+<p>代入 <span class="arithmatex">\(y\)</span> 方程:
+<span class="arithmatex">\(<span class="arithmatex">\(E[y|do(t=k)] = \beta \cdot k + \gamma \cdot 0 = \beta \cdot k\)</span>\)</span></p>
+</li>
+</ul>
+<h3 id="backdoor">backdoor</h3>
+<h4 id="backdoor-path">backdoor path</h4>
+<blockquote>
+<p>Given a pair of treatment and outcome variables <span class="arithmatex">\((t, y)\)</span>, we say a path connecting <span class="arithmatex">\(t\)</span> and <span class="arithmatex">\(y\)</span> is a back-door path for <span class="arithmatex">\((t, y)\)</span> iff it satisfies that </p>
+<p>(1) it is not a directed path;</p>
+<p>(2) it is not blocked (it has no collider).</p>
+</blockquote>
+<p>连接 <span class="arithmatex">\(t\)</span> 和 <span class="arithmatex">\(y\)</span> 的路径, 满足非有向且未被阻断.</p>
+<p>之前的 <span class="arithmatex">\(y = \beta \cdot t + \gamma \cdot x + \epsilon_y\)</span> 例子中, 考虑图模型 <span class="arithmatex">\(t \leftarrow x \rightarrow y\)</span>:
+1.  <strong>非有向</strong>: 箭头在 <span class="arithmatex">\(t\)</span> 处逆向 (<span class="arithmatex">\(t \leftarrow x\)</span>), 像从后门溜出.
+2.  <strong>未被阻断</strong>: <span class="arithmatex">\(x\)</span> 是分叉节点, 非对撞节点.</p>
+<p><em>代数后果</em>: 这条路出现了偏差 <span class="arithmatex">\(\gamma \cdot \theta\)</span>. </p>
+<p>对比反例:
+*   <strong>是有向路径</strong>: <span class="arithmatex">\(t \rightarrow y\)</span>, 承载真实因果律 <span class="arithmatex">\(\beta\)</span>, 是前门而非后门.
+*   <strong>被 blocked</strong>: 含对撞节点的路径 <span class="arithmatex">\(t \rightarrow m \leftarrow y\)</span>, 代数影响自然相互抵消, 不产生额外偏差, 不是活跃的后门.</p>
+<p>这个后门的偏差存在会导致原本的 <span class="arithmatex">\(t\to y\)</span> 的真实因果路径 (前门路径) 无法正确被计算</p>
+<h4 id="backdoor-criterion">backdoor criterion</h4>
+<blockquote>
+<p>Given a treatment-outcome pair <span class="arithmatex">\((t, y)\)</span>, a set of features <span class="arithmatex">\(x\)</span> satisfies the back-door criterion of <span class="arithmatex">\((t, y)\)</span> iff conditioning on <span class="arithmatex">\(x\)</span> can block all back-door paths of <span class="arithmatex">\((t, y)\)</span> and <span class="arithmatex">\(x\)</span> contains no successors of <span class="arithmatex">\(t\)</span>.</p>
+</blockquote>
+<p>控制特定变量集合 <span class="arithmatex">\(x\)</span> 堵死所有后门路径, 使得观察等同于干预.</p>
+<p>第二个条件: <span class="arithmatex">\(x\)</span> 不包含 <span class="arithmatex">\(t\)</span> 的后代, 主要是防止 <span class="arithmatex">\(x\)</span> 包含多余节点, 控制它会导致 collider 被 unblock</p>
+<hr>
+<p>同样是之前 <span class="arithmatex">\(y = \beta \cdot t + \gamma \cdot x + \epsilon_y\)</span> 的例子, 控制后门变量 <span class="arithmatex">\(x\)</span>, 即强行切片令 <span class="arithmatex">\(x=m\)</span>:</p>
+<p>代数方程变为 <span class="arithmatex">\(y = \beta \cdot t + \gamma \cdot m + \epsilon_y\)</span>. 此时比较 <span class="arithmatex">\(t=k\)</span> 和 <span class="arithmatex">\(t=k+1\)</span> 时的预期 <span class="arithmatex">\(y\)</span> 差异:</p>
+<div class="arithmatex">\[E[y | t=k+1, x=m] - E[y | t=k, x=m] = \beta\]</div>
+<p>通过纯观察运算提取出了纯粹的因果参数 <span class="arithmatex">\(\beta\)</span>. 在后门被堵死的代数空间里, <span class="arithmatex">\(P(y|t, x)\)</span> 完美等价于 <span class="arithmatex">\(P(y|do(t))\)</span>.</p>
+<p>满足 backdoor criterion 的就是 d-seperate</p>
+<h3 id="confounder">confounder</h3>
+<h4 id="confounding-bias">confounding bias</h4>
+<p>backdoor path 的存在解释了 confounding bias 的存在:</p>
+<blockquote>
+<p>Given variables <span class="arithmatex">\(y\)</span>, <span class="arithmatex">\(t\)</span>, confounding bias exists for causal effect <span class="arithmatex">\(t → y\)</span> iff the statistical association is not always the same as the corresponding interventional distribution, namely <span class="arithmatex">\(P(y|t) \not= P(y|do(t))\)</span>.</p>
+</blockquote>
+<p>统计关联不等于干预分布, 即 <span class="arithmatex">\(P(y|t) \neq P(y|do(t))\)</span>.</p>
+<p>对比 do-calculus 中两式的计算结果:</p>
+<div class="arithmatex">\[(\beta + \gamma \cdot \theta) \cdot k \neq \beta \cdot k\]</div>
+<p>多出来的 <span class="arithmatex">\(\gamma \cdot \theta\)</span> 就是混淆偏差在代数上的精确体现, 它导致观察到的效应偏离了真实的因果效应 <span class="arithmatex">\(\beta\)</span>.</p>
+<h4 id="confounder-confounding-variable">confounder (confounding variable)</h4>
+<p>有了 backdoor path 定义, 就可以定义 confounder:</p>
+<blockquote>
+<p>Given a pair of treatment and outcome variables <span class="arithmatex">\((t, y)\)</span>, we say a variable <span class="arithmatex">\(z \not\in \set{t, y}\)</span> is a confounder iff it is the central node of a fork and it is on a back-door path of <span class="arithmatex">\((t, y)\)</span>.</p>
+</blockquote>
+<p>导致上述偏差产生的共因变量.</p>
+<p>代数上, 偏差 <span class="arithmatex">\(\gamma \cdot \theta\)</span> 存在的前提是 <span class="arithmatex">\(\gamma \neq 0\)</span> 且 <span class="arithmatex">\(\theta \neq 0\)</span> (即 <span class="arithmatex">\(\alpha \neq 0\)</span>). 这意味着变量 <span class="arithmatex">\(x\)</span> 既影响 <span class="arithmatex">\(y\)</span>, 又影响 <span class="arithmatex">\(t\)</span>,  那么 <span class="arithmatex">\(x\)</span> 就是这条链路中的混淆变量.</p>
+<h3 id="backdoor-adjustment">backdoor adjustment</h3>
+<h4 id="causal-identification">causal identification</h4>
+<p>消除 confounder 的过程</p>
+<p>后门调整是利用充分调整集 <span class="arithmatex">\(S\)</span> (满足后门准则的点集) 直接计算因果效应的方法</p>
+<p>对于 Fig. 3a, <span class="arithmatex">\(S=\set{x}\)</span>. 可以将 <span class="arithmatex">\(P(y \mid do(t))\)</span> 拆成:</p>
+<div class="arithmatex">\[P(y \mid do(t)) = \sum_{w\in S} P(y \mid do(t), w)P(w \mid do(t))\]</div>
+<p>由于模块化假设, <span class="arithmatex">\(do(t)\)</span> 只对 <span class="arithmatex">\(Pa_t\)</span> 有影响, 对 <span class="arithmatex">\(y\)</span> 没影响, 所以</p>
+<div class="arithmatex">\[= \sum_{w} P(y \mid t, w)P(w \mid do(t))\]</div>
+<p>同时 <span class="arithmatex">\(W\)</span> 不包含 <span class="arithmatex">\(t\)</span> 的后代, 且位于 backdoor path 上面, 说明 <span class="arithmatex">\(W\)</span> 和 <span class="arithmatex">\(t\)</span> 之间的因果路径一定被切断了, 所以相对于 <span class="arithmatex">\(t\)</span> 独立, <span class="arithmatex">\(t\)</span> 的干预对 <span class="arithmatex">\(W\)</span> 没作用:</p>
+<div class="arithmatex">\[= \sum_{w} P(y \mid t, w)P(w)\]</div>
+<p>后门调整公式可以把因果效应的计算转化为统计量:</p>
+<div class="arithmatex">\[
+\mathbb{E}[y \mid do(t=1)] - \mathbb{E}[y \mid do(t=0)] = \mathbb{E}_W[\mathbb{E}[y \mid t=1, w] - \mathbb{E}[y \mid t=0, w]]
+\]</div>
+<h4 id="selection-bias-confounding-bias-without-backdoor-path">selection bias (confounding bias without backdoor path)</h4>
+<p>在因果推断（Causal Inference）中，<strong>选择性偏差（Selection Bias）</strong>是一个非常核心且极具迷惑性的概念。</p>
+<p>为了回答你的问题，我们需要从因果图（DAG，有向无环图）的角度，深入剖析什么是选择性偏差，以及为什么它能在<strong>没有后门路径（Backdoor Path）</strong>的情况下，产生类似<strong>混杂偏差（Confounding Bias）</strong>的虚假相关性。</p>
+<hr>
+<h3 id="selection-bias">一、 什么是选择性偏差（Selection Bias）？</h3>
+<p>在因果推断的结构因果模型（SCM，Judea Pearl 提出）中，偏差主要来源于对变量的<strong>不当条件化（Conditioning）</strong>。</p>
+<ul>
+<li><strong>混杂偏差（Confounding Bias）</strong>：是因为<strong>没有</strong>对“共同原因（Common Cause）”进行控制（即没有阻断后门路径）而产生的偏差。</li>
+<li><strong>选择性偏差（Selection Bias）</strong>：是因为<strong>错误地</strong>对“共同结果（Common Effect，即<strong>对撞因子 Collider</strong>）”或其子代进行了控制（即只在特定样本子集中进行分析）而产生的偏差。</li>
+</ul>
+<p>简而言之，<strong>选择性偏差发生在数据收集或数据分析阶段，当我们只观察或筛选了满足特定条件（<span class="arithmatex">\(S=1\)</span>）的样本时，我们就已经在数学上对变量 <span class="arithmatex">\(S\)</span> 进行了条件化处理。</strong></p>
+<hr>
+<h3 id="collider_1">二、 核心机制：对撞因子（Collider）与伯克森悖论</h3>
+<p>为了理解选择性偏差，必须引入<strong>对撞因子（Collider）</strong>的概念。</p>
+<p>假设你想研究变量 <span class="arithmatex">\(X\)</span>（例如：外貌出众）对变量 <span class="arithmatex">\(Y\)</span>（例如：演技精湛）的因果影响。
+在普通人群中，<span class="arithmatex">\(X\)</span> 和 <span class="arithmatex">\(Y\)</span> 是完全独立的（长得好看并不意味着演技好，反之亦然），它们之间<strong>没有任何后门路径</strong>，也没有共同原因。</p>
+<p>但是，这两个变量都会影响另一个变量 <span class="arithmatex">\(S\)</span>（例如：成为好莱坞明星）。
+因果图如下：
+<span class="arithmatex">\(<span class="arithmatex">\(X \rightarrow S \leftarrow Y\)</span>\)</span>
+在这个图中，<span class="arithmatex">\(S\)</span> 就是一个<strong>对撞因子（Collider）</strong>，因为箭头的方向在 <span class="arithmatex">\(S\)</span> 处发生了“对撞”。</p>
+<h4 id="berksons-paradox">为什么对撞因子会导致偏差？（伯克森悖论 Berkson's Paradox）</h4>
+<p>在因果图中有一条铁律：<strong>对撞因子默认是阻断（Block）路径的，但如果你对它进行条件化（Conditioning），这条路径就会被打开。</strong></p>
+<p>让我们回到好莱坞的例子：
+假设成为好莱坞明星（<span class="arithmatex">\(S=1\)</span>）的条件是：<strong>要么外貌出众（<span class="arithmatex">\(X=1\)</span>），要么演技精湛（<span class="arithmatex">\(Y=1\)</span>），或者两者兼具。</strong></p>
+<p>如果你只在“好莱坞明星”这个群体中（即<strong>条件化 <span class="arithmatex">\(S=1\)</span></strong>，这就是<strong>选择性偏差</strong>的来源）研究外貌和演技的关系，会发生什么？
+*   如果你看到一个明星<strong>外貌不出众</strong>（<span class="arithmatex">\(X=0\)</span>），因为他已经是明星了（<span class="arithmatex">\(S=1\)</span>），那么他<strong>必定</strong>演技精湛（<span class="arithmatex">\(Y=1\)</span>）。
+*   如果你看到一个明星<strong>演技很差</strong>（<span class="arithmatex">\(Y=0\)</span>），那么他<strong>必定</strong>外貌极其出众（<span class="arithmatex">\(X=1\)</span>）。</p>
+<p>结果是：在好莱坞明星这个样本中，外貌和演技呈现出<strong>强烈的负相关</strong>。</p>
+<p>这就是选择性偏差！尽管在总体人群中 <span class="arithmatex">\(X\)</span> 和 <span class="arithmatex">\(Y\)</span> 毫无关系（没有后门路径），但由于你“选择”了特定的样本（<span class="arithmatex">\(S=1\)</span>），硬生生在 <span class="arithmatex">\(X\)</span> 和 <span class="arithmatex">\(Y\)</span> 之间制造出了一条虚假的相关性路径。</p>
+<hr>
+<h3 id="confounding-bias_1">三、 为什么这会导致“没有后门路径的 Confounding Bias”？</h3>
+<p>这个问题非常精准。在传统的流行病学或统计学中，人们常常把所有“导致虚假相关、掩盖真实因果效应的偏差”统称为“混杂（Confounding）”。但在严谨的图模型中，我们要区分它们：</p>
+<ol>
+<li><strong>真正的混杂（Confounding）</strong>：存在 <span class="arithmatex">\(X \leftarrow Z \rightarrow Y\)</span>（后门路径）。</li>
+<li><strong>选择引起的虚假相关（Selection Bias）</strong>：存在 <span class="arithmatex">\(X \rightarrow S \leftarrow Y\)</span>，且我们对 <span class="arithmatex">\(S\)</span> 进行了筛选。</li>
+</ol>
+<p><strong>为什么它表现得就像 Confounding Bias 一样？</strong></p>
+<p>当你试图估计 <span class="arithmatex">\(X \rightarrow Y\)</span> 的真实因果效应时，你希望观察到的相关性仅仅来自 <span class="arithmatex">\(X\)</span> 到 <span class="arithmatex">\(Y\)</span> 的有向路径。</p>
+<ul>
+<li><strong>场景 A（后门路径未阻断）</strong>：你不仅看到了 <span class="arithmatex">\(X \rightarrow Y\)</span>，还看到了 <span class="arithmatex">\(X \leftarrow Z \rightarrow Y\)</span> 传导的相关性。这两者混在一起，你得不到真实的因果效应。</li>
+<li><strong>场景 B（发生选择性偏差）</strong>：假设 <span class="arithmatex">\(X\)</span> 和 <span class="arithmatex">\(Y\)</span> 之间<strong>根本没有</strong>后门路径 <span class="arithmatex">\(Z\)</span>。但是，在数据收集时，你的样本只包含了住院病人（<span class="arithmatex">\(S=1\)</span>）。由于疾病 <span class="arithmatex">\(X\)</span> 会导致住院，疾病 <span class="arithmatex">\(Y\)</span> 也会导致住院（<span class="arithmatex">\(X \rightarrow S \leftarrow Y\)</span>）。在住院病人（<span class="arithmatex">\(S=1\)</span>）中，<span class="arithmatex">\(X\)</span> 和 <span class="arithmatex">\(Y\)</span> 产生了虚假的相关性。</li>
+</ul>
+<p>在这两种场景下，<strong>数学上的后果是完全一样的</strong>：你观察到的 <span class="arithmatex">\(P(Y|X)\)</span> 并不等于介入后的概率 <span class="arithmatex">\(P(Y|do(X))\)</span>。</p>
+<p><strong>这就解释了为什么它被称为“没有后门路径的混杂”：</strong>
+即使你完美地确保了 <span class="arithmatex">\(X\)</span> 和 <span class="arithmatex">\(Y\)</span> 之间没有任何共同的祖先（没有后门），但只要你在数据分析时，无意中对 <span class="arithmatex">\(X\)</span> 和 <span class="arithmatex">\(Y\)</span> 的“共同结果（Collider）”或其子节点进行了控制（比如：只分析完整填写问卷的人、只分析存活下来的人、只分析被录用的员工），<strong>一条非因果的“后门”实际上就被你在数据中人为地“挖”出来了。</strong></p>
+<p>这条人为打开的路径（<span class="arithmatex">\(X \rightarrow \fbox{S} \leftarrow Y\)</span>）传递了非因果的信息流，和传统的后门路径一样，污染了你对因果效应的估计。</p>
+<hr>
+<h3 id="_1">四、 现实中的经典案例</h3>
+<ol>
+<li><strong>幸存者偏差（Survivor Bias）</strong>：二战飞机装甲防护问题。研究的样本（<span class="arithmatex">\(S=1\)</span>）是“成功飞回来的飞机”。引擎中弹（<span class="arithmatex">\(X=1\)</span>）和机翼中弹（<span class="arithmatex">\(Y=1\)</span>）都会影响飞机是否坠毁（<span class="arithmatex">\(S=0\)</span>）。飞回来的飞机中，引擎几乎没有弹孔，导致军方误以为引擎不需要加固。这就是对“存活（Collider）”进行了条件化产生的选择性偏差。</li>
+<li><strong>失访偏差（Attrition Bias / Missing Data）</strong>：在医学试验中，吃药（<span class="arithmatex">\(X\)</span>）可能会有副作用导致患者退出试验，而病情恶化（<span class="arithmatex">\(Y\)</span>）也会导致患者退出试验。如果研究人员只分析坚持到最后的患者（<span class="arithmatex">\(S=1\)</span>），吃药 <span class="arithmatex">\(X\)</span> 和病情 <span class="arithmatex">\(Y\)</span> 之间就会产生虚假的关联，即使药物根本无效（没有后门，也没有因果）。</li>
+</ol>
+<h3 id="_2">总结</h3>
+<ul>
+<li><strong>选择性偏差</strong>是因为我们在分析时，局限于某个特定的样本子集（即控制了某个变量 <span class="arithmatex">\(S\)</span>）。</li>
+<li>当这个变量 <span class="arithmatex">\(S\)</span> 是处理变量（<span class="arithmatex">\(X\)</span>）和结果变量（<span class="arithmatex">\(Y\)</span>）的<strong>共同结果（对撞因子）</strong>时，控制 <span class="arithmatex">\(S\)</span> 会打破 <span class="arithmatex">\(X\)</span> 和 <span class="arithmatex">\(Y\)</span> 原本的独立性。</li>
+<li>这导致了一条<strong>全新的、非因果的路径被打开</strong>。</li>
+<li>因此，<strong>即使 <span class="arithmatex">\(X\)</span> 和 <span class="arithmatex">\(Y\)</span> 之间绝对没有共同原因（没有后门路径），这种选择性操作也会在数据中制造出虚假的相关性</strong>，其对因果推断的破坏效果与未控制混杂因素（Confounding Bias）完全相同。</li>
+</ul>
+<p>一句话口诀：<strong>阻断后门路径（控制混杂），但千万别动对撞因子（避免选择性偏差）！</strong></p>
+<h3 id="counterfactuals">counterfactuals</h3>
+<h4 id="probability-of-necessity-pn">probability of necessity (PN)</h4>
+<p><a href="https://ftp.cs.ucla.edu/pub/stat_ser/r431.pdf">Causes of Effects and Effects of Causes</a></p>
+<p>这篇文章的主旨可以先压成一句话：<strong>“effects of causes”</strong> 问“干预 (X) 会怎样改变 (Y)”；<strong>“causes of effects”</strong> 问“已经看到 (X=x) 且 (Y=y) 之后，(X) 是否真的是这次 (Y) 的原因”。Pearl 这篇文的核心观点是：后者并不是“不可科学化”的哲学问题，而是可以在<strong>结构因果模型 + 反事实语义</strong>下被严格定义、求界，且在一些条件下还能被识别。文章特别用法律责任中的“药物是否导致某人的死亡”来说明：把实验数据和观察数据结合起来，往往比只看 randomized trial 更能回答“这一个人是不是因药而死”。 </p>
+<p>下面我按<strong>公式出现顺序</strong>讲，并把两个数值例子都完整拆开。</p>
+<hr>
+<h2 id="1">1. 结构模型部分：反事实是怎么被数学化的</h2>
+<h3 id="v_if_ivu">公式 (v_i=f_i(v,u))</h3>
+<p>文中先定义一个结构模型 (M=(U,V,F))。其中 (U) 是外生变量，表示背景条件；(V) 是内生变量，表示系统内要解释的变量；(F) 是一组结构方程。对每个 (V_i\in V)，都有一条方程</p>
+<p>[
+v_i=f_i(v,u).
+]</p>
+<p>这句话的意思不是“做回归”，而是：<strong>自然界按某种机制，用当前系统中其他变量 (v) 和背景条件 (u) 来决定 (V_i) 的取值</strong>。因此，一旦给定某个外生状态 (U=u)，所有内生变量 (V) 的值都被唯一确定；如果再给 (U) 一个分布 (P(u))，就诱导出 (V) 的分布 (P(v))。这就是 Pearl 之后一切反事实概率的基础：反事实不是空想，而是在一个生成模型里对“同一个个体、不同干预下会怎样”做逻辑推演。 </p>
+<h3 id="1_1">公式 (1)：反事实的定义</h3>
+<p>文中把“在同一个情形 (U=u) 下，如果把 (X) 强制设成 (x)，那么 (Y) 会是多少”记为 (Y_x(u))，并给出定义</p>
+<p>[
+Y_x(u);\overset{\Delta}{=};Y_{M_x}(u). \tag{1}
+]</p>
+<p>这里 (M_x) 表示把原模型里关于 (X) 的那条方程“手术式”替换成 (X=x) 之后得到的新模型。也就是你并不去改其他机制，只是最小程度地把 (X) 固定住，再看新的系统解里 (Y) 取什么值。这个“surgical modification”就是 do-operator 背后的语义。公式 (1) 的精髓是：<strong>反事实不是语言游戏，而是“在修改后的模型中求解”</strong>。 </p>
+<h3 id="_3">反事实联合分布为何是合法的</h3>
+<p>文章接着强调：一旦模型 (M) 和 (P(u)) 给定，像 (Y_x)、(Z_{x'}) 这种看上去“不能同时观察”的量，仍然可以有联合分布。因为它们对应的是<strong>同一总体中不同个体的潜在结果类型比例</strong>，不是说同一个个体要同时接受 (x) 和 (x')。所以</p>
+<p>[
+P(Y_x=y,; Z_{x'}=z)
+]</p>
+<p>在语义上是完全良定义的。这个点非常重要，因为 “causes of effects” 本质上就是在问一个<strong>交叉世界</strong>问题：现实里他取了 (x) 且结果是 (y)，但如果没取 (x) 会怎样。 </p>
+<h3 id="coe">CoE 查询的原型</h3>
+<p>文中给出了一类典型的 CoE 问题：</p>
+<p>[
+P(Y_{x_1}=y_1\mid Y=y_0,;X=x_0).
+]</p>
+<p>意思是：对现实中 (X=x_0, Y=y_0) 的人，若改成 (X=x_1)，结果会变成 (y_1) 的概率是多少。这个条件概率就是“从群体信息推个体反事实”的正式表达。 </p>
+<h3 id="abduction-action-prediction">反事实计算三步：abduction, action, prediction</h3>
+<p>文章把一般反事实查询 (P(Y_x=y\mid e)) 的计算写成三步：</p>
+<ol>
+<li><strong>abduction</strong>：用观察到的证据 (e) 更新外生变量分布，从 (P(u)) 得到 (P(u\mid e))；</li>
+<li><strong>action</strong>：把模型中 (X) 的方程替换成 (X=x)；</li>
+<li><strong>prediction</strong>：在修改后的模型里预测 (Y=y) 的概率。</li>
+</ol>
+<p>这三步其实非常经典：先根据现实证据反推“这个人可能属于哪一类外生类型”，再做干预，再推断结果。Pearl 想强调的是，<strong>CoE 并不需要比 EoC 更多的新数学机械</strong>；它还是同一套反事实逻辑。 </p>
+<hr>
+<h2 id="2">2. 法律责任部分：文章真正关心的量是什么</h2>
+<p>文章转到一个法律场景：某人服药后死亡，法院要判断“是否 more probable than not 是药物导致了他的死亡”。在这个场景里，(X=x) 表示服药，(Y=y) 表示死亡；(x')、(y') 表示它们的否定。 </p>
+<h3 id="2-pn">公式 (2)：概率必要性 (PN)</h3>
+<p>文章把目标量定义为</p>
+<p>[
+PN(x,y)=P(Y_{x'}=y'\mid X=x,;Y=y). \tag{2}
+]</p>
+<p>这是全文最核心的式子。它问的是：</p>
+<blockquote>
+<p>对于现实中“服了药并且死了”的人，<strong>如果他没有服药，他是否会活下来</strong>？</p>
+</blockquote>
+<p>这正是法律里的 “but for” 标准：<strong>若不是因为被告行为，损害是否就不会发生</strong>。所以 (PN) 在这里被称为 <strong>probability of necessity</strong>。注意这不是一般平均因果效应，而是已经知道这个具体人“确实服药且确实死亡”之后，对他做的个体级反事实判断。 </p>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>即假设复活了这一批被观察到 "服药且死亡" 的人并进行实验(干预), 让他们不服药, 那么他们不死的概率</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<h3 id="dff-pc-pn">DFF 的 (PC^*) 与 (PN) 的区别</h3>
+<p>文中还对比了 Dawid, Fienberg, Faigman 提出的量</p>
+<p>[
+PC^*=P(Y_{x'}=y'\mid Y_x=y).
+]</p>
+<p>这个量条件化的是“在实验环境里，接受 (x) 后死亡的人”。Pearl 认为它<strong>不适合法律场景</strong>，因为法庭面对的不是“被随机分配服药后死亡的人”，而是“现实中自己选择服药且死亡的人”。现实中的服药选择可能与病情严重程度、获得药物能力等混杂因素有关，所以 (PC^*) 的参考类太粗，不足以回答现实案件中的个体责任问题。 </p>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>X=x,Y=y 表示观察到的数据, Y_x=y 表示干预数据, 即实验数据. 这会忽略非实验环境中的混杂因素</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<hr>
+<h2 id="3-345">3. 识别结果：公式 (3)、(4)、(5)</h2>
+<h3 id="_4">单调性假设</h3>
+<p>定理 1 假设 (Y) 对 (X) <strong>单调</strong>：</p>
+<p>[
+Y_1(u)\ge Y_0(u).
+]</p>
+<p>在药物致死的语境里，它表示：<strong>吃药不会让本来会死的人活下来</strong>；药物最多不影响死亡，或者导致额外死亡，但不会“预防”死亡。这个假设把潜在结果类型收缩了，所以 (PN) 就可识别。 </p>
+<h3 id="3">公式 (3)</h3>
+<p>在单调性下，文中给出</p>
+<p>[
+PN=\frac{P(y)-P(y\mid do(x'))}{P(x,y)}. \tag{3}
+]</p>
+<p>这个式子可以直观理解成：</p>
+<ul>
+<li>分子 (P(y)-P(y\mid do(x')))：总体里“额外的死亡比例”，也就是相对于不给药时，现实中多出来的死亡；</li>
+<li>分母 (P(x,y))：现实中“服药且死亡”的那部分人。</li>
+</ul>
+<p>所以 (3) 本质上是在问：<strong>现实中服药死亡的人里，有多大比例属于“若不给药就不会死”的那部分额外死亡</strong>。这正好对应 necessity。 </p>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>P(y) 表示死亡的人, P(y\mid do(x')) 表示实验中不服药也死亡的人, 那么两者相减除以 P(x,y) 就等于在服药且死亡的人中如果不服药, 可能死亡或不死亡, 排除死亡的人, 就是不服药就不死亡的人</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<h3 id="4">公式 (4)</h3>
+<p>作者又把 (3) 改写成</p>
+<p>[
+PN
+==</p>
+<p>\frac{P(y\mid x)-P(y\mid x')}{P(y\mid x)}
++
+\frac{P(y\mid x')-P(y\mid do(x'))}{P(x,y)}. \tag{4}
+]</p>
+<p>这一步只用到了</p>
+<p>[
+P(y)=P(y\mid x)P(x)+P(y\mid x')(1-P(x))
+]</p>
+<p>和</p>
+<p>[
+P(x,y)=P(y\mid x)P(x).
+]</p>
+<p>我把它的意义说得更直白一点：</p>
+<p>第一项</p>
+<p>[
+\frac{P(y\mid x)-P(y\mid x')}{P(y\mid x)}
+]</p>
+<p>就是流行病学里常见的 <strong>excess risk ratio (ERR)</strong>。如果只看观察数据，它似乎在度量“服药死亡者中有多少是额外风险”。</p>
+<p>第二项</p>
+<p>[
+\frac{P(y\mid x')-P(y\mid do(x'))}{P(x,y)}
+]</p>
+<p>是<strong>混杂校正项</strong>。如果现实里“不吃药的人”的死亡率 (P(y\mid x')) 跟“把所有人都强制设成不吃药时”的死亡率 (P(y\mid do(x'))) 不一样，那说明存在 confounding，仅用观察数据的 ERR 会偏。Pearl 的关键观点就是：<strong>法庭想要的 (PN) 不等于观察相关，也不等于实验平均效应，而是 ERR 加上一个 confounding correction</strong>。 </p>
+<h3 id="5">公式 (5)：无单调性时的上下界</h3>
+<p>如果不假设单调性，(PN) 一般不能点识别，但可以被紧致地界住：</p>
+<p>[
+\max\left{0,\frac{P(y)-P(y\mid do(x'))}{P(x,y)}\right}
+\le PN \le
+\min\left{1,\frac{P(y'\mid do(x'))-P(x',y')}{P(x,y)}\right}. \tag{5}
+]</p>
+<p>这对法律很有用：即便你不敢说“药一定不会预防死亡”，也还能用实验 + 观察数据给出<strong>最保守的责任下界和上界</strong>。下界告诉你“至少有多大概率是它导致的”，上界告诉你“至多有多大概率是它导致的”。文章强调，这个界在一般非单调情形下也是 tight 的。 </p>
+<hr>
+<h2 id="4-table-1-613">4. 第一个数值例子：Table 1 与公式 (6)–(13)</h2>
+<h3 id="1_2">表 1 的含义</h3>
+<p>表 1 给了两组假想数据：</p>
+<ul>
+<li><strong>实验数据</strong>：1000 人随机服药 (do(x))，1000 人随机不服药 (do(x'))；</li>
+<li><strong>非实验数据</strong>：1000 人现实中自己选择服药 (x)，1000 人自己选择不服药 (x')。</li>
+</ul>
+<p>表中计数是：</p>
+<ul>
+<li>实验组：服药死 16、活 984；不服药死 14、活 986；</li>
+<li>观察组：自选服药死 2、活 998；自选不服药死 28、活 972。 </li>
+</ul>
+<h3 id="6-7">公式 (6) 与 (7)：实验因果效应</h3>
+<p>由实验表直接得到</p>
+<p>[
+P(y\mid do(x))=\frac{16}{1000}=0.016, \tag{6}
+]
+[
+P(y\mid do(x'))=\frac{14}{1000}=0.014. \tag{7}
+]</p>
+<p>这表示：若随机给药，死亡率是 1.6%；若随机不给药，死亡率是 1.4%。所以<strong>平均因果效应很小</strong>，只高了 0.2 个百分点。只看实验，你会觉得药几乎没多大危害。 </p>
+<h3 id="811">公式 (8)–(11)：观察分布</h3>
+<p>非实验数据给出</p>
+<p>[
+P(y)=\frac{30}{2000}=0.015, \tag{8}
+]
+[
+P(y,x)=\frac{2}{2000}=0.001, \tag{9}
+]
+[
+P(y\mid x)=\frac{2}{1000}=0.002, \tag{10}
+]
+[
+P(y\mid x')=\frac{28}{1000}=0.028. \tag{11}
+]</p>
+<p>这组数很“反常”：现实里<strong>自选服药者的死亡率只有 0.2%</strong>，而自选不服药者的死亡率是 <strong>2.8%</strong>。若你只看观察相关，会得出“这药似乎在保命”的结论。Pearl 故意构造这个例子，就是为了说明：<strong>观察相关和个体因果责任可以完全反着来</strong>。 </p>
+<h3 id="12-4-pn">公式 (12)：代入 (4) 计算 (PN)</h3>
+<p>在单调性“药只能致死、不能救命”下，由 (4)</p>
+<p>[
+PN
+==</p>
+<p>\frac{P(y\mid x)-P(y\mid x')}{P(y\mid x)}
++
+\frac{P(y\mid x')-P(y\mid do(x'))}{P(x,y)}.
+]</p>
+<p>代入 (9)–(11) 与 (7)：</p>
+<p>[
+PN
+==</p>
+<p>\frac{0.002-0.028}{0.002}
++
+\frac{0.028-0.014}{0.001}
+=========================</p>
+<p>-13 + 14 = 1. \tag{12}
+]</p>
+<p>这一步是全文最震撼的数值结论。</p>
+<p>第一项 (-13) 是观察 ERR，强烈暗示“药在防死”。</p>
+<p>第二项 (+14) 是混杂校正项，把前面的假象完全扭回来。</p>
+<p>最后得到 (PN=1)，意思是：<strong>对现实中“自选服药且死亡”的人来说，如果他没服药，他一定会活下来</strong>。也就是法律意义上“药致死”的概率为 1。 </p>
+<h3 id="5-1">用公式 (5) 再验证一次：即便不假设单调性，仍然得到 1</h3>
+<p>文章还指出，即使不用单调性，(5) 的下界也已经是 1。确实：</p>
+<p>[
+\text{LB}
+=========</p>
+<h1 id="maxleft0frac0015-00140001right">\max\left{0,\frac{0.015-0.014}{0.001}\right}</h1>
+<p>\max{0,1}=1.
+]</p>
+<p>而上界是</p>
+<p>[
+\text{UB}
+=========</p>
+<h1 id="minleft1frac0986-04860001right">\min\left{1,\frac{0.986-0.486}{0.001}\right}</h1>
+<p>\min{1,500}=1.
+]</p>
+<p>所以下界上界都等于 1，故 (PN=1) 被直接锁死。这个点很关键：<strong>这个案例里“个体责任概率为 1”不是靠额外主观假设硬撑出来的，而是由两组数据共同强约束出来的。</strong> </p>
+<h3 id="13-dff-0125">公式 (13)：如果按 DFF 的实验风险比，只会得到 0.125</h3>
+<p>DFF 倾向于用实验中的 excess risk ratio：</p>
+<p>[
+\frac{P(y\mid do(x))-P(y\mid do(x'))}{P(y\mid do(x))}
+=====================================================</p>
+<h1 id="frac0016-00140016">\frac{0.016-0.014}{0.016}</h1>
+<p>0.125. \tag{13}
+]</p>
+<p>这远低于 “more probable than not” 所需的 0.5。Pearl 的批评是：<strong>只看 randomized trial 的平均效应，会错过现实中“哪些人会主动选择治疗”这件事带来的选择机制信息</strong>；而这些选择机制恰恰是个体因果责任判断所必须考虑的。 </p>
+<h3 id="_5">这个例子的直觉解释</h3>
+<p>Pearl 的解释是：临终重症患者倾向于<strong>避免</strong>这种药，所以观察数据里“不服药组”聚集了很多本来就要死的人，于是其死亡率非常高；反过来，自选服药者大多不是终末期，所以表面上看死亡率极低。于是：</p>
+<ul>
+<li><strong>实验数据</strong>告诉你：药物本身有轻微致死效应；</li>
+<li><strong>观察数据</strong>告诉你：会主动选药的人，恰好不是那批最危险的人。</li>
+</ul>
+<p>把两者拼在一起，就得到：<strong>凡是在现实中自选服药却仍然死亡的人，几乎只能是被药害死的</strong>。这就是文章最想展示的“融合实验与观察信息来做个体反事实判断”的力量。 </p>
+<hr>
+<h2 id="5-1418">5. 第二个数值化模型：公式 (14)–(18)</h2>
+<p>这一节不是给具体数字表，而是给一个<strong>参数化生成模型</strong>，用来研究 PN 上下界到底多敏感。图 1 里有一个未观测混杂因子 (Z)，它同时影响治疗选择 (X) 和结局 (Y)：(Z\to X), (Z\to Y)，并且 (X\to Y)。文章把 (Z) 解释为“致死综合征”，既会提高死亡风险，又会让患者更不愿吃药。 </p>
+<p>设定如下：</p>
+<ul>
+<li>(r)：总体中患综合征的人所占比例；</li>
+<li>(Z=z_1)：有综合征，且是终末病例，不论是否服药都以概率 1 死亡；</li>
+<li>(Z=z_0)：无综合征，服药死亡概率为 (p_2)，不服药死亡概率为 (p_1)；</li>
+<li>(q_1=P(x_1\mid z_0))：普通人选择服药的概率；</li>
+<li>(q_2=P(x_1\mid z_1))：综合征患者选择服药的概率，且假设 (q_2&lt;q_1)，也就是更危险的人更倾向于避药；</li>
+<li>还假设 (p_2&gt;p_1)，即药对普通人是风险因子。 </li>
+</ul>
+<h3 id="14">公式 (14)：干预分布</h3>
+<p>文中写</p>
+<p>[
+P(y\mid do(x))=\sum_z P(y\mid x,z)P(z). \tag{14}
+]</p>
+<p>这就是 back-door adjustment。因为在干预 (do(x)) 下，治疗选择机制被切断，剩下只要对混杂变量 (Z) 做边缘化即可。它表达的是：<strong>在设定治疗状态后，总死亡率等于各个 (Z) 亚群的条件死亡率按总体 (P(z)) 加权平均。</strong> </p>
+<h3 id="15">公式 (15)：观察联合分布</h3>
+<p>然后</p>
+<p>[
+P(y,x)=\sum_z P(y\mid x,z)P(x\mid z)P(z). \tag{15}
+]</p>
+<p>这和 (14) 的差别在于，这里是现实观察分布，所以不能把 (X) 当作外部设定量；必须保留 (P(x\mid z))，即“不同 (Z) 类型的人会以不同概率自选治疗”。也正因为这一项存在，观察数据里会出现 confounding。 </p>
+<h3 id="16-rtfrac12">公式 (16)：在 (r=\tfrac12) 下的干预死亡率</h3>
+<p>文中令 (r=\tfrac12)，得到</p>
+<p>[
+P(y_1\mid do(x))
+================</p>
+<p>\begin{cases}
+(1+p_2)/2, &amp; x=x_1,\
+(1+p_1)/2, &amp; x=x_0.
+\end{cases} \tag{16}
+]</p>
+<p>推导很简单：</p>
+<ul>
+<li>一半人有综合征 (z_1)，无论吃不吃药都必死，贡献 (1/2)；</li>
+<li>另一半人没综合征 (z_0)，若吃药则死于 (p_2)，若不吃则死于 (p_1)，贡献分别为 (p_2/2) 或 (p_1/2)。</li>
+</ul>
+<p>所以总死亡率分别就是 ((1+p_2)/2) 与 ((1+p_1)/2)。 </p>
+<h3 id="17">公式 (17)：观察联合分布四格表</h3>
+<p>文中给出四种 ((x,y)) 组合的概率。按照模型本身，正确理解应是：</p>
+<p>[
+P(y,x)=
+\begin{cases}
+(q_2+p_2q_1)/2, &amp; x=x_1,; y=y_1,[2mm]
+\big[(1-q_2)+p_1(1-q_1)\big]/2, &amp; x=x_0,; y=y_1,[2mm]
+(1-p_2)q_1/2, &amp; x=x_1,; y=y_0,[2mm]
+(1-p_1)(1-q_1)/2, &amp; x=x_0,; y=y_0.
+\end{cases} \tag{17}
+]</p>
+<p>每一项都很好解释。比如第一项：</p>
+<ul>
+<li>有综合征者占一半，其中以概率 (q_2) 选药，且必死；</li>
+<li>无综合征者占一半，其中以概率 (q_1) 选药，且死于概率 (p_2)。</li>
+</ul>
+<p>合起来就是 ((q_2+p_2q_1)/2)。</p>
+<p>这里我要提醒你一个细节：PDF 截图里第三行排版看起来像多了一个 (q_2) 项，但那样四个格子的概率和将不再等于 1，也与前述模型假设矛盾；结合 (18) 的推导可以判断，<strong>这里应视为一个排版/印刷错误，正确项应为 ((1-p_2)q_1/2)</strong>。这是我根据模型本身和后续公式做出的推断。 </p>
+<h3 id="18pn">公式 (18)：PN 的上下界</h3>
+<p>由 (5) 代入 (16) 与 (17)，文章得到</p>
+<p>[
+\frac{p_2-p_1}{p_2+q_2/q_1}
+\le PN \le
+\frac{1-p_1}{p_2+q_2/q_1}. \tag{18}
+]</p>
+<p>这个式子非常漂亮，因为它把 PN 的信息量压缩到四个参数里了：</p>
+<ul>
+<li>(p_2-p_1) 越大，说明药对普通人的致死增量越大，下界越高；</li>
+<li>(q_2/q_1) 越小，说明危险人群越不愿意服药，选择偏差越强，下界和上界都越高；</li>
+<li>分母 (p_2+q_2/q_1) 可以理解为“药物真实伤害 + 选择机制掺杂”的综合难度项。 </li>
+</ul>
+<h3 id="_6">何时点识别</h3>
+<p>文中说令上下界相等，可知 (PN) 被识别当且仅当</p>
+<p>[
+q_1(1-p_2)=0.
+]</p>
+<p>即要么 (q_1=0)，普通人从不服药；要么 (p_2=1)，普通人只要服药必死。你可以直接从 (18) 看出来：上下界差为</p>
+<p>[
+\frac{1-p_2}{p_2+q_2/q_1},
+]</p>
+<p>所以它为 0 的充要条件正是 (1-p_2=0) 或 (q_1=0)。Pearl 的意思是：<strong>一般情况下 PN 仍然只有区间，但在一些极端机制下，区间会塌缩成一点。</strong> </p>
+<h3 id="figure-2">Figure 2 的意义</h3>
+<p>文章接着把 (p_1=0)，并定义</p>
+<p>[
+\beta=\frac{q_2}{q_1p_2}.
+]</p>
+<p>于是 (18) 的下界化为</p>
+<p>[
+\frac{1}{1+\beta},
+]</p>
+<p>上界化为</p>
+<p>[
+\frac{1}{p_2(1+\beta)}.
+]</p>
+<p>所以：</p>
+<ul>
+<li>(\beta\to 0) 时，下界 (\to 1)；</li>
+<li>上界始终是下界的 (1/p_2) 倍。</li>
+</ul>
+<p>图 2 正是在展示这件事：红线是统一下界，蓝线是不同 (p_2) 下的上界；(\beta) 越小，PN 越接近 1。你还可以看到图上画了一条 (0.5) 的横线，对应法律里的 “more probable than not”。顺便一提，图注写成了 “(p_1=1)” ，但正文明确说这里取的是 (p_1=0)，而且图形本身也只与 (p_1=0) 相符，因此这里也大概率是一个笔误。 </p>
+<hr>
+<h2 id="6-1">6. 最后一节：为什么“个体责任概率 = 1”并不荒谬</h2>
+<p>文章最后回应两个常见质疑：</p>
+<p>第一，反事实通常不可直接观测，为什么还能被精确确定？</p>
+<p>第二，为什么可以用群体样本去对一个没被直接测试的个体说“概率就是 1”？</p>
+<p>Pearl 的回答是：一旦量被形式化，数据就可能在某些条件下把它约束到唯一值；而法律上的“more probable than not”本来也不是要求掌握个体所有生理心理细节，而是要求在<strong>当前可用且可靠的最具体参考类</strong>上做判断。对这个药物案例来说，最关键的个体信息是“他现实中服药了，而且死了”；这已经比只看实验组平均效应具体得多，所以可以把 PN 条件化到这个更具体的 reference class 上。 </p>
+<hr>
+<h2 id="7">7. 你读完这篇文章后，最该抓住的三个点</h2>
+<p>第一，这篇文不是在重新发明一个新因果量，而是在强调：<strong>CoE 的正确目标量是</strong>
+[
+PN=P(Y_{x'}=y'\mid X=x,Y=y),
+]
+<strong>不是简单的平均处理效应，也不是只在实验环境里定义的 (PC^*)。</strong> </p>
+<p>第二，公式 (4) 很关键，因为它把个体责任拆成了：</p>
+<ul>
+<li>观察上的 excess risk ratio；</li>
+<li>加上一个由 (do(\cdot)) 识别出来的 confounding correction。</li>
+</ul>
+<p>所以这篇文章最深的思想不是“反事实很玄”，而是：<strong>个体因果责任 = 相关性部分 + 去混杂后的修正部分。</strong> </p>
+<p>第三，数值例子 1 的真正信息是：<strong>实验数据和观察数据分开看都可能误导，但两者结合起来反而能把个体反事实判断锁得非常死。</strong> 这也是 Pearl 一贯主张的“融合不同来源因果信息”的范式。 </p>
+<p>如果你愿意，我下一条可以继续做两件事中的一件：一是把这篇文章里的所有公式改写成你更熟悉的 potential outcomes 记号；二是把它和你现在关心的 causal credit assignment / token-level attribution 联系起来。</p>
+<h4 id="causal-attribtuion">causal attribtuion</h4>
+<p><a href="https://arxiv.org/html/2504.08294v1">Causal attribution with confidence</a></p>
+<p>通过估计 PN 值进行因果归因</p>
+<hr>
+<h2 id="pof">POF</h2>
+<h3 id="causal-effect">causal effect</h3>
+<p><strong>潜在结果 <span class="arithmatex">\((y_i^1, y_i^0)\)</span></strong>: 对于每一个体 <span class="arithmatex">\(i\)</span> 都同时客观存在两个平行的数值, <span class="arithmatex">\(y_i^1\)</span>, <span class="arithmatex">\(y_i^0\)</span> 表示是否接受治疗的两个潜在结果, 值不依赖于个体在现实中到底有没有接受处理 (<span class="arithmatex">\(t_i\)</span>)</p>
+<p><strong>观测结果 <span class="arithmatex">\(y_i\)</span></strong>: 实际的结果, 可以看成一个“开关”**, 根据 <span class="arithmatex">\(t_i\)</span> 的状态显示潜在结果中的某一个, 把另一个隐藏起来</p>
+<p>一致性方程 / 切换方程:</p>
+<div class="arithmatex">\[y_i = t_i \cdot y_i^1 + (1 - t_i) \cdot y_i^0\]</div>
+<p><span class="arithmatex">\((y_i^1, y_i^0)\)</span> 是常数/固定属性, <span class="arithmatex">\(y_i\)</span> 的最终取值是受代数变量 <span class="arithmatex">\(t_i\)</span> 支配的</p>
+<p>就是说 <span class="arithmatex">\((y^1, y^0)\)</span> 是一个二维向量属性, 不受 <span class="arithmatex">\(t\)</span> 影响</p>
+<p><span class="arithmatex">\(y\)</span> 是一个一维标量, 它的值取决于 <span class="arithmatex">\(t\)</span> 的代数运算</p>
+<h3 id="assumptions">assumptions</h3>
+<p>SUTVA = well-defined treatment level + no interference</p>
+<ul>
+<li>
+<p>well-defined treatment level</p>
+<blockquote>
+<p>given two different instances <span class="arithmatex">\(i , j\)</span>, if the values of their treatment variable are equivalent, then they receive the same treatment.</p>
+</blockquote>
+<p>如果两个人表面上受到的处理 <span class="arithmatex">\(t\)</span> 是一样的, 那么他们接受的"真实剂量/内容"必须完全一样, 不存在"名为同一种药，实际浓度不同"的情况</p>
+<p>例如, 两个人都接受接受治疗, 但张三遇到了名医, 李四遇到了水货</p>
+</li>
+<li>
+<p>no interference</p>
+<blockquote>
+<p>the potential outcomes of an instance is independent of what treatments the other units receive, which can be formally expressed as <span class="arithmatex">\(y_i^t=y_i^{t_i}\)</span>, where <span class="arithmatex">\(t ∈ \set{0,1}^n\)</span> denotes the vector of treatments for all instances.</p>
+</blockquote>
+<p>潜在结果只取决于你自己的处理 <span class="arithmatex">\(t_i\)</span>, 不受其他人是否接受处理影响</p>
+<p>在因果图上, 个体 <span class="arithmatex">\(j\)</span> 的处理节点 <span class="arithmatex">\(t_j\)</span> 到个体 <span class="arithmatex">\(i\)</span> 的结果节点 <span class="arithmatex">\(y_i\)</span> 之间不能有箭头
+  *   假设我们研究打疫苗 <span class="arithmatex">\(t\)</span> 对感染概率 <span class="arithmatex">\(y\)</span> 的影响
+  *   无传染病, 只受自己 <span class="arithmatex">\(t\)</span> 的影响, 与别人无关
+  *   有传染病, 如果别人打了疫苗不生病, 自己被传染的概率也会降低</p>
+</li>
+</ul>
+<p>consistency</p>
+<blockquote>
+<p>the observed outcome is independent of the how the treatment is assigned</p>
+</blockquote>
+<p>观测到的结果 <span class="arithmatex">\(y\)</span> 就是与实际接受的处理 <span class="arithmatex">\(t\)</span> 对应的那个潜在结果</p>
+<p>例如, 无论是医生逼你吃药还是你自愿吃药, 药效是一样的, 不会因为强迫, 心情变差导致药效减弱</p>
+<p>ignorability</p>
+<blockquote>
+<p>the values of the potential outcomes are independent of the observed treatment, given the set of confounding variables.</p>
+<p>Mathematically, unconfoundedness can be formulated as:</p>
+<div class="arithmatex">\[y_i^1, y_i^0 \perp\!\!\!\perp t_i \mid s,\]</div>
+<p>where <span class="arithmatex">\(s\)</span> denotes a vector of confounders, namely a subset of features that causally influences both the treatment <span class="arithmatex">\(t_i\)</span> and the outcome <span class="arithmatex">\(t\)</span></p>
+</blockquote>
+<p>在控制了所有的混淆变量集合 <span class="arithmatex">\(s\)</span> 后, 潜在结果 <span class="arithmatex">\((y^1, y^0)\)</span> 和处理分配 <span class="arithmatex">\(t\)</span> 是<strong>条件独立</strong>的.</p>
+<p>就是说, 在具有相同特征 <span class="arithmatex">\(s\)</span> 的人群中, 吃药这个决定是纯随机的. </p>
+<ul>
+<li>
+<p>例子</p>
+<p>用期望值 <span class="arithmatex">\(E[\cdot]\)</span> 考察独立性: 若 <span class="arithmatex">\(A, B\)</span> 独立, 则 <span class="arithmatex">\(E[A|B=1] = E[A|B=0]\)</span>.</p>
+<p>设定病人的固有属性: 年龄 <span class="arithmatex">\(s_i\)</span> (可观测), 先天体质 <span class="arithmatex">\(u_i\)</span> (不可观测).
+潜在结果 (健康底色) 受两者共同决定: 
+<span class="arithmatex">\(<span class="arithmatex">\(y_i^0 = \alpha \cdot s_i + \beta \cdot u_i\)</span>\)</span></p>
+<p>设定分配机制: 医生仅根据年龄 <span class="arithmatex">\(s_i\)</span> (倾向给老人开药) 和随机抛硬币决定是否给药 <span class="arithmatex">\(t_i\)</span>, 且看不到体质 <span class="arithmatex">\(u_i\)</span>. </p>
+<p><strong>不控制 <span class="arithmatex">\(s\)</span> 时</strong>: 
+吃药组 (<span class="arithmatex">\(t_i=1\)</span>) 往往包含了更多老人, 即 <span class="arithmatex">\(E[s_i \mid t_i=1] &gt; E[s_i \mid t_i=0]\)</span>.</p>
+<p>分别计算两组人的潜在健康底色期望 (注: 给药 <span class="arithmatex">\(t_i\)</span> 与体质 <span class="arithmatex">\(u_i\)</span> 无关):
+<span class="arithmatex">\(<span class="arithmatex">\(E[y_i^0 \mid t_i=1] = \alpha \cdot E[s_i \mid t_i=1] + \beta \cdot E[u_i]\)</span>\)</span>
+<span class="arithmatex">\(<span class="arithmatex">\(E[y_i^0 \mid t_i=0] = \alpha \cdot E[s_i \mid t_i=0] + \beta \cdot E[u_i]\)</span>\)</span></p>
+<p>显然 <span class="arithmatex">\(E[y_i^0 \mid t_i=1] \neq E[y_i^0 \mid t_i=0]\)</span>.
+就是说, 看到某人吃药了 (<span class="arithmatex">\(t=1\)</span>), 就能推测他大概率是老人, 其潜底色 <span class="arithmatex">\(y^0\)</span> 往往较差. 此时 <span class="arithmatex">\(y^0\)</span> 与 <span class="arithmatex">\(t\)</span> 存在相关性, 不独立.</p>
+<p><strong>控制 <span class="arithmatex">\(s\)</span> 后</strong>:
+将范围限定在特定年龄切片内, 令常数 <span class="arithmatex">\(s_i = k\)</span>. 
+潜在结果方程缩减为: </p>
+<div class="arithmatex">\[y_i^0 = \alpha \cdot k + \beta \cdot u_i\]</div>
+<p>在这个同龄群体中, 医生给药 <span class="arithmatex">\(t_i\)</span> 仅取决于抛硬币, 变成纯随机事件. 重新计算期望:
+<span class="arithmatex">\(<span class="arithmatex">\(E[y_i^0 \mid t_i=1, s_i=k] = \alpha \cdot k + \beta \cdot E[u_i]\)</span>\)</span>
+<span class="arithmatex">\(<span class="arithmatex">\(E[y_i^0 \mid t_i=0, s_i=k] = \alpha \cdot k + \beta \cdot E[u_i]\)</span>\)</span></p>
+<p>得出 <span class="arithmatex">\(E[y_i^0 \mid t_i=1, s_i=k] = E[y_i^0 \mid t_i=0, s_i=k]\)</span>.</p>
+<p>就是说, 在给定年龄 <span class="arithmatex">\(s\)</span> 的条件下, 知道一个人实际吃没吃药 (<span class="arithmatex">\(t\)</span>), 提供不了任何关于他潜在身体底色 <span class="arithmatex">\((y^1,y^0)\)</span> 的新信息. 此时两者在代数和概率上彻底独立, 即 <span class="arithmatex">\(y^1, y^0 \perp\!\!\!\perp t \mid s\)</span>.</p>
+<p>也叫可交换性, 指治疗组和对照组可以交换, 结果不变</p>
+<p>即上面所说的, 如果吃药组包含更多老人, <span class="arithmatex">\(E[s_i \mid t_i=1] &gt; E[s_i \mid t_i=0]\)</span>, 就不可交换</p>
+</li>
+<li>
+<p>strong ignorability</p>
+<blockquote>
+<p><span class="arithmatex">\(P(t = 1|x) ∈ (0,1)\)</span> if <span class="arithmatex">\(P(x) &gt; 0\)</span></p>
+</blockquote>
+<p>如果在某类人群中, 大家都吃药了, 你就永远不知道他们不吃药会怎样, 没有对照组, 就算不出因果效应</p>
+</li>
+</ul>
+<h2 id="learning-causality-with-data">learning causality with data</h2>
+<p><img alt="alt text" src="image-3.png"></p>
+<p>这张图包含了下面要讲的三部分: causal inference, causal discovery 和 causal machine learning</p>
+<h2 id="causal-inference">causal inference</h2>
+<h3 id="treatment-effects">treatment effects</h3>
+<h3 id="learning-causal-effects-with-unconfoundedness">learning causal effects with unconfoundedness</h3>
+<h4 id="regression-adjustment">regression adjustment</h4>
+<p>用 regression 拟合 <span class="arithmatex">\(P(y|x,t)\)</span></p>
+<p>当 <span class="arithmatex">\(x\)</span> 是充分调整集时, <span class="arithmatex">\(P(y|do(t),x)=P(y|t,x)\)</span>, 所以直接用来估计 <span class="arithmatex">\(ITE\)</span>, 进而计算 <span class="arithmatex">\(ATE\)</span></p>
+<h4 id="propensity-score-methods">propensity score methods</h4>
+<h5 id="matching">matching</h5>
+<p>假设分组满足 perfect stratification, 即特征为 <span class="arithmatex">\(x\)</span>, 按照这个特征分组后, 组内除了 <span class="arithmatex">\(t,y\)</span> 的特征都是不可区分的</p>
+<p>形式化表达:</p>
+<div class="arithmatex">\[
+\mathbb{E}\left[y_i^t \mid t_i = 1, f(x)\right] = \mathbb{E}\left[y_i^t \mid t_i = 0, f(x)\right], \quad t \in \{0,1\}
+\]</div>
+<p>根据特征 <span class="arithmatex">\(x\)</span> 进行分组, 组内满足 unconfoundedness</p>
+<p>比如之前的例子, 按照年龄分组后, 每一组都满足 unconfoundedness</p>
+<h5 id="propensity-score">propensity score</h5>
+<p>看作 matching 的一种特例 (matching as weighting)</p>
+<p>计算 <span class="arithmatex">\(f(x)=P(t|x)\)</span>, 特征转换成标量, 降低 matching 的计算开销</p>
+<p>使用 logistic regression 估计 <span class="arithmatex">\(P(t|x)\)</span></p>
+<ol>
+<li>
+<p>Propensity Score Matching</p>
+</li>
+<li>
+<p>greedy on-to-one matching</p>
+<p>贪心的按照 <span class="arithmatex">\(dist(i,j)=|P(t|x_i)-P(t|x_j)|\)</span> 配对, 之后计算:</p>
+<div class="arithmatex">\[
+\hat{\tau} = \left[ \sum_{\substack{i: t_i=1}} (y_i - y_j) + \sum_{\substack{i: t_i=0}} (y_j - y_i) \right] / n.
+\]</div>
+</li>
+<li>
+<p>stratification</p>
+<p>按照阈值分组, 每一组内计算平均值:</p>
+<div class="arithmatex">\[
+\hat{\tau} = \sum_j |U_j| \left( \frac{1}{|U_j^1|} \sum_{\substack{i \in U_j^1}} y_i - \frac{1}{|U_j^0|} \sum_{\substack{i \in U_j^0}} y_i \right) / \sum_j |U_j|,
+\]</div>
+</li>
+<li>
+<p>Inverse Probability of Treatment Weighting
+    $$
+    w_i = \frac{t_i}{P(t_i|x_i)} + \frac{1 - t_i}{1 - P(t_i|x_i)}.
+    $$</p>
+<p>propensity score 越大, 权重越小, 代表有倾向的个体混淆因子越大, 不应该分配高权重</p>
+<p>例如老人倾向于用药, 权重应该小; 年轻人更像随机试验, 权重大</p>
+<p>最后通过加权平均估计</p>
+<div class="arithmatex">\[
+\hat{\tau} = \frac{1}{n^1} \sum_{\substack{i: t_i=1}} w_i y_i - \frac{1}{n^0} \sum_{\substack{i: t_i=0}} w_i y_i,
+\]</div>
+</li>
+<li>
+<p>Doubly Robust Estimation</p>
+<div class="arithmatex">\[
+\hat{y}_i^1 = \frac{y_i t_i}{\hat{P}(t_i|x_i)} - \frac{\tilde{y}_i^1 (t_i - \hat{P}(t_i|x_i))}{\hat{P}(t_i|x_i)}, \quad
+\hat{y}_i^0 = \frac{y_i (1 - t_i)}{1 - \hat{P}(t_i|x_i)} - \frac{\tilde{y}_i^0 (t_i - \hat{P}(t_i|x_i))}{1 - \hat{P}(t_i|x_i)}
+\tag{15}
+\]</div>
+<p>反事实直接通过 regression adjustment 进行预测:</p>
+<p><span class="arithmatex">\(\hat y_i^{1-t_i}=\tilde y_i^{1-t_i}\)</span></p>
+<p>事实通过 regression 和 propensity score 混合预测:</p>
+<p><span class="arithmatex">\(\hat y_i^1=\tilde y_i^1 + \frac{y_i-\tilde y_i^1}{\hat P(t_i|x_i)}\)</span></p>
+</li>
+<li>
+<p>Targeted Maximum Likelihood Estimator</p>
+<p>通过现有拟合的事实 <span class="arithmatex">\(Q_n^0(t,x)\)</span> 和 propensity score <span class="arithmatex">\(g(t,x)\)</span> 来迭代更新 <span class="arithmatex">\(Q_n^{* }(t,x)\)</span></p>
+<div class="arithmatex">\[
+\bar{Q}_n^{*}(t, x) = \text{expit}\left[ \frac{Q_n^0(t, x)}{1 - Q_n^0(t, x)} + \hat{\epsilon}_0 H_0(t, x) + \hat{\epsilon}_1 H_1(t, x) \right],
+\]</div>
+<p>其中</p>
+<p><span class="arithmatex">\(H_0(t, x) = -\frac{\mathbb{1}(t=0)}{g(t=0|x)}\)</span></p>
+<p><span class="arithmatex">\(H_1(t, x) = \frac{\mathbb{1}(t=1)}{g(t=1|x)}\)</span></p>
+<p>分母是倾向得分. 预测概率越小 (越不该吃药却吃了), 这个 <span class="arithmatex">\(H\)</span> 的绝对值就越大. </p>
+<p>随后, TMLE 冻结 Step 1 中的初始预测 <span class="arithmatex">\(Q_n^0\)</span>, 将其作为基底, 引入 <span class="arithmatex">\(H_0, H_1\)</span> 作为新的特征去进行逻辑回归优化 (优化参数 <span class="arithmatex">\(\hat{\epsilon}_0, \hat{\epsilon}_1\)</span>), 得到最终的修正模型 <strong><span class="arithmatex">\(Q_n^*(t, x)\)</span></strong>.</p>
+<p>最终计算 <span class="arithmatex">\(ATE\)</span>:</p>
+<div class="arithmatex">\[ATE = \frac{1}{n} \sum_{i=1}^n \left[ Q_n^*(1, x_i) - Q_n^*(0, x_i) \right]\]</div>
+<p>TMLE 属于 Doubly Robust Estimation. 只要你的结果模型 (<span class="arithmatex">\(Q\)</span>) 或倾向得分模型 (<span class="arithmatex">\(g\)</span>) 其中有一个拟合得足够准, 经过 Step 3 "修正" 后算出的因果效应就是一致且无偏的.</p>
+</li>
+</ol>
+<h4 id="covariate-balancing">covariate balancing</h4>
+<h2 id="causal-discovery">causal discovery</h2>
+<h3 id="learning-causal-relationships-with-iid-data">Learning Causal Relationships with i.i.d. Data</h3>
+<h4 id="constraint-based-algorithms">Constraint-based Algorithms</h4>
+<p>Peter Clarkson Algorithm</p>
+<p>一开始建立全联通的无向图, <span class="arithmatex">\(q=0\)</span></p>
+<p>对每两个 <span class="arithmatex">\(x_i,x_j\)</span> 进行 conditional independence test, 如果 <span class="arithmatex">\(x x|z\)</span>, 那么去除这条边</p>
+<p>例如 <span class="arithmatex">\(x\to z\to x\)</span>, 在已知 <span class="arithmatex">\(z\)</span> 条件下这条路被 block, 如果 <span class="arithmatex">\(x_i,x_j\)</span> 之间符合独立性检验, 说明原图就只有 <span class="arithmatex">\(x\to z\to x\)</span>, 不存在 <span class="arithmatex">\(x_i\to x_j\)</span>, 所以去除这条边</p>
+<h4 id="score-based-algorithms">Score-based Algorithms</h4>
+<h5 id="score">Score</h5>
+<p><span class="arithmatex">\(S(X,G')=\log P(X|\hat \theta, G')-\frac{J}2\log(n)\)</span></p>
+<p>前一半是观察到数据的似然, 后一般是基于变量个数 <span class="arithmatex">\(J\)</span> 和个体个数 <span class="arithmatex">\(n\)</span> 的正则化项</p>
+<p>即数据 <span class="arithmatex">\(X\in \mathbb R^{n,J}\)</span>, <span class="arithmatex">\(n\)</span> 是个体个数, <span class="arithmatex">\(J\)</span> 是特征个数</p>
+<h5 id="ges">GES</h5>
+<p>两阶段, 第一阶段枚举 <span class="arithmatex">\(x_{,i},x_{,j},z\)</span>, 找到当前步分数最大的 <span class="arithmatex">\(x_{,i},x_{,j}\)</span> 并只插入边; 第二阶段只删除边</p>
+<h4 id="algorithms-based-on-functional-causal-models">Algorithms based on Functional Causal Models</h4>
+<h5 id="lingam">LiNGAM</h5>
+<div class="arithmatex">\[x=Ax+\epsilon\]</div>
+<p>LiNGAM 的目标就是估计一个 <span class="arithmatex">\(A\)</span> 的下三角矩阵来确定因果顺序</p>
+<h5 id="ica-lingam">ICA-LiNGAM</h5>
+<p><span class="arithmatex">\(B=(I-A)^{-1}\)</span>, 由于 <span class="arithmatex">\(\epsilon\)</span> 的每一维是独立非高斯的, 所以用 ICA 算法得到 <span class="arithmatex">\(X=BS\)</span> 的分解</p>
+<p><span class="arithmatex">\(Wx=B^{-1}x=\epsilon\)</span></p>
+<p>根据目标学习到 <span class="arithmatex">\(W\)</span></p>
+<p>之后估计 <span class="arithmatex">\(A'=I-\tilde W'\)</span></p>
+<h5 id="directlingam">DirectLiNGAM</h5>
+<h3 id="learning-causal-relationships-with-time-series-data">Learning Causal Relationships with Time Series Data</h3></div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2025 - 2077 AKonjac_
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs"], "search": "../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.60a45f97.min.js"></script>
+      
+        <script src="../../javascripts/katex.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
+      
+    
+  </body>
+</html>
